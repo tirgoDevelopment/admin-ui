@@ -1,0 +1,31 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title *ngIf="!edit" class="font-semibold text-2xl uppercase">{{"add_cargo_group"|transloco}}</h2>
+    <h2 mat-dialog-title *ngIf="edit" class="font-semibold text-2xl uppercase">{{"edit_cargo_group"|transloco}}</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="flex">
+            <div class="w-full">
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
+                        [ngClass]="{'is-invalid': f.name.errors}">
+                    <mat-error *ngIf="f.name.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end justify-items-end">
+    <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+        {{ 'cancel' | transloco }}</button>
+    <button
+        [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+        mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+        {{ 'save' | transloco }}
+    </button>
+</mat-dialog-actions>

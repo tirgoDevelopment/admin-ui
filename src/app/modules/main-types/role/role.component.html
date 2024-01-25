@@ -1,0 +1,164 @@
+<div class="flex flex-col flex-auto  p-9">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"role_user"|transloco}}</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                    <span class="ml-2">Add</span>
+                </button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <mat-table matSort [dataSource]="dataSource">
+
+                <ng-container matColumnDef="role">
+                    <mat-header-cell *matHeaderCellDef> {{"role"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="add_driver">
+                    <mat-header-cell *matHeaderCellDef> {{"add_driver"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.addDriver">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.addDriver">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="add_client">
+                    <mat-header-cell *matHeaderCellDef> {{"add_client"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.addClient">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.addClient">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="add_order">
+                    <mat-header-cell *matHeaderCellDef> {{"add_order"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.addOrder">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.addOrder">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cancel_order">
+                    <mat-header-cell *matHeaderCellDef> {{"cancel_order"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.cancelOrder">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.cancelOrder">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="watch_driver">
+                    <mat-header-cell *matHeaderCellDef> {{"watch_driver"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.seeDriversInfo">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.seeDriversInfo">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="watch_client">
+                    <mat-header-cell *matHeaderCellDef> {{"watch_client"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.seeClientsInfo">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.seeClientsInfo">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="send_push">
+                    <mat-header-cell *matHeaderCellDef> {{"send_push"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.sendPush">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.sendPush">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chat">
+                    <mat-header-cell *matHeaderCellDef> {{"chat"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.chat">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.chat">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="tracking">
+                    <mat-header-cell *matHeaderCellDef> {{"tracking"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.tracking">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.tracking">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="driver_finance">
+                    <mat-header-cell *matHeaderCellDef> {{"driver_finance"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.driverFinance">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.driverFinance">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="merchant_finance">
+                    <mat-header-cell *matHeaderCellDef> {{"merchant_finance"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.merchantFinance" >{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.merchantFinance">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="registr_merchant">
+                    <mat-header-cell *matHeaderCellDef> {{"registr_merchant"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.registrMerchant">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.registrMerchant">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+                    <mat-cell *matCellDef="let row">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                (click)="$event.stopPropagation()">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" (click)="edit(row)">
+                                    <mat-icon>edit</mat-icon>
+                                    edit
+                                </button>
+                                <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                    <mat-icon>remove</mat-icon>
+                                    remove
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+            </mat-table>
+            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

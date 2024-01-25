@@ -1,0 +1,67 @@
+<div class="flex flex-col flex-auto  p-9">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"type_subscription"|transloco}}</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                    <span class="ml-2">Add</span>
+                </button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <mat-table matSort [dataSource]="dataSource">
+
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef> {{"name"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="duration">
+                    <mat-header-cell *matHeaderCellDef> {{"duration"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.duration}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef> {{"price"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.price}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                (click)="$event.stopPropagation()">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" (click)="edit(row)">
+                                    <mat-icon>edit</mat-icon>
+                                    edit
+                                </button>
+                                <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                    <mat-icon>remove</mat-icon>
+                                    remove
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+            </mat-table>
+            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,195 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title class="font-semibold text-xl uppercase">Подробнее о пользователе</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="h-full">
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+        <div class="flex items-center">
+            <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16">
+            <div class="flex ml-4 justify-between">
+                <div>
+                    <h2 class="text-xl font-bold">Ройтман Рафаэль Евгеньевич</h2>
+                    <p class="text-gray-600">#4502</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"> 5.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">Информация</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p>ФИО</p>
+                <p class="font-bold">Ройтман Рафаэль Евгеньвич</p>
+            </div>
+            <div>
+                <p>Дата рождения</p>
+                <p class="font-bold">01.09.2002</p>
+            </div>
+            <div>
+                <p>Гражданство</p>
+                <p class="font-bold">Узбекистан</p>
+            </div>
+            <div>
+                <p>Город</p>
+                <p class="font-bold">Ташкент</p>
+            </div>
+            <div>
+                <p>Дата регистрации</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+            <div>
+                <p>Последний вход</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+        </div>
+        <div class="flex justify-between mt-4">
+            <div class="flex">
+                <img src="assets/images/icons/info-red.svg" class="h-7 w-7" alt="info">
+                <span class="ml-2 text-red-600">Модерация не пройдена</span>
+            </div>
+            <button mat-flat-button [color]="'primary'" class="dark">
+                Активировать
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">Транспорт</h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p>Тип машины</p>
+                <p class="font-bold">Тентовка</p>
+            </div>
+            <div>
+                <p>Макс.грузоподъемность
+                    (кг)</p>
+                <p class="font-bold">01.09.2002</p>
+            </div>
+            <div>
+                <p>ADR ( Перевозка опасных
+                    грузов )</p>
+                <p class="font-bold">Узбекистан</p>
+            </div>
+            <div>
+                <p>Гос номер прицепа</p>
+                <p class="font-bold">7115</p>
+            </div>
+        </div>
+        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">Тех паспорт</label>
+            </div>
+            <div class="w-1/4">
+                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">Лицензия</label>
+            </div>
+            <div class="w-1/4">
+                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">Фото траспорта</label>
+            </div>
+            <div class="w-1/4">
+                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">Паспорт</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="Серия и номер">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="Дата выдачи">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex justify-end mt-4">
+            <button mat-flat-button [color]="'primary'" class="dark">
+                Сохранить
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">Водительское удостоверение</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+            <mat-form-field color="accent" class="w-full">
+                <input matInput placeholder="Водительское удостоверение">
+            </mat-form-field>
+        </div>
+        <div class="flex justify-end mt-4">
+            <button mat-flat-button [color]="'primary'" class="dark">
+                Сохранить
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4 flex">
+            <h2 class="text-xl font-bold">Контакты водителя</h2>
+            <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p>Номер телефона</p>
+                <p class="font-bold">+998 999 99 99</p>
+                <p class="font-bold">Подтвержден</p>
+            </div>
+            <div>
+                <p>Email</p>
+                <p class="font-bold">raphaelroytman@mail.ru</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-end mt-4">
+        <button mat-flat-button [color]="'primary'" class="dark">
+            Удалить
+        </button>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">Активность пользователя</h2>
+            <h4 class="text-xl font-bold">Произведен вход Windows NT 10.0, IP:95.214.211.165</h4>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class=" custom-warn-button text-warn-400" mat-dialog-close tabindex="-1">
+            Отправить пуш</button>
+        <button mat-flat-button [color]="'primary'" class="dark" (click)="submit()">
+            Сохранить
+        </button>
+    </div>
+</mat-dialog-actions>

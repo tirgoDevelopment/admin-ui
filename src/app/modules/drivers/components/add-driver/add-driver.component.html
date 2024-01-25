@@ -1,0 +1,59 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title *ngIf="!edit" class="font-semibold text-2xl uppercase">{{"add_user"|transloco}}</h2>
+    <h2 mat-dialog-title *ngIf="edit" class="font-semibold text-2xl uppercase">{{"edit_user"|transloco}}</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-3">
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
+                        [ngClass]="{'is-invalid': f.name.errors}">
+                    <mat-error *ngIf="f.name.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
+                        [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
+                    </ngx-mat-intl-tel-input>
+                </mat-form-field>
+
+            </div>
+            <div class="p-3">
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
+                        [ngClass]="{'is-invalid': f.email.errors}">
+                    <mat-error *ngIf="f.email.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field color="accent" class="w-full">
+                    <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
+                       <mat-option>
+                          <ngx-mat-select-search (input)="findCity($event)" placeholderLabel="'Гражданство'"  [formControl]="selectTechnicalRoomFilterCtrl"></ngx-mat-select-search>
+                       </mat-option>
+                       <mat-option *ngFor="let city of findList" [value]="city.data">
+                          {{city.data.city + ', ' + city.data.country}}
+                       </mat-option>
+                    </mat-select>
+                 </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{ 'cancel' | transloco }}</button>
+        <button
+            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+            {{ 'save' | transloco }}
+        </button>
+    </div>
+</mat-dialog-actions>

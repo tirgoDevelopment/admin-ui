@@ -1,0 +1,76 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title *ngIf="!edit" class="font-semibold text-2xl uppercase">{{"add_role"|transloco}}</h2>
+    <h2 mat-dialog-title *ngIf="edit" class="font-semibold text-2xl uppercase">{{"edit_role"|transloco}}</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="w-1/3">
+            <mat-form-field color="accent" class="w-full">
+                <input matInput placeholder="{{ 'role_name' | transloco }}" formControlName="name"
+                    [ngClass]="{'is-invalid': f.name.errors}">
+                <mat-error *ngIf="f.name.errors?.required">
+                    Поле не должно быть пустым
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="p-3">
+                <mat-slide-toggle class="py-2" formControlName="addDriver">
+                    {{"add_driver"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="addClient">
+                    {{"add_client"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="addOrder">
+                    {{"add_order"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="seeDriversInfo">
+                    {{"see_drivers_info"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="seeClientsInfo">
+                    {{"see_clients_info"|transloco}}
+                </mat-slide-toggle>
+            </div>
+            <div class="p-3">
+                <mat-slide-toggle class="py-2" formControlName="sendPush">
+                    {{"send_push"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="tracking">
+                    {{"tracking"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="driverFinance">
+                    {{"driver_finance"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="chat">
+                    {{"chat"|transloco}}
+                </mat-slide-toggle>
+            </div>
+            <div class="p-3">
+                <mat-slide-toggle class="py-2" formControlName="merchantFinance">
+                    {{"merchant_finance"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="registrMerchant">
+                    {{"registr_merchant"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="verifyDriver">
+                    {{"verify_driver"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="merchantList">
+                    {{"merchant_list"|transloco}}
+                </mat-slide-toggle>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end justify-items-end">
+    <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+        {{ 'cancel' | transloco }}</button>
+    <button
+        [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+        mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+        {{ 'save' | transloco }}
+    </button>
+</mat-dialog-actions>

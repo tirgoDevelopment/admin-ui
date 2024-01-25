@@ -1,0 +1,74 @@
+import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { RoleService } from './services/role.service';
+import { RoleModel } from './models/role.model';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { AddRoleComponent } from './components/add-role/add-role.component';
+import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.component';
+@Component({
+  selector: 'app-role',
+  templateUrl: './role.component.html',
+  styleUrls: ['./role.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+})
+export class RoleComponent extends UnsubscribeAble implements OnInit {
+  displayedColumns: string[] = ['role', 'add_driver', 'add_client', 'add_order', 'cancel_order', 'watch_driver', 'watch_client',
+    'send_push', 'chat', 'tracking', 'driver_finance', 'merchant_finance', 'registr_merchant', 'actions'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource = new MatTableDataSource<RoleModel>([]);
+  constructor(private _roleService: RoleService, protected _dialog?: MatDialog) {
+    super();
+  }
+
+  ngOnInit() {
+    this.getAllRoles();
+  }
+
+  getAllRoles() {
+    this._roleService.getAll().subscribe((response) => {
+      this.dataSource.data = response.data;
+    });
+  }
+
+  add() {
+    const dialog = this._dialog.open(AddRoleComponent, {
+      width: '800px',
+      height: '520px',
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllRoles()
+      })
+  }
+
+  edit(row: any[]) {
+    const dialogRef = this._dialog.open(AddRoleComponent, {
+      width: '800px',
+      height: '520px',
+      data: row,
+    });
+    dialogRef.afterClosed()
+      .subscribe(() => {
+        this.getAllRoles()
+      })
+  }
+
+  delete(id: number) {
+    this._roleService.delete(id).subscribe(() => {
+      this.getAllRoles()
+    })
+  }
+}

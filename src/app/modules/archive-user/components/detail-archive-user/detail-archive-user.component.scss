@@ -1,0 +1,26 @@
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 12px !important;
+    padding: 6px !important;
+  }
+  
+  .mat-mdc-dialog-content {
+    max-height: 80vh;
+    scrollbar-color: #888 #eee;
+    scrollbar-width: thin; 
+  }
+  
+  .mat-dialog-content::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  .mat-dialog-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+  }
+  
+  .mat-dialog-content::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+  .detail-red{
+    background-color:  #8E1127;
+  }

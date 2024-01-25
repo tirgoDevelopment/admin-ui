@@ -1,0 +1,83 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title *ngIf="!edit" class="font-semibold text-2xl uppercase">{{"add_admins"|transloco}}</h2>
+    <h2 mat-dialog-title *ngIf="edit" class="font-semibold text-2xl uppercase">{{"edit_admins"|transloco}}</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-3">
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'full_name' | transloco }}" formControlName="fullName"
+                        [ngClass]="{'is-invalid': f.fullName.errors}">
+                    <mat-error *ngIf="f.fullName.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-select placeholder="{{ 'role' | transloco }}" formControlName="roleId">
+                        <ng-container *ngFor="let row of roles">
+                            <mat-option [value]="row.id">{{row.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                        [ngClass]="{'is-invalid': f.password.errors}">
+                    <mat-error *ngIf="f.password.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                    <mat-error *ngIf="f.password.errors?.minlength">
+                        Минимальная длина поля 6
+                    </mat-error>
+                    <mat-error *ngIf="f.password.errors?.max    length">
+                        Максимальная длина поля 10
+                    </mat-error>
+                    <mat-error *ngIf="f.password.errors?.pattern">
+                        Хотя бы одна строчная буква
+                        Не менее одной заглавной буквы
+                        Хотя бы одна цифра (число)
+                        Хотя бы один специальный символ из набора $@$!%*?&
+                        Полный пароль должен иметь длину от 6 до 10 символов
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="p-3">
+                <mat-form-field color="accent" class="w-full">
+                    <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
+                        [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
+                    </ngx-mat-intl-tel-input>
+                </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'login' | transloco }}" formControlName="username"
+                        [ngClass]="{'is-invalid': f.username.errors}">
+                    <mat-error *ngIf="f.username.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+                <div class="flex items-center p-2">
+                    <button mat-flat-button type="button" *ngIf="edit" class="fuse-mat-button dark text-white"
+                        [color]="'warn'" (click)="generate()">
+                        {{ 'generate' | transloco }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="mr-auto p-4">
+        <button mat-stroked-button color="warn" *ngIf="edit" class=" custom-warn-button text-warn-400" (click)="block()">
+            {{ 'block' | transloco }}</button>
+    </div>
+    <div class="ml-auto p-4">
+        <button mat-flat-button class="fuse-mat-button "  [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{ 'cancel' | transloco }}</button>
+        <button
+            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+            {{ 'save' | transloco }}
+        </button>
+    </div>
+</mat-dialog-actions>
