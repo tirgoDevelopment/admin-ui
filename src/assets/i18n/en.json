@@ -21,7 +21,8 @@
     "agents": "Agents",
     "role_user": "User Roles",
     "role": "Role",
-    "add_driver": "Adding driver",
+    "add_driver": "Add driver",
+    "edit_driver": "Edit driver",
     "add_client": "Adding client",
     "cancel_order": "Cancel order",
     "watch_driver": "View driver",
@@ -77,5 +78,6 @@
     "filter":"Reset filter",
     "type":"Type",
     "moderation":"Moderation",
-    "geolocation":"Geolocation"
+    "geolocation":"Geolocation",
+    "date_birth":"Date of birth"
 }

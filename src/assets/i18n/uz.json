@@ -22,6 +22,7 @@
     "role_user":"Foydalanuvchi rollari",
     "role":"Rol",
     "add_driver":"Haydovchi qo'shish",
+    "edit_driver": "Haydovchi tahrirlash",
     "add_client":"Mijoz qo'shish",
     "cancel_order":"Zakaz bekor qilish",
     "watch_driver":"Haydovchi ko'rinishi",
@@ -77,5 +78,6 @@
     "filter":"Filtrni o'chirish",
     "type":"Tip",
     "moderation":"Модерация",
-    "geolocation":"Geolocation"
+    "geolocation":"Geolocation",
+    "date_birth":"Tug'ilgan kuni"
 }

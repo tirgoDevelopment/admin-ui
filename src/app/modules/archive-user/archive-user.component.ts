@@ -42,6 +42,7 @@ export class ArchiveUserComponent implements OnInit {
     this._dialog.open(DetailArchiveUserComponent, {
       width: '500px',
       height: '100vh',
+      autoFocus: false,
       position: {
         top: '0',
         right: '0',

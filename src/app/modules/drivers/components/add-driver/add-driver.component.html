@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_user"|transloco}}</p>
-    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_user"|transloco}}</p>
+    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_driver"|transloco}}</p>
+    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_driver"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -10,45 +10,49 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
-                        [ngClass]="{'is-invalid': f.name.errors}">
-                    <mat-error *ngIf="f.name.errors?.required">
-                        Поле не должно быть пустым
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field color="accent" class="w-full">
                     <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
                         [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
-
+                <mat-form-field class="w-full">
+                    <mat-select placeholder="{{ 'type_transport' | transloco }}" formControlName="roleId">
+                        <ng-container *ngFor="let row of roles">
+                            <mat-option [value]="row.id">{{row.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
-                        [ngClass]="{'is-invalid': f.email.errors}">
-                    <mat-error *ngIf="f.email.errors?.required">
+                    <input matInput placeholder="{{ 'full_name' | transloco }}" formControlName="fullName"
+                        [ngClass]="{'is-invalid': f.fullName.errors}">
+                    <mat-error *ngIf="f.fullName.errors?.required">
                         Поле не должно быть пустым
                     </mat-error>
                 </mat-form-field>
-
                 <mat-form-field color="accent" class="w-full">
-                    <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
-                       <mat-option>
-                          <ngx-mat-select-search (input)="findCity($event)" placeholderLabel="'Гражданство'"  [formControl]="selectTechnicalRoomFilterCtrl"></ngx-mat-select-search>
-                       </mat-option>
-                       <mat-option *ngFor="let city of findList" [value]="city.data">
-                          {{city.data.city + ', ' + city.data.country}}
-                       </mat-option>
-                    </mat-select>
-                 </mat-form-field>
+                    <input matInput [matDatepicker]="picker2" placeholder="{{ 'date_birth' | transloco }}">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="p-3">
+                <mat-radio-group class="flex items-center">
+                    <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg"
+                    [color]="white"
+                    [ngClass]="{'card-background-grey': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
+                     value="option1"
+                        *ngFor="let row of subscription" [value]="row.id">
+                        <p class="w-40">${{row?.price}}/месяц</p>
+                    </mat-radio-button>
+                </mat-radio-group>
             </div>
         </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
     <div class="ml-auto p-4">
-        <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+        <button mat-flat-button class="fuse-mat-button" [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
         <button
             [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"

@@ -50,6 +50,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddTransportComponent, {
       width: '400px',
       height: '230px',
+      autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -61,6 +62,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
     const dialogRef = this._dialog.open(AddTransportComponent, {
       width: '400px',
       height: '230px',
+      autoFocus: false,
       data: row,
     });
     dialogRef.afterClosed()

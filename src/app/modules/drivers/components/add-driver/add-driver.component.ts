@@ -19,7 +19,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DriversService } from '../../services/drivers.service';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -27,7 +29,7 @@ import { DriversService } from '../../services/drivers.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
 export class AddDriverComponent {
@@ -37,42 +39,50 @@ export class AddDriverComponent {
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
 
   roles = [];
+  subscription = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('', [Validators.required]),
+    fullName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
+    roleId: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _subscriptionService: SubscriptionService,
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
       this.form.patchValue({
         id: this.data?.id,
-        full_name: this.data?.full_name,
+        fullName: this.data?.fullName,
         phone: this.data?.phone,
-        role: this.data?.role,
+        roleId: this.data?.role,
         login: this.data?.login,
         password: this.data?.password,
       });
     }
+    this.getSubscription();
   }
 
-  async findCity(ev:any) {
+  getSubscription() {
+    this._subscriptionService.getAll().subscribe((response) => {
+      this.subscription = response.data;
+    })
+  }
+  async findCity(ev: any) {
     const findText = ev.target.value.toString().trim().toLowerCase();
     if (findText.length >= 2) {
-       this.viewText = true;
+      this.viewText = true;
       //  this.findList = await this.authService.findCity(findText).toPromise();
     } else {
-       this.viewText = false;
-       this.findList = [];
+      this.viewText = false;
+      this.findList = [];
     }
- }
+  }
   get f() {
     return this.form.controls
   }

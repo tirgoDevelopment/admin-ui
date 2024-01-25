@@ -1,6 +1,31 @@
 @import 'ngx-toastr/toastr';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.card-background-grey {
+    background-color: #F3F3F3;
+}
+
+.card-background-black {
+    background-color: #000000;
+    color: white;
+
+    p {
+        color: #f3f3f3;
+    }
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: white !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: orange !important;
+}
+
+::ng-deep mat-radio-group mat-radio-button .radio_button {
+    color: #d81a0d;
+}
+
 .gray-main {
     background-color: #DBDBDB;
 }

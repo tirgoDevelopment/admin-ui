@@ -48,6 +48,7 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddAdminsComponent, {
       width: '800px',
       height: '450px',
+      autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -59,6 +60,7 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     const dialogRef = this._dialog.open(AddAdminsComponent, {
       width: '800px',
       height: '500px',
+      autoFocus: false,
       data: row,
     });
     dialogRef.afterClosed()

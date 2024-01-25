@@ -55,6 +55,7 @@ export class DriversComponent implements OnInit {
     this._dialog.open(DetailDriverComponent, {
       width: '500px',
       height: '100vh',
+      autoFocus: false,
       position: {
         top: '0',
         right: '0',
@@ -68,6 +69,7 @@ export class DriversComponent implements OnInit {
     const dialog = this._dialog.open(AddDriverComponent, {
       width: '700px',
       height: '350px',
+      autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -79,6 +81,7 @@ export class DriversComponent implements OnInit {
     const dialogRef = this._dialog.open(AddDriverComponent, {
       width: '700px',
       height: '350px',
+      autoFocus: false,
       data: row,
     });
     dialogRef.afterClosed()

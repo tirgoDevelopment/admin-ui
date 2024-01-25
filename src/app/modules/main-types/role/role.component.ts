@@ -47,6 +47,7 @@ export class RoleComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddRoleComponent, {
       width: '700px',
       height: '450px',
+      autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -58,6 +59,7 @@ export class RoleComponent extends UnsubscribeAble implements OnInit {
     const dialogRef = this._dialog.open(AddRoleComponent, {
       width: '700px',
       height: '450px',
+      autoFocus: false,
       data: row,
     });
     dialogRef.afterClosed()

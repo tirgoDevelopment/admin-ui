@@ -1,5 +1,5 @@
 <div class="flex justify-between items-center">
-    <h2 mat-dialog-title class="font-semibold text-xl uppercase">Подробнее о пользователе</h2>
+    <p mat-dialog-title class="font-bold leading-5 text-3xl">Подробнее о водителе</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -8,44 +8,64 @@
     <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
         <div class="flex items-center">
             <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16">
-            <div class="flex ml-4 justify-between">
+            <div class="flex justify-end ml-4">
                 <div>
-                    <h2 class="text-xl font-bold">Ройтман Рафаэль Евгеньевич</h2>
+                    <p class="text-2xl font-bold">Ройтман Рафаэль Евгеньевич</p>
                     <p class="text-gray-600">#4502</p>
                 </div>
-                <div>
+                <div class="flex justify-end  ml-4">
                     <p class="text-gray-600"> 5.0</p>
+                    <img src="assets/images/icons/start.svg" alt="star Image" class="rounded-full w-4 h-4 ml-1 mt-1">
                 </div>
             </div>
         </div>
     </div>
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">Заказы</h2>
+        </div>
+        <div class="flex mb-4">
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">25</p>
+                <p class="text-gray-600">Всего</p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">Завершенные</p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">Отрицательные</p>
+            </div>
+        </div>
+    </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-4">
-            <h2 class="text-xl font-bold">Информация</h2>
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">Информация</h2>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p>ФИО</p>
+                <p class="text-xl leading-4 mb-1">ФИО</p>
                 <p class="font-bold">Ройтман Рафаэль Евгеньвич</p>
             </div>
             <div>
-                <p>Дата рождения</p>
+                <p class="text-xl leading-4 mb-1">Дата рождения</p>
                 <p class="font-bold">01.09.2002</p>
             </div>
             <div>
-                <p>Гражданство</p>
+                <p class="text-xl leading-4 mb-1">Гражданство</p>
                 <p class="font-bold">Узбекистан</p>
             </div>
             <div>
-                <p>Город</p>
+                <p class="text-xl leading-4 mb-1">Город</p>
                 <p class="font-bold">Ташкент</p>
             </div>
             <div>
-                <p>Дата регистрации</p>
+                <p class="text-xl leading-4 mb-1">Дата регистрации</p>
                 <p class="font-bold">03 ноября 2023 в 19:52</p>
             </div>
             <div>
-                <p>Последний вход</p>
+                <p class="text-xl leading-4 mb-1">Последний вход</p>
                 <p class="font-bold">03 ноября 2023 в 19:52</p>
             </div>
         </div>
@@ -60,58 +80,58 @@
         </div>
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-4">
-            <h2 class="text-xl font-bold">Транспорт</h2>
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">Транспорт</h2>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p>Тип машины</p>
+                <p class="text-xl leading-4 mb-1">Тип машины</p>
                 <p class="font-bold">Тентовка</p>
             </div>
             <div>
-                <p>Макс.грузоподъемность
+                <p class="text-xl leading-4 mb-1">Макс.грузоподъемность
                     (кг)</p>
                 <p class="font-bold">01.09.2002</p>
             </div>
             <div>
-                <p>ADR ( Перевозка опасных
+                <p class="text-xl leading-4 mb-1">ADR ( Перевозка опасных
                     грузов )</p>
                 <p class="font-bold">Узбекистан</p>
             </div>
             <div>
-                <p>Гос номер прицепа</p>
+                <p class="text-xl leading-4 mb-1">Гос номер прицепа</p>
                 <p class="font-bold">7115</p>
             </div>
         </div>
-        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
             <div class="w-3/4">
                 <label class="block mb-2 font-bold">Тех паспорт</label>
             </div>
-            <div class="w-1/4">
-                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
                     <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
                 </label>
                 <input id="fileInput" type="file" class="hidden" />
             </div>
         </div>
-        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
             <div class="w-3/4">
                 <label class="block mb-2 font-bold">Лицензия</label>
             </div>
-            <div class="w-1/4">
-                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
                     <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
                 </label>
                 <input id="fileInput" type="file" class="hidden" />
             </div>
         </div>
-        <div class="flex space-x-4 bg-gray-200 mt-2 px-4 py-2 rounded-lg">
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
             <div class="w-3/4">
                 <label class="block mb-2 font-bold">Фото траспорта</label>
             </div>
-            <div class="w-1/4">
-                <label for="fileInput" class="cursor-pointer flex items-center justify-end ">
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
                     <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
                 </label>
                 <input id="fileInput" type="file" class="hidden" />
@@ -119,17 +139,17 @@
         </div>
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-4">
-            <h2 class="text-xl font-bold">Паспорт</h2>
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">Паспорт</h2>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <mat-form-field color="accent" class="w-full">
+                <mat-form-field color="accent" class="w-full  ">
                     <input matInput placeholder="Серия и номер">
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field color="accent" class="w-full">
+                <mat-form-field color="accent" class="w-full  ">
                     <input matInput placeholder="Дата выдачи">
                 </mat-form-field>
             </div>
@@ -141,12 +161,12 @@
         </div>
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-4">
-            <h2 class="text-xl font-bold">Водительское удостоверение</h2>
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">Водительское удостоверение</h2>
         </div>
         <div class="grid grid-cols-1 gap-4">
-            <mat-form-field color="accent" class="w-full">
-                <input matInput placeholder="Водительское удостоверение">
+            <mat-form-field class="w-full ">
+                <input matInput placeholder="Водительское удостоверение" class="w-full">
             </mat-form-field>
         </div>
         <div class="flex justify-end mt-4">
@@ -156,23 +176,23 @@
         </div>
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-4 flex">
-            <h2 class="text-xl font-bold">Контакты водителя</h2>
+        <div class="mb-5 flex">
+            <h2 class="text-2xl leading-4 font-bold">Контакты водителя</h2>
             <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p>Номер телефона</p>
+                <p class="text-xl leading-4 mb-1">Номер телефона</p>
                 <p class="font-bold">+998 999 99 99</p>
                 <p class="font-bold">Подтвержден</p>
             </div>
             <div>
-                <p>Email</p>
+                <p class="text-xl leading-4 mb-1">Email</p>
                 <p class="font-bold">raphaelroytman@mail.ru</p>
             </div>
         </div>
     </div>
-    <div class="flex justify-end mt-4">
+    <div class="flex justify-end mt-4 px-4">
         <button mat-flat-button [color]="'primary'" class="dark">
             Удалить
         </button>

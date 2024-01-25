@@ -1,12 +1,12 @@
 .mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: 12px !important;
+  border-radius: 6px 0px 0px 6px !important;
   padding: 6px !important;
 }
 
 .mat-mdc-dialog-content {
-  max-height: 80vh;
+  max-height: 83vh;
   scrollbar-color: #888 #eee;
-  scrollbar-width: thin; 
+  scrollbar-width: thin;
   padding: 0 !important;
 }
 

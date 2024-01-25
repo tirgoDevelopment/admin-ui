@@ -32,3 +32,16 @@ ngx-mat-intl-tel-input div button {
 .mat-mdc-outlined-button .mdc-button__ripple {
     border-color: red;
 }
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: rgb(66, 244, 119) !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: rgb(244, 66, 125) !important;
+    background-color: rgb(66, 244, 84) !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgba(245, 6, 6, 0.26) !important
+}
