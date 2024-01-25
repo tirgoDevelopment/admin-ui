@@ -66,8 +66,8 @@ export class DriversComponent implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddDriverComponent, {
-      width: '800px',
-      height: '500px',
+      width: '700px',
+      height: '350px',
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -77,8 +77,8 @@ export class DriversComponent implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddDriverComponent, {
-      width: '800px',
-      height: '500px',
+      width: '700px',
+      height: '350px',
       data: row,
     });
     dialogRef.afterClosed()

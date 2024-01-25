@@ -49,7 +49,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
   add() {
     const dialog = this._dialog.open(AddTransportComponent, {
       width: '400px',
-      height: '280px',
+      height: '230px',
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -60,7 +60,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddTransportComponent, {
       width: '400px',
-      height: '280px',
+      height: '230px',
       data: row,
     });
     dialogRef.afterClosed()

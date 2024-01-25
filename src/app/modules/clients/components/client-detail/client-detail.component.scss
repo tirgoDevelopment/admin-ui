@@ -7,6 +7,11 @@
   max-height: 80vh;
   scrollbar-color: #888 #eee;
   scrollbar-width: thin; 
+  padding: 0 !important;
+}
+
+.mdc-dialog__title {
+  padding: 0 11px 9px !important;
 }
 
 .mat-dialog-content::-webkit-scrollbar {

@@ -47,8 +47,8 @@ export class CargoGroupComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddCargoGroupComponent, {
-      width: '500px',
-      height: '280px',
+      width: '400px',
+      height: '230px',
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -58,8 +58,8 @@ export class CargoGroupComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddCargoGroupComponent, {
-      width: '500px',
-      height: '280px',
+      width: '400px',
+      height: '230px',
       data: row,
     });
     dialogRef.afterClosed()

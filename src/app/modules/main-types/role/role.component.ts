@@ -45,8 +45,8 @@ export class RoleComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddRoleComponent, {
-      width: '800px',
-      height: '520px',
+      width: '700px',
+      height: '450px',
     })
     dialog.afterClosed()
       .subscribe(() => {
@@ -56,8 +56,8 @@ export class RoleComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddRoleComponent, {
-      width: '800px',
-      height: '520px',
+      width: '700px',
+      height: '450px',
       data: row,
     });
     dialogRef.afterClosed()

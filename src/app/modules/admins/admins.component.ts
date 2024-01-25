@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +23,7 @@ import { AddAdminsComponent } from './components/add-admins/add-admins.component
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['full_name', 'login', 'role', 'register_date', 'last_enter', 'actions'];
@@ -47,7 +47,7 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
   add() {
     const dialog = this._dialog.open(AddAdminsComponent, {
       width: '800px',
-      height: '500px',
+      height: '450px',
     })
     dialog.afterClosed()
       .subscribe(() => {
