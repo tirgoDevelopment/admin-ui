@@ -17,6 +17,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { ClientDetailComponent } from './components/client-detail/client-detail.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ConfirmComponent } from 'app/shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-clients',
@@ -58,8 +59,16 @@ export class ClientsComponent implements OnInit {
         top: '0',
         right: '0',
       },
-      maxHeight:'100%'
+      maxHeight: '100%'
     })
+
+    // this._dialog.open(ConfirmComponent, {
+    //   width: '500px',
+    //   height: '450px',
+    //   data: {
+    //     text: 'Вы действительно хотите удалить пользователя из списка?',
+    //   }
+    // })
   }
 
 
