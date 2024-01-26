@@ -54,10 +54,19 @@ export const appRoutes: Route[] = [
                         path: 'subcription', loadChildren: () => import('app/modules/main-types/subscription/subscription.resolver')
                     },
                     {
+                        path: 'currency', loadChildren: () => import('app/modules/main-types/currency/currency.resolver')
+                    },
+                    {
                         path: 'transport', loadChildren: () => import('app/modules/main-types/transport/transport.resolver')
                     },
                     {
+                        path: 'transport-cargo', loadChildren: () => import('app/modules/main-types/transport-cargo/transport-cargo.resolver')
+                    },
+                    {
                         path: 'cargo', loadChildren: () => import('app/modules/main-types/cargo/cargo.resolver')
+                    },
+                    {
+                        path: 'cargo-status', loadChildren: () => import('app/modules/main-types/cargo-status/cargo-status.resolver')
                     },
                     {
                         path: 'cargo-group', loadChildren: () => import('app/modules/main-types/cargo-group/cargo-group.resolver')

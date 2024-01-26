@@ -79,6 +79,16 @@
     "type":"Тип",
     "moderation":"Модерация",
     "geolocation":"Геопозиция",
-    "date_birth":"Дата рождения"
-
+    "date_birth":"Дата рождения",
+    "curency":"Валюта",
+    "transport_cargo":"Перевозка грузов",
+    "cargo_type_status":"Статус типа груза",
+    "code":"Код",
+    "add_currency":"Добавить валюту",
+    "edit_currency":"Изменить валюту",
+    "is_mode":"Режим",
+    "count":"Считать",
+    "description":"Описание",
+    "add_transport_cargo":"Добавить транспортный груз",
+    "edit_transport_cargo":"Редактировать транспортный груз"
 }

@@ -79,5 +79,16 @@
     "type":"Tip",
     "moderation":"Модерация",
     "geolocation":"Geolocation",
-    "date_birth":"Tug'ilgan kuni"
+    "date_birth":"Tug'ilgan kuni",
+    "curency":"Valyuta",
+    "transport_cargo":"Yuk tashish",
+    "cargo_type_status":"Yuk turi holati",
+    "code":"Kod",
+    "add_currency":"Valyuta qo'shing",
+    "edit_currency":"Valyutani tahrirlash",
+    "is_mode":"Rejim",
+    "count":"Hisoblash",
+    "description":"Tavsif",
+    "add_transport_cargo":"Yuk tashishni qo'shing",
+    "edit_transport_cargo":"Yuk tashishni tahrirlash"
 }

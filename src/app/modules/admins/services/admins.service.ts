@@ -21,11 +21,15 @@ export class AdminsService {
   }
 
   create(body): Observable<Response<AdminModel>> {
-		return this._apiService.post<AdminModel>('/auth/register', body);
-	}
+    return this._apiService.post<AdminModel>('/auth/register', body);
+  }
 
   update(body): Observable<Response<AdminModel>> {
     return this._apiService.put<AdminModel>('/staffs', body);
+  }
+
+  block(queryParams): Observable<Response<AdminModel>> {
+    return this._apiService.patch<AdminModel>(`/staffs/block`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<AdminModel>> {

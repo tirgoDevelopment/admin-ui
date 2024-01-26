@@ -79,5 +79,16 @@
     "type":"Type",
     "moderation":"Moderation",
     "geolocation":"Geolocation",
-    "date_birth":"Date of birth"
+    "date_birth":"Date of birth",
+    "curency":"Currency",
+    "transport_cargo":" Transport cargo",
+    "cargo_type_status":"Cargo type status",
+    "code":"Code",
+    "add_currency":"Add currency",
+    "edit_currency":"Edit currency",
+    "is_mode":"Mode",
+    "count":"Count",
+    "description":"Description",
+    "add_transport_cargo":"Add transport cargo",
+    "edit_transport_cargo":"Edit transport cargo"
 }

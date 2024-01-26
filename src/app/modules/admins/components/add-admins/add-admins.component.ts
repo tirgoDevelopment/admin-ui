@@ -17,7 +17,7 @@ import { HeaderTextComponent } from 'app/shared/components/header-text/header-te
 import { ToastrService } from 'ngx-toastr';
 import { AdminsService } from '../../services/admins.service';
 import { MatSelectModule } from '@angular/material/select';
-import {NgxMatIntlTelInputComponent} from 'ngx-mat-intl-tel-input';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { RoleService } from 'app/modules/main-types/role/services/role.service';
 
 @Component({
@@ -27,7 +27,7 @@ import { RoleService } from 'app/modules/main-types/role/services/role.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,  NgxMatIntlTelInputComponent, MatInputModule,   MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddAdminsComponent {
   roles = [];
@@ -59,7 +59,7 @@ export class AddAdminsComponent {
     }
     this.getRoles()
   }
-  
+
   getRoles() {
     this._roleService.getAll().subscribe(res => {
       this.roles = res.data
@@ -101,7 +101,16 @@ export class AddAdminsComponent {
   }
 
   block(): void {
-
+    const queryParams = {
+      id: this.form.value.id,
+    };
+    this._adminService.block(queryParams).subscribe(res => {
+      if (res.success) {
+        this._toaster.success('Админ заблокирован')
+      } else {
+        this._toaster.error('Невозможно заблокировать админ')
+      }
+    })
   }
 }
 

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { Response } from '../models/reponse';
 })
 export class ApiService {
 
-	public apiUrl: string = 'http://localhost:3000/api/v2/';
+	public apiUrl: string;
 	protected host: string;
 	protected apiVersion: string;
 
@@ -50,16 +50,26 @@ export class ApiService {
 		);
 	}
 
+	patch<T>(path: string, body: Object = {}, queryParams): Observable<Response<T>> {
+		const params = queryParams ? { params: queryParams } : {};
+		return this._http.patch<Response<T>>(
+			`${this.apiUrl}${path}`,
+			body,
+			params,
+		).pipe(
+			catchError(this.formatErrors)
+		);
+	}
+
 	post<T>(path: string, body: Object = {}, headers = this.httpOptions): Observable<Response<T>> {
 		const baseUrl = path.indexOf('http') === 0 ? '' : this.apiUrl;
 		return this._http.post<Response<T>>(
 			`${this.apiUrl}${path}`,
 			body,
 			headers
-		)
-			.pipe(
-				catchError(this.formatErrors)
-			);
+		).pipe(
+			catchError(this.formatErrors)
+		);
 	}
 
 	postFile(path: string, body: FormData, responseType = 'text' as 'json'): Observable<any> {
@@ -67,10 +77,10 @@ export class ApiService {
 		return this._http.post<any>(`${baseUrl}${path}`, body, {
 			reportProgress: true,
 			observe: 'events',
-			responseType})
-			.pipe(
-				catchError(this.formatErrors)
-			);
+			responseType
+		}).pipe(
+			catchError(this.formatErrors)
+		);
 	}
 
 	downLoadFile(path: string, body): Observable<any> {
@@ -81,12 +91,10 @@ export class ApiService {
 			{
 				responseType: 'blob' as 'json'
 			}
-
-		)
-			.pipe(
-				retry(1),
-				catchError(this.formatErrors)
-			);
+		).pipe(
+			retry(1),
+			catchError(this.formatErrors)
+		);
 	}
 
 	getFile(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -94,22 +102,18 @@ export class ApiService {
 		return this._http.get<any>(`${baseUrl}${path}`, {
 			params,
 			responseType: 'blob' as 'json'
-		}
-
-		)
-			.pipe(
-				catchError(this.formatErrors)
-			);
+		}).pipe(
+			catchError(this.formatErrors)
+		);
 	}
 
 	delete<T>(path: string, headers = this.httpOptions): Observable<Response<T>> {
 		return this._http.delete<Response<T>>(
 			`${this.apiUrl}${path}`,
 			headers
-		)
-			.pipe(
-				catchError(this.formatErrors)
-			);
+		).pipe(
+			catchError(this.formatErrors)
+		);
 
 	}
 }
