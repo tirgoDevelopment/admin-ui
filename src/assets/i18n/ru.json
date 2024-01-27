@@ -90,5 +90,10 @@
     "count":"Считать",
     "description":"Описание",
     "add_transport_cargo":"Добавить транспортный груз",
-    "edit_transport_cargo":"Редактировать транспортный груз"
+    "edit_transport_cargo":"Редактировать транспортный груз",
+    "first_name":"Имя",
+    "last_name":"Фамилия",
+    "remove":"Удалять",
+    "detail":"Деталь",
+    "no_data": "Нет данных"
 }

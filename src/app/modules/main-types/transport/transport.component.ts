@@ -15,6 +15,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
 import { AddTransportComponent } from './components/add-transport/add-transport.component';
 import { TransportService } from './services/transport.service';
 import { TransportModel } from './models/transport.model';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-transport',
@@ -23,7 +24,7 @@ import { TransportModel } from './models/transport.model';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class TransportComponent extends UnsubscribeAble implements OnInit {

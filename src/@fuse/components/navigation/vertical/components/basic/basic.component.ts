@@ -6,6 +6,7 @@ import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/rou
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
+import { FuseConfig, FuseConfigService } from '@fuse/services/config';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Subject, takeUntil } from 'rxjs';
@@ -21,7 +22,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
 {
     @Input() item: FuseNavigationItem;
     @Input() name: string;
-
+    config: FuseConfig;
     isActiveMatchOptions: IsActiveMatchOptions;
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -33,6 +34,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseUtilsService: FuseUtilsService,
+        private _fuseConfigService: FuseConfigService,
         private cdr: ChangeDetectorRef
     )
     {
@@ -52,7 +54,14 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      */
     ngOnInit(): void
     {
-        this.cdr.detectChanges();
+        this._fuseConfigService.config$
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((config: FuseConfig) => {
+            // Store the config
+            this.config = config;
+            this.cdr.detectChanges();
+        });
+      
         // Set the "isActiveMatchOptions" either from item's
         // "isActiveMatchOptions" or the equivalent form of
         // item's "exactMatch" option
@@ -65,6 +74,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
 
         // Mark for check
+     
         this._changeDetectorRef.markForCheck();
 
         // Subscribe to onRefreshed on the navigation component

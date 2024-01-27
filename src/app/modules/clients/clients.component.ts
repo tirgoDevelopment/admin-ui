@@ -17,7 +17,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { ClientDetailComponent } from './components/client-detail/client-detail.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ConfirmComponent } from 'app/shared/components/confirm/confirm.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-clients',
@@ -26,7 +26,7 @@ import { ConfirmComponent } from 'app/shared/components/confirm/confirm.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, NoDataPlaceholderComponent,  MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ClientsComponent implements OnInit {
   cities: any[] = [];
@@ -41,12 +41,13 @@ export class ClientsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllAdmin();
+    this.getAllClient();
   }
 
-  getAllAdmin() {
+  getAllClient() {
     this._clientService.getAll().subscribe((response) => {
-      this.dataSource.data = response.data;
+      console.log(response);
+      this.dataSource.data = response?.data;
     });
   }
 
@@ -76,31 +77,31 @@ export class ClientsComponent implements OnInit {
   add() {
     const dialog = this._dialog.open(AddClientComponent, {
       width: '700px',
-      height: '350px',
+      height: '430px',
       autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllClient()
       })
   }
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddClientComponent, {
       width: '700px',
-      height: '350px',
+      height: '430px',
       autoFocus: false,
       data: row,
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllClient()
       })
   }
 
   delete(id: number) {
     this._clientService.delete(id).subscribe(() => {
-      this.getAllAdmin()
+      this.getAllClient()
     })
   }
 }

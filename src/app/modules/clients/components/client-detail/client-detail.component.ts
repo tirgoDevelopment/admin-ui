@@ -1,11 +1,12 @@
 import { NgClass, NgFor } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-client-detail',
@@ -17,10 +18,17 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 })
 export class ClientDetailComponent implements OnInit {
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _clientService: ClientService) {
+    this.getClient(data.id);
+  }
   ngOnInit(): void {
   }
 
+  getClient(id: any) {
+    this._clientService.get(id).subscribe((response) => {
+      console.log(response);
+    });
+  }
   submit() {
   }
 }

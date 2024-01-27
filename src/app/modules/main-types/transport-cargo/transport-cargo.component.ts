@@ -15,6 +15,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
 import { TransportCargoService } from './services/transport-cargo.service';
 import { TransportCargoModel } from './models/transport-cargo.model';
 import { AddTransportCargoComponent } from './components/add-transport-cargo/add-transport-cargo.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-transport-cargo',
@@ -23,7 +24,7 @@ import { AddTransportCargoComponent } from './components/add-transport-cargo/add
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class TransportCargoComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'is_mode', 'count', 'description','actions'];

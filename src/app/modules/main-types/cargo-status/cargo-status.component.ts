@@ -15,6 +15,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
 import { CargoStatusService } from './services/cargo-status.service';
 import { CargoStatusModel } from './models/cargo-status.model';
 import { AddCargoStatusComponent } from './components/add-cargo-status/add-cargo-status.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-cargo-status',
@@ -23,7 +24,7 @@ import { AddCargoStatusComponent } from './components/add-cargo-status/add-cargo
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class CargoStatusComponent extends UnsubscribeAble implements OnInit {

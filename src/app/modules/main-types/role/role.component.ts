@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRoleComponent } from './components/add-role/add-role.component';
 import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
@@ -22,7 +23,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class RoleComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['role', 'add_driver', 'add_client', 'add_order', 'cancel_order', 'watch_driver', 'watch_client',

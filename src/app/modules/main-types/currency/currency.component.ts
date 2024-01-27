@@ -15,6 +15,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
 import { CurrencyService } from './services/currency.service';
 import { CurrencyModel } from './models/currency.model';
 import { AddCurrencyComponent } from './components/add-currency/add-currency.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-currency',
@@ -23,7 +24,7 @@ import { AddCurrencyComponent } from './components/add-currency/add-currency.com
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class CurrencyComponent extends UnsubscribeAble implements OnInit {

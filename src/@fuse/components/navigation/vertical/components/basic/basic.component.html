@@ -71,12 +71,13 @@
 
 <!-- Item template -->
 <ng-template #itemTemplate>
-
     <!-- Icon -->
-    <ng-container *ngIf="item.icon">
-        <img [src]="'assets/images/sidebar/'+item.icon" class="mr-3"  style="height:24px; width:24px">
+    <ng-container *ngIf="item.icon&&config?.scheme=='light' ">
+        <img [src]="'assets/images/sidebar/'+item.icon" class="mr-3" style="height:24px; width:24px">
     </ng-container>
-
+    <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' ">
+        <img [src]="'assets/images/sidebar/'+item.icon_w" class="mr-3" style="height:24px; width:24px">
+    </ng-container>
     <!-- Title & Subtitle -->
     <div class="fuse-vertical-navigation-item-title-wrapper">
         <div class="fuse-vertical-navigation-item-title">

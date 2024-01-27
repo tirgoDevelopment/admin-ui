@@ -39,10 +39,11 @@ export class AddClientComponent {
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    citizenship: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,7 +55,7 @@ export class AddClientComponent {
       this.form.patchValue({
         id: this.data?.id,
         full_name: this.data?.full_name,
-        phone: this.data?.phone,
+        phoneNumber: this.data?.phoneNumber,
         role: this.data?.role,
         login: this.data?.login,
         password: this.data?.password,
@@ -62,16 +63,16 @@ export class AddClientComponent {
     }
   }
 
-  async findCity(ev:any) {
+  async findCity(ev: any) {
     const findText = ev.target.value.toString().trim().toLowerCase();
     if (findText.length >= 2) {
-       this.viewText = true;
+      this.viewText = true;
       //  this.findList = await this.authService.findCity(findText).toPromise();
     } else {
-       this.viewText = false;
-       this.findList = [];
+      this.viewText = false;
+      this.findList = [];
     }
- }
+  }
   get f() {
     return this.form.controls
   }

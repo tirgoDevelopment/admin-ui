@@ -90,5 +90,10 @@
     "count":"Count",
     "description":"Description",
     "add_transport_cargo":"Add transport cargo",
-    "edit_transport_cargo":"Edit transport cargo"
+    "edit_transport_cargo":"Edit transport cargo",
+    "first_name":"First Name",
+    "last_name":"Last Name",
+    "remove":"Remove",
+    "detail":"Detail",
+    "no_data": "No data"
 }

@@ -37,11 +37,11 @@
                             <mat-menu #moreMenu="matMenu">
                                 <button mat-menu-item color="accent" (click)="edit(row)">
                                     <mat-icon>edit</mat-icon>
-                                    edit
+                                    {{"edit"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
-                                    remove
+                                    {{"remove"|transloco}}
                                 </button>
                             </mat-menu>
                         </div>
@@ -51,6 +51,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
+            <app-no-data-placeholder *ngIf="!dataSource.data.length" >
+            </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
             </mat-paginator>

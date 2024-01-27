@@ -1,0 +1,18 @@
+  .container {
+  	height: calc(100% - 20px);
+  	width: inherit;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	background: url("../../../../assets/images/no-data.avif") no-repeat;
+  	background-position: center;
+  	background-size: contain;
+  }
+
+  .text {
+  	font-weight: normal;
+  	font-size: 19px;
+  	line-height: 17px;
+  	text-align: center;
+  	color: #b4bcc9;
+  }

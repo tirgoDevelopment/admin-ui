@@ -15,6 +15,7 @@ import { UnsubscribeAble } from 'app/shared/components/unsubscribe-able.componen
 import { AdminsService } from './services/admins.service';
 import { AdminModel } from './models/admin.model';
 import { AddAdminsComponent } from './components/add-admins/add-admins.component';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-admins',
@@ -23,7 +24,7 @@ import { AddAdminsComponent } from './components/add-admins/add-admins.component
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, NoDataPlaceholderComponent,  MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['full_name', 'login', 'role', 'register_date', 'last_enter', 'actions'];

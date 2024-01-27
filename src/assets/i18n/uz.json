@@ -90,5 +90,11 @@
     "count":"Hisoblash",
     "description":"Tavsif",
     "add_transport_cargo":"Yuk tashishni qo'shing",
-    "edit_transport_cargo":"Yuk tashishni tahrirlash"
+    "edit_transport_cargo":"Yuk tashishni tahrirlash",
+    "first_name":"Ism",
+    "last_name":"Familiya",
+    "remove":"O'chirish",
+    "detail":"Tafsilot",
+    "no_data": "Maʼlumot yoʻq"
+
 }

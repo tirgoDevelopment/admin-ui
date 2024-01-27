@@ -10,29 +10,27 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
-                        [ngClass]="{'is-invalid': f.name.errors}">
-                    <mat-error *ngIf="f.name.errors?.required">
+                    <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
+                        [ngClass]="{'is-invalid': f.firstName.errors}">
+                    <mat-error *ngIf="f.firstName.errors?.required">
                         Поле не должно быть пустым
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
-                        [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
+                    <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
+                        [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
+                        name="phoneNumber" #phoneNumber>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
 
-            </div>
-            <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
-                        [ngClass]="{'is-invalid': f.email.errors}">
-                    <mat-error *ngIf="f.email.errors?.required">
+                    <input matInput placeholder="{{ 'city' | transloco }}" formControlName="citizenship"
+                        [ngClass]="{'is-invalid': f.citizenship.errors}">
+                    <mat-error *ngIf="f.citizenship.errors?.required">
                         Поле не должно быть пустым
                     </mat-error>
                 </mat-form-field>
-
-                <mat-form-field color="accent" class="w-full">
+                <!-- <mat-form-field color="accent" class="w-full">
                     <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
                        <mat-option>
                           <ngx-mat-select-search (input)="findCity($event)" placeholderLabel="'Гражданство'"  [formControl]="selectTechnicalRoomFilterCtrl"></ngx-mat-select-search>
@@ -41,7 +39,23 @@
                           {{city.data.city + ', ' + city.data.country}}
                        </mat-option>
                     </mat-select>
-                 </mat-form-field>
+                 </mat-form-field> -->
+            </div>
+            <div class="p-3">
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
+                        [ngClass]="{'is-invalid': f.lastName.errors}">
+                    <mat-error *ngIf="f.lastName.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
+                        [ngClass]="{'is-invalid': f.email.errors}">
+                    <mat-error *ngIf="f.email.errors?.required">
+                        Поле не должно быть пустым
+                    </mat-error>
+                </mat-form-field>
             </div>
         </div>
     </form>
