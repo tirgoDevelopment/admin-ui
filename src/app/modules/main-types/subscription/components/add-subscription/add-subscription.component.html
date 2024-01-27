@@ -13,21 +13,21 @@
                     <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
                         [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <input matInput placeholder="{{ 'price' | transloco }}" type="number" formControlName="price"
                         [ngClass]="{'is-invalid': f.price.errors}">
                     <mat-error *ngIf="f.price.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <input matInput placeholder="{{ 'duration' | transloco }}" type="number" formControlName="duration"
                         [ngClass]="{'is-invalid': f.duration.errors}">
                     <mat-error *ngIf="f.duration.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
             </div>

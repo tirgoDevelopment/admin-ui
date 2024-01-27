@@ -19,7 +19,7 @@ import { ClientService } from '../../services/client.service';
 })
 export class ClientDetailComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _clientService: ClientService) {
-    this.getClient(data.id);
+    // this.getClient(data.id);
   }
   ngOnInit(): void {
   }

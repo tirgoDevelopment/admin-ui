@@ -52,10 +52,10 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllAdmin();
+    this.getAllDeleted();
   }
 
-  getAllAdmin() {
+  getAllDeleted() {
     this._archiveUserService.getAll().subscribe((response) => {
       this.dataSource.data = response.data;
     });

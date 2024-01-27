@@ -13,7 +13,7 @@
                     <input matInput placeholder="{{ 'full_name' | transloco }}" formControlName="fullName"
                         [ngClass]="{'is-invalid': f.fullName.errors}">
                     <mat-error *ngIf="f.fullName.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-full">
@@ -27,7 +27,7 @@
                     <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
                         [ngClass]="{'is-invalid': f.password.errors}">
                     <mat-error *ngIf="f.password.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                     <mat-error *ngIf="f.password.errors?.minlength">
                         Минимальная длина поля 6
@@ -54,7 +54,7 @@
                     <input matInput placeholder="{{ 'login' | transloco }}" formControlName="username"
                         [ngClass]="{'is-invalid': f.username.errors}">
                     <mat-error *ngIf="f.username.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <div class="flex items-center p-2">

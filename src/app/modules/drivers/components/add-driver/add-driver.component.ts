@@ -43,10 +43,11 @@ export class AddDriverComponent {
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    fullName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
-    roleId: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    citizenship: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -58,9 +59,9 @@ export class AddDriverComponent {
       this.edit = true;
       this.form.patchValue({
         id: this.data?.id,
-        fullName: this.data?.fullName,
-        phone: this.data?.phone,
-        roleId: this.data?.role,
+        full_name: this.data?.full_name,
+        phoneNumber: this.data?.phoneNumber,
+        role: this.data?.role,
         login: this.data?.login,
         password: this.data?.password,
       });

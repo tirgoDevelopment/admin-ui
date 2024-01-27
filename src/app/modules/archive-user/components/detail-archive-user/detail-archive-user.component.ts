@@ -1,8 +1,8 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ClientService } from 'app/modules/clients/services/client.service';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -26,7 +27,14 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 })
 export class DetailArchiveUserComponent implements OnInit {
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _clientService: ClientService) {
+    // this.getClient(data.id);
+  }
+  getClient(id: any) {
+    this._clientService.get(id).subscribe((response) => {
+      console.log(response);
+    });
+  }
   ngOnInit(): void {
   }
 

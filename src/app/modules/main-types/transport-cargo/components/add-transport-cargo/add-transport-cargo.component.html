@@ -13,7 +13,7 @@
                     <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
                         [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-slide-toggle class="py-2" formControlName="isMode">
@@ -25,7 +25,7 @@
                     <input matInput placeholder="{{ 'count' | transloco }}" type="number" formControlName="count"
                         [ngClass]="{'is-invalid': f.count.errors}">
                     <mat-error *ngIf="f.count.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">

@@ -13,7 +13,7 @@
                     <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
                         [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
@@ -27,7 +27,7 @@
                     <input matInput placeholder="{{ 'city' | transloco }}" formControlName="citizenship"
                         [ngClass]="{'is-invalid': f.citizenship.errors}">
                     <mat-error *ngIf="f.citizenship.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <!-- <mat-form-field color="accent" class="w-full">
@@ -46,14 +46,17 @@
                     <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
                         [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
                         [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">
-                        Поле не должно быть пустым
+                        {{ 'is_empty' | transloco }}
+                    </mat-error>
+                    <mat-error *ngIf="f.email.errors?.email">
+                        {{ 'is_email' | transloco }}
                     </mat-error>
                 </mat-form-field>
             </div>

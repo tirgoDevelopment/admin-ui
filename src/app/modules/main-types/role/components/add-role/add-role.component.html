@@ -12,7 +12,7 @@
                 <input matInput placeholder="{{ 'role_name' | transloco }}" formControlName="name"
                     [ngClass]="{'is-invalid': f.name.errors}">
                 <mat-error *ngIf="f.name.errors?.required">
-                    Поле не должно быть пустым
+                    {{ 'is_empty' | transloco }}
                 </mat-error>
             </mat-form-field>
         </div>
