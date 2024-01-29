@@ -126,5 +126,17 @@
     "driver_contact":"Haydovchi kontaktlar",
     "cause":"Sabab",
     "activate":"Faollashtirish",
-    "restore":"Qayta tiklash"
+    "restore":"Qayta tiklash",
+    "client":"Mijoz",
+    "from_where":"Qayerdan",
+    "where":"Qayer",
+    "date_creation":"Yaratilgan sana",
+    "shipment_date":"Jo'natish sanasi",
+    "suggested_cost":"Tavsiya etilgan xarajat",
+    "status_processing":"Holat qayta ishlash",
+    "about_ordering":"Buyurtma haqida batafsil ma'lumot",
+    "id_order":"Buyurtma id",
+    "order_dispatch_point":"Buyurtmani jo'natish punkti",
+    "order_delivery_point":"Buyurtmani yetkazib berish punkti",
+    "cargo_size":"Yuk hajmi"
 }

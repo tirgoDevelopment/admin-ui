@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { MatSelectModule } from '@angular/material/select';
 import { DriversService } from './services/drivers.service';
 import { DriverModel } from './models/driver.model';
@@ -31,7 +30,6 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
-  @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
   displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'rating', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -42,10 +40,10 @@ export class DriversComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllAdmin();
+    this.getAllDrivers();
   }
 
-  getAllAdmin() {
+  getAllDrivers() {
     this._driversService.getAll().subscribe((response) => {
       this.dataSource.data = response.data;
     });
@@ -74,7 +72,7 @@ export class DriversComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllDrivers()
       })
   }
 
@@ -87,13 +85,13 @@ export class DriversComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllDrivers()
       })
   }
 
   delete(id: number) {
     this._driversService.delete(id).subscribe(() => {
-      this.getAllAdmin()
+      this.getAllDrivers()
     })
   }
 }

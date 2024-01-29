@@ -36,6 +36,9 @@ export const appRoutes: Route[] = [
                 path: 'admins', loadChildren: () => import('app/modules/admins/admins.resolver')
             },
             {
+                path: 'secure-transaction', loadChildren: () => import('app/modules/secure-transaction/secure-transaction.resolver')
+            },
+            {
                 path: 'clients', loadChildren: () => import('app/modules/clients/clients.resolver')
             },
             {
@@ -72,6 +75,9 @@ export const appRoutes: Route[] = [
                         path: 'cargo-group', loadChildren: () => import('app/modules/main-types/cargo-group/cargo-group.resolver')
                     },
                 ]
+            },
+            {
+                path: 'chats', loadChildren: () => import('app/modules/chat/chat.routes')
             },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }

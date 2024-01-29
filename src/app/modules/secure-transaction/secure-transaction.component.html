@@ -1,0 +1,109 @@
+<div class="flex flex-col flex-auto ">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"secure_transaction"|transloco}}</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
+                    <span class="ml-2">Detail</span>
+                </button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <mat-table matSort [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="client">
+                    <mat-header-cell *matHeaderCellDef> {{"client"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.client}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="from_where">
+                    <mat-header-cell *matHeaderCellDef> {{"city"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.from_where}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="where">
+                    <mat-header-cell *matHeaderCellDef> {{"where"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.where}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cargo_type">
+                    <mat-header-cell *matHeaderCellDef> {{"cargo_type"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.cargo_type}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type_transport">
+                    <mat-header-cell *matHeaderCellDef> {{"type_transport"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.type_transport}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="secure_transaction">
+                    <mat-header-cell *matHeaderCellDef> {{"secure_transaction"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.secure_transaction}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date_creation">
+                    <mat-header-cell *matHeaderCellDef> {{"date_creation"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.date_creation}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shipment_date">
+                    <mat-header-cell *matHeaderCellDef> {{"shipment_date"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.from_where}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="suggested_cost">
+                    <mat-header-cell *matHeaderCellDef> {{"suggested_cost"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.suggested_cost}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status_processing">
+                    <mat-header-cell *matHeaderCellDef> {{"status_processing"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.status_processing}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.type_transport}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                (click)="$event.stopPropagation()">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" (click)="edit(row)">
+                                    <mat-icon>edit</mat-icon>
+                                    {{"edit"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                    <mat-icon>remove</mat-icon>
+                                    {{"remove"|transloco}}
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+            </mat-table>
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
+            </app-no-data-placeholder>
+            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

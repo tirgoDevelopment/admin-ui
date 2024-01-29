@@ -126,5 +126,17 @@
     "driver_contact":"Driver contacts",
     "cause":"Cause",
     "activate":"Activate",
-    "restore":"Restore"
+    "restore":"Restore",
+    "client":"Client",
+    "from_where":"From whence",
+    "where":"Where",
+    "date_creation":"Date of creation",
+    "shipment_date":"Shipment date",
+    "suggested_cost":"Suggested cost",
+    "status_processing":"Status processing",
+    "about_ordering":"More details about ordering",
+    "id_order":"Order ID",
+    "order_dispatch_point":"Order dispatch point",
+    "order_delivery_point":"Order delivery point",
+    "cargo_size":"Cargo size"
 }

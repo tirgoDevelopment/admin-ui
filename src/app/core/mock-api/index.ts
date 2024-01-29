@@ -1,4 +1,5 @@
 
+import { ChatMockApi } from './chat/api';
 import { AuthMockApi } from './common/auth/api';
 import { MessagesMockApi } from './common/messages/api';
 import { NavigationMockApi } from './common/navigation/api';
@@ -13,4 +14,5 @@ export const mockApiServices = [
     NavigationMockApi,
     NotificationsMockApi,
     UserMockApi,
+    ChatMockApi
 ];

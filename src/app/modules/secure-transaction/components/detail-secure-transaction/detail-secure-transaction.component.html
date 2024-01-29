@@ -1,0 +1,53 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold leading-5 text-3xl">{{"about_ordering"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="h-full">
+    <div class="h-60 w-full">
+        <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+        </ya-map>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"id_order"|transloco}}</p>
+                <p class="font-bold">#5</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"order_dispatch_point"|transloco}}</p>
+                <p class="font-bold">Узбекистан, Ташкент</p>
+            </div>  
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"cargo_type"|transloco}}</p>
+                <p class="font-bold">Жиры и масла</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"order_delivery_point"|transloco}}</p>
+                <p class="font-bold">Америка, Нью-Йорк</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"type_transport"|transloco}}</p>
+                <p class="font-bold">Тентовка</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"cargo_size"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+        </div>
+    </div>
+ 
+</mat-dialog-content>
