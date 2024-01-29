@@ -1,0 +1,44 @@
+<div class="flex flex-col flex-auto ">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"verification"|transloco}}</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
+                    <span class="ml-2">Detail</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <mat-table matSort [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="full_name">
+                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef> 
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.action}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+            </mat-table>
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
+            </app-no-data-placeholder>
+            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

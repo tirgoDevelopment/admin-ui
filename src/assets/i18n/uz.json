@@ -138,5 +138,8 @@
     "id_order":"Buyurtma id",
     "order_dispatch_point":"Buyurtmani jo'natish punkti",
     "order_delivery_point":"Buyurtmani yetkazib berish punkti",
-    "cargo_size":"Yuk hajmi"
+    "cargo_size":"Yuk hajmi",
+    "date":"Sana",
+    "action":"Harakat",
+    "verify":"Tasdiqlash"
 }

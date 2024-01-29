@@ -1,12 +1,13 @@
   .container {
-  	height: calc(100% - 20px);
+  	height: calc(100% - 200px);
   	width: inherit;
   	display: flex;
   	align-items: center;
   	justify-content: center;
+	background-color: white;
   	background: url("../../../../assets/images/no-data.avif") no-repeat;
   	background-position: center;
-  	background-size: contain;
+  	background-size: auto;
   }
 
   .text {

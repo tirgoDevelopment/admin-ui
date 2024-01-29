@@ -1,0 +1,83 @@
+<div class="flex flex-col flex-auto ">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"activity"|transloco}}</div>
+            </div>
+        </div>
+        <div class="flex items-baseline  w-full">
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput placeholder="{{ 'id' | transloco }}">
+            </mat-form-field>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput placeholder="{{ 'full_name' | transloco }}">
+            </mat-form-field>
+
+            <div class="w-50 px-1">
+                <button mat-stroked-button class=" text-gray-950">
+                    {{ 'filter' | transloco }}</button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <mat-table matSort [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="full_name">
+                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef> {{"action"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.action}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef> {{"date"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.date}} </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                (click)="$event.stopPropagation()">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" (click)="edit(row)">
+                                    <mat-icon>edit</mat-icon>
+                                    {{"edit"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                    <mat-icon>remove</mat-icon>
+                                    {{"remove"|transloco}}
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+            </mat-table>
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
+            </app-no-data-placeholder>
+            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

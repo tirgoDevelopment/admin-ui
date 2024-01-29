@@ -79,6 +79,12 @@ export const appRoutes: Route[] = [
             {
                 path: 'chats', loadChildren: () => import('app/modules/chat/chat.routes')
             },
+            {
+                path: 'active', loadChildren: () => import('app/modules/user-activity/user-activity.resolver')
+            },
+            {
+                path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver')
+            },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }
         ]

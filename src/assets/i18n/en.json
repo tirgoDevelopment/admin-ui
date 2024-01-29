@@ -138,5 +138,8 @@
     "id_order":"Order ID",
     "order_dispatch_point":"Order dispatch point",
     "order_delivery_point":"Order delivery point",
-    "cargo_size":"Cargo size"
+    "cargo_size":"Cargo size",
+    "date":"Date",
+    "action":"Action",
+    "verify":"Verify"
 }

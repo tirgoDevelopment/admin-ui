@@ -138,5 +138,9 @@
     "id_order":"ID заказа",
     "order_dispatch_point":"Пункт отправки заказа",
     "order_delivery_point":"Точка доставки заказа",
-    "cargo_size":"Размер груза"
+    "cargo_size":"Размер груза",
+    "date":"Дата",
+    "action":"Действие",
+    "verify":"Верифицировать"
+
 }
