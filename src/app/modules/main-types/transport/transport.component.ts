@@ -49,8 +49,10 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddTransportComponent, {
-      width: '400px',
-      height: '230px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '20vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -61,8 +63,10 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddTransportComponent, {
-      width: '400px',
-      height: '230px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '20vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });

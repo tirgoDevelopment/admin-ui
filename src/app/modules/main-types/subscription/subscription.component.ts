@@ -47,8 +47,10 @@ export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddSubscriptionComponent, {
-      width: '450px',
-      height: '400px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '35vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -59,8 +61,10 @@ export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddSubscriptionComponent, {
-      width: '450px',
-      height: '400px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '35vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });

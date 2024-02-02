@@ -48,8 +48,10 @@ export class CargoStatusComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddCargoStatusComponent, {
-      width: '400px',
-      height: '300px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '20vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -60,8 +62,10 @@ export class CargoStatusComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddCargoStatusComponent, {
-      width: '400px',
-      height: '300px',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '20vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });

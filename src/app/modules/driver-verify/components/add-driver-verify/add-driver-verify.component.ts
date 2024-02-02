@@ -21,16 +21,20 @@ import { RoleService } from 'app/modules/main-types/role/services/role.service';
 import { DriverVerifyService } from '../../services/driver-verify.service';
 
 @Component({
-  selector: 'app-detail-driver-verify',
-  templateUrl: './detail-driver-verify.component.html',
-  styleUrls: ['./detail-driver-verify.component.scss'],
+  selector: 'app-add-driver-verify',
+  templateUrl: './add-driver-verify.component.html',
+  styleUrls: ['./add-driver-verify.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
-export class DetailDriverVerifyComponent {
+export class AddDriverVerifyComponent {
+
+  fileName: string | undefined;
+
+
   roles = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
@@ -69,6 +73,11 @@ export class DetailDriverVerifyComponent {
 
   get f() {
     return this.form.controls
+  }
+
+  handleFileInput(event: any): void {
+    const file = event.target.files[0];
+    this.fileName = file ? file.name : undefined;
   }
 
   submit() {

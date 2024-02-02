@@ -1,19 +1,19 @@
-  .container {
-  	height: calc(100% - 200px);
-  	width: inherit;
-  	display: flex;
-  	align-items: center;
-  	justify-content: center;
-	background-color: white;
-  	background: url("../../../../assets/images/no-data.avif") no-repeat;
-  	background-position: center;
-  	background-size: auto;
-  }
+.container {
+	height: calc(100% - 100px);
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white !important;
+	background: url("../../../../assets/images/no-data.avif") no-repeat center;
+	background-position: center;
+	background-size: contain;
+}
 
-  .text {
-  	font-weight: normal;
-  	font-size: 19px;
-  	line-height: 17px;
-  	text-align: center;
-  	color: #b4bcc9;
-  }
+.text {
+	font-weight: normal;
+	font-size: 19px;
+	line-height: 17px;
+	text-align: center;
+	color: #b4bcc9;
+}

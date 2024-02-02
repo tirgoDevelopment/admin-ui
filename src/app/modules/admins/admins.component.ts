@@ -24,7 +24,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, NoDataPlaceholderComponent,  MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['full_name', 'login', 'role', 'register_date', 'last_enter', 'actions'];
@@ -47,8 +47,10 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddAdminsComponent, {
-      width: '800px',
-      height: '450px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -59,8 +61,10 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddAdminsComponent, {
-      width: '800px',
-      height: '500px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });

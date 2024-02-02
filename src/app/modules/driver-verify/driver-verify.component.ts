@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { DriverVerifyModel } from './models/driver-verify.model';
 import { DriverVerifyService } from './services/driver-verify.service';
-import { DetailDriverVerifyComponent } from './components/detail-driver-verify/detail-driver-verify.component';
+import { AddDriverVerifyComponent } from './components/add-driver-verify/add-driver-verify.component';
 
 @Component({
   selector: 'app-driver-verify',
@@ -48,7 +48,7 @@ export class DriverVerifyComponent implements OnInit {
   }
 
   detail() {
-    this._dialog.open(DetailDriverVerifyComponent, {
+    this._dialog.open(AddDriverVerifyComponent, {
       width: '800px',
       height: '600px',
       autoFocus: false,

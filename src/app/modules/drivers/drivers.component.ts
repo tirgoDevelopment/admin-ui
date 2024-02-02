@@ -66,8 +66,10 @@ export class DriversComponent implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddDriverComponent, {
-      width: '700px',
-      height: '350px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -78,8 +80,10 @@ export class DriversComponent implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddDriverComponent, {
-      width: '700px',
-      height: '350px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });

@@ -76,8 +76,10 @@ export class ClientsComponent implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddClientComponent, {
-      width: '700px',
-      height: '430px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -88,8 +90,10 @@ export class ClientsComponent implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddClientComponent, {
-      width: '700px',
-      height: '430px',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: row,
     });
