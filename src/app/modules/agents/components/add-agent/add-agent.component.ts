@@ -15,21 +15,22 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
-import { AdminsService } from '../../services/admins.service';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { RoleService } from 'app/modules/main-types/role/services/role.service';
+import { AgentService } from '../../services/agent.service';
 
 @Component({
-  selector: 'app-add-admins',
-  templateUrl: './add-admins.component.html',
-  styleUrls: ['./add-admins.component.scss'],
+  selector: 'app-add-agent',
+  templateUrl: './add-agent.component.html',
+  styleUrls: ['./add-agent.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
-export class AddAdminsComponent {
+
+export class AddAgentComponent {
   roles = [];
   edit: boolean = false;
   lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -48,7 +49,7 @@ export class AddAdminsComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
-    private _adminService: AdminsService,
+    private _agentService: AgentService,
     private _roleService: RoleService,
     private _dialog: MatDialog) {
     if (this.data) {
@@ -64,8 +65,6 @@ export class AddAdminsComponent {
     }
     this.getRoles()
   }
-
-
 
   getRandomCharacter = (chars: string) => {
     const randomIndex = Math.floor(Math.random() * chars.length);
@@ -97,7 +96,7 @@ export class AddAdminsComponent {
 
   submit() {
     if (this.form.value.id) {
-      this._adminService.update(this.form.value).subscribe(res => {
+      this._agentService.update(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Админ успешно обновлена')
@@ -106,7 +105,7 @@ export class AddAdminsComponent {
         }
       })
     } else {
-      this._adminService.create(this.form.value).subscribe(res => {
+      this._agentService.create(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
@@ -118,24 +117,12 @@ export class AddAdminsComponent {
     }
   }
 
-
   generate() {
     this.form.patchValue({
       password: this.generateRandomPassword(),
     });
   }
 
-  block(): void {
-    const queryParams = {
-      id: this.form.value.id,
-    };
-    this._adminService.block(queryParams).subscribe(res => {
-      if (res.success) {
-        this._toaster.success('Админ заблокирован')
-      } else {
-        this._toaster.error('Невозможно заблокировать админ')
-      }
-    })
-  }
+
 }
 

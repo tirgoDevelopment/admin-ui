@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Response } from 'app/core/models/reponse';
 import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
-import { ArchiveUserModel } from '../models/archive-user.model';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { ClientModel } from 'app/modules/clients/models/client.model';
 

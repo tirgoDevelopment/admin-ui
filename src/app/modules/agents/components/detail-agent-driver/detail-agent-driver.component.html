@@ -1,0 +1,215 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold leading-5 text-3xl">{{"about_driver"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="h-full">
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+        <div class="flex items-center">
+            <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16">
+            <div class="flex justify-end ml-4">
+                <div>
+                    <p class="text-2xl font-bold">Ройтман Рафаэль Евгеньевич</p>
+                    <p class="text-gray-600">#4502</p>
+                </div>
+                <div class="flex justify-end  ml-4">
+                    <p class="text-gray-600"> 5.0</p>
+                    <img src="assets/images/icons/start.svg" alt="star Image" class="rounded-full w-4 h-4 ml-1 mt-1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"orders"|transloco}}</h2>
+        </div>
+        <div class="flex mb-4">
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">25</p>
+                <p class="text-gray-600">{{"total"|transloco}}</p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">{{"completed"|transloco}} </p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">{{"neagtive"|transloco}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"full_name"|transloco}}</p>
+                <p class="font-bold">Ройтман Рафаэль Евгеньвич</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"date_birth"|transloco}}</p>
+                <p class="font-bold">01.09.2002</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"citizenship"|transloco}}</p>
+                <p class="font-bold">Узбекистан</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
+                <p class="font-bold">Ташкент</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 19:52</p>
+            </div>
+        </div>
+        <div class="flex justify-between mt-4">
+            <div class="flex">
+                <img src="assets/images/icons/info-red.svg" class="h-7 w-7" alt="info">
+                <span class="ml-2 text-red-600">{{"moderation_failed"|transloco}}</span>
+            </div>
+            <button mat-flat-button [color]="'primary'" class="dark">
+                {{"activate"|transloco}}
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"transport"|transloco}}</h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"machine_type"|transloco}}</p>
+                <p class="font-bold">Тентовка</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"max_load_capacity"|transloco}}</p>
+                <p class="font-bold">01.09.2002</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"adr"|transloco}}</p>
+                <p class="font-bold">Узбекистан</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"state_number_trailer"|transloco}}</p>
+                <p class="font-bold">7115</p>
+            </div>
+        </div>
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">{{"technical_passport"|transloco}}</label>
+            </div>
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">{{"lisense"|transloco}}</label>
+            </div>
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">{{"trasnport_photo"|transloco}}</label>
+            </div>
+            <div class="w-1/4 flex items-center justify-end">
+                <label for="fileInput" class="cursor-pointer">
+                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
+                </label>
+                <input id="fileInput" type="file" class="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"passport"|transloco}}</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <mat-form-field color="accent" class="w-full  ">
+                    <input matInput placeholder="{{ 'series_and_number' | transloco }}">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field color="accent" class="w-full  ">
+                    <input matInput placeholder="{{ 'date_issue' | transloco }}">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex justify-end mt-4">
+            <button mat-flat-button [color]="'primary'" class="dark">
+                {{"save"|transloco}}
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold"> {{"driver_license"|transloco}}
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+            <mat-form-field class="w-full ">
+                <input matInput placeholder="{{'driver_license'|transloco}}" class="w-full">
+            </mat-form-field>
+        </div>
+        <div class="flex justify-end mt-4">
+            <button mat-flat-button [color]="'primary'" class="dark">
+                {{"save"|transloco}}
+            </button>
+        </div>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5 flex">
+            <h2 class="text-2xl leading-4 font-bold"> {{"driver_contact"|transloco}}
+            </h2>
+            <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
+                <p class="font-bold">+998 999 99 99</p>
+                <p class="font-bold">Подтвержден</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
+                <p class="font-bold">raphaelroytman@mail.ru</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-end mt-4 px-4">
+        <button mat-flat-button [color]="'primary'" class="dark">
+            {{"remove"|transloco}}
+        </button>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+            <h2 class="text-xl font-bold">{{"user_activity"|transloco}}</h2>
+            <h4 class="text-xl font-bold">Произведен вход Windows NT 10.0, IP:95.214.211.165</h4>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class=" custom-warn-button text-warn-400" mat-dialog-close tabindex="-1">
+            {{"send_push"|transloco}}</button>
+        <button mat-flat-button [color]="'primary'" class="dark" (click)="submit()">
+            {{"save"|transloco}}
+        </button>
+    </div>
+</mat-dialog-actions>
