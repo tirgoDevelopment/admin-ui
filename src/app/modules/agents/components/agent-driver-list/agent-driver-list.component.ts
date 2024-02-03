@@ -45,7 +45,7 @@ export class AgentDriverListComponent implements OnInit {
 
   getAllDrivers() {
     this._driversService.getAll().subscribe((response) => {
-      this.dataSource.data = response.data;
+      this.dataSource.data = response?.data;
     });
   }
 
@@ -66,8 +66,8 @@ export class AgentDriverListComponent implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddAgentDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
+      minWidth: '25vw',
+      maxWidth: '30vw',
       minHeight: '42vh',
       maxHeight: '80vh',
       autoFocus: false,
@@ -80,8 +80,8 @@ export class AgentDriverListComponent implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddAgentDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
+      minWidth: '25vw',
+      maxWidth: '30vw',
       minHeight: '42vh',
       maxHeight: '80vh',
       autoFocus: false,

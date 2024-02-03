@@ -1,0 +1,64 @@
+<div class="flex flex-col flex-auto ">
+    <div class="flex-auto border-t ">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">{{"tracking"|transloco}}</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
+                    <span class="ml-2">Detail</span>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-col mt-3 text-xl text-black">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <div class="text-2xl font-semibold tracking-tight leading-3">Статус</div>
+                    <div class="flex   gap-2 mt-4">
+                        <button class="justify-center px-3 py-1 text-white bg-orange-500 rounded-full max-md:px-5">
+                            Все
+                        </button>
+                        <button class=" justify-center px-3 py-1 rounded-full bg-teal-500 bg-opacity-20 max-md:px-5">
+                            Свободные
+                        </button>
+                        <button class=" justify-center px-3 py-1 rounded-full bg-amber-400 bg-opacity-20 max-md:px-5">
+                            В ожидании
+                        </button>
+                        <button
+                            class=" justify-center px-3 py-1 rounded-full border border-black border-solid shadow-sm bg-cyan-700 bg-opacity-20 max-md:px-5">
+                            На заказе
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-2xl font-semibold tracking-tight leading-3">Транспорт</div>
+                    <div class="flex gap-2  mt-4">
+                        <button class="justify-center px-3 py-1 text-white bg-orange-500 rounded-full max-md:px-5">
+                            Все
+                        </button>
+                        <button class=" justify-center px-3 py-1 bg-gray-200 rounded-full max-md:px-5">
+                            Тентовка
+                        </button>
+                        <button class=" justify-center px-3 py-1 bg-gray-200 rounded-full max-md:px-5">
+                            Рефрижератор
+                        </button>
+                        <button class=" justify-center px-3 py-1 bg-gray-200 rounded-full max-md:px-5">
+                            Автопоезд
+                        </button>
+                        <button class=" justify-center px-3 py-1 bg-gray-200 rounded-full max-md:px-5">
+                            Контейнеровоз
+                        </button>
+                        <button class=" justify-center px-3 py-1 bg-gray-200 rounded-full max-md:px-5">
+                            Автовоз
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yandex w-full mt-4">
+            <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+            </ya-map>
+        </div>
+    </div>
+</div>

@@ -141,5 +141,10 @@
     "cargo_size":"Yuk hajmi",
     "date":"Sana",
     "action":"Harakat",
-    "verify":"Tasdiqlash"
+    "verify":"Tasdiqlash",
+    "all":"Hammasi",
+    "free":"Bo'sh",
+    "pending":"Kutish jarayonida",
+    "on_order":"Buyurtma bo'yicha"
+
 }

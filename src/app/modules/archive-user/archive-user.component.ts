@@ -57,7 +57,7 @@ export class ArchiveUserComponent implements OnInit {
 
   getAllDeleted() {
     this._archiveUserService.getAll().subscribe((response) => {
-      this.dataSource.data = response.data;
+      this.dataSource.data = response?.data;
     });
   }
 }

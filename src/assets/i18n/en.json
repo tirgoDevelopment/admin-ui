@@ -141,5 +141,9 @@
     "cargo_size":"Cargo size",
     "date":"Date",
     "action":"Action",
-    "verify":"Verify"
+    "verify":"Verify",
+    "all":"All",
+    "free":"Free",
+    "pending":"Pending",
+    "on_order":"On order"
 }
