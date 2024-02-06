@@ -75,7 +75,8 @@
     "city":"City",
     "rating":"Rating",
     "citizenship":"Citizenship",
-    "filter":"Reset filter",
+    "filter":"Filter",
+    "clear":"Reset filter",
     "type":"Type",
     "moderation":"Moderation",
     "geolocation":"Geolocation",
@@ -145,5 +146,12 @@
     "all":"All",
     "free":"Free",
     "pending":"Pending",
-    "on_order":"On order"
+    "on_order":"On order",
+    "theme":"Theme",
+    "merchant":"Merchant",
+    "requests":"Requests",
+    "legal_entity":"Search by Legal entity",
+    "entity":"Entity",
+    "loads":"Loads"
+    
 }

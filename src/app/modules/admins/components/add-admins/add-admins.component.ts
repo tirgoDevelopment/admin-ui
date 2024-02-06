@@ -19,7 +19,7 @@ import { AdminsService } from '../../services/admins.service';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { RoleService } from 'app/modules/main-types/role/services/role.service';
-
+import { PasswordGenerator } from 'app/shared/functions/password-generator';
 @Component({
   selector: 'app-add-admins',
   templateUrl: './add-admins.component.html',
@@ -32,11 +32,7 @@ import { RoleService } from 'app/modules/main-types/role/services/role.service';
 export class AddAdminsComponent {
   roles = [];
   edit: boolean = false;
-  lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-  uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  digits = "0123456789";
-  specialCharacters = "$@$!%*?&";
-  allCharacters = this.lowercaseLetters + this.uppercaseLetters + this.digits + this.specialCharacters;
+  passwordGenerator = new PasswordGenerator();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     fullName: new FormControl('', [Validators.required]),
@@ -64,26 +60,6 @@ export class AddAdminsComponent {
     }
     this.getRoles()
   }
-
-
-
-  getRandomCharacter = (chars: string) => {
-    const randomIndex = Math.floor(Math.random() * chars.length);
-    return chars[randomIndex];
-  };
-
-  generateRandomPassword = () => {
-    let password = [
-      this.getRandomCharacter(this.lowercaseLetters),
-      this.getRandomCharacter(this.uppercaseLetters),
-      this.getRandomCharacter(this.digits),
-      this.getRandomCharacter(this.specialCharacters),
-      ...Array.from({ length: Math.floor(Math.random() * 5) + 1 }, () => this.getRandomCharacter(this.allCharacters)),
-    ].join('');
-
-    return password;
-  };
-
 
   getRoles() {
     this._roleService.getAll().subscribe(res => {
@@ -121,7 +97,7 @@ export class AddAdminsComponent {
 
   generate() {
     this.form.patchValue({
-      password: this.generateRandomPassword(),
+      password: this.passwordGenerator.generateRandomPassword(),
     });
   }
 

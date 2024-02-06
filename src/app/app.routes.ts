@@ -48,6 +48,12 @@ export const appRoutes: Route[] = [
                 path: 'archived-users', loadChildren: () => import('app/modules/archive-user/archive-user.resolver')
             },
             {
+                path: 'merchants', loadChildren: () => import('app/modules/merchant/merchant.resolver')
+            },
+            {
+                path: 'orders', loadChildren: () => import('app/modules/orders/orders.resolver')
+            },
+            {
                 path: 'tracking', loadChildren: () => import('app/modules/tracking/tracking.resolver')
             },
             {

@@ -17,6 +17,7 @@ import { DriverModel } from './models/driver.model';
 import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { DetailDriverComponent } from './components/detail-driver/detail-driver.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { SendPushComponent } from './components/send-push/send-push.component';
 
 @Component({
   selector: 'app-drivers',
@@ -45,10 +46,21 @@ export class DriversComponent implements OnInit {
 
   getAllDrivers() {
     this._driversService.getAll().subscribe((response) => {
-      this.dataSource.data = response.data;
+      console.log(response)
+      this.dataSource.data = response?.data;
     });
   }
 
+
+  send() {
+    this._dialog.open(SendPushComponent, {
+      minWidth: '20vw',
+      maxWidth: '30vw',
+      minHeight: '30vh',
+      maxHeight: '50vh',
+      autoFocus: false,
+    })
+  }
 
   detail() {
     this._dialog.open(DetailDriverComponent, {

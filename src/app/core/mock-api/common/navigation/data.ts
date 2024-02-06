@@ -56,6 +56,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: '/archived-users',
             },
             {
+                id: 'merchant',
+                title: 'merchant',
+                type: 'basic',
+                icon_w: 'client-w.svg',
+                icon: 'clients.svg',
+                link: '/merchants',
+            },
+            {
                 id: 'orders',
                 title: 'orders',
                 type: 'basic',

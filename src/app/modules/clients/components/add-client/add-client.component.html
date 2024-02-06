@@ -10,6 +10,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'first_name' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
                         [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
@@ -17,6 +18,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'phone' | transloco }}*</mat-label>
                     <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
                         [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
                         name="phoneNumber" #phoneNumber>
@@ -24,12 +26,25 @@
                 </mat-form-field>
 
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'city' | transloco }}" formControlName="citizenship"
+                    <mat-label>{{ 'citizenship' | transloco }}</mat-label>
+                    <input matInput placeholder="{{ 'citizenship' | transloco }}" formControlName="citizenship"
                         [ngClass]="{'is-invalid': f.citizenship.errors}">
                     <mat-error *ngIf="f.citizenship.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
+                <!-- <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+                    <input type="text" matInput [matAutocomplete]="auto" placeholder="{{ 'city' | transloco }}"
+                        (input)="findCity($event)" formControlName="citizenship"> -->
+                <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <ng-container *ngFor="let city of findList">
+                            <mat-option
+                                [value]="city.data.city + ', ' + city.data.country + ':'+ city.data.geo_lat + ':'+ city.data.geo_lon">
+                                {{city.data.city}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete> -->
+                <!-- <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon> -->
                 <!-- <mat-form-field color="accent" class="w-full">
                     <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
                        <mat-option>
@@ -40,9 +55,11 @@
                        </mat-option>
                     </mat-select>
                  </mat-form-field> -->
+                <!-- </mat-form-field> -->
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'last_name' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
                         [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
@@ -50,6 +67,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'email' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
                         [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">
@@ -59,6 +77,16 @@
                         {{ 'is_email' | transloco }}
                     </mat-error>
                 </mat-form-field>
+                <div>
+                    <p class="text-xl mb-1">Фото паспорта </p>
+                    <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">
+                        <label for="passport" class="cursor-pointer flex justify-center">
+                            <img src="assets/images/icons/file.svg" alt="Upload Icon" class="mr-2 h-8 w-8">
+                        </label>
+                        <input type="file" class="hidden" id="passport"   (change)="onPassportSelected($event)" />
+                        <span *ngIf="fileName" class="mt-2 m-2">Uploaded: {{ fileName }}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

@@ -1,0 +1,132 @@
+<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent p-4">
+  <div class="flex">
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    <div class="text-3xl font-bold tracking-tight">Грузы</div>
+  </div>
+
+  <div class="flex justify-between my-4">
+    <div class="filter"></div>
+    <button (click)="createOrderModal()" class="fuse-mat-button-large dark" mat-flat-button [color]="'primary'">
+      <mat-icon>add</mat-icon>
+       Разместить груз
+    </button>
+  </div>
+
+  <div>
+    <mat-table matSort [dataSource]="dataSource">
+      <ng-container matColumnDef="index">
+        <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef> No </mat-header-cell>
+        <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell class="font-extrabold" *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row?.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sendLocation">
+        <mat-header-cell *matHeaderCellDef>Маршрут Откуда</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row?.sendLocation}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cargoDeliveryLocation">
+        <mat-header-cell *matHeaderCellDef>Маршрут куда</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row?.cargoDeliveryLocation}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          sortActionDescription="Sort by status">Статус</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="status-badge" [class]="returnClassStatusOrder(row.status)">
+            <span>{{statusOrderCheck(row.status)}}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type_cargo">
+        <mat-header-cell *matHeaderCellDef>Тип груза</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="truncate">{{ row.cargoType.name }}</div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="transport_type">
+        <mat-header-cell *matHeaderCellDef>Тип транспорта</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span *ngIf="row.transportTypes">
+            <span *ngFor="let type of row.transportTypes;let i=index">
+              {{type.name}} <br>
+            </span>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="volume">
+        <mat-header-cell *matHeaderCellDef>Обьём</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.volume ? row.volume : 'Не указана' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="secure_transaction">
+        <mat-header-cell *matHeaderCellDef>Безопасная сделка</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.isSafe ? 'Да':'Нет'}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="offeredPrice">
+        <mat-header-cell *matHeaderCellDef>Предлагаемая стоимость</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.offeredPrice ? row.offeredPrice + ' ' + row.currency.name:'Не указана'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date_create">
+        <mat-header-cell *matHeaderCellDef>Дата создания</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.createdAt | date: 'dd.MM.YYYY'}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date_send">
+        <mat-header-cell *matHeaderCellDef>Дата погрузки</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ (row.isUrgent ? addTwoDays(row.createdAt) : row.createdAt) | date: 'dd.MM.YYYY' }}
+        </mat-cell>
+      </ng-container>
+
+     
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell class="index-column" *matHeaderCellDef></mat-header-cell>
+        <mat-cell class="index-column" *matCellDef="let row">
+          <div fxFlex="row" fxLayoutAlign="end center">
+            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #moreMenu="matMenu">
+              <button mat-menu-item color="accent" (click)="edit(row)">
+                <mat-icon>edit</mat-icon>
+                Редактировать
+              </button>
+            </mat-menu>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns; let i=index"></mat-row>
+
+    </mat-table>
+
+    <div class="w-full flex justify-center p-2 border" *ngIf="isLoading">
+      <mat-progress-spinner [diameter]="32" [mode]="'indeterminate'"></mat-progress-spinner>
+    </div>
+
+    <div class="flex justify-end">
+      <mat-paginator [showFirstLastButtons]="true" [length]="dataSource?.length"
+        [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+
+  </div>
+
+</div>

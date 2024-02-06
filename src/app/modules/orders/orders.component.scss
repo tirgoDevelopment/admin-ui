@@ -1,0 +1,68 @@
+.mdc-data-table__table {
+  border: 1px solid #E3E3E3 !important;
+}
+
+mat-header-cell {
+  padding: 16px 0;
+  border-right: 1px solid #E3E3E3;
+  border-left: 1px solid #E3E3E3;
+}
+
+mat-cell {
+  font-weight: 800;
+  padding: 16px 0;
+  border-right: 1px solid #E3E3E3;
+  border-left: 1px solid #E3E3E3;
+}
+:host ::ng-deep mat-row:hover {
+  background: #E8E8E8 !important;
+  cursor: pointer !important;
+}
+:host ::ng-deep mat-row {
+  background: #fff !important;
+}
+:host ::ng-deep mat-row:nth-child(even) {
+  background-color: #E3E3E3;
+}
+
+.status-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  width: 200px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-order-blue{
+  padding: 5px 25px;  background: #003366 !important;
+  color: white !important;
+}
+.status-order-yellow{
+  background: #F7C02B !important;
+  color: white !important;
+}
+.status-order-green{
+  background: #1da706 !important;
+  color: white !important;
+}
+.status-order-red{
+  background: #D71010 !important;
+  color: white !important;
+}
+.status-order-info{
+  background: #006400 !important;
+  color: white !important;
+}
+
+.index-column {
+  flex: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 50px !important;
+}

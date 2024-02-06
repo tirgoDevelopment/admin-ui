@@ -75,7 +75,7 @@
     "city":"Shahar",
     "rating":"Daraja",
     "citizenship":"Fuqarolik",
-    "filter":"Filtrni o'chirish",
+    "filter":"Filtr",
     "type":"Tip",
     "moderation":"Модерация",
     "geolocation":"Geolocation",
@@ -145,6 +145,12 @@
     "all":"Hammasi",
     "free":"Bo'sh",
     "pending":"Kutish jarayonida",
-    "on_order":"Buyurtma bo'yicha"
-
+    "on_order":"Buyurtma bo'yicha",
+    "theme":"Mavzu",
+    "clear":"Filtr o'chirish",
+    "merchant":"Savdogar",
+    "requests":"So'rovlar",
+    "legal_entity":"Yuridik shaxs bo'yicha qidiruv",
+    "entity":"Tashkilot",
+    "loads":"Yuklar"
 }

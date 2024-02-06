@@ -1,0 +1,98 @@
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { OrdersService } from './services/orders.service';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from 'app/core/auth/auth.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateOrderComponent } from './components/create-order/create-order.component';
+
+@Component({
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [ReactiveFormsModule, FormsModule, MatProgressSpinnerModule, DatePipe, MatPaginatorModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatRippleModule, MatMenuModule, MatTabsModule, MatButtonToggleModule, NgApexchartsModule, NgFor, NgIf, MatTableModule, NgClass],
+})
+export class OrdersComponent implements OnInit {
+  isLoading: boolean = false;
+  dataSource: any[];
+  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'actions'];
+  currentUser: any;
+  constructor(
+    private orderService: OrdersService,
+    private authService: AuthService,
+    private dialog: MatDialog
+    ) { }
+  ngOnInit(): void {
+    this.currentUser = jwtDecode(this.authService.accessToken);
+    this.getOrders();
+  }
+  getOrders() {
+    this.isLoading = true;
+    // this.orderService.getOrdersByMerchant(this.currentUser.merchantId).subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.isLoading = false;
+    //     this.dataSource = res.data;
+    //   }
+    // })
+  }
+  addTwoDays(date: Date): Date {
+    const result = new Date(date);
+    result.setDate(result.getDate() + 2);
+    return result;
+  }
+  statusOrderCheck(params) {
+    switch (params) {
+      case 0:
+        return "Ожидающий";
+      case 1:
+        return "Выполняется";
+      case 2:
+        return "Выполнен";
+      case 3:
+        return "Завершен";
+      case 4:
+        return "Отменен";
+      default:
+        return "Не определен";
+    }
+  }
+  returnClassStatusOrder(params) {
+    switch (params) {
+      case 0:
+        return "status-order-blue";
+      case 1:
+        return "status-order-yellow";
+      case 2:
+        return "status-order-green";
+      case 3:
+        return "status-order-info";
+      case 4:
+        return "status-order-red";
+      default:
+        return "status-order";
+    }
+  }
+  createOrderModal() {
+    const dialogRef = this.dialog.open(CreateOrderComponent, {
+      autoFocus: false,
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // this.verifyPhoneForm.enable();
+    });
+  }
+}

@@ -22,6 +22,7 @@ import { DriversService } from '../../services/drivers.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
+import { PasswordGenerator } from 'app/shared/functions/password-generator';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -34,6 +35,7 @@ import { SubscriptionService } from 'app/modules/main-types/subscription/service
 })
 export class AddDriverComponent {
   findList: any[] | undefined = [];
+  passwordGenerator = new PasswordGenerator();
   viewText = false;
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
@@ -47,7 +49,7 @@ export class AddDriverComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
-    citizenship: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -67,6 +69,12 @@ export class AddDriverComponent {
       });
     }
     this.getSubscription();
+  }
+
+  generate() {
+    this.form.patchValue({
+      password: this.passwordGenerator.generateRandomPassword(),
+    });
   }
 
   getSubscription() {
@@ -91,6 +99,7 @@ export class AddDriverComponent {
   submit() {
     if (this.form.value.id) {
       this._driverService.update(this.form.value).subscribe(res => {
+        console.log(res)
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -100,13 +109,14 @@ export class AddDriverComponent {
       })
     } else {
       this._driverService.create(this.form.value).subscribe(res => {
-        if (res.success) {
+        // console.log(res)
+        // if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
           this._toaster.success('Водитель успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
+        // } else {
+        //   this._toaster.error('Невозможно сохранить водитель')
+        // }
       })
     }
   }

@@ -18,6 +18,7 @@ import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { ClientDetailComponent } from './components/client-detail/client-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { SendPushComponent } from './components/send-push/send-push.component';
 
 @Component({
   selector: 'app-clients',
@@ -51,6 +52,17 @@ export class ClientsComponent implements OnInit {
     });
   }
 
+
+  
+  send() {
+    this._dialog.open(SendPushComponent, {
+      minWidth: '20vw',
+      maxWidth: '30vw',
+      minHeight: '30vh',
+      maxHeight: '50vh',
+      autoFocus: false,
+    })
+  }
 
   detail() {
     this._dialog.open(ClientDetailComponent, {

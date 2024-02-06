@@ -5,10 +5,13 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
-                    <span class="ml-2">Detail</span>
+                <button class=" sm:inline-flex ml-3 dark" mat-flat-button (click)="send()">
+                    <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
+                <button class=" sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
+                    <span>Detail</span>
+                </button>
+                <button class=" sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">Add</span>
                 </button>
@@ -41,7 +44,11 @@
                     </ng-container>
                 </mat-select>
             </mat-form-field>
-            <div class="w-50 px-1">
+            <div class="px-1">
+                <button mat-stroked-button class=" text-gray-950">
+                    {{ 'clear' | transloco }}</button>
+            </div>
+            <div class=" px-1">
                 <button mat-stroked-button class=" text-gray-950">
                     {{ 'filter' | transloco }}</button>
             </div>
@@ -109,7 +116,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
-            <app-no-data-placeholder *ngIf="!dataSource.data.length" >
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>

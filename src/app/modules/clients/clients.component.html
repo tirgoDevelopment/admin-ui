@@ -5,8 +5,11 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"clients"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
+                <button class="sm:inline-flex ml-3 dark" mat-flat-button (click)="send()">
+                    <span>{{ 'send' | transloco }}</span>
+                </button>
                 <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
-                    <span class="ml-2">Detail</span>
+                    <span>Detail</span>
                 </button>
                 <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
@@ -40,7 +43,11 @@
                     </ng-container>
                 </mat-select>
             </mat-form-field>
-            <div class="w-50 px-1">
+            <div class="px-1">
+                <button mat-stroked-button class=" text-gray-950">
+                    {{ 'clear' | transloco }}</button>
+            </div>
+            <div class=" px-1">
                 <button mat-stroked-button class=" text-gray-950">
                     {{ 'filter' | transloco }}</button>
             </div>

@@ -19,6 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { ClientService } from '../../services/client.service';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CountryService } from 'app/shared/services/country.service';
 
 @Component({
   selector: 'app-add-client',
@@ -27,10 +29,11 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgxMatSelectSearchModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddClientComponent {
   findList: any[] | undefined = [];
+  fileName: string | undefined;
   viewText = false;
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
@@ -44,9 +47,11 @@ export class AddClientComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
     citizenship: new FormControl('', [Validators.required]),
+    passport: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private countryService: CountryService,
     private _toaster: ToastrService,
     private _clientService: ClientService,
     private _dialog: MatDialog) {
@@ -59,27 +64,53 @@ export class AddClientComponent {
         role: this.data?.role,
         login: this.data?.login,
         password: this.data?.password,
+        passport: this.data?.passport,
       });
     }
   }
 
-  async findCity(ev: any) {
-    const findText = ev.target.value.toString().trim().toLowerCase();
-    if (findText.length >= 2) {
-      this.viewText = true;
-      //  this.findList = await this.authService.findCity(findText).toPromise();
-    } else {
-      this.viewText = false;
-      this.findList = [];
+  findCity(ev: any) {
+    try {
+      const findText = ev.target.value.toString().trim().toLowerCase();
+      if (findText.length >= 2) {
+        this.viewText = true;
+        this.countryService.findCity(findText).subscribe((res: any) => {
+          this.findList = res;
+        })
+      } else {
+        this.viewText = false;
+        this.findList = [];
+      }
+    } catch (error) {
+      console.error("Error fetching city data:", error);
     }
   }
+
+  onPassportSelected(event: any): void {
+    const passportInput = event.target;
+
+    if (passportInput.files && passportInput.files.length > 0) {
+      const passportFile = passportInput.files[0];
+      // const formData = new FormData();
+      const file = new File([passportFile], passportFile.name, { type: passportFile.type });
+      // formData.append('file',file, String(new Date().getTime()));
+      this.form.get('passport').setValue(file);
+      console.log(this.form.get('passport').value);
+    }
+  }
+
   get f() {
     return this.form.controls
   }
 
   submit() {
+    const formData = new FormData();
+    formData.forEach((value, key) => {
+      this.form.get(key)?.setValue(value);
+    });
+    formData.append('file', this.form.get('passport').value, String(new Date().getTime()));
     if (this.form.value.id) {
-      this._clientService.update(this.form.value).subscribe(res => {
+      this._clientService.update(formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Пользователь успешно обновлена')
@@ -88,7 +119,7 @@ export class AddClientComponent {
         }
       })
     } else {
-      this._clientService.create(this.form.value).subscribe(res => {
+      this._clientService.create(formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

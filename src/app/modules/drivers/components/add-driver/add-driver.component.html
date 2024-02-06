@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_user"|transloco}}</p>
-    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_user"|transloco}}</p>
+    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_driver"|transloco}}</p>
+    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_driver"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -10,6 +10,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'first_name' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
                         [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
@@ -17,19 +18,42 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'phone' | transloco }}*</mat-label>
                     <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
                         [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
                         name="phoneNumber" #phoneNumber>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
 
-                <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'city' | transloco }}" formControlName="citizenship"
-                        [ngClass]="{'is-invalid': f.citizenship.errors}">
-                    <mat-error *ngIf="f.citizenship.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>
-                </mat-form-field>
+                <div class="w-full flex">
+                    <mat-form-field color="accent" class="w-3/4">
+                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                        <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                            [ngClass]="{'is-invalid': f.password.errors}">
+                        <mat-error *ngIf="f.password.errors?.required">
+                            {{ 'is_empty' | transloco }}
+                        </mat-error>
+                        <mat-error *ngIf="f.password.errors?.minlength">
+                            Минимальная длина поля 6
+                        </mat-error>
+                        <mat-error *ngIf="f.password.errors?.max    length">
+                            Максимальная длина поля 10
+                        </mat-error>
+                        <mat-error *ngIf="f.password.errors?.pattern">
+                            Хотя бы одна строчная буква
+                            Не менее одной заглавной буквы
+                            Хотя бы одна цифра (число)
+                            Хотя бы один специальный символ из набора $@$!%*?&
+                            Полный пароль должен иметь длину от 6 до 10 символов
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="p-2 m-0 w-1/4">
+                        <button mat-flat-button type="button" class="fuse-mat-button mt-6 dark text-white"
+                            [color]="'warn'" (click)="generate()">
+                            {{ 'generate' | transloco }}</button>
+                    </div>
+
+                </div>
                 <!-- <mat-form-field color="accent" class="w-full">
                     <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
                        <mat-option>
@@ -43,6 +67,7 @@
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'last_name' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
                         [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
@@ -50,6 +75,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'email' | transloco }}</mat-label>
                     <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
                         [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">

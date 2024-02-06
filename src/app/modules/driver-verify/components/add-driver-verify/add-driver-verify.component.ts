@@ -33,8 +33,6 @@ import { DriverVerifyService } from '../../services/driver-verify.service';
 export class AddDriverVerifyComponent {
 
   fileName: string | undefined;
-
-
   roles = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
