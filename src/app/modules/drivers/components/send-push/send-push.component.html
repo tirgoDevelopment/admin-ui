@@ -1,6 +1,5 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_user"|transloco}}</p>
-    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_user"|transloco}}</p>
+    <p mat-dialog-title  class="font-bold text-2xl uppercase">{{"send_push"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -32,7 +31,7 @@
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
         <button
-            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button ': !form.invalid && !form.pristine}"
             mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
             {{ 'save' | transloco }}
         </button>

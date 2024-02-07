@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
+import { DriverModel } from '../../models/driver.model';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -48,8 +49,8 @@ export class AddDriverComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
+    phoneNumbers: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required,  Validators.maxLength(6)]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -59,16 +60,20 @@ export class AddDriverComponent {
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
-      this.form.patchValue({
-        id: this.data?.id,
-        full_name: this.data?.full_name,
-        phoneNumber: this.data?.phoneNumber,
-        role: this.data?.role,
-        login: this.data?.login,
-        password: this.data?.password,
-      });
+      this._driverService.get(this.data).subscribe((response: any) => {
+        console.log(response.data, 'getAll')
+        this.form.patchValue({
+          id: response.data?.id,
+          firstName: response.data?.firstName,
+          lastName: response.data?.lastName,
+          email: response.data?.email,
+          // phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,
+          password: response.data?.password,
+        });
+      })
+
     }
-    this.getSubscription();
+    // this.getSubscription();
   }
 
   generate() {
@@ -97,6 +102,10 @@ export class AddDriverComponent {
   }
 
   submit() {
+    // const formData = new FormData();
+    // formData.forEach((value, key) => {
+    //   this.form.get(key)?.setValue(value);
+    // });
     if (this.form.value.id) {
       this._driverService.update(this.form.value).subscribe(res => {
         console.log(res)
@@ -111,9 +120,9 @@ export class AddDriverComponent {
       this._driverService.create(this.form.value).subscribe(res => {
         // console.log(res)
         // if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Водитель успешно добавлена')
+        this._dialog.closeAll()
+        this.form.reset()
+        this._toaster.success('Водитель успешно добавлена')
         // } else {
         //   this._toaster.error('Невозможно сохранить водитель')
         // }

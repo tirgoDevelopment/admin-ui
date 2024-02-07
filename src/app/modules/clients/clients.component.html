@@ -5,13 +5,10 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"clients"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="sm:inline-flex ml-3 dark" mat-flat-button (click)="send()">
+                <button class="sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="detail()">
-                    <span>Detail</span>
-                </button>
-                <button class="hidden sm:inline-flex ml-3 dark" mat-flat-button (click)="add()">
+                <button class="hidden sm:inline-flex ml-3 "  [color]="'primary'"  mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">Add</span>
                 </button>
@@ -57,23 +54,27 @@
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.firstName}}  {{ row?.lastName}}  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.phone}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span *ngFor="let phoneNumber of row.phoneNumbers">
+                            {{phoneNumber?.phoneNumber}}
+                        </span>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="city">
-                    <mat-header-cell *matHeaderCellDef> {{"city"|transloco}}
+                    <mat-header-cell *matHeaderCellDef> {{"citizenship"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.citizenship}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
@@ -82,10 +83,10 @@
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="rating">
-                    <mat-header-cell *matHeaderCellDef> {{"rating"|transloco}}
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.rating}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.active}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
@@ -101,6 +102,10 @@
                                 <button mat-menu-item color="accent" (click)="edit(row)">
                                     <mat-icon>edit</mat-icon>
                                     {{"edit"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" (click)="detail(row.id)">
+                                    <mat-icon>eyes</mat-icon>
+                                    {{"detail"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>

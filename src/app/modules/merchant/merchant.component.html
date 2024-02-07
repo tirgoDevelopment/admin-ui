@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"merchant"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class=" sm:inline-flex ml-3 dark" mat-flat-button (click)="requests()">
+                <button class=" sm:inline-flex ml-3 " [color]="'primary'"  mat-flat-button (click)="requests()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">requests</span>
                 </button>
@@ -32,11 +32,11 @@
                 </mat-select>
             </mat-form-field>
             <div class="px-1">
-                <button mat-stroked-button class=" text-gray-950">
+                <button mat-stroked-button [color]="'primary'" class=" text-gray-950">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-stroked-button class=" text-gray-950">
+                <button mat-stroked-button  [color]="'primary'" class=" text-gray-950">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>

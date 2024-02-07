@@ -4,6 +4,7 @@ import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { ClientModel } from '../models/client.model';
 import { createHttpParams } from 'app/core/functions/http-param';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +14,24 @@ export class ClientService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<ClientModel>> {
-    return this._apiService.get<ClientModel>(`/clients/${id}`);
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.get<ClientModel>(`/users/clients/id`, queryParams);
   }
 
   getAll(params?): Observable<Response<ClientModel[]>> {
-    return this._apiService.get<ClientModel[]>('/clients/all', createHttpParams(params));
+    return this._apiService.get<ClientModel[]>('/users/clients/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<ClientModel>> {
-		return this._apiService.post<ClientModel>('/clients', body);
+		return this._apiService.post<ClientModel>('/users/clients/register', body);
 	}
 
   update(body): Observable<Response<ClientModel>> {
-    return this._apiService.put<ClientModel>('/clients', body);
+    return this._apiService.put<ClientModel>('/users/clients', body);
   }
 
   delete(id: number): Observable<Response<ClientModel>> {
-    return this._apiService.delete<ClientModel>(`/clients/${id}`);;
+    return this._apiService.delete<ClientModel>(`/users/clients/${id}`);;
   }
 }

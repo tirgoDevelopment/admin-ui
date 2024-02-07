@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,23 +27,20 @@ import { SendPushComponent } from './components/send-push/send-push.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, NoDataPlaceholderComponent,  MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, DatePipe, NoDataPlaceholderComponent,  MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent  {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'rating', 'actions'];
+  displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
     private _clientService: ClientService, protected _dialog?: MatDialog) {
+      this.getAllClient();
   }
 
-
-  ngOnInit() {
-    this.getAllClient();
-  }
 
   getAllClient() {
     this._clientService.getAll().subscribe((response) => {
@@ -56,19 +53,20 @@ export class ClientsComponent implements OnInit {
   
   send() {
     this._dialog.open(SendPushComponent, {
-      minWidth: '20vw',
-      maxWidth: '30vw',
-      minHeight: '30vh',
-      maxHeight: '50vh',
+      minWidth: '25vw',
+      maxWidth: '35vw',
+      minHeight: '35vh',
+      maxHeight: '60vh',
       autoFocus: false,
     })
   }
 
-  detail() {
+  detail(id:number) {
     this._dialog.open(ClientDetailComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
+      data: id,
       position: {
         top: '0',
         right: '0',
@@ -91,7 +89,7 @@ export class ClientsComponent implements OnInit {
       minWidth: '40vw',
       maxWidth: '50vw',
       minHeight: '42vh',
-      maxHeight: '80vh',
+      maxHeight: '85vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -105,7 +103,7 @@ export class ClientsComponent implements OnInit {
       minWidth: '40vw',
       maxWidth: '50vw',
       minHeight: '42vh',
-      maxHeight: '80vh',
+      maxHeight: '85vh',
       autoFocus: false,
       data: row,
     });

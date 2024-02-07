@@ -21,7 +21,7 @@ import { ClientService } from '../../services/client.service';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CountryService } from 'app/shared/services/country.service';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
@@ -29,10 +29,11 @@ import { CountryService } from 'app/shared/services/country.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgxMatSelectSearchModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgxMatSelectSearchModule, MatToolbarModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddClientComponent {
   findList: any[] | undefined = [];
+  file: File | null = null;
   fileName: string | undefined;
   viewText = false;
   public citiesSelected: FormControl = new FormControl();
@@ -47,6 +48,7 @@ export class AddClientComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
     citizenship: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6)]),
     passport: new FormControl(''),
   })
   constructor(
@@ -57,15 +59,19 @@ export class AddClientComponent {
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
-      this.form.patchValue({
-        id: this.data?.id,
-        full_name: this.data?.full_name,
-        phoneNumber: this.data?.phoneNumber,
-        role: this.data?.role,
-        login: this.data?.login,
-        password: this.data?.password,
-        passport: this.data?.passport,
-      });
+      this._clientService.get(this.data.id).subscribe((res: any) => {
+        this.form.patchValue({
+          id: res.data?.id,
+          firstName: res.data?.firstName,
+          lastName: res.data?.lastName,
+          phoneNumber: res.data?.phoneNumbers[0].phoneNumber,
+          email: res.data?.email,
+          citizenship: res.data?.citizenship,
+          passport: res.data?.passport,
+          password: res.data?.password,
+        });
+      })
+
     }
   }
 
@@ -91,7 +97,12 @@ export class AddClientComponent {
 
     if (passportInput.files && passportInput.files.length > 0) {
       const passportFile = passportInput.files[0];
+      const files: File = event.target.files[0];
+      if (files) {
+        this.file = files;
+      }
       // const formData = new FormData();
+      this.fileName = passportFile.name;
       const file = new File([passportFile], passportFile.name, { type: passportFile.type });
       // formData.append('file',file, String(new Date().getTime()));
       this.form.get('passport').setValue(file);
@@ -104,28 +115,42 @@ export class AddClientComponent {
   }
 
   submit() {
-    const formData = new FormData();
-    formData.forEach((value, key) => {
-      this.form.get(key)?.setValue(value);
-    });
-    formData.append('file', this.form.get('passport').value, String(new Date().getTime()));
     if (this.form.value.id) {
-      this._clientService.update(formData).subscribe(res => {
+      this._clientService.update(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Пользователь успешно обновлена')
         } else {
           this._toaster.error('Невозможно сохранить пользователь')
+          // this.form.patchValue({
+          //   phoneNumbers: [
+          //     ...this.form.get('phoneNumbers').value
+          //   ]
+          // })
         }
       })
     } else {
+      const formData = new FormData();
+      formData.append('password', this.form.get('password').value);
+      formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
+      formData.append('id', this.form.get('id').value);
+      formData.append('firstName', this.form.get('firstName').value);
+      formData.append('lastName', this.form.get('lastName').value);
+      formData.append('phoneNumber', this.form.get('phoneNumber').value);
+      formData.append('email', this.form.get('email').value);
+      formData.append('citizenship', this.form.get('citizenship').value);
       this._clientService.create(formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
           this._toaster.success('Пользователь успешно добавлена')
         } else {
-          this._toaster.error('Невозможно сохранить пользователь')
+          this._toaster.error('Невозможно сохранить пользователь');
+          // this.form.patchValue({
+          //   phoneNumbers: [
+          //     ...this.form.get('phoneNumbers').value
+          //   ]
+          // })
         }
       })
     }

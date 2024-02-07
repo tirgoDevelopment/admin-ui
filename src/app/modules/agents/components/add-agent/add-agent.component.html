@@ -38,7 +38,7 @@
                         </mat-error>
                     </mat-form-field>
                     <div class="p-2 m-0 w-1/4">
-                        <button mat-flat-button type="button" class="fuse-mat-button dark text-white"
+                        <button mat-flat-button type="button" class="fuse-mat-button  text-white"
                             [color]="'warn'" (click)="generate()">
                             {{ 'generate' | transloco }}</button>
                     </div>
@@ -69,7 +69,7 @@
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
         <button
-            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button ': !form.invalid && !form.pristine}"
             mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
             {{ 'save' | transloco }}
         </button>

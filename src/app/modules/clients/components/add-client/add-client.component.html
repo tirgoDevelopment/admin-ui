@@ -33,6 +33,19 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
+                <div class="w-full flex">
+                    <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                        <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                            [ngClass]="{'is-invalid': f.password.errors}">
+                        <mat-error *ngIf="f.password.errors?.required">
+                            {{ 'is_empty' | transloco }}
+                        </mat-error>
+                        <mat-error *ngIf="f.password.errors?.maxlength">
+                            Максимальная длина поля 6
+                        </mat-error>
+                    </mat-form-field>
+                </div>
                 <!-- <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
                     <input type="text" matInput [matAutocomplete]="auto" placeholder="{{ 'city' | transloco }}"
                         (input)="findCity($event)" formControlName="citizenship"> -->
@@ -77,13 +90,20 @@
                         {{ 'is_email' | transloco }}
                     </mat-error>
                 </mat-form-field>
+                
+                <!-- <mat-form-field class="example-full-width">
+                    <mat-label>Upload File</mat-label>
+                    <input matInput [placeholder]="'No file chosen'" [value]="file?.name">
+                    <mat-icon matSuffix>attach_file</mat-icon>
+                    <input type="file" (change)="onPassportSelected($event)" hidden>
+                </mat-form-field> -->
                 <div>
                     <p class="text-xl mb-1">Фото паспорта </p>
                     <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">
                         <label for="passport" class="cursor-pointer flex justify-center">
                             <img src="assets/images/icons/file.svg" alt="Upload Icon" class="mr-2 h-8 w-8">
                         </label>
-                        <input type="file" class="hidden" id="passport"   (change)="onPassportSelected($event)" />
+                        <input type="file" class="hidden" id="passport" (change)="onPassportSelected($event)" />
                         <span *ngIf="fileName" class="mt-2 m-2">Uploaded: {{ fileName }}</span>
                     </div>
                 </div>

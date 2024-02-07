@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,12 +26,12 @@ import { SendPushComponent } from './components/send-push/send-push.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule,DatePipe,  MatIconModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
-  displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'rating', 'actions'];
+  displayedColumns: string[] = ['full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<DriverModel>([]);
@@ -62,11 +62,12 @@ export class DriversComponent implements OnInit {
     })
   }
 
-  detail() {
+  detail(id: number) {
     this._dialog.open(DetailDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
+      data: id,
       position: {
         top: '0',
         right: '0',
@@ -90,14 +91,14 @@ export class DriversComponent implements OnInit {
       })
   }
 
-  edit(row: any[]) {
+  edit(id: number) {
     const dialogRef = this._dialog.open(AddDriverComponent, {
       minWidth: '40vw',
       maxWidth: '50vw',
       minHeight: '42vh',
       maxHeight: '80vh',
       autoFocus: false,
-      data: row,
+      data: id,
     });
     dialogRef.afterClosed()
       .subscribe(() => {
