@@ -23,12 +23,28 @@ export class ClientService {
     return this._apiService.get<ClientModel[]>('/users/clients/all', createHttpParams(params));
   }
 
+  getNonActive(params?): Observable<Response<ClientModel[]>> {
+    return this._apiService.get<ClientModel[]>('/users/clients/non-active', createHttpParams(params));
+  }
+
+  getActive(params?): Observable<Response<ClientModel[]>> {
+    return this._apiService.get<ClientModel[]>('/users/clients/active', createHttpParams(params));
+  }
+
   create(body): Observable<Response<ClientModel>> {
-		return this._apiService.post<ClientModel>('/users/clients/register', body);
-	}
+    return this._apiService.post<ClientModel>('/users/clients/register', body);
+  }
 
   update(body): Observable<Response<ClientModel>> {
     return this._apiService.put<ClientModel>('/users/clients', body);
+  }
+
+  block(queryParams): Observable<Response<ClientModel>> {
+    return this._apiService.patch<ClientModel>(`/users/clients/block`, {}, queryParams);
+  }
+
+  active(queryParams): Observable<Response<ClientModel>> {
+    return this._apiService.patch<ClientModel>(`/users/clients/active`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<ClientModel>> {

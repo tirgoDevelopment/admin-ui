@@ -152,5 +152,10 @@
     "requests":"So'rovlar",
     "legal_entity":"Yuridik shaxs bo'yicha qidiruv",
     "entity":"Tashkilot",
-    "loads":"Yuklar"
+    "loads":"Yuklar",
+    "add_transport_driver":"Haydovchiga transport qo'shing",
+    "edit_transport_driver":"Haydovchiga transportni tahrirlash",
+    "driver_lisense":"Haydovchilik guvohnomasi",
+    "registration_certificate":"Ro'yxatdan o'tish guvohnomasi",
+    "isAdr":"Adr"
 }

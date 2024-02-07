@@ -33,9 +33,9 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
-                <div class="w-full flex">
+                <div class="w-full flex" *ngIf="!edit">
                     <mat-form-field color="accent" class="w-full">
-                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                        <mat-label>{{ 'password' | transloco }}</mat-label>
                         <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
                             [ngClass]="{'is-invalid': f.password.errors}">
                         <mat-error *ngIf="f.password.errors?.required">
@@ -90,14 +90,27 @@
                         {{ 'is_email' | transloco }}
                     </mat-error>
                 </mat-form-field>
-                
+
                 <!-- <mat-form-field class="example-full-width">
                     <mat-label>Upload File</mat-label>
                     <input matInput [placeholder]="'No file chosen'" [value]="file?.name">
                     <mat-icon matSuffix>attach_file</mat-icon>
                     <input type="file" (change)="onPassportSelected($event)" hidden>
                 </mat-form-field> -->
-                <div>
+
+                <mat-form-field class="flex items-center" *ngIf="!edit">
+                    <mat-label>{{ 'driver_lisense' | transloco }}</mat-label>
+                    <input matInput placeholder="Upload" class="mr-2"  [value]="form.get('passport').value?.name || ''">
+                    <label  class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                      <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                      <input type="file" (change)="onPassportSelected($event)"  [ngClass]="{'is-invalid': f.passport.errors}" formControlName="passport" id="fileInput" style="display: none;">
+                    </label>
+
+                    <mat-error *ngIf="f.passport.errors?.required">
+                        {{ 'is_empty' | transloco }}
+                    </mat-error>
+                  </mat-form-field>
+                <!-- <div *ngIf="!edit">
                     <p class="text-xl mb-1">Фото паспорта </p>
                     <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">
                         <label for="passport" class="cursor-pointer flex justify-center">
@@ -106,7 +119,7 @@
                         <input type="file" class="hidden" id="passport" (change)="onPassportSelected($event)" />
                         <span *ngIf="fileName" class="mt-2 m-2">Uploaded: {{ fileName }}</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </form>

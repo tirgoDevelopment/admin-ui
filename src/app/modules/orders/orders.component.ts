@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -38,16 +38,23 @@ export class OrdersComponent implements OnInit {
     ) { }
   ngOnInit(): void {
     this.currentUser = jwtDecode(this.authService.accessToken);
+    console.log(this.currentUser);
+    
     this.getOrders();
   }
   getOrders() {
     this.isLoading = true;
     // this.orderService.getOrdersByMerchant(this.currentUser.merchantId).subscribe((res: any) => {
-    //   if (res.success) {
+    //   if (res?.success) {
     //     this.isLoading = false;
     //     this.dataSource = res.data;
     //   }
+    //   else {
+    //     this.isLoading = false;
+    //     this.dataSource = [];
+    //   }
     // })
+    this.isLoading = false;
   }
   addTwoDays(date: Date): Date {
     const result = new Date(date);
@@ -92,6 +99,7 @@ export class OrdersComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getOrders();
       // this.verifyPhoneForm.enable();
     });
   }

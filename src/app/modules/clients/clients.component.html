@@ -8,7 +8,7 @@
                 <button class="sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 "  [color]="'primary'"  mat-flat-button (click)="add()">
+                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">Add</span>
                 </button>
@@ -54,12 +54,12 @@
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.firstName}}  {{ row?.lastName}}  </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.firstName}} {{ row?.lastName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> 
+                    <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
                         </span>
@@ -86,7 +86,14 @@
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.active}} </mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button *ngIf="row?.active"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
+                        <button *ngIf="!row?.active"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
@@ -104,13 +111,13 @@
                                     {{"edit"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="detail(row.id)">
-                                    <mat-icon>eyes</mat-icon>
+                                    <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                <!-- <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
                                     {{"remove"|transloco}}
-                                </button>
+                                </button> -->
                             </mat-menu>
                         </div>
                     </mat-cell>
@@ -121,7 +128,7 @@
                 </mat-row>
 
             </mat-table>
-            <app-no-data-placeholder *ngIf="!dataSource.data.length" >
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>

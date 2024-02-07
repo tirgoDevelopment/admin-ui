@@ -27,9 +27,9 @@ import { SendPushComponent } from './components/send-push/send-push.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, DatePipe, NoDataPlaceholderComponent,  MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, NgIf, DatePipe, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
-export class ClientsComponent  {
+export class ClientsComponent {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
   displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
@@ -38,7 +38,7 @@ export class ClientsComponent  {
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
     private _clientService: ClientService, protected _dialog?: MatDialog) {
-      this.getAllClient();
+    this.getAllClient();
   }
 
 
@@ -50,7 +50,7 @@ export class ClientsComponent  {
   }
 
 
-  
+
   send() {
     this._dialog.open(SendPushComponent, {
       minWidth: '25vw',
@@ -61,7 +61,7 @@ export class ClientsComponent  {
     })
   }
 
-  detail(id:number) {
+  detail(id: number) {
     this._dialog.open(ClientDetailComponent, {
       width: '500px',
       height: '100vh',

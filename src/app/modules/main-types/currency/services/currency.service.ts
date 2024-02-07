@@ -13,22 +13,22 @@ export class CurrencyService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<CurrencyModel>> {
-    return this._apiService.get<CurrencyModel>(`/currencies/${id}`);
+    return this._apiService.get<CurrencyModel>(`/references/currencies/${id}`);
   }
 
   getAll(params?): Observable<Response<CurrencyModel[]>> {
-    return this._apiService.get<CurrencyModel[]>('/currencies/all', createHttpParams(params));
+    return this._apiService.get<CurrencyModel[]>('/references/currencies/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<CurrencyModel>> {
-		return this._apiService.post<CurrencyModel>('/currencies', body);
+		return this._apiService.post<CurrencyModel>('/references/currencies', body);
 	}
 
   update(body): Observable<Response<CurrencyModel>> {
-    return this._apiService.put<CurrencyModel>('/currencies', body);
+    return this._apiService.put<CurrencyModel>('/references/currencies', body);
   }
 
   delete(id: number): Observable<Response<CurrencyModel>> {
-    return this._apiService.delete<CurrencyModel>(`/currencies/${id}`);;
+    return this._apiService.delete<CurrencyModel>(`/references/currencies/${id}`);;
   }
 }

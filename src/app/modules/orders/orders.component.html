@@ -15,7 +15,7 @@
   </div>
 
   <div>
-    <mat-table matSort [dataSource]="dataSource">
+    <mat-table matSort [dataSource]="dataSource" class="table">
       <ng-container matColumnDef="index">
         <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef> No </mat-header-cell>
         <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
@@ -116,6 +116,10 @@
       <mat-row *matRowDef="let row; columns: displayedColumns; let i=index"></mat-row>
 
     </mat-table>
+
+    <div class="w-full flex justify-center p-2 border" *ngIf="!isLoading && !dataSource?.length">
+      Данные отсутствуют в таблице
+    </div>
 
     <div class="w-full flex justify-center p-2 border" *ngIf="isLoading">
       <mat-progress-spinner [diameter]="32" [mode]="'indeterminate'"></mat-progress-spinner>

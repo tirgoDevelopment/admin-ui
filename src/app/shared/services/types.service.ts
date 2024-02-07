@@ -9,10 +9,22 @@ export class TypesService {
   constructor(private http: HttpClient) { }
 
   getTransportTypes() {
-    return this.http.get(env.adminUrl + '/transport-types');
+    return this.http.get(env.references + '/references/transport-types/all');
+  }
+  getTransportKinds() {
+    return this.http.get(env.references + '/references/transport-kinds/all');
   }
   getCargoTypes() {
-    return this.http.get(env.adminUrl + '/cargo-type-groups');
+    return this.http.get(env.references + '/references/cargo-type-groups/all');
+  }
+  getCurrencies() {
+    return this.http.get(env.references + '/references/currencies/all');
+  }
+  getPackages() {
+    return this.http.get(env.references + '/references/cargo-packages/all');
+  }
+  getCargoLoadingMethod() {
+    return this.http.get(env.references + '/references/cargo-loading-method/all');
   }
 
 }

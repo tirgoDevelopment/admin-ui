@@ -16,6 +16,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DriversService } from '../../services/drivers.service';
+import { DriverModel } from '../../models/driver.model';
 
 @Component({
   selector: 'app-detail-driver',
@@ -23,16 +24,17 @@ import { DriversService } from '../../services/drivers.service';
   styleUrls: ['./detail-driver.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule,  NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class DetailDriverComponent implements OnInit {
+  driver: DriverModel;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService) {
-    // this.getDriver(data.id);
+    this.getDriver(data);
   }
   getDriver(id: any) {
     this._driverService.get(id).subscribe((response) => {
-      console.log(response);
+      this.driver = response.data
     });
   }
   ngOnInit(): void {

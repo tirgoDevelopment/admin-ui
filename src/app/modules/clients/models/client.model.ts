@@ -7,4 +7,5 @@ export interface ClientModel extends BaseModel {
     phoneNumber?: string;
     email?: string;
     citizenship?: string;
+    phoneNumbers:[];
 }

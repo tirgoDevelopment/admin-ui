@@ -90,7 +90,15 @@
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.status}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        
+                        <button *ngIf="row?.active"
+                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
+                    </button>
+                    <button *ngIf="!row?.active"
+                        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                    </button>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="subscription">
@@ -112,7 +120,12 @@
                                     <mat-icon>edit</mat-icon>
                                     {{"edit"|transloco}}
                                 </button>
+                                <button mat-menu-item color="accent" (click)="transport(row.id)">
+                                    <mat-icon>directions_car</mat-icon>
+                                    {{"transport"|transloco}}
+                                </button>
                                 <button mat-menu-item color="accent" (click)="detail(row.id)">
+                                    <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">

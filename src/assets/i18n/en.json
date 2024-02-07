@@ -7,7 +7,7 @@
     "archived_users": "Archived users",
     "orders": "Orders",
     "tracking": "Tracking",
-    "directories": "Directories",
+    "directories": "References",
     "user_roles": "User Roles",
     "subscription_types": "Subscription Types",
     "transport": "Transport",
@@ -152,6 +152,10 @@
     "requests":"Requests",
     "legal_entity":"Search by Legal entity",
     "entity":"Entity",
-    "loads":"Loads"
-    
+    "loads":"Loads",
+    "add_transport_driver":"Add transport to driver",
+    "edit_transport_driver":"Edit transport to driver",
+    "driver_lisense":"Driver license",
+    "registration_certificate":"Registration certificate",
+    "isAdr":"Adr"
 }

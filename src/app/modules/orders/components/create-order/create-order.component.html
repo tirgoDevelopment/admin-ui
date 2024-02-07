@@ -15,10 +15,20 @@
 
 <div class="font-bold text-3xl flex justify-center">РАЗМЕЩЕНИЕ ГРУЗА</div>
 
-<mat-dialog-content class="mat-typography m-auto px-3">
+<mat-dialog-content class="mat-typography m-auto">
   <form class="flex w-full gap-2" [formGroup]="form" class="mt-8 w-full">
     <!-- STEP 1 -->
     <div *ngIf="currentStep == 1">
+      <!-- Дата погрузки -->
+      <div class="grid sm:grid-cols-1 gap-4">
+        <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+          <mat-label>Дата погрузки</mat-label>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <input matInput [matDatepicker]="picker" readonly formControlName="sendDate">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- Место отправки груза - Место доставки груза -->
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>Место отправки груза</mat-label>
@@ -36,8 +46,6 @@
           </mat-autocomplete>
           <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
         </mat-form-field>
-
-
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>Место доставки груза</mat-label>
           <input type="text" matInput [matAutocomplete]="auto" (input)="findCity($event)"
@@ -56,33 +64,54 @@
         </mat-form-field>
       </div>
 
+      <!-- Добавить остановку -->
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-        <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>Дата отправки груза</mat-label>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <input matInput [matDatepicker]="picker" readonly>
-          <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field>
+          <mat-label>Добавить остановку</mat-label>
+          <mat-select multiple formControlName="selectedLocations">
+            <mat-option value="customsPlaceLocation">Место затаможки</mat-option>
+            <mat-option value="customsClearancePlaceLocation">Место растаможки</mat-option>
+            <mat-option value="additionalLoadingLocation">Дополнительное место погрузки</mat-option>
+            <mat-option value="additionalDeliveryLocation">Дополнительное место выгрузки</mat-option>
+          </mat-select>
         </mat-form-field>
-
-        <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>Дата отправки груза</mat-label>
-          <input matInput type="time">
-          <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:clock'"></mat-icon>
-        </mat-form-field>
-
       </div>
-      <mat-label>Срочность заказа</mat-label>
+
+      <div class="grid grid-cols-2">
+        <div class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full"
+          *ngFor="let location of form.get('selectedLocations').value">
+          <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+            <mat-label>{{ getDynamicLabel(location) }}</mat-label>
+            <input type="text" matInput [matAutocomplete]="auto" (input)="findCity($event)"
+              [formControlName]="location">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <ng-container *ngFor="let city of findList">
+                <mat-option
+                  [value]="city.data.city + ', ' + city.data.country + ':' + city.data.geo_lat + ':' + city.data.geo_lon">
+                  {{city.data.city}}
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-label class="text-[#1e293b] font-medium dark:text-white">Срочность заказа</mat-label>
       <div class="flex gap-4">
         <mat-checkbox formControlName="isUrgent">Срочный</mat-checkbox>
         <mat-checkbox formControlName="isTwoDays">+2 дня</mat-checkbox>
       </div>
       <hr>
-      <mat-checkbox formControlName="adr">ADR (перевозка опасных грузов)</mat-checkbox>
+      <div class="flex flex-col">
+        <mat-checkbox formControlName="isAdr">ADR (перевозка опасных грузов)</mat-checkbox>
+        <mat-checkbox formControlName="isCarnetTir">Carnet TIR</mat-checkbox>
+        <mat-checkbox formControlName="isGlonas">ГЛОНАСС</mat-checkbox>
+        <mat-checkbox formControlName="isParanom">Паромом</mat-checkbox>
+      </div>
     </div>
-    <!-- STEP 1 -->
     <!-- STEP 2 -->
     <div *ngIf="currentStep == 2">
-      <div class="flex gap-4">
+      <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
           <mat-label>Предлагаемая цена</mat-label>
           <input type="number" matInput formControlName="offeredPrice">
@@ -90,7 +119,7 @@
             <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-  
+
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
           <mat-label>Аванс</mat-label>
           <input type="number" matInput formControlName="inAdvancePrice">
@@ -98,32 +127,104 @@
             <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div> 
+      </div>
 
-      <div class="flex gap-4">
-        <mat-checkbox formControlName="isCashlessPayment">Безналичная оплата</mat-checkbox>
+      <div class="flex gap-2">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Способ оплаты</mat-label>
+          <mat-select formControlName="paymentMethod">
+            <mat-option value="cash">Наличи</mat-option>
+            <mat-option value="cashless">Безналичные</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox class="flex-auto md:w-72 sm:w-full" formControlName="isSafeTransaction">Безопасная
+          сделка</mat-checkbox>
       </div>
     </div>
-    <!-- STEP 2 -->
     <!-- STEP 3 -->
     <div *ngIf="currentStep == 3">
-      <div class="flex  gap-2">
+      <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Тип груза</mat-label>
-          <mat-select [value]="'EU'">
-            <mat-option [value]="'EU'">EU</mat-option>
-            <mat-option [value]="'US'">US</mat-option>
+          <mat-label>Тип транспорта</mat-label>
+          <mat-select formControlName="transportTypeIds" multiple>
+            <mat-option *ngFor="let item of transportTypes" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Вес груза</mat-label>
+          <mat-label>Вид транспорта</mat-label>
+          <mat-select formControlName="transportKindIds" multiple>
+            <mat-option *ngFor="let item of transportKinds" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex gap-2" *ngIf="isAutotransport">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Количество автовоз</mat-label>
+          <input type="number" matInput formControlName="refrigeratorCount">
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="isRefrigerator">
+        <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">Режим</mat-checkbox>
+        <mat-checkbox formControlName="isHook">Крюк</mat-checkbox>
+      </div>
+
+      <div class="flex gap-2" *ngIf="isRefrigeratorMode">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Режим от (°С)</mat-label>
+          <input type="number" matInput formControlName="refrigeratorFrom">
+        </mat-form-field>
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Режим до (°С)</mat-label>
+          <input type="number" matInput formControlName="refrigeratorTo">
+        </mat-form-field>
+      </div>
+
+      <div class="flex gap-2" *ngIf="isCistern">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Объем(л)</mat-label>
+          <input type="number" matInput formControlName="cisternVolume">
+        </mat-form-field>
+      </div>
+
+      <div class="flex gap-2" *ngIf="isContainer">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Объем(ф)</mat-label>
+          <mat-select [value]="'EU'" formControlName="containerVolume">
+            <mat-option [value]="'20'">20</mat-option>
+            <mat-option [value]="'40'">40</mat-option>
+            <mat-option [value]="'60'">60</mat-option>
+            <mat-option [value]="'high'">Высокий куб</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="flex gap-2">
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Тип груза</mat-label>
+          <mat-select formControlName="cargoTypeId">
+            <mat-optgroup *ngFor="let group of cargoTypes;trackBy:group" [label]="group.name">
+              <mat-option *ngFor="let item of group.cargoTypes" [value]="item.id">{{item.name}}</mat-option>
+            </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Вес груза(брутто)</mat-label>
           <input type="number" matInput formControlName="cargoWeight">
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Кубатура</mat-label>
+          <input type="number" matInput formControlName="cubature">
         </mat-form-field>
       </div>
 
       <div class="flex-auto">
-        <mat-label>Габариты груза</mat-label>
+        <div class="text-[#1e293b] font-medium dark:text-white">Габариты груза</div>
         <div class="flex items-baseline gap-2">
           <mat-form-field class="flex-auto">
             <input type="number" matInput formControlName="cargoLength" placeholder="Длина">
@@ -137,24 +238,22 @@
         </div>
       </div>
 
-      <div class="flex-auto items-center">
+      <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Тип транспорта</mat-label>
-          <mat-select [value]="'EU'">
-            <mat-option [value]="'EU'">EU</mat-option>
-            <mat-option [value]="'US'">US</mat-option>
+          <mat-label>Способ погрузки</mat-label>
+          <mat-select formControlName="loadingMethodId">
+            <mat-option *ngFor="let item of cargoLoadingMethods" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto md:w-72 sm:w-full">
+          <mat-label>Упаковка</mat-label>
+          <mat-select formControlName="cargoPackageId">
+            <mat-option *ngFor="let item of packagesTypes" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
-      <mat-form-field class="flex-auto w-full">
-        <mat-label>Комментарий</mat-label>
-        <textarea matInput></textarea>
-      </mat-form-field>
-      <mat-checkbox formControlName="secure_transaction">Безопасная сделка</mat-checkbox>
     </div>
-    <!-- STEP 3 -->
-
   </form>
 </mat-dialog-content>
 
@@ -164,8 +263,8 @@
     <span *ngIf="!loading">Продолжить</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>
-  <button *ngIf="currentStep == 3" (click)="createOrder()" [disabled]="loading" class="fuse-mat-button-large dark w-full mt-6" mat-flat-button
-    [color]="'primary'">
+  <button *ngIf="currentStep == 3" (click)="createOrder()" [disabled]="loading"
+    class="fuse-mat-button-large dark w-full mt-6" mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Создать</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>

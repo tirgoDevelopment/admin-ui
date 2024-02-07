@@ -152,5 +152,10 @@
     "requests":"Запросы ",
     "legal_entity":"Поиск по юридическому лицу",
     "entity":"Юр.лицо",
-    "loads":"Грузы"
+    "loads":"Грузы",
+    "add_transport_driver":"Добавить транспорт водителю",
+    "edit_transport_driver":"Изменить транспорт для водителя",
+    "driver_lisense":"Водительские права",
+    "registration_certificate":"Техпаспорт",
+    "isAdr":"Адр"
 }

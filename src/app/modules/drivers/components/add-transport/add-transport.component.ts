@@ -23,58 +23,128 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
+import { TypesService } from 'app/shared/services/types.service';
+import { forkJoin } from 'rxjs';
+
 @Component({
-  selector: 'app-add-driver',
-  templateUrl: './add-driver.component.html',
-  styleUrls: ['./add-driver.component.scss'],
+  selector: 'app-add-transport',
+  templateUrl: './add-transport.component.html',
+  styleUrls: ['./add-transport.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, NgFor, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
-export class AddDriverComponent {
+export class AddTransportComponent {
   findList: any[] | undefined = [];
+  selectedFileName: string = '';
   passwordGenerator = new PasswordGenerator();
   viewText = false;
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
-
+  currencies: any;
+  cargoTypes: any;
+  transportKinds: any;
+  transportTypes: any;
+  packagesTypes: any;
+  cargoLoadingMethods: any;
+  isAutotransport: any;
+  isRefrigerator: any;
+  isRefrigeratorMode: boolean = false;
+  isCistern: any;
+  isContainer: any;
   roles = [];
   subscription = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required,  Validators.maxLength(6)]),
+    driverId: new FormControl(''),
+    driver_lisense: new FormControl('', [Validators.required]),
+    passport: new FormControl('', [Validators.required]),
+    registration_certificate: new FormControl('', [Validators.required]),
+    transportKindIds: new FormControl('', [Validators.required]),
+    transportTypeIds: new FormControl('', [Validators.required]),
+    refrigeratorFrom: new FormControl(''),
+    refrigeratorTo: new FormControl(''),
+    refrigeratorCount: new FormControl(''),
+    isHook: new FormControl(''),
+    cargoTypeId: new FormControl('', [Validators.required]),
+    cargoWeight: new FormControl('', [Validators.required]),
+    cargoLength: new FormControl(''),
+    cargoWidth: new FormControl(''),
+    cargoHeight: new FormControl(''),
+    cubature: new FormControl(''),
+    cargoPackageId: new FormControl(''),
+    loadingMethodId: new FormControl(''),
+    isAdr: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _typesService: TypesService,
     private _subscriptionService: SubscriptionService,
     private _dialog: MatDialog) {
-    if (this.data) {
-      this.edit = true;
-      this._driverService.get(this.data).subscribe((response) => {
-        console.log(response);
+    this.form.patchValue({
+      driverId: data
+    })
+    this.changeValue();
+    forkJoin({
+      currencies: this._typesService.getCurrencies(),
+      cargoTypes: this._typesService.getCargoTypes(),
+      transportTypes: this._typesService.getTransportTypes(),
+      packagesTypes: this._typesService.getPackages(),
+      cargoLoadingMethods: this._typesService.getCargoLoadingMethod(),
+      transportKinds: this._typesService.getTransportKinds(),
+    }).subscribe({
+      next: (results: any) => {
+        this.currencies = results.currencies.data;
+        this.cargoTypes = results.cargoTypes.data;
+        this.transportTypes = results.transportTypes.data;
+        this.packagesTypes = results.packagesTypes.data;
+        this.cargoLoadingMethods = results.cargoLoadingMethods.data;
+        this.transportKinds = results.transportKinds.data;
         this.form.patchValue({
-          id: response.data?.id,
-          firstName: response.data?.firstName,
-          lastName: response.data?.lastName,
-          email: response.data?.email,
-          // phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,s
-          password: response.data?.password,
+          offeredPriceCurrencyId: this.currencies[0].id,
+          inAdvancePriceCurrencyId: this.currencies[0].id
         });
-      })
-
-    }
-    // this.getSubscription();
+      },
+      error: (error: any) => {
+        console.error('Error fetching currencies and cargo types:', error);
+      }
+    });
   }
 
+
+
+  changeValue() {
+    this.form.get('transportKindIds').valueChanges.subscribe((values) => {
+      this.isAutotransport = values.includes('Автовоз');
+      this.isRefrigerator = values.includes('Рефрежатор');
+      this.isCistern = values.includes('Цистерна');
+      this.isContainer = values.includes('Контейнеровоз');
+    });
+  }
+
+  onFileSelected(event: any, type: string): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      if (type === 'driver_lisense') {
+        this.form.patchValue({
+          driver_lisense: file
+        });
+      } else if (type === 'passport') {
+        this.form.patchValue({
+          passport: file
+        });
+      } else {
+        this.form.patchValue({
+          registration_certificate: file
+        });
+      }
+    }
+  }
   generate() {
     this.form.patchValue({
       password: this.passwordGenerator.generateRandomPassword(),
@@ -127,6 +197,10 @@ export class AddDriverComponent {
         // }
       })
     }
+  }
+
+  trackByFn(index: number, item: any): number {
+    return item.id;
   }
 
 }

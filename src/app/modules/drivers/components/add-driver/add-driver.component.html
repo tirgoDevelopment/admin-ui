@@ -27,7 +27,7 @@
 
                 <div class="w-full flex">
                     <mat-form-field color="accent" class="w-full">
-                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                        <mat-label>{{ 'password' | transloco }}</mat-label>
                         <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
                             [ngClass]="{'is-invalid': f.password.errors}">
                         <mat-error *ngIf="f.password.errors?.required">
@@ -72,14 +72,12 @@
             </div>
         </div>
     </form>
-    {{form.getRawValue()}}
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
     <div class="ml-auto p-4">
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
-        <button
-            [ngClass]="{'fuse-mat-button text-white': form.invalid, 'fuse-mat-button ': !form.invalid }"
+        <button [ngClass]="{'fuse-mat-button text-white': form.invalid, 'fuse-mat-button ': !form.invalid }"
             mat-flat-button [color]="'primary'" [disabled]="form.invalid" (click)="submit()">
             {{ 'save' | transloco }}
         </button>

@@ -14,22 +14,22 @@ export class CargoGroupService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<CargoGroupModel>> {
-    return this._apiService.get<CargoGroupModel>(`/cargo-type-groups/${id}`);
+    return this._apiService.get<CargoGroupModel>(`/references/cargo-type-groups/${id}`);
   }
 
   getAll(params?): Observable<Response<CargoGroupModel[]>> {
-    return this._apiService.get<CargoGroupModel[]>('/cargo-type-groups/all', createHttpParams(params));
+    return this._apiService.get<CargoGroupModel[]>('/references/cargo-type-groups/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<CargoGroupModel>> {
-		return this._apiService.post<CargoGroupModel>('/cargo-type-groups', body);
+		return this._apiService.post<CargoGroupModel>('/references/cargo-type-groups', body);
 	}
 
   update(body): Observable<Response<CargoGroupModel>> {
-    return this._apiService.put<CargoGroupModel>('/cargo-type-groups', body);
+    return this._apiService.put<CargoGroupModel>('/references/cargo-type-groups', body);
   }
 
   delete(id: number): Observable<Response<CargoGroupModel>> {
-    return this._apiService.delete<CargoGroupModel>(`/cargo-type-groups/${id}`);;
+    return this._apiService.delete<CargoGroupModel>(`/references/cargo-type-groups/${id}`);;
   }
 }

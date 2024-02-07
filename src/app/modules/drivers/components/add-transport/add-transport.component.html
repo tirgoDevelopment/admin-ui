@@ -1,0 +1,171 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"add_transport_driver"|transloco}}</p>
+    <!-- <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_transport_driver"|transloco}}</p> -->
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-3">
+
+                <mat-form-field class="flex items-center">
+                    <mat-label>{{ 'driver_lisense' | transloco }}</mat-label>
+                    <input matInput placeholder="Upload" class="mr-2"
+                        [value]="form.get('driver_lisense').value?.name || ''">
+                    <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                        <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                        <input type="file" (change)="onFileSelected($event, 'driver_lisense')"
+                            formControlName="driver_lisense" id="fileInput" style="display: none;">
+                    </label>
+                </mat-form-field>
+
+                <mat-form-field class="flex items-center">
+                    <mat-label>{{ 'passport' | transloco }}</mat-label>
+                    <input matInput placeholder="Upload" class="mr-2" [value]="form.get('passport').value?.name || ''">
+                    <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                        <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                        <input type="file" (change)="onFileSelected($event, 'passport')" formControlName="passport"
+                            id="fileInput" style="display: none;">
+                    </label>
+                </mat-form-field>
+
+                <mat-form-field class="flex items-center">
+                    <mat-label>Тип транспорта</mat-label>
+                    <mat-select formControlName="transportTypeIds" multiple>
+                        <mat-option *ngFor="let item of transportTypes" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="flex gap-2" *ngIf="isAutotransport">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Количество автовоз</mat-label>
+                        <input type="number" matInput formControlName="refrigeratorCount">
+                    </mat-form-field>
+                </div>
+
+                <div class="flex gap-2" *ngIf="isRefrigeratorMode">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Режим от (°С)</mat-label>
+                        <input type="number" matInput formControlName="refrigeratorFrom">
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Режим до (°С)</mat-label>
+                        <input type="number" matInput formControlName="refrigeratorTo">
+                    </mat-form-field>
+                </div>
+                <div class="flex gap-2" *ngIf="isContainer">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Объем(ф)</mat-label>
+                        <mat-select [value]="'EU'" formControlName="containerVolume">
+                            <mat-option [value]="'20'">20</mat-option>
+                            <mat-option [value]="'40'">40</mat-option>
+                            <mat-option [value]="'60'">60</mat-option>
+                            <mat-option [value]="'high'">Высокий куб</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex-auto">
+                    <div class="text-[#1e293b] font-medium dark:text-white">Габариты груза</div>
+                    <div class="flex items-baseline gap-2">
+                        <mat-form-field class="flex-auto">
+                            <input type="number" matInput formControlName="cargoLength" placeholder="Длина">
+                        </mat-form-field>
+                        <mat-form-field class="flex-auto">
+                            <input type="number" matInput formControlName="cargoWidth" placeholder="Ширина">
+                        </mat-form-field>
+                        <mat-form-field class="flex-auto">
+                            <input type="number" matInput formControlName="cargoHeight" placeholder="Высота">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <mat-form-field class="flex items-center">
+                    <mat-label>{{ 'registration_certificate' | transloco }}</mat-label>
+                    <input matInput placeholder="Upload" class="mr-2"
+                        [value]="form.get('registration_certificate').value?.name || ''">
+                    <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                        <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                        <input type="file" (change)="onFileSelected($event, 'registration_certificate')"
+                            formControlName="registration_certificate" id="fileInput" style="display: none;">
+                    </label>
+                </mat-form-field>
+
+                <mat-form-field class="flex items-center">
+                    <mat-label>Вид транспорта</mat-label>
+                    <mat-select formControlName="transportKindIds" multiple>
+                        <mat-option *ngFor="let item of transportKinds" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div *ngIf="isRefrigerator">
+                    <mat-checkbox [checked]="isRefrigeratorMode"
+                        (change)="onCheckboxChange($event)">Режим</mat-checkbox>
+                    <mat-checkbox formControlName="isHook">Крюк</mat-checkbox>
+                </div>
+                <div class="flex gap-2" *ngIf="isCistern">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Объем(л)</mat-label>
+                        <input type="number" matInput formControlName="cisternVolume">
+                    </mat-form-field>
+                </div>
+
+                <div class="flex gap-2">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Тип груза</mat-label>
+                        <mat-select formControlName="cargoTypeId">
+                            <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn" [label]="group.name">
+                                <mat-option *ngFor="let item of group.cargoTypes"
+                                    [value]="item.id">{{item.name}}</mat-option>
+                            </mat-optgroup>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Вес груза(брутто)</mat-label>
+                        <input type="number" matInput formControlName="cargoWeight">
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Кубатура</mat-label>
+                        <input type="number" matInput formControlName="cubature">
+                    </mat-form-field>
+                </div>
+
+                <div class="flex gap-2">
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Способ погрузки</mat-label>
+                        <mat-select formControlName="loadingMethodId">
+                            <mat-option *ngFor="let item of cargoLoadingMethods"
+                                [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-auto md:w-72 sm:w-full">
+                        <mat-label>Упаковка</mat-label>
+                        <mat-select formControlName="cargoPackageId">
+                            <mat-option *ngFor="let item of packagesTypes" [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <mat-slide-toggle class="py-2" formControlName="isAdr">
+                    {{"isAdr"|transloco}}
+                </mat-slide-toggle>
+
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{ 'cancel' | transloco }}</button>
+        <button [ngClass]="{'fuse-mat-button text-white': form.invalid, 'fuse-mat-button ': !form.invalid }"
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid" (click)="submit()">
+            {{ 'save' | transloco }}
+        </button>
+    </div>
+</mat-dialog-actions>

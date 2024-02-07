@@ -13,22 +13,22 @@ export class SubscriptionService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<SubscriptionModel>> {
-    return this._apiService.get<SubscriptionModel>(`/subscriptions/${id}`);
+    return this._apiService.get<SubscriptionModel>(`/references/subscriptions/${id}`);
   }
 
   getAll(params?): Observable<Response<SubscriptionModel[]>> {
-    return this._apiService.get<SubscriptionModel[]>('/subscriptions/all', createHttpParams(params));
+    return this._apiService.get<SubscriptionModel[]>('/references/subscriptions/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<SubscriptionModel>> {
-		return this._apiService.post<SubscriptionModel>('/subscriptions', body);
+		return this._apiService.post<SubscriptionModel>('/references/subscriptions', body);
 	}
 
   update(body): Observable<Response<SubscriptionModel>> {
-    return this._apiService.put<SubscriptionModel>('/subscriptions', body);
+    return this._apiService.put<SubscriptionModel>('/references/subscriptions', body);
   }
 
   delete(id: number): Observable<Response<SubscriptionModel>> {
-    return this._apiService.delete<SubscriptionModel>(`/subscriptions/${id}`);;
+    return this._apiService.delete<SubscriptionModel>(`/references/subscriptions/${id}`);;
   }
 }

@@ -48,8 +48,8 @@ export class AddClientComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
     citizenship: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(6)]),
-    passport: new FormControl(''),
+    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6)]),
+    passport: new FormControl('', this.edit ? null : [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -68,7 +68,7 @@ export class AddClientComponent {
           email: res.data?.email,
           citizenship: res.data?.citizenship,
           passport: res.data?.passport,
-          password: res.data?.password,
+          // password: res.data?.password,
         });
       })
 

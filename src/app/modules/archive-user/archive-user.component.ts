@@ -13,9 +13,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { MatSelectModule } from '@angular/material/select';
-import { ArchiveUserService } from './services/archive-user.service';
 import { ArchiveUserModel } from './models/archive-user.model';
 import { DetailArchiveUserComponent } from './components/detail-archive-user/detail-archive-user.component';
+import { ClientService } from '../clients/services/client.service';
 
 @Component({
   selector: 'app-archive-user',
@@ -30,12 +30,12 @@ import { DetailArchiveUserComponent } from './components/detail-archive-user/det
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['iso','full_name', 'phone', 'type', 'moderation', 'register_date', 'last_enter', 'order', 'geolocation'];;
+  displayedColumns: string[] = ['iso', 'full_name', 'phone', 'type', 'moderation', 'register_date', 'last_enter', 'order', 'geolocation'];;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ArchiveUserModel>([]);
   constructor(
-    private _archiveUserService: ArchiveUserService, protected _dialog?: MatDialog) {
+    private _clientUserService: ClientService, protected _dialog?: MatDialog) {
   }
 
   detail() {
@@ -47,7 +47,7 @@ export class ArchiveUserComponent implements OnInit {
         top: '0',
         right: '0',
       },
-      maxHeight:'100%'
+      maxHeight: '100%'
     })
   }
 
@@ -56,7 +56,7 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   getAllDeleted() {
-    this._archiveUserService.getAll().subscribe((response) => {
+    this._clientUserService.getNonActive().subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }

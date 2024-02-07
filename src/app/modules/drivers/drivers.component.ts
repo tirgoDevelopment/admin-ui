@@ -18,6 +18,7 @@ import { AddDriverComponent } from './components/add-driver/add-driver.component
 import { DetailDriverComponent } from './components/detail-driver/detail-driver.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { SendPushComponent } from './components/send-push/send-push.component';
+import { AddTransportComponent } from './components/add-transport/add-transport.component';
 
 @Component({
   selector: 'app-drivers',
@@ -26,7 +27,7 @@ import { SendPushComponent } from './components/send-push/send-push.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,DatePipe,  MatIconModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class DriversComponent implements OnInit {
@@ -72,7 +73,7 @@ export class DriversComponent implements OnInit {
         top: '0',
         right: '0',
       },
-      maxHeight:'100%'
+      maxHeight: '100%'
     })
   }
 
@@ -93,6 +94,21 @@ export class DriversComponent implements OnInit {
 
   edit(id: number) {
     const dialogRef = this._dialog.open(AddDriverComponent, {
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '42vh',
+      maxHeight: '80vh',
+      autoFocus: false,
+      data: id,
+    });
+    dialogRef.afterClosed()
+      .subscribe(() => {
+        this.getAllDrivers()
+      })
+  }
+
+  transport(id: number) {
+    const dialogRef = this._dialog.open(AddTransportComponent, {
       minWidth: '40vw',
       maxWidth: '50vw',
       minHeight: '42vh',

@@ -7,8 +7,10 @@ export interface DriverModel extends BaseModel {
     firstName?:string;
     email?: string;
     lastName?: string;
+    citizenship?: string;
     password?: string;
-    phoneNumbers?:any[]
+    phoneNumbers?:any[];
+    phoneNumber?:string;
     phone?: string;
     type?: string;
     moderation?: string;

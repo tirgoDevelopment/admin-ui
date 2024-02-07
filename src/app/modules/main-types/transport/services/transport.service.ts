@@ -13,11 +13,11 @@ export class TransportService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<TransportModel>> {
-    return this._apiService.get<TransportModel>(`/transport-types/${id}`);
+    return this._apiService.get<TransportModel>(`/references/transport-types${id}`);
   }
 
   getAll(params?): Observable<Response<TransportModel[]>> {
-    return this._apiService.get<TransportModel[]>('/transport-types/all', createHttpParams(params));
+    return this._apiService.get<TransportModel[]>('/references/transport-typesall', createHttpParams(params));
   }
 
   create(body): Observable<Response<TransportModel>> {
@@ -29,6 +29,6 @@ export class TransportService {
   }
 
   delete(id: number): Observable<Response<TransportModel>> {
-    return this._apiService.delete<TransportModel>(`/transport-types/${id}`);;
+    return this._apiService.delete<TransportModel>(`/references/transport-types${id}`);;
   }
 }

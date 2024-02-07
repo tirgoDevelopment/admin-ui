@@ -13,22 +13,22 @@ export class RoleService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<RoleModel>> {
-    return this._apiService.get<RoleModel>(`/roles/${id}`);
+    return this._apiService.get<RoleModel>(`/references/roles/${id}`);
   }
 
   getAll(params?): Observable<Response<RoleModel[]>> {
-    return this._apiService.get<RoleModel[]>('/roles/all', createHttpParams(params));
+    return this._apiService.get<RoleModel[]>('/references/roles/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<RoleModel>> {
-		return this._apiService.post<RoleModel>('/roles', body);
+		return this._apiService.post<RoleModel>('/references/roles', body);
 	}
 
   update(body): Observable<Response<RoleModel>> {
-    return this._apiService.put<RoleModel>('/roles', body);
+    return this._apiService.put<RoleModel>('/references/roles', body);
   }
 
   delete(id: number): Observable<Response<RoleModel>> {
-    return this._apiService.delete<RoleModel>(`/roles/${id}`);;
+    return this._apiService.delete<RoleModel>(`/references/roles/${id}`);;
   }
 }
