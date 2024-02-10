@@ -19,7 +19,7 @@
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl">{{ 'tech_passport_front' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2" formControlName="techPassportFrontFilePath"
-                        [value]="form.get('techPassportFrontFilePath')?.value?.name || ''"
+                        [value]="f.techPassportFrontFilePath.value?.name || ''"
                         [ngClass]="{'is-invalid': f.techPassportFrontFilePath.errors}">
                     <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
                         <mat-icon aria-label="Upload">cloud_upload</mat-icon>
@@ -180,7 +180,8 @@
             <div class="px-4">
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl"> {{ 'type_transport' | transloco }}</mat-label>
-                    <mat-select  [compareWith]="compareFn" formControlName="transportTypeIds" multiple   [ngClass]="{'is-invalid': f.transportTypeIds.errors}">
+                    <mat-select  [compareWith]="compareFn" formControlName="transportTypeIds" multiple 
+                        [ngClass]="{'is-invalid': f.transportTypeIds.errors}">
                         <mat-option *ngFor="let item of transportTypes; trackBy: trackByFn" [value]="item.id">{{item.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="f.transportTypeIds.errors?.required&& f.transportTypeIds.touched">
