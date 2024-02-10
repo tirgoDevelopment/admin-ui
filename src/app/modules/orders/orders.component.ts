@@ -29,31 +29,29 @@ import { CreateOrderComponent } from './components/create-order/create-order.com
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
   dataSource: any[];
-  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type'];
   currentUser: any;
   constructor(
     private orderService: OrdersService,
     private authService: AuthService,
     private dialog: MatDialog
-    ) { }
+  ) { }
   ngOnInit(): void {
     this.currentUser = jwtDecode(this.authService.accessToken);
-    console.log(this.currentUser);
-    
     this.getOrders();
   }
   getOrders() {
     this.isLoading = true;
-    // this.orderService.getOrdersByMerchant(this.currentUser.merchantId).subscribe((res: any) => {
-    //   if (res?.success) {
-    //     this.isLoading = false;
-    //     this.dataSource = res.data;
-    //   }
-    //   else {
-    //     this.isLoading = false;
-    //     this.dataSource = [];
-    //   }
-    // })
+    this.orderService.getOrdersByMerchant(this.currentUser.userId).subscribe((res: any) => {
+      if (res && res.success) {
+        this.isLoading = false;
+        this.dataSource = res.data;
+      }
+      else {
+        this.isLoading = false;
+        this.dataSource = [];
+      }
+    })
     this.isLoading = false;
   }
   addTwoDays(date: Date): Date {
@@ -63,7 +61,7 @@ export class OrdersComponent implements OnInit {
   }
   statusOrderCheck(params) {
     switch (params) {
-      case 0:
+      case 'waiting':
         return "Ожидающий";
       case 1:
         return "Выполняется";
@@ -79,7 +77,7 @@ export class OrdersComponent implements OnInit {
   }
   returnClassStatusOrder(params) {
     switch (params) {
-      case 0:
+      case 'waiting':
         return "status-order-blue";
       case 1:
         return "status-order-yellow";
@@ -103,4 +101,5 @@ export class OrdersComponent implements OnInit {
       // this.verifyPhoneForm.enable();
     });
   }
+
 }

@@ -1,0 +1,209 @@
+<div class="container w-full bg-white dark:bg-transparent  dar p-6 rounded shadow-lg">
+    <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold">Редактировать</h2>
+        <div class="flex items-center">
+            <button (click)="editMerchant()" class="bg-green-500 dark:bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                :disabled="!form.valid">
+                Сохранить
+            </button>
+        </div>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="grid grid-cols-3 gap-3 w-full">
+
+            <mat-form-field>
+                <mat-label>{{ 'email' | transloco }}</mat-label>
+                <input matInput name="email" placeholder="{{ 'email' | transloco }}" formControlName="email" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'company_name' | transloco }}</mat-label>
+                <input required matInput name="companyName" formControlName="companyName"
+                    placeholder="{{ 'company_name' | transloco }}" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> {{ 'director_name' | transloco }}</mat-label>
+                <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName"
+                    placeholder="{{ 'director_name' | transloco }}" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> {{ 'responce_person' | transloco }}</mat-label>
+                <input required matInput name="responsiblePersonFistName"
+                    placeholder="{{ 'responce_person' | transloco }}" formControlName="responsiblePersonFistName"
+                    required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> {{ 'bank_name' | transloco }}</mat-label>
+                <input matInput name="bankName" placeholder="{{ 'bank_name' | transloco }}" formControlName="bankName"
+                    required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'inn' | transloco }}</mat-label>
+                <input type="text" mask="999999999" matInput name="inn" formControlName="inn"
+                    placeholder="{{ 'inn' | transloco }}" maxlength="9" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'oked' | transloco }}</mat-label>
+                <input type="text" mask="99999" matInput name="oked" formControlName="oked"
+                    placeholder="{{ 'oked' | transloco }}" maxlength="5" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'mfo' | transloco }}</mat-label>
+                <input type="text" matInput name="mfo" formControlName="mfo" placeholder="{{ 'mfo' | transloco }}"
+                    mask="99999" maxlength="5" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'phone' | transloco }}</mat-label>
+                <input matInput type="text" name="phoneNumber" mask="+999999999999"
+                    placeholder="{{ 'phone' | transloco }}" formControlName="phoneNumber" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'duns_number' | transloco }}</mat-label>
+                <input type="text" matInput name="dunsNumber" formControlName="dunsNumber"
+                    placeholder="{{ 'duns_number' | transloco }}" mask="999999999" maxlength="9" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> {{ 'notes' | transloco }}</mat-label>
+                <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
+            </mat-form-field>
+        </div>
+        <div class="grid grid-cols-3 gap-3 w-full">
+            <mat-form-field class="flex items-center">
+                <mat-label class="text-xl">{{ 'logo' | transloco }} </mat-label>
+                <input matInput placeholder="Upload" class="mr-2" [value]="form.get('logoFilePath')?.value?.name || ''"
+                    formControlName="logoFilePath" [ngClass]="{'is-invalid': f.logoFilePath.errors}">
+                <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                    <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                    <input type="file" (change)="onFileSelected($event, 'logoFilePath')" formControlName="logoFilePath"
+                        id="fileInput" style="display: none;">
+                </label>
+                <mat-error *ngIf="f.logoFilePath.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+                <img *ngIf="form.get('logoFilePath').value"
+                [src]="getImageUrl('logoFilePath')" class="max-h-12 max-w-12" />
+            </mat-form-field>
+
+            <mat-form-field class="flex items-center">
+                <mat-label class="text-xl">{{ 'passport' | transloco }} </mat-label>
+                <input matInput placeholder="Upload" class="mr-2"
+                    [value]="form.get('passportFilePath')?.value?.name || ''" formControlName="passportFilePath"
+                    [ngClass]="{'is-invalid': f.passportFilePath.errors}">
+                <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                    <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                    <input type="file" (change)="onFileSelected($event, 'passportFilePath')"
+                        formControlName="passportFilePath" id="fileInput" style="display: none;">
+                </label>
+                <mat-error *ngIf="f.passportFilePath.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+                <img *ngIf="form.get('passportFilePath').value"
+                [src]="getImageUrl('passportFilePath')" class="max-h-12 max-w-12" />
+            </mat-form-field>
+            <mat-form-field class="flex items-center">
+                <mat-label class="text-xl">{{ 'registration_certificate' | transloco }} </mat-label>
+                <input matInput placeholder="Upload" class="mr-2"
+                    [value]="form.get('registrationCertificateFilePath')?.value?.name || ''"
+                    formControlName="registrationCertificateFilePath"
+                    [ngClass]="{'is-invalid': f.registrationCertificateFilePath.errors}">
+                <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
+                    <mat-icon aria-label="Upload">cloud_upload</mat-icon>
+                    <input type="file" (change)="onFileSelected($event, 'registrationCertificateFilePath')"
+                        formControlName="registrationCertificateFilePath" id="fileInput" style="display: none;">
+                </label>
+                <mat-error *ngIf="f.registrationCertificateFilePath.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+                <img *ngIf="form.get('registrationCertificateFilePath').value"
+                    [src]="getImageUrl('registrationCertificateFilePath')" class="max-h-12 max-w-12" />
+            </mat-form-field>
+        </div>
+
+    </form>
+    <div class="mt-10 flex justify-between">
+        <div class="text-lg font-semibold">История платежей</div>
+        <div class="flex">
+            <div class="mx-3 flex-col text-center">
+                <div class="text-sm font-semibold">Активный баланс</div>
+                <div class="text-sm font-semibold">100</div>
+            </div>
+            <div class="mx-3 flex-col text-center">
+                <div class="text-sm font-semibold">Замороженный баланс</div>
+                <div class="text-sm font-semibold">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <mat-table matSort [dataSource]="dataSource">
+            <ng-container matColumnDef="full_name">
+                <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="sum">
+                <mat-header-cell *matHeaderCellDef> {{"sum"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.sum}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> {{"date"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.date}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef> {{"type"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.loads}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <div fxFlex="row" fxLayoutAlign="end center">
+                        <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                            (click)="$event.stopPropagation()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #moreMenu="matMenu">
+                            <button mat-menu-item color="accent" (click)="edit(row)">
+                                <mat-icon>edit</mat-icon>
+                                {{"edit"|transloco}}
+                            </button>
+                            <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                <mat-icon>remove</mat-icon>
+                                {{"remove"|transloco}}
+                            </button>
+                        </mat-menu>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns">
+            </mat-row>
+        </mat-table>
+        <!-- <app-no-data-placeholder *ngIf="!dataSource.data.length">
+        </app-no-data-placeholder> -->
+        <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+            [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

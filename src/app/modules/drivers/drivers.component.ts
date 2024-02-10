@@ -107,14 +107,15 @@ export class DriversComponent implements OnInit {
       })
   }
 
-  transport(id: number) {
+  addTransport(driverId?: number, transportId?: number) {
     const dialogRef = this._dialog.open(AddTransportComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
-      minHeight: '42vh',
-      maxHeight: '80vh',
+      minWidth: '50vw',
+      maxWidth: '70vw',
+      minHeight: '60vh',
+      maxHeight: '100vh',
+      disableClose: true,
       autoFocus: false,
-      data: id,
+      data: { driverId, transportId },
     });
     dialogRef.afterClosed()
       .subscribe(() => {

@@ -6,10 +6,10 @@
 </div>
 
 <div class="flex items-center justify-center gap-1 mb-5">
-  <div class="stepper-item" [class.active]="currentStep === 1"><span>1</span></div>
-  <mat-icon class="step-arrow" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
-  <div class="stepper-item" [class.active]="currentStep === 2"><span>2</span></div>
-  <mat-icon class="step-arrow" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
+  <div class="stepper-item active"><span>1</span></div>
+  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 2 || currentStep === 3" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
+  <div class="stepper-item" [class.active]="currentStep === 2 || currentStep === 3"><span>2</span></div>
+  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 3" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
   <div class="stepper-item" [class.active]="currentStep === 3"><span>3</span></div>
 </div>
 
@@ -96,11 +96,11 @@
           </mat-form-field>
         </div>
       </div>
-      <mat-label class="text-[#1e293b] font-medium dark:text-white">Срочность заказа</mat-label>
+      <!-- <mat-label class="text-[#1e293b] font-medium dark:text-white">Срочность заказа</mat-label>
       <div class="flex gap-4">
         <mat-checkbox formControlName="isUrgent">Срочный</mat-checkbox>
         <mat-checkbox formControlName="isTwoDays">+2 дня</mat-checkbox>
-      </div>
+      </div> -->
       <hr>
       <div class="flex flex-col">
         <mat-checkbox formControlName="isAdr">ADR (перевозка опасных грузов)</mat-checkbox>
@@ -115,7 +115,7 @@
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
           <mat-label>Предлагаемая цена</mat-label>
           <input type="number" matInput formControlName="offeredPrice">
-          <mat-select [value]="currencies[0].id" matPrefix formControlName="offeredPriceCurrencyId">
+          <mat-select matPrefix formControlName="offeredPriceCurrencyId">
             <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -158,6 +158,7 @@
           </mat-select>
         </mat-form-field>
       </div>
+
 
       <div class="flex gap-2" *ngIf="isAutotransport">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">

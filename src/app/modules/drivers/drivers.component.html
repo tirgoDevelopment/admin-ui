@@ -11,6 +11,10 @@
                 <!-- <button class=" sm:inline-flex ml-3 " mat-flat-button (click)="detail()">
                     <span>Detail</span>
                 </button> -->
+                <!-- <button mat-menu-item color="accent" (click)="transport()">
+                    <mat-icon>directions_car</mat-icon>
+                    {{"transport"|transloco}}
+                </button> -->
                 <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">Add</span>
@@ -90,14 +94,14 @@
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> 
-                        
+                    <mat-cell *matCellDef="let row">
+
                         <button *ngIf="row?.active"
-                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
-                    </button>
-                    <button *ngIf="!row?.active"
-                        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
-                    </button>
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
+                        <button *ngIf="!row?.active"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
                     </mat-cell>
                 </ng-container>
 
@@ -120,10 +124,25 @@
                                     <mat-icon>edit</mat-icon>
                                     {{"edit"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" (click)="transport(row.id)">
-                                    <mat-icon>directions_car</mat-icon>
-                                    {{"transport"|transloco}}
-                                </button>
+
+                                <ng-container *ngIf="row.driverTransports.length>0">
+                                    <div *ngFor="let transport of row.driverTransports">
+                                        <button mat-menu-item color="accent" (click)="addTransport(row.id, transport.id)">
+                                            <mat-icon>directions_car</mat-icon>
+                                            {{transport.name}}
+                                            {{"transport"|transloco}}
+                                        </button>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="row.driverTransports.length<0">
+                                    <button mat-menu-item color="accent" (click)="addTransport(row, null)">
+                                        <mat-icon>directions_car</mat-icon>
+                                        {{transport.name}}
+                                        {{"transport"|transloco}}
+                                    </button>
+                                </ng-container>
+
                                 <button mat-menu-item color="accent" (click)="detail(row.id)">
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}

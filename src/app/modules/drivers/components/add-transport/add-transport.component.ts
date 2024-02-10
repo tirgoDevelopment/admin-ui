@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
@@ -33,7 +33,7 @@ import { forkJoin } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, NgFor, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
 export class AddTransportComponent {
@@ -57,29 +57,31 @@ export class AddTransportComponent {
   roles = [];
   subscription = [];
   edit: boolean = false;
+
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     driverId: new FormControl(''),
-    driver_lisense: new FormControl('', [Validators.required]),
-    passport: new FormControl('', [Validators.required]),
-    registration_certificate: new FormControl('', [Validators.required]),
-    transportKindIds: new FormControl('', [Validators.required]),
-    transportTypeIds: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    cubicCapacity: new FormControl('', [Validators.required]),
+    stateNumber: new FormControl('', [Validators.required]),
+    transportKindIds: new FormControl(),
+    transportTypeIds: new FormControl(),
+    loadingMethodIds: new FormControl(),
+    cargoTypeIds: new FormControl(),
     refrigeratorFrom: new FormControl(''),
     refrigeratorTo: new FormControl(''),
     refrigeratorCount: new FormControl(''),
     isHook: new FormControl(''),
-    cargoTypeId: new FormControl('', [Validators.required]),
-    cargoWeight: new FormControl('', [Validators.required]),
-    cargoLength: new FormControl(''),
-    cargoWidth: new FormControl(''),
-    cargoHeight: new FormControl(''),
-    cubature: new FormControl(''),
-    cargoPackageId: new FormControl(''),
-    loadingMethodId: new FormControl(''),
-    isAdr: new FormControl(''),
+    isAdr: new FormControl(false),
+    techPassportFrontFilePath: new FormControl('', [Validators.required]),
+    techPassportBackFilePath: new FormControl('', [Validators.required]),
+    transportFilePath: new FormControl('', [Validators.required]),
+    goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
+    driverLicenseFilePath: new FormControl('', [Validators.required]),
+    passportFilePath: new FormControl('', [Validators.required]),
   })
   constructor(
+    public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
@@ -87,8 +89,14 @@ export class AddTransportComponent {
     private _subscriptionService: SubscriptionService,
     private _dialog: MatDialog) {
     this.form.patchValue({
-      driverId: data
+      driverId: data.driverId,
+      id: data.transportId
     })
+
+    if (this.f.id.value) {
+      this.getTransport(this.f.driverId.value, this.f.id.value)
+    }
+
     this.changeValue();
     forkJoin({
       currencies: this._typesService.getCurrencies(),
@@ -105,10 +113,6 @@ export class AddTransportComponent {
         this.packagesTypes = results.packagesTypes.data;
         this.cargoLoadingMethods = results.cargoLoadingMethods.data;
         this.transportKinds = results.transportKinds.data;
-        this.form.patchValue({
-          offeredPriceCurrencyId: this.currencies[0].id,
-          inAdvancePriceCurrencyId: this.currencies[0].id
-        });
       },
       error: (error: any) => {
         console.error('Error fetching currencies and cargo types:', error);
@@ -116,35 +120,94 @@ export class AddTransportComponent {
     });
   }
 
+  getTransport(driverId: number, transportId: number) {
+    this._driverService.getTransportWithDriver(driverId, transportId).subscribe(res => {
+      this.edit=true;
+      console.log(res.data[0]?.techPassportFrontFilePath)
+      console.log(res.data[0]?.techPassportBackFilePath)
+      console.log(res.data[0]?.transportFilePath)
+      this.form.patchValue({
+        name: res.data[0]?.name,
+        isHook: res.data[0]?.isHook,
+        isAdr: res.data[0]?.isAdr,
+        cubicCapacity: res.data[0]?.cubicCapacity,
+        stateNumber: res.data[0]?.stateNumber,
+        // techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
+        // techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
+        // transportFilePath: res.data[0].transportFilePath,
+        // goodsTransportationLicenseCardFilePath: res.data[0].goodsTransportationLicenseCardFilePath,
+        // driverLicenseFilePath: res.data[0].driverLicenseFilePath,
+        // passportFilePath: res.data[0].passportFilePath,
+    
+     
+        // transportKindIds: res.data[0]?.transportKindIds,
+        // transportTypeIds: res.data[0]?.transportTypeIds,
+        // loadingMethodIds: res.data[0]?.loadingMethodIds,
+        // cargoTypeIds: res.data[0]?.cargoTypeIds,
+    
+        // refrigeratorFrom: res.data[0]?.refrigeratorFrom,
+        // refrigeratorTo: res.data[0]?.refrigeratorTo,
+        // refrigeratorCount: res.data[0]?.refrigeratorCount,
+      })
+      this.form.get('techPassportFrontFilePath').patchValue(res.data[0]?.techPassportFrontFilePath);
+      this.form.get('techPassportBackFilePath').patchValue(res.data[0]?.techPassportBackFilePath);
+      this.form.get('transportFilePath').patchValue(res.data[0]?.transportFilePath);
+      this.form.get('techPassportBackFilePath').patchValue(res.data[0]?.techPassportBackFilePath);
+   
 
+      console.log(this.form.get('techPassportFrontFilePath')?.value)
+    })
+  }
 
   changeValue() {
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
-      this.isAutotransport = values.includes('Автовоз');
-      this.isRefrigerator = values.includes('Рефрежатор');
-      this.isCistern = values.includes('Цистерна');
-      this.isContainer = values.includes('Контейнеровоз');
+      if (values) {
+        this.isAutotransport = values?.includes('Автовоз');
+        this.isRefrigerator = values?.includes('Рефрежатор');
+        this.isCistern = values?.includes('Цистерна');
+        this.isContainer = values?.includes('Контейнеровоз');
+      }
     });
   }
 
   onFileSelected(event: any, type: string): void {
     const file: File = event.target.files[0];
-    if (file) {
-      if (type === 'driver_lisense') {
+    switch (type) {
+      case 'techPassportFrontFilePath':
         this.form.patchValue({
-          driver_lisense: file
+          techPassportFrontFilePath: file
         });
-      } else if (type === 'passport') {
+      case 'techPassportBackFilePath':
         this.form.patchValue({
-          passport: file
+          techPassportBackFilePath: file
         });
-      } else {
+      case 'transportFilePath':
         this.form.patchValue({
-          registration_certificate: file
+          transportFilePath: file
         });
-      }
+      case 'goodsTransportationLicenseCardFilePath':
+        this.form.patchValue({
+          goodsTransportationLicenseCardFilePath: file
+        });
+      case 'driverLicenseFilePath':
+        this.form.patchValue({
+          driverLicenseFilePath: file
+        });
+      case 'passportFilePath':
+        this.form.patchValue({
+          passportFilePath: file
+        });
     }
   }
+
+  getImageUrl(formname: string): string {
+    const file = this.form.get(`${formname}`).value;
+    if (file instanceof File) {
+      return URL.createObjectURL(file);
+    }
+    return '';
+  }
+
   generate() {
     this.form.patchValue({
       password: this.passwordGenerator.generateRandomPassword(),
@@ -171,27 +234,76 @@ export class AddTransportComponent {
   }
 
   submit() {
-    // const formData = new FormData();
-    // formData.forEach((value, key) => {
-    //   this.form.get(key)?.setValue(value);
-    // });
+    console.log(this.form.value)
+    const formData = new FormData();
+    formData.append('id', this.form.get('id').value);
+    formData.append('driverId', this.form.get('driverId').value);
+    formData.append('name', this.form.get('name').value);
+    formData.append('cubicCapacity', this.form.get('cubicCapacity').value);
+    formData.append('stateNumber', this.form.get('stateNumber').value);
+
+    formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
+    // const transportKindIds = this.form.get('transportKindIds').value;
+    // if (transportKindIds) {
+    //   for (const id of transportKindIds) {
+    //     formData.set('transportKindIds', id);
+    //   }
+    // }
+    formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
+    // const transportTypeIds = this.form.get('transportTypeIds').value;
+    // if (transportTypeIds) {
+    //   for (const id of transportTypeIds) {
+    //     formData.set('transportTypeIds', id);
+    //   }
+    // }
+
+    formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
+    // const loadingMethodIds = this.form.get('loadingMethodIds').value;
+    // if (loadingMethodIds) {
+    //   for (const id of loadingMethodIds) {
+    //     formData.set('loadingMethodIds', id);
+    //   }
+    // }
+
+    formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
+    // const cargoTypeIds = this.form.get('cargoTypeIds').value;
+    // if (loadingMethodIds) {
+    //   for (const id of loadingMethodIds) {
+    //     formData.set('loadingMethodIds', id);
+    //   }
+    // }
+
+
+    formData.append('refrigeratorFrom', this.form.get('refrigeratorFrom').value);
+    formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
+    formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
+    formData.append('isHook', this.form.get('isHook').value);
+    formData.append('isAdr', this.form.get('isAdr').value);
+
+    formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
+    formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
+    formData.append('transportFilePath', this.form.get('transportFilePath')?.value, String(new Date().getTime()));
+    formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
+    formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
+    formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+
     if (this.form.value.id) {
-      this._driverService.update(this.form.value).subscribe(res => {
-        console.log(res)
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Водитель успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
+      // this._driverService.update(formData).subscribe(res => {
+      //   console.log(res)
+      //   if (res.success) {
+      //     this._dialog.closeAll()
+      //     this._toaster.success('Водитель успешно обновлена')
+      //   } else {
+      //     this._toaster.error('Невозможно сохранить водитель')
+      //   }
+      // })
     } else {
-      this._driverService.create(this.form.value).subscribe(res => {
+      this._driverService.createTransport(formData).subscribe(res => {
         // console.log(res)
         // if (res.success) {
         this._dialog.closeAll()
         this.form.reset()
-        this._toaster.success('Водитель успешно добавлена')
+        this._toaster.success('Добавление транспорта  успешно')
         // } else {
         //   this._toaster.error('Невозможно сохранить водитель')
         // }
@@ -203,4 +315,12 @@ export class AddTransportComponent {
     return item.id;
   }
 
+  compareFn(option: any, value: any): boolean {
+    if (!value || !value.length || !option) {
+      return false;
+    }
+    return value.some((selectedId: any) => option.id === selectedId);
+  }
+  
+  
 }

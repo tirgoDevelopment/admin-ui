@@ -10,22 +10,15 @@ export class OrdersService {
   ) { }
 
   getOrders() {
-    return 
-    // return this.http.get(env.orderApiUrl+'/orders/all');
+    return this.http.get(env.orderApiUrl+'/orders/all');
   }
   getOrdersByMerchant(id) {
-    return
-
-    // return this.http.get(env.orderApiUrl + '/orders/merchant-orders?merchantId=' + id);
+    return this.http.get(env.orderApiUrl + '/orders/clients/all-orders?userId=' + id);
   }
   getOrderById(id) {
-    return
-
-    // return this.http.get(env.orderApiUrl + '/orders/id?id=' + id);
+    return this.http.get(env.orderApiUrl + '/orders/id?id=' + id);
   }
   createOrder(data) {
-    return
-
-    // return this.http.post(env.orderApiUrl + '/orders',data)
+    return this.http.post(env.orderApiUrl + '/orders',data)
   }
 }

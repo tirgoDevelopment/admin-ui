@@ -16,6 +16,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 import { DriversService } from '../drivers/services/drivers.service';
 import { DriverModel } from '../drivers/models/driver.model';
 import { MerchantListComponent } from './components/merchant-list/merchant-list.component';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -23,7 +24,7 @@ import { MerchantListComponent } from './components/merchant-list/merchant-list.
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];

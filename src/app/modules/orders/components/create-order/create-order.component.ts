@@ -21,6 +21,8 @@ import { AgreementComponent } from '../agreement/agreement.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { OrdersService } from '../../services/orders.service';
 import { forkJoin } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
   selector: 'create-order',
@@ -37,6 +39,7 @@ export class CreateOrderComponent implements OnInit {
   findList: any[] | undefined = [];
   viewText = false;
   currentStep = 1;
+  currentUser:any;
   currencies: any;
   cargoTypes: any;
   transportKinds: any;
@@ -55,13 +58,16 @@ export class CreateOrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private orderService: OrdersService,
     private typesService: TypesService,
+    private authService: AuthService,
     private countryService: CountryService,
     private toastr: ToastrService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.currentUser = jwtDecode(this.authService.accessToken)
     this.form = this.formBuilder.group({
+      merchantId: [this.currentUser.merchantId],
       sendDate: [null],
       loadingLocation: [null],
       deliveryLocation: [null],
@@ -127,9 +133,9 @@ export class CreateOrderComponent implements OnInit {
   }
 
   createOrder() {
-    // this.orderService.createOrder(this.form.value).subscribe((res: any) => {
-    //   this.toastr.success('Created');
-    // })
+    this.orderService.createOrder(this.form.value).subscribe((res: any) => {
+      this.toastr.success('Created');
+    })
     // this.closeModal();
   }
   nextStep() {
