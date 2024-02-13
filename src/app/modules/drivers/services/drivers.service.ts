@@ -32,7 +32,11 @@ export class DriversService {
     return this._apiService.post<DriverModel>('/users/driver/transport', body);
   }
 
-  getTransportWithDriver(driverId:number, transportId:number): Observable<Response<DriverModel>> {
+  updateTransport(body): Observable<Response<DriverModel>> {
+    return this._apiService.put<DriverModel>('/users/driver/transport', body);
+  }
+
+  getTransportWithDriver(driverId: number, transportId: number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("driverId", driverId);
     queryParams = queryParams.append("transportId", transportId);
@@ -42,6 +46,12 @@ export class DriversService {
   update(body): Observable<Response<DriverModel>> {
     body.phoneNumbers = [body.phoneNumbers]
     return this._apiService.put<DriverModel>('/users/drivers/', body);
+  }
+
+  block(id: number,body): Observable<Response<DriverModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.patch<DriverModel>(`/users/drivers/block`, body, queryParams);
   }
 
   delete(id: number): Observable<Response<DriverModel>> {

@@ -22,23 +22,20 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 
-
 @Component({
-  selector: 'app-send-push',
-  templateUrl: './send-push.component.html',
-  styleUrls: ['./send-push.component.scss'],
+  selector: 'app-block-driver',
+  templateUrl: './block-driver.component.html',
+  styleUrls: ['./block-driver.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
-export class SendPushComponent {
+export class BlockDriverComponent {
 
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    theme: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    block_reason: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -47,9 +44,7 @@ export class SendPushComponent {
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
-        id: this.data?.id,
-        theme: this.data?.theme,
-        description: this.data?.description,
+        id: this.data,
       });
     }
   }
@@ -58,26 +53,15 @@ export class SendPushComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._driverService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Водитель успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
-    } else {
-      this._driverService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Водитель успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
-    }
+    this._driverService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
+      if (res.success) {
+        this._dialog.closeAll()
+        this.form.reset()
+        this._toaster.success('Водитель успешно заблокирован')
+      } else {
+        this._toaster.error('Водитель не может быть успешно заблокирован')
+      }
+    })
   }
-
 }
+

@@ -190,5 +190,8 @@
     "approve":"Tasdiqlash",
     "reject":"rad qilish" ,
     "open":"Ochiq",
-    "sum":"So'm"
+    "sum":"So'm",
+    "block_reason":"Bloklash sababi",
+    "block_client":"Mijozni bloklash",
+    "block_driver":"Haydovchini bloklash"
 }

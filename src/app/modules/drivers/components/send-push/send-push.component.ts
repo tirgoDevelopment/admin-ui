@@ -34,14 +34,9 @@ import { SubscriptionService } from 'app/modules/main-types/subscription/service
 
 })
 export class SendPushComponent {
-  findList: any[] | undefined = [];
-  viewText = false;
-  public citiesSelected: FormControl = new FormControl();
-  public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
 
-  roles = [];
-  subscription = [];
-  edit: boolean = false;
+
+
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     theme: new FormControl('', [Validators.required]),
@@ -51,34 +46,16 @@ export class SendPushComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
-    private _subscriptionService: SubscriptionService,
     private _dialog: MatDialog) {
     if (this.data) {
-      this.edit = true;
       this.form.patchValue({
         id: this.data?.id,
         theme: this.data?.theme,
         description: this.data?.description,
       });
     }
-    this.getSubscription();
   }
 
-  getSubscription() {
-    this._subscriptionService.getAll().subscribe((response) => {
-      this.subscription = response.data;
-    })
-  }
-  async findCity(ev: any) {
-    const findText = ev.target.value.toString().trim().toLowerCase();
-    if (findText.length >= 2) {
-      this.viewText = true;
-      //  this.findList = await this.authService.findCity(findText).toPromise();
-    } else {
-      this.viewText = false;
-      this.findList = [];
-    }
-  }
   get f() {
     return this.form.controls
   }

@@ -39,8 +39,10 @@ export class ClientService {
     return this._apiService.put<ClientModel>('/users/clients', body);
   }
 
-  block(queryParams): Observable<Response<ClientModel>> {
-    return this._apiService.patch<ClientModel>(`/users/clients/block`, {}, queryParams);
+  block(id: number,body): Observable<Response<ClientModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.patch<ClientModel>(`/users/clients/block`, body, queryParams);
   }
 
   active(queryParams): Observable<Response<ClientModel>> {

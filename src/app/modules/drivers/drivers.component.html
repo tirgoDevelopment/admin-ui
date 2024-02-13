@@ -49,11 +49,11 @@
                 </mat-select>
             </mat-form-field>
             <div class="px-1">
-                <button mat-stroked-button class=" text-gray-950">
+                <button mat-flat-button color="warn" class="">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-stroked-button class=" text-gray-950">
+                <button mat-flat-button color="warn">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
@@ -127,7 +127,8 @@
 
                                 <ng-container *ngIf="row.driverTransports.length>0">
                                     <div *ngFor="let transport of row.driverTransports">
-                                        <button mat-menu-item color="accent" (click)="addTransport(row.id, transport.id)">
+                                        <button mat-menu-item color="accent"
+                                            (click)="addTransport(row.id, transport.id)">
                                             <mat-icon>directions_car</mat-icon>
                                             {{transport.name}}
                                             {{"transport"|transloco}}
@@ -138,8 +139,8 @@
                                 <ng-container *ngIf="row.driverTransports.length<0">
                                     <button mat-menu-item color="accent" (click)="addTransport(row, null)">
                                         <mat-icon>directions_car</mat-icon>
+                                        {{"transport"|transloco}}:
                                         {{transport.name}}
-                                        {{"transport"|transloco}}
                                     </button>
                                 </ng-container>
 
@@ -147,9 +148,9 @@
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" (click)="delete(row.id)">
-                                    <mat-icon>remove</mat-icon>
-                                    {{"remove"|transloco}}
+                                <button mat-menu-item color="accent" [disabled]="!row.active" (click)="block(row.id)">
+                                    <mat-icon>lock</mat-icon>
+                                    {{"block"|transloco}}
                                 </button>
                             </mat-menu>
                         </div>

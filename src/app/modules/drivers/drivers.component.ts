@@ -19,6 +19,7 @@ import { DetailDriverComponent } from './components/detail-driver/detail-driver.
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { SendPushComponent } from './components/send-push/send-push.component';
 import { AddTransportComponent } from './components/add-transport/add-transport.component';
+import { BlockDriverComponent } from './components/block-driver/block-driver.component';
 
 @Component({
   selector: 'app-drivers',
@@ -77,13 +78,27 @@ export class DriversComponent implements OnInit {
     })
   }
 
-
   add() {
     const dialog = this._dialog.open(AddDriverComponent, {
       minWidth: '40vw',
       maxWidth: '50vw',
       minHeight: '42vh',
       maxHeight: '80vh',
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllDrivers()
+      })
+  }
+
+  block(id: number) {
+    const dialog = this._dialog.open(BlockDriverComponent, {
+      minWidth: '20vw',
+      maxWidth: '40vw',
+      minHeight: '42vh',
+      maxHeight: '85vh',
+      data: id,
       autoFocus: false,
     })
     dialog.afterClosed()

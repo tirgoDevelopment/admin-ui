@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"add_transport_driver"|transloco}}</p>
-    <!-- <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_transport_driver"|transloco}}</p> -->
+    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_transport_driver"|transloco}}</p>
+    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_transport_driver"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -30,9 +30,9 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                     <img *ngIf="form.get('techPassportFrontFilePath')?.value&&!edit"
-                    [src]="getImageUrl('techPassportFrontFilePath')" class="max-h-12 max-w-12" />
+                        [src]="getImageUrl('techPassportFrontFilePath')" class="max-h-12 max-w-12" />
                 </mat-form-field>
-                
+
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl">{{ 'tech_passport_back' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
@@ -48,7 +48,7 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                     <img *ngIf="form.get('techPassportBackFilePath')?.value&&!edit"
-                    [src]="getImageUrl('techPassportBackFilePath')" class="max-h-12 max-w-12" />
+                        [src]="getImageUrl('techPassportBackFilePath')" class="max-h-12 max-w-12" />
                 </mat-form-field>
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl">{{ 'transport_photo' | transloco }} </mat-label>
@@ -63,8 +63,8 @@
                     <mat-error *ngIf="f.transportFilePath.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
-                    <img *ngIf="form.get('transportFilePath').value&&!edit"
-                    [src]="getImageUrl('transportFilePath')" class="max-h-12 max-w-12" />
+                    <img *ngIf="form.get('transportFilePath').value&&!edit" [src]="getImageUrl('transportFilePath')"
+                        class="max-h-12 max-w-12" />
                 </mat-form-field>
 
                 <div class="flex items-center" *ngIf="isAutotransport">
@@ -125,7 +125,7 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                     <img *ngIf="form.get('goodsTransportationLicenseCardFilePath').value"
-                    [src]="getImageUrl('goodsTransportationLicenseCardFilePath')" class="max-h-12 max-w-12" />
+                        [src]="getImageUrl('goodsTransportationLicenseCardFilePath')" class="max-h-12 max-w-12" />
                 </mat-form-field>
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl">{{ 'driver_lisense_card' | transloco }} </mat-label>
@@ -141,8 +141,8 @@
                     <mat-error *ngIf="f.driverLicenseFilePath.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
-                    <img *ngIf="form.get('driverLicenseFilePath').value"
-                    [src]="getImageUrl('driverLicenseFilePath')" class="max-h-12 max-w-12" />
+                    <img *ngIf="form.get('driverLicenseFilePath').value" [src]="getImageUrl('driverLicenseFilePath')"
+                        class="max-h-12 max-w-12" />
                 </mat-form-field>
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl">{{ 'passport' | transloco }}</mat-label>
@@ -159,8 +159,8 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>
 
-                    <img *ngIf="form.get('passportFilePath').value"
-                    [src]="getImageUrl('passportFilePath')" class="max-h-12 max-w-12" />
+                    <img *ngIf="form.get('passportFilePath').value" [src]="getImageUrl('passportFilePath')"
+                        class="max-h-12 max-w-12" />
                 </mat-form-field>
                 <div *ngIf="isRefrigerator">
                     <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">{{ 'mode' |
@@ -180,9 +180,10 @@
             <div class="px-4">
                 <mat-form-field class="flex items-center">
                     <mat-label class="text-xl"> {{ 'type_transport' | transloco }}</mat-label>
-                    <mat-select  [compareWith]="compareFn" formControlName="transportTypeIds" multiple 
+                    <mat-select [compareWith]="compareFn" formControlName="transportTypeIds" multiple
                         [ngClass]="{'is-invalid': f.transportTypeIds.errors}">
-                        <mat-option *ngFor="let item of transportTypes; trackBy: trackByFn" [value]="item.id">{{item.name}}</mat-option>
+                        <mat-option *ngFor="let item of transportTypes; trackBy: trackByFn"
+                            [value]="item.id">{{item.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="f.transportTypeIds.errors?.required&& f.transportTypeIds.touched">
                         {{ 'is_empty' | transloco }}
@@ -190,9 +191,10 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label  class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
+                    <mat-label class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
-                        <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn" [value]="item.id">{{item.name}}</mat-option>
+                        <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
+                            [value]="item.id">{{item.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
@@ -208,7 +210,7 @@
                     <mat-label class="text-xl"> {{ 'cargo_type' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="cargoTypeIds" multiple>
                         <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn" [label]="group.name">
-                            <mat-option *ngFor="let item of group.cargoTypes"
+                            <mat-option *ngFor="let item of group.cargoTypes ;trackBy:trackByFn"
                                 [value]="item.id">{{item.name}}</mat-option>
                         </mat-optgroup>
                     </mat-select>

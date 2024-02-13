@@ -190,5 +190,8 @@
      "approve":"Approve",
      "reject":"Reject",
      "open":"Open",
-     "sum":"Sum"
+     "sum":"Sum",
+     "block_reason":"Block reason",
+     "block_client":"Block client",
+     "block_driver":"Block driver"
 }

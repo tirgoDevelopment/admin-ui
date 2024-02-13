@@ -19,6 +19,7 @@ import { ClientDetailComponent } from './components/client-detail/client-detail.
 import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { SendPushComponent } from './components/send-push/send-push.component';
+import { BlockClientComponent } from './components/block-client/block-client.component';
 
 @Component({
   selector: 'app-clients',
@@ -83,6 +84,20 @@ export class ClientsComponent {
     // })
   }
 
+  block(id: number) {
+    const dialog = this._dialog.open(BlockClientComponent, {
+      minWidth: '20vw',
+      maxWidth: '40vw',
+      minHeight: '42vh',
+      maxHeight: '85vh',
+      data: id,
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllClient()
+      })
+  }
 
   add() {
     const dialog = this._dialog.open(AddClientComponent, {
