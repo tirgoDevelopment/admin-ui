@@ -21,8 +21,9 @@ import { AgreementComponent } from '../agreement/agreement.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { OrdersService } from '../../services/orders.service';
 import { forkJoin } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
 import { AuthService } from 'app/core/auth/auth.service';
+import { TranslocoModule } from '@ngneat/transloco';
+import { ClientService } from 'app/modules/clients/services/client.service';
 
 @Component({
   selector: 'create-order',
@@ -31,7 +32,7 @@ import { AuthService } from 'app/core/auth/auth.service';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
+  imports: [RouterLink, NgIf, NgFor, TranslocoModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class CreateOrderComponent implements OnInit {
   form: FormGroup;
@@ -46,7 +47,7 @@ export class CreateOrderComponent implements OnInit {
   transportTypes: any;
   packagesTypes:any;
   cargoLoadingMethods:any;
-
+  users:any;
   isAutotransport: any;
   isRefrigerator: any;
   isRefrigeratorMode: boolean = false;
@@ -56,18 +57,17 @@ export class CreateOrderComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CreateOrderComponent>,
     private formBuilder: FormBuilder,
-    private orderService: OrdersService,
-    private typesService: TypesService,
-    private authService: AuthService,
-    private countryService: CountryService,
+    private _orderService: OrdersService,
+    private _typesService: TypesService,
+    private _clientService:ClientService,
+    private _countryService: CountryService,
     private toastr: ToastrService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.currentUser = jwtDecode(this.authService.accessToken)
     this.form = this.formBuilder.group({
-      merchantId: [this.currentUser.merchantId],
+      clientId: [null],
       sendDate: [null],
       loadingLocation: [null],
       deliveryLocation: [null],
@@ -82,14 +82,12 @@ export class CreateOrderComponent implements OnInit {
       isCarnetTir: [false],
       isGlonas: [false],
       isParanom: [false],
-
       offeredPrice: [null],
       offeredPriceCurrencyId: [null],
       inAdvancePrice: [0],
       inAdvancePriceCurrencyId: [null],
       paymentMethod: ['cash'],
       isSafeTransaction: [false],
-
       transportKindIds: [null, Validators.required],
       transportTypeIds: [null, Validators.required],
       refrigeratorFrom: [null],
@@ -107,12 +105,13 @@ export class CreateOrderComponent implements OnInit {
     })
     this.changeValue();
     forkJoin({
-      currencies: this.typesService.getCurrencies(),
-      cargoTypes: this.typesService.getCargoTypes(),
-      transportTypes: this.typesService.getTransportTypes(),
-      packagesTypes: this.typesService.getPackages(),
-      cargoLoadingMethods: this.typesService.getCargoLoadingMethod(),
-      transportKinds: this.typesService.getTransportKinds(),
+      currencies: this._typesService.getCurrencies(),
+      cargoTypes: this._typesService.getCargoTypes(),
+      transportTypes: this._typesService.getTransportTypes(),
+      packagesTypes: this._typesService.getPackages(),
+      cargoLoadingMethods: this._typesService.getCargoLoadingMethod(),
+      transportKinds: this._typesService.getTransportKinds(),
+      users:this._clientService.getAll()
     }).subscribe({
       next: (results: any) => {
         this.currencies = results.currencies.data;
@@ -121,6 +120,7 @@ export class CreateOrderComponent implements OnInit {
         this.packagesTypes = results.packagesTypes.data;
         this.cargoLoadingMethods = results.cargoLoadingMethods.data;
         this.transportKinds = results.transportKinds.data;
+        this.users = results.users;
         this.form.patchValue({
           offeredPriceCurrencyId: this.currencies[0].id,
           inAdvancePriceCurrencyId: this.currencies[0].id
@@ -133,7 +133,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   createOrder() {
-    this.orderService.createOrder(this.form.value).subscribe((res: any) => {
+    this._orderService.createOrder(this.form.value).subscribe((res: any) => {
       this.toastr.success('Created');
     })
     // this.closeModal();
@@ -177,7 +177,7 @@ export class CreateOrderComponent implements OnInit {
       const findText = ev.target.value.toString().trim().toLowerCase();
       if (findText.length >= 2) {
         this.viewText = true;
-        this.countryService.findCity(findText).subscribe((res: any) => {
+        this._countryService.findCity(findText).subscribe((res: any) => {
           this.findList = res;
         })
         // } else {

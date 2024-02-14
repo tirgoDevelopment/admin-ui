@@ -8,6 +8,8 @@ import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from '../../services/client.service';
 import { ClientModel } from '../../models/client.model';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-client-detail',
@@ -15,8 +17,7 @@ import { ClientModel } from '../../models/client.model';
   styleUrls: ['./client-detail.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatIconModule, DatePipe, NgIf, MatDialogModule, TranslocoModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule],
-
+  imports: [MatIconModule, DatePipe, NgIf, MatDialogModule, MatInputModule, FormsModule, ReactiveFormsModule, TranslocoModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule],
 })
 export class ClientDetailComponent implements OnInit {
   client: ClientModel;
@@ -28,7 +29,6 @@ export class ClientDetailComponent implements OnInit {
 
   getClient(id: any) {
     this._clientService.get(id).subscribe((response) => {
-      console.log(response)
       this.client = response.data
     });
   }

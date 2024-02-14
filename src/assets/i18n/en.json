@@ -193,5 +193,12 @@
      "sum":"Sum",
      "block_reason":"Block reason",
      "block_client":"Block client",
-     "block_driver":"Block driver"
+     "block_driver":"Block driver",
+     "from":"From",
+     "order_id":"Order Id",
+     "cargo_weight":"Cargo weight",
+     "price":"Price",
+     "order_date":"Order date",
+     "order_scheduled":"The order is scheduled for",
+     "assign_driver":"Assign driver"
 }

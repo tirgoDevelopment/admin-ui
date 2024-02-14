@@ -7,16 +7,18 @@
 
 <div class="flex items-center justify-center gap-1 mb-5">
   <div class="stepper-item active"><span>1</span></div>
-  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 2 || currentStep === 3" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
+  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 2 || currentStep === 3"
+    svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
   <div class="stepper-item" [class.active]="currentStep === 2 || currentStep === 3"><span>2</span></div>
-  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 3" svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
+  <mat-icon class="step-arrow" [class.step-arrow-active]="currentStep === 3"
+    svgIcon="heroicons_outline:arrow-long-right"></mat-icon>
   <div class="stepper-item" [class.active]="currentStep === 3"><span>3</span></div>
 </div>
 
 <div class="font-bold text-3xl flex justify-center">РАЗМЕЩЕНИЕ ГРУЗА</div>
 
 <mat-dialog-content class="mat-typography m-auto">
-  <form class="flex w-full gap-2" [formGroup]="form" class="mt-8 w-full">
+  <form class="flex w-full gap-2 px-3" [formGroup]="form" class="mt-8 w-full">
     <!-- STEP 1 -->
     <div *ngIf="currentStep == 1">
       <!-- Дата погрузки -->
@@ -32,18 +34,7 @@
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>Место отправки груза</mat-label>
-          <input type="text" matInput [matAutocomplete]="auto" (input)="findCity($event)"
-            formControlName="loadingLocation">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <ng-container *ngFor="let city of findList">
-              <mat-option
-                [value]="city.data.city + ', ' + city.data.country + ':'+ city.data.geo_lat + ':'+ city.data.geo_lon">
-                {{city.data.city}}
-                <!-- {{city.data.city}} {{city.data.country}} {{city.data.geoname_id}} {{city.data.geo_lat}}
-                {{city.data.geo_lon}} -->
-              </mat-option>
-            </ng-container>
-          </mat-autocomplete>
+          <input matInput formControlName="loadingLocation">
           <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
         </mat-form-field>
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
@@ -76,7 +67,17 @@
           </mat-select>
         </mat-form-field>
       </div>
-
+      <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+        <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+          <mat-label>{{ 'client' | transloco }}</mat-label>
+          <input matInput formControlName="clientId" list="users">
+          <datalist id="users">
+            <ng-container *ngFor="let user of users">
+              <option *ngIf="user.name" [value]="user.id + ' - ' + user.name"></option>
+            </ng-container>
+          </datalist>
+        </mat-form-field>
+      </div>
       <div class="grid grid-cols-2">
         <div class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full"
           *ngFor="let location of form.get('selectedLocations').value">
@@ -260,12 +261,12 @@
 
 <mat-dialog-actions align="center">
   <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading"
-    class="fuse-mat-button-large dark w-full mt-6" mat-flat-button [color]="'primary'">
+    class="fuse-mat-button-large  w-full mt-6" mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Продолжить</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>
   <button *ngIf="currentStep == 3" (click)="createOrder()" [disabled]="loading"
-    class="fuse-mat-button-large dark w-full mt-6" mat-flat-button [color]="'primary'">
+    class="fuse-mat-button-large  w-full mt-6" mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Создать</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>

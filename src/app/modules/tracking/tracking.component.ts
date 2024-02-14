@@ -17,7 +17,6 @@ import { TrackingService } from './services/tracking.service';
 import { TrackingDriverDetailComponent } from './components/tracking-driver-detail/tracking-driver-detail.component';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
-
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
@@ -25,8 +24,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule,AngularYandexMapsModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
+  imports: [TranslocoModule, MatIconModule, MatSelectModule, AngularYandexMapsModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class TrackingComponent implements OnInit {
   cities: any[] = [];

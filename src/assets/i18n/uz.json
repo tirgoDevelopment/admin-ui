@@ -193,5 +193,12 @@
     "sum":"So'm",
     "block_reason":"Bloklash sababi",
     "block_client":"Mijozni bloklash",
-    "block_driver":"Haydovchini bloklash"
+    "block_driver":"Haydovchini bloklash",
+    "from":"Qayerdan",
+    "order_id":"Buyurtma Idisi",
+    "cargo_weight":"Yukning og'irligi",
+    "price":"Narxi",
+    "order_date":"Buyurtma sanasi",
+    "order_scheduled":"Buyurtma rejalashtirilgan",
+    "assign_driver":"Haydovchi tayinlang"
 }

@@ -17,6 +17,8 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrderComponent } from './components/create-order/create-order.component';
+import { TranslocoModule } from '@ngneat/transloco';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 @Component({
   selector: 'app-orders',
@@ -24,12 +26,12 @@ import { CreateOrderComponent } from './components/create-order/create-order.com
   styleUrls: ['./orders.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatProgressSpinnerModule, DatePipe, MatPaginatorModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatRippleModule, MatMenuModule, MatTabsModule, MatButtonToggleModule, NgApexchartsModule, NgFor, NgIf, MatTableModule, NgClass],
+  imports: [ReactiveFormsModule, TranslocoModule, FormsModule, MatProgressSpinnerModule, DatePipe, MatPaginatorModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatRippleModule, MatMenuModule, MatTabsModule, MatButtonToggleModule, NgApexchartsModule, NgFor, NgIf, MatTableModule, NgClass],
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
   dataSource: any[];
-  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type'];
+  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'client'];
   currentUser: any;
   constructor(
     private orderService: OrdersService,
@@ -40,6 +42,24 @@ export class OrdersComponent implements OnInit {
     this.currentUser = jwtDecode(this.authService.accessToken);
     this.getOrders();
   }
+
+  detail(){
+    const dialog = this.dialog.open(OrderDetailComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getOrders()
+      })
+  }
+
   getOrders() {
     this.isLoading = true;
     this.orderService.getOrdersByMerchant(this.currentUser.userId).subscribe((res: any) => {

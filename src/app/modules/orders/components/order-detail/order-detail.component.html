@@ -1,0 +1,103 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold leading-5 text-3xl">{{"about_driver"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="h-full">
+    <div class="h-60 w-full mt-4">
+        <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+        </ya-map>
+    </div>
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"order_id"|transloco}}</p>
+                <p class="font-bold">#2459</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"order_dispatch_point"|transloco}}</p>
+                <p class="font-bold">Бразилия</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"cargo_type "|transloco}}</p>
+                <p class="font-bold">Жиры и масла</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"type_transport"|transloco}}</p>
+                <p class="font-bold">Не выбрано</p>
+            </div>
+
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"cargo_size"|transloco}}</p>
+                <p class="font-bold">д:10см. Ш: 20см. В:10см.</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"user"|transloco}}</p>
+                <p class="font-bold">Рафаэль Ройтман</p>
+            </div>
+
+
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"cargo_weight"|transloco}}</p>
+                <p class="font-bold">10 кг</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"price"|transloco}}</p>
+                <p class="font-bold">200$</p>
+            </div>
+
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"order_date"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 23:59</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"order_scheduled"|transloco}}</p>
+                <p class="font-bold">03 ноября 2023 в 23:59</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1"> {{"status"|transloco}}</p>
+                <p class="font-bold">Создан</p>
+            </div>
+
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class="fuse-mat-button mx-2" [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{ 'cancel_order' | transloco }}</button>
+        <button class=" fuse-mat-button text-white" mat-flat-button type="button" [color]="'primary'"
+            (click)="submit()">
+            {{ 'assign_driver' | transloco }}
+        </button>
+    </div>
+
+</mat-dialog-actions>
+
+
+<div [hidden]="!assign" class="max-w-md mx-auto">
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <mat-form-field class="w-full">
+                <mat-label>Водитель</mat-label>
+                <input id="name" matInput [(ngModel)]="driverid" placeholder="Водитель">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-full">
+                <mat-label>Предложенная сумма</mat-label>
+                <input id="name" matInput [(ngModel)]="price" placeholder="Предложенная сумма">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex justify-end mt-4">
+        <button class=" fuse-mat-button text-white" mat-flat-button [color]="'warn'" (click)="saveNewDriver()">
+            {{ 'assign_driver' | transloco }}
+        </button>
+    </div>
+</div>
