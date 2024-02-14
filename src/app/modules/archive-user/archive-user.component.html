@@ -5,19 +5,26 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"archived_users"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="hidden sm:inline-flex ml-3 " mat-flat-button (click)="detail()">
+                <button class="hidden sm:inline-flex ml-3 " color="primary" mat-flat-button (click)="detail()">
                     <span class="ml-2">Detail</span>
                 </button>
             </div>
         </div>
         <div class="mt-4">
             <mat-table matSort [dataSource]="dataSource">
-                <ng-container matColumnDef="iso">
-                    <mat-header-cell *matHeaderCellDef> {{"ISO"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
-                </ng-container>
                 <ng-container matColumnDef="full_name">
+                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div [ngSwitch]="row.userType">
+                            <div *ngSwitchCase="'client'">{{row?.client?.firstName}} {{row?.client?.lastName}}</div>
+                            <div *ngSwitchCase="'driver'">{{row?.driver?.firstName}} {{row?.driver?.lastName}}</div>
+                            <div *ngSwitchCase="'staff'">{{row?.staff?.firstName}} {{row?.staff?.lastName}}</div>
+                            <div *ngSwitchCase="'agent'">{{row?.agent?.firstName}} {{row?.agent?.lastName}}</div>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ISO">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
@@ -25,13 +32,36 @@
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.phone}} </mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div [ngSwitch]="row.userType">
+                            <div *ngSwitchCase="'client'">
+                                <span *ngFor="let phone of row?.client?.phoneNumbers">
+                                    {{phone.phoneNumber}}
+                                </span>
+                            </div>
+                            <div *ngSwitchCase="'driver'">
+                                <span *ngFor="let phone of row?.driver?.phoneNumbers">
+                                    {{phone.phoneNumber}}
+                                </span>
+                            </div>
+                            <div *ngSwitchCase="'staff'">
+                                <span *ngFor="let phone of row?.staff?.phoneNumbers">
+                                    {{phone.phoneNumber}}
+                                </span>
+                            </div>
+                            <div *ngSwitchCase="'agent'">
+                                <span *ngFor="let phone of row?.agent?.phoneNumbers">
+                                    {{phone.phoneNumber}}
+                                </span>
+                            </div>
+                        </div>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="type">
                     <mat-header-cell *matHeaderCellDef> {{"type"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.type}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.userType}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="moderation">
@@ -43,7 +73,14 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <div [ngSwitch]="row.userType">
+                            <div *ngSwitchCase="'client'">{{row?.client?.createdAt | date: 'dd/MM/yyyy'}} </div>
+                            <div *ngSwitchCase="'driver'">{{row?.driver?.createdAt | date: 'dd/MM/yyyy'}} </div>
+                            <div *ngSwitchCase="'staff'">{{row?.staff?.createdAt | date: 'dd/MM/yyyy'}} </div>
+                            <div *ngSwitchCase="'agent'">{{row?.agent?.createdAt | date: 'dd/MM/yyyy'}} </div>
+                        </div>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">

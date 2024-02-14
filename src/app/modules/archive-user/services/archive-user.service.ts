@@ -18,7 +18,7 @@ export class ArchiveUserService {
   }
 
   getAll(params?): Observable<Response<ClientModel[]>> {
-    return this._apiService.get<ClientModel[]>('/clients/all', createHttpParams(params));
+    return this._apiService.get<ClientModel[]>('/users/archive', createHttpParams(params));
   }
 
   getAllDeleted(params?): Observable<Response<ClientModel[]>> {

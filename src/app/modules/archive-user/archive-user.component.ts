@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +15,7 @@ import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { MatSelectModule } from '@angular/material/select';
 import { ArchiveUserModel } from './models/archive-user.model';
 import { DetailArchiveUserComponent } from './components/detail-archive-user/detail-archive-user.component';
-import { ClientService } from '../clients/services/client.service';
+import { ArchiveUserService } from './services/archive-user.service';
 
 @Component({
   selector: 'app-archive-user',
@@ -24,18 +24,17 @@ import { ClientService } from '../clients/services/client.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, DatePipe, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['iso', 'full_name', 'phone', 'type', 'moderation', 'register_date', 'last_enter', 'order', 'geolocation'];;
+  displayedColumns: string[] = ['full_name', 'phone', 'type', 'register_date'];;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ArchiveUserModel>([]);
-  constructor(
-    private _clientUserService: ClientService, protected _dialog?: MatDialog) {
+  constructor(private _archiveUserService: ArchiveUserService, protected _dialog?: MatDialog) {
   }
 
   detail() {
@@ -56,7 +55,7 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   getAllDeleted() {
-    this._clientUserService.getNonActive().subscribe((response) => {
+    this._archiveUserService.getAll().subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
