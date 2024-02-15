@@ -175,6 +175,10 @@
     "loading_method":"Yuklash usuli",
     "company_name":"Shirkat nomi",
     "director_name":"Direktorning to'liq ismi",
+    "director_first_name":"Direktorning ismi",
+    "director_last_name":"Direktorning familyasi",
+    "responce_person_first_name":"Mas'ul shaxsning ismi",
+    "responce_person_last_name":"Mas'ul shaxsning familiyasi",
     "responce_person":"Mas'ul shaxsning to'liq ismi",
     "legal_address":"Yuridik manzil",
     "actual_address":"Haqiqiy manzil",
@@ -200,5 +204,9 @@
     "price":"Narxi",
     "order_date":"Buyurtma sanasi",
     "order_scheduled":"Buyurtma rejalashtirilgan",
-    "assign_driver":"Haydovchi tayinlang"
+    "assign_driver":"Haydovchi tayinlang",
+    "passport_owner":"Menejerning pasporti",
+    "responce_phone":"Mas'ul shaxsning telefon raqami",
+    "currency_name":"Valyuta nomi",
+    "request":"So'rov"
 }

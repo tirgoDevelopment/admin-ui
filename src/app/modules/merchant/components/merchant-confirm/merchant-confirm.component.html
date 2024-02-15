@@ -2,10 +2,12 @@
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold"> {{ 'merchant' | transloco }}</h1>
         <div class="ml-auto p-2">
-            <button mat-button class="bg-green-500 hover:bg-green-600 text-white font-bold p-6 rounded">
+            <button mat-button (click)="approve()"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold p-6 rounded">
                 {{ 'approve' | transloco }}
             </button>
-            <button mat-button class="bg-red-500 mx-2  hover:bg-red-600 text-white font-bold p-6 rounded">
+            <button mat-button (click)="reject()"
+                class="bg-red-500 mx-2  hover:bg-red-600 text-white font-bold p-6 rounded">
                 {{ 'refect' | transloco }}
             </button>
         </div>
@@ -13,75 +15,79 @@
     <div class="grid grid-cols-3 gap-6">
         <div>
             <p class="font-semibold"> {{ 'company_name' | transloco }}</p>
-            <p>ООО Asliddin</p>
+            <p>{{merchant?.companyName}}</p>
         </div>
         <div>
             <p class="font-semibold"> {{ 'director_name' | transloco }}</p>
-            <p>test test</p>
+            <p>{{merchant?.supervisorFirstName}} {{merchant?.supervisorLastName}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'responce_person' | transloco }}</p>
-            <p>222222222 222222222</p>
+            <p>{{merchant?.responsiblePersonFistName}} {{merchant?.responsiblePersonLastName}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'phone' | transloco }}</p>
-            <p>+998993014064</p>
+            <p>{{merchant?.phoneNumber}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'legal_address' | transloco }}</p>
-            <p>222222222</p>
+            <p>{{merchant?.legalAddress}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'actual_address' | transloco }}</p>
-            <p>222222222</p>
+            <p>{{merchant?.factAddress}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'email' | transloco }}</p>
-            <p>nemo.falcon96@gmail.com</p>
+            <p>{{merchant?.email}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'bank_name' | transloco }}</p>
-            <p>asas</p>
+            <p>{{merchant?.bankName}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'account' | transloco }}</p>
-            <p>asdsads</p>
+            <p *ngFor="let bankAccount of merchant?.bankAccounts">
+                <span> {{bankAccount}}</span>
+            </p>
         </div>
         <div>
             <p class="font-semibold">{{ 'inn' | transloco }}</p>
-            <p>222222222</p>
+            <p>{{merchant?.inn}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'oked' | transloco }}</p>
-            <p>22222</p>
+            <p>{{merchant?.oked}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'mfo' | transloco }}</p>
-            <p>22222</p>
+            <p>{{merchant?.mfo}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'duns_number' | transloco }}</p>
-            <p>222222222</p>
+            <p>{{merchant?.dunsNumber}}</p>
         </div>
         <div>
             <p class="font-semibold">{{ 'notes' | transloco }}</p>
-            <p>222222222</p>
+            <p>{{merchant?.notes}}</p>
         </div>
 
     </div>
     <div class="grid grid-cols-3 gap-6 mt-2">
         <div>
-            <button (click)="privew()" mat-stroked-button class="fuse-mat-button p-6 rounded">
+            <button (click)="privew(merchant?.logoFilePath)" mat-stroked-button class="fuse-mat-button p-6 rounded">
                 <mat-icon>image</mat-icon> {{ 'logo' | transloco }}
             </button>
         </div>
         <div>
-            <button (click)="privew()" mat-stroked-button class="fuse-mat-button  p-6 rounded">
+            <button (click)="privew(merchant?.passportFilePath)" mat-stroked-button
+                class="fuse-mat-button  p-6 rounded">
                 <mat-icon>credit_card</mat-icon> {{ 'passport' | transloco }}
             </button>
         </div>
         <div>
-            <button (click)="privew()" mat-stroked-button class="fuse-mat-button  p-6 rounded">
+            <button (click)="privew(merchant?.registrationCertificateFilePath)" mat-stroked-button
+                class="fuse-mat-button  p-6 rounded">
                 <mat-icon>description</mat-icon> {{ 'registration_certificate' | transloco }}
             </button>
         </div>

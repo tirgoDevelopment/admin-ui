@@ -10,17 +10,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-import { Inject } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA,  MatDialogModule } from '@angular/material/dialog';
-import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MerchantService } from '../../services/merchant.service';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-merchant-list',
@@ -29,16 +24,20 @@ import { DialogRef } from '@angular/cdk/dialog';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
+  imports: [TranslocoModule, RouterLink, MatIconModule, MatDialogModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantListComponent {
-  items = [
-    { id: 1, leftText: 'Item 1' },
-    { id: 2, leftText: 'Item 2' },
-    { id: 3, leftText: 'Item 3' },
-  ];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  merchants:any;
+  link: 'SDsadsad'
+  constructor(private _merchantService: MerchantService,
     public dialogref: DialogRef) {
+    this.unverifiedMerchants()
+  }
+
+  unverifiedMerchants() {
+    this._merchantService.unVerified().subscribe(res => {
+      this.merchants = res.data
+      console.log(this.merchants)
+    })
   }
 }

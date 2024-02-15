@@ -2,8 +2,7 @@
     <div class="flex justify-between items-center">
         <h2 class="text-xl font-bold">Редактировать</h2>
         <div class="flex items-center">
-            <button (click)="editMerchant()" class="bg-green-500 dark:bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
-                :disabled="!form.valid">
+            <button (click)="editMerchant()" class="bg-green-500 dark:bg-blue-500 text-white px-4 py-2 rounded-md mr-2">
                 Сохранить
             </button>
         </div>
@@ -24,17 +23,30 @@
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label> {{ 'director_name' | transloco }}</mat-label>
+                <mat-label> {{ 'director_first_name' | transloco }}</mat-label>
                 <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName"
-                    placeholder="{{ 'director_name' | transloco }}" />
+                    placeholder="{{ 'director_first_name' | transloco }}" />
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label> {{ 'responce_person' | transloco }}</mat-label>
-                <input required matInput name="responsiblePersonFistName"
-                    placeholder="{{ 'responce_person' | transloco }}" formControlName="responsiblePersonFistName"
-                    required />
+                <mat-label> {{ 'director_last_name' | transloco }}</mat-label>
+                <input required matInput name="supervisorLastName" formControlName="supervisorLastName"
+                    placeholder="{{ 'director_last_name' | transloco }}" />
             </mat-form-field>
+            <mat-form-field>
+                <mat-label> {{ 'responce_person_first_name' | transloco }}</mat-label>
+                <input required matInput name="responsiblePersonFistName"
+                    placeholder="{{ 'responce_person_first_name' | transloco }}"
+                    formControlName="responsiblePersonFistName" required />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> {{ 'responce_person_last_name' | transloco }}</mat-label>
+                <input required matInput name="responsiblePersonLastName"
+                    placeholder="{{ 'responce_person_last_name' | transloco }}"
+                    formControlName="responsiblePersonLastName" required />
+            </mat-form-field>
+
 
             <mat-form-field>
                 <mat-label> {{ 'bank_name' | transloco }}</mat-label>
@@ -67,9 +79,22 @@
             </mat-form-field>
 
             <mat-form-field>
+                <mat-label>{{ 'responce_phone' | transloco }}</mat-label>
+                <input matInput type="text" name="phoneNumber" mask="+999999999999"
+                    placeholder="{{ 'responce_phone' | transloco }}" formControlName="responsbilePersonPhoneNumber"
+                    required />
+            </mat-form-field>
+
+            <mat-form-field>
                 <mat-label>{{ 'duns_number' | transloco }}</mat-label>
                 <input type="text" matInput name="dunsNumber" formControlName="dunsNumber"
                     placeholder="{{ 'duns_number' | transloco }}" mask="999999999" maxlength="9" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'legal_address' | transloco }}</mat-label>
+                <input type="text" matInput name="dunsNumber" formControlName="legalAddress"
+                    placeholder="{{ 'legal_address' | transloco }}" />
             </mat-form-field>
 
             <mat-form-field>
@@ -90,8 +115,8 @@
                 <mat-error *ngIf="f.logoFilePath.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
-                <img *ngIf="form.get('logoFilePath').value"
-                [src]="getImageUrl('logoFilePath')" class="max-h-12 max-w-12" />
+                <img *ngIf="form.get('logoFilePath').value" [src]="getImageUrl('logoFilePath')"
+                    class="max-h-12 max-w-12" />
             </mat-form-field>
 
             <mat-form-field class="flex items-center">
@@ -107,8 +132,8 @@
                 <mat-error *ngIf="f.passportFilePath.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
-                <img *ngIf="form.get('passportFilePath').value"
-                [src]="getImageUrl('passportFilePath')" class="max-h-12 max-w-12" />
+                <img *ngIf="form.get('passportFilePath').value" [src]="getImageUrl('passportFilePath')"
+                    class="max-h-12 max-w-12" />
             </mat-form-field>
             <mat-form-field class="flex items-center">
                 <mat-label class="text-xl">{{ 'registration_certificate' | transloco }} </mat-label>
@@ -124,22 +149,25 @@
                 <mat-error *ngIf="f.registrationCertificateFilePath.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
-                <img *ngIf="form.get('registrationCertificateFilePath').value"
+                <img *ngIf="form.get('registrationCertificateFilePath')?.value"
                     [src]="getImageUrl('registrationCertificateFilePath')" class="max-h-12 max-w-12" />
             </mat-form-field>
         </div>
 
     </form>
-    <div class="mt-10 flex justify-between">
+    <div class="mt-10 flex ">
         <div class="text-lg font-semibold">История платежей</div>
-        <div class="flex">
-            <div class="mx-3 flex-col text-center">
+        <span class="ml-auto"></span>
+        <div class="flex flex-row " *ngFor="let balance of balances">
+            <div class="mx-3 text-center">
                 <div class="text-sm font-semibold">Активный баланс</div>
-                <div class="text-sm font-semibold">100</div>
+                <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+                    <span>{{balance?.activebalance}}</span> </div>
             </div>
-            <div class="mx-3 flex-col text-center">
+            <div class="mx-3 text-center">
                 <div class="text-sm font-semibold">Замороженный баланс</div>
-                <div class="text-sm font-semibold">0</div>
+                <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+                    <span>{{balance?.frozenbalance}}</span></div>
             </div>
         </div>
     </div>
@@ -149,29 +177,44 @@
             <ng-container matColumnDef="full_name">
                 <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.createdBy}} </mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="currencyName">
+                <mat-header-cell *matHeaderCellDef> {{"currency_name"|transloco}}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.currencyName}} </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="sum">
                 <mat-header-cell *matHeaderCellDef> {{"sum"|transloco}}
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.sum}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.amount}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="date">
                 <mat-header-cell *matHeaderCellDef> {{"date"|transloco}}
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.date}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{ row?.createdAt}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="type">
                 <mat-header-cell *matHeaderCellDef> {{"type"|transloco}}
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.loads}} </mat-cell>
+                <mat-cell *matCellDef="let row">
+                    <span *ngIf="row.transctionType == 'topupAccount'">Пополнение счета</span>
+                    <span *ngIf="row.transctionType == 'withdrawAccount'">Вывод стредств</span>
+                </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
+                <mat-cell *matCellDef="let row">
+                    <span class="bg-red-500 text-white p-2" *ngIf="row.rejected">{{"rejected"|transloco}}</span>
+                    <span class="bg-green-500 text-white p-2" *ngIf="row.verified">{{"approve"|transloco}}</span>
+                    <span class="bg-yellow-500 text-white p-2"
+                        *ngIf="!row.verified && !row.rejected">{{"request"|transloco}}</span>
+                </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="actions">
@@ -183,13 +226,19 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #moreMenu="matMenu">
-                            <button mat-menu-item color="accent" (click)="edit(row)">
+                            <!-- <button mat-menu-item color="accent" (click)="cancelTransaction(row.id)">
                                 <mat-icon>edit</mat-icon>
-                                {{"edit"|transloco}}
-                            </button>
-                            <button mat-menu-item color="accent" (click)="delete(row.id)">
+                                {{"cancel"|transloco}}
+                            </button> -->
+                            <button mat-menu-item color="accent" *ngIf="!row.verified "
+                                (click)="verifyTransaction(row.id)">
                                 <mat-icon>remove</mat-icon>
-                                {{"remove"|transloco}}
+                                {{"verify"|transloco}}
+                            </button>
+                            <button mat-menu-item color="accent" *ngIf=" !row.rejected"
+                                (click)="rejectTransaction(row.id)">
+                                <mat-icon>remove</mat-icon>
+                                {{"reject"|transloco}}
                             </button>
                         </mat-menu>
                     </div>

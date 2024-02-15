@@ -1,14 +1,37 @@
 import { BaseModel } from "app/core/models/base-model";
 
 export interface MerchantModel extends BaseModel {
-    name?: string;
-    full_name?: string;
-    contry_code?: string;
-    phone?: string;
-    type?: string;
-    moderation?: string;
-    register_date?: Date;
-    last_enter?: Date;
-    order?: boolean;
-    geolocation?: boolean;
+    email: string,
+    phoneNumber: string,
+    companyName: string,
+    companyType: string,
+    responsiblePersonLastName: string,
+    responsiblePersonFistName: string,
+    registrationCertificateFilePath: string,
+    passportFilePath: string,
+    transportationCertificateFilePath: string,
+    logoFilePath: string,
+    notes: string,
+    mfo: string,
+    inn: string,
+    oked: string,
+    dunsNumber: string,
+    ibanNumber: string,
+    supervisorFirstName: string,
+    supervisorLastName: string,
+    legalAddress: string,
+    factAddress: string,
+    bankName: string,
+    taxPayerCode: string,
+    responsbilePersonPhoneNumber: string,
+    verified: boolean,
+    rejected: boolean,
+    rejectedAt: string,
+    verifiedBy: string,
+    verifiedAt: Date,
+    createdAt: Date,
+    completed: boolean,
+    active: boolean,
+    bankAccounts: [],
+    balances: []
 }

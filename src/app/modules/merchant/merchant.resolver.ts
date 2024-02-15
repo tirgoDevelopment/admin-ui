@@ -5,11 +5,11 @@ import { MerchantModerationComponent } from './components/merchant-moderation/me
 
 export default [
     {
-        path     : '',
+        path: '',
         component: MerchantComponent,
-        resolve  : {
+        resolve: {
         },
-   
+
     },
     {
         path: 'moderation/:id',
@@ -18,7 +18,7 @@ export default [
         },
     },
     {
-        path: 'moderation',
+        path: 'edit/:id',
         component: MerchantModerationComponent,
         resolve: {
         },

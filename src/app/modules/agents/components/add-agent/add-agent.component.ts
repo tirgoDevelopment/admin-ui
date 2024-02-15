@@ -37,11 +37,19 @@ export class AddAgentComponent {
   passwordGenerator = new PasswordGenerator();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
-    fullName: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
-    roleId: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
+    companyName: new FormControl('', [Validators.required]),
+    legalAddress: new FormControl('', [Validators.required]),
+    actualAddress: new FormControl('', [Validators.required]),
+    supervisorFirstName: new FormControl('', [Validators.required]),
+    supervisorLastName: new FormControl('', [Validators.required]),
+    inn: new FormControl('', [Validators.required]),
+    oked: new FormControl('', [Validators.required]),
+    mfo: new FormControl('', [Validators.required]),
+    bankName: new FormControl('', [Validators.required]),
+    registrationCertificate: new FormControl('', [Validators.required]),
+    passportOwner: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,11 +61,17 @@ export class AddAgentComponent {
       this.edit = true;
       this.form.patchValue({
         id: this.data?.id,
-        fullName: this.data?.fullName,
-        phone: this.data?.phone,
-        roleId: this.data?.roleId,
-        username: this.data?.username,
-        password: this.data?.password,
+        companyName: this.data?.companyName,
+        legalAddress: this.data?.legalAddress,
+        actualAddress: this.data?.actualAddress,
+        supervisorFirstName: this.data?.supervisorFirstName,
+        supervisorLastName: this.data?.supervisorLastName,
+        inn: this.data?.inn,
+        oked: this.data?.oked,
+        mfo: this.data?.mfo,
+        bankName: this.data?.bankName,
+        registrationCertificate: this.data?.registrationCertificate,
+        passportOwner: this.data?.passportOwner,
       });
     }
     this.getRoles()
@@ -67,6 +81,28 @@ export class AddAgentComponent {
     this._roleService.getAll().subscribe(res => {
       this.roles = res.data
     })
+  }
+
+  onFileSelected(event: any, type: string): void {
+    const file: File = event.target.files[0];
+    switch (type) {
+      case 'registrationCertificate':
+        this.form.patchValue({
+          registrationCertificate: file
+        });
+      case 'passportOwner':
+        this.form.patchValue({
+          passportOwner: file
+        });
+    }
+  }
+
+  getImageUrl(formname:string): string {
+    const file = this.form.get(`${formname}`).value;
+    if (file instanceof File) {
+      return URL.createObjectURL(file);
+    }
+    return '';
   }
 
   get f() {

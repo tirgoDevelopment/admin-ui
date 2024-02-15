@@ -17,6 +17,8 @@ import { DriversService } from '../drivers/services/drivers.service';
 import { DriverModel } from '../drivers/models/driver.model';
 import { MerchantListComponent } from './components/merchant-list/merchant-list.component';
 import { RouterLink } from '@angular/router';
+import { MerchantService } from './services/merchant.service';
+import { MerchantModel } from './models/merchanr.model';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -28,10 +30,10 @@ import { RouterLink } from '@angular/router';
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];
-  displayedColumns: string[] = ['full_name', 'entity', 'balance', 'loads', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['full_name', 'entity', 'balance',  'last_enter'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource = new MatTableDataSource<DriverModel>([]);
-  constructor(private _driversService: DriversService, protected _dialog?: MatDialog) {
+  dataSource = new MatTableDataSource<MerchantModel>([]);
+  constructor(private _driversService: MerchantService, protected _dialog?: MatDialog) {
   }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class MerchantComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this._driversService.getAll().subscribe((response) => {
+    this._driversService.Verified().subscribe((response) => {
       console.log(response)
       this.dataSource.data = response?.data;
     });
@@ -59,10 +61,6 @@ export class MerchantComponent implements OnInit {
       })
   }
 
-  delete(id: number) {
-    this._driversService.delete(id).subscribe(() => {
-      this.getAllDrivers()
-    })
-  }
+
 }
 

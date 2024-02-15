@@ -17,7 +17,7 @@ export class AgentService {
   }
 
   getAll(params?): Observable<Response<AgentModel[]>> {
-    return this._apiService.get<AgentModel[]>('/agents/all', createHttpParams(params));
+    return this._apiService.get<AgentModel[]>('/users/agents', createHttpParams(params));
   }
 
   getAllDeleted(params?): Observable<Response<AgentModel[]>> {
@@ -25,11 +25,11 @@ export class AgentService {
   }
 
   create(body): Observable<Response<AgentModel>> {
-		return this._apiService.post<AgentModel>('/agents', body);
+		return this._apiService.post<AgentModel>('/users/agents/register', body);
 	}
 
   update(body): Observable<Response<AgentModel>> {
-    return this._apiService.put<AgentModel>('/agents', body);
+    return this._apiService.put<AgentModel>('/users/agents/update', body);
   }
 
   delete(id: number): Observable<Response<AgentModel>> {

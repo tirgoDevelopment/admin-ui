@@ -175,6 +175,10 @@
     "loading_method":"Способ погрузки",
     "company_name":"Название компании",
     "director_name":"Ф.И.О руководителя",
+    "director_first_name":"Имя директора",
+    "director_last_name":"Фамилия директора",
+    "responce_person_first_name":"Имя ответственного лица",
+    "responce_person_last_name":"Фамилия ответственного лица",
     "responce_person":"Ф.И.О ответственного лица",
     "legal_address":"Юридический адрес",
     "actual_address":"Фактический адрес",
@@ -200,6 +204,11 @@
     "price":"Стоимость",
     "order_date":"Дата оформления заказа",
     "order_scheduled":"Заказ назначен на",
-    "assign_driver":"Назначить водителя"
+    "assign_driver":"Назначить водителя",
+    "passport_owner":"Паспорт руководителя",
+    "responce_phone":"Телефон номер ответственного лица",
+    "currency_name":"Валюта Имя",
+    "request":"Запрос"
+
 
 }

@@ -14,5 +14,6 @@ export class ImagePriviewComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog){
       this.image=this.data
+      console.log(this.image)
     }
 }

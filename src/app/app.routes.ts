@@ -97,8 +97,8 @@ export const appRoutes: Route[] = [
             {
                 path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver')
             },
-            { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
-            { path: '**', redirectTo: '404-not-found' }
+            // { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
+            // { path: '**', redirectTo: '404-not-found' }
         ]
     }
 ];

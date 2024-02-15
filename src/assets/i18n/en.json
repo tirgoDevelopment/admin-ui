@@ -175,6 +175,10 @@
     "loading_method":"Loading method",
     "company_name":"Company Name",
     "director_name":"Director's Full Name",
+    "director_first_name":"Director's First Name",
+    "director_last_name":"Director's Last Name",
+    "responce_person_first_name":"Responsible Person's First Name",
+    "responce_person_last_name":"Responsible Person's Last Name",
     "responce_person":"Responsible Person's Full Name",
     "legal_address":"Legal Address",
     "actual_address":"Actual address",
@@ -200,5 +204,9 @@
      "price":"Price",
      "order_date":"Order date",
      "order_scheduled":"The order is scheduled for",
-     "assign_driver":"Assign driver"
+     "assign_driver":"Assign driver",
+     "passport_owner":"Manager's passport",
+     "responce_phone":"Telephone number of the responsible person",
+     "currency_name":"currency Name",
+     "request":"Request"
 }

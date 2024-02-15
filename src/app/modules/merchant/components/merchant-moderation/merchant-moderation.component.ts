@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
@@ -19,8 +19,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -33,19 +33,14 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 
 export class MerchantModerationComponent implements OnInit {
-  displayedColumns: string[] = ['full_name', 'sum', 'date', 'type', 'status', 'actions'];
+  displayedColumns: string[] = ['full_name', 'sum', 'currencyName', 'date', 'type', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>([]);
-  @ViewChild("dialogRef") dialogRef: TemplateRef<any>;
-  @ViewChild("dialogPreview") dialogPreview: TemplateRef<any>;
-
   fileApi = 'https://merchant.tirgo.io/api/v1/file/download/';
   selectedFileNames: any;
   passportFile: FileList;
-  passportNames: string[] = [];
 
   certificateFile: FileList;
-  certificateNames: string[] = [];
 
   phone2: boolean = false;
   factAddressShow: boolean = false;
@@ -53,108 +48,108 @@ export class MerchantModerationComponent implements OnInit {
   data
   transactionRequest: any[] = [];
   transaction: any;
-  balance: any;
+  balances: any;
   frozenBalance: any;
   image: any;
-
+  id: number;
   form: FormGroup = new FormGroup({
+    id: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
     supervisorFirstName: new FormControl('', [Validators.required]),
+    supervisorLastName: new FormControl('', [Validators.required]),
     responsiblePersonFistName: new FormControl('', [Validators.required]),
+    responsiblePersonLastName: new FormControl('', [Validators.required]),
+    responsbilePersonPhoneNumber: new FormControl('', [Validators.required]),
+    legalAddress: new FormControl('', [Validators.required]),
     bankName: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     oked: new FormControl('', [Validators.required]),
     mfo: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    dunsNumber: new FormControl(),
-    notes: new FormControl(),
+    dunsNumber: new FormControl('', [Validators.required]),
+    notes: new FormControl('', [Validators.required]),
     logoFilePath: new FormControl('', [Validators.required]),
     registrationCertificateFilePath: new FormControl('', [Validators.required]),
     passportFilePath: new FormControl('', [Validators.required]),
-
   })
-
-
-  sizespage = [
-    50, 100, 200, 500, 1000, 5000
-  ]
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    // private list: ListService,
-    // public helper: HelperService,
-    private dialog: MatDialog,
-    private toastr: ToastrService,
-    private authService: AuthService
-  ) { }
+    private route: ActivatedRoute,
+    private toastr:ToastrService,
+    private merchantService: MerchantService) {
+
+    this.route.params.subscribe(params => {
+      const param = params.id;
+      this.id = param;
+      this.getMerchant(Number(param));
+    });
+  }
+
+  getMerchant(id: number) {
+    this.form.patchValue({
+      techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+      id: 'new value for techPassportFrontFilePath',
+      bankName: 'new value for techPassportFrontFilePath',
+      companyName: 'new value for techPassportFrontFilePath',
+      phoneNumber: 'new value for techPassportFrontFilePath',
+      dunsNumber: 'new value for techPassportFrontFilePath',
+      email: 'new value for techPassportFrontFilePath',
+      supervisorFirstName: 'new value for techPassportFrontFilePath',
+      supervisorLastName: 'new value for techPassportFrontFilePath',
+      responsiblePersonFistName: 'new value for techPassportFrontFilePath',
+      responsiblePersonLastName: 'new value for techPassportFrontFilePath',
+      responsbilePersonPhoneNumber: 'new value for techPassportFrontFilePath',
+      inn: 'new value for techPassportFrontFilePath',
+      oked: 'new value for techPassportFrontFilePath',
+      mfo: 'new value for techPassportFrontFilePath',
+      notes: 'new value for techPassportFrontFilePath',
+      logoFilePath: 'new value for techPassportFrontFilePath',
+      registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
+      passportFilePath: 'new value for techPassportFrontFilePath',
+      legalAddress: 'new value for techPassportFrontFilePath',
+    });
+    this.merchantService.get(id).subscribe(responce => {
+      this.form.patchValue({
+        id: responce.data.id,
+        bankName: responce.data.bankName,
+        companyName: responce.data.companyName,
+        phoneNumber: responce.data.phoneNumber,
+        dunsNumber: responce.data.dunsNumber,
+        email: responce.data.email,
+        supervisorFirstName: responce.data.supervisorFirstName,
+        supervisorLastName: responce.data.supervisorLastName,
+        responsiblePersonFistName: responce.data.responsiblePersonFistName,
+        responsiblePersonLastName: responce.data.responsiblePersonLastName,
+        responsbilePersonPhoneNumber: responce.data.responsbilePersonPhoneNumber,
+        legalAddress: responce.data.legalAddress,
+        inn: responce.data.inn,
+        oked: responce.data.oked,
+        mfo: responce.data.mfo,
+        notes: responce.data.notes,
+        logoFilePath: responce.data?.logoFilePath,
+        registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
+        passportFilePath: responce.data?.passportFilePath
+      })
+    })
+  }
   ngOnInit(): void {
-    this.data = { supervisor_passport: '', certificate_registration: '' }
-    // this.getData();
-    // this.getTransactions();
-    // this.getBalance();
+    this.getTransactions()
+    this.getBalance()
   }
 
-  // getData() {
-  //   this.helper.loadingCreate();
-  //   this.route.params.subscribe((res: any) => {
-  //     this.data.id = res.id
-  //     if (res) {
-  //       this.helper.loadingClose();
-  //       this.list.getMerchantById(res.id).subscribe((data: any) => {
-  //         if (data)
-  //           this.data = data;
-  //       })
-  //     }
-  //   })
-  // }
-
-  // editMerchant() {
-  //   this.helper.loadingCreate();
-  //   this.list.editMerchant(this.data).subscribe((res: any) => {
-  //     if (res) {
-  //       this.helper.loadingClose();
-  //       this.toastr.success('Успешно обновлен');
-  //       this.router.navigate(['/moderation'])
-  //     }
-  //   })
-  // }
-
-  // getTransactions() {
-  //   this.list.getTransactionByMerchant(this.data.id).subscribe((res) => {
-  //     if (res) {
-  //       this.transactionRequest = res.data;
-  //     }
-  //   })
-  // }
-
-  // getBalance() {
-  //   this.list.getMerchantBalance(this.data.id).subscribe((res) => {
-  //     if(res.success) {
-  //       this.balance = res.data.activeBalance;
-  //       this.frozenBalance = res.data.frozenBalance;
-  //     }
-  //   })
-  // }
-
-  addPhone() {
-    this.data.phoneNumbers.push('');
+  getTransactions() {
+    this.merchantService.getMerchantTransactions(this.id).subscribe(res => {
+      this.data = res.data
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.paginator = this.paginator;
+    })
   }
 
-  selectPassport(event: any): void {
-    this.passportNames = [];
-    this.passportFile = event.target.files;
-
-    if (this.passportFile && this.passportFile[0]) {
-      const numberOfFiles = this.passportFile.length;
-      for (let i = 0; i < numberOfFiles; i++) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-        };
-        reader.readAsDataURL(this.passportFile[i]);
-        this.passportNames.push(this.passportFile[i].name);
-      }
-    }
+  getBalance() {
+    this.merchantService.getMerchantBalanse(this.id).subscribe(res => {
+      this.balances = res.data
+    })
   }
 
   get f() {
@@ -163,134 +158,95 @@ export class MerchantModerationComponent implements OnInit {
 
   onFileSelected(event: any, type: string): void {
     const file: File = event.target.files[0];
-    switch (type) {
-      case 'logoFilePath':
-        this.form.patchValue({
-          logoFilePath: file
-        });
-      case 'registrationCertificateFilePath':
-        this.form.patchValue({
-          registrationCertificateFilePath: file
-        });
-      case 'passportFilePath':
-        this.form.patchValue({
-          passportFilePath: file
-        });
+    if (type == 'logoFilePath') {
+      this.form.patchValue({
+        logoFilePath: file
+      });
+    } else if (type == 'registrationCertificateFilePath') {
+      this.form.patchValue({
+        registrationCertificateFilePath: file
+      });
+    }
+    else if (type == 'passportFilePath') {
+      this.form.patchValue({
+        passportFilePath: file
+      });
     }
   }
 
-  getImageUrl(formname:string): string {
+  getImageUrl(formname: string): string {
     const file = this.form.get(`${formname}`).value;
-    console.log(file)
     if (file instanceof File) {
       return URL.createObjectURL(file);
     }
     return '';
   }
-  selectCertificate(event: any): void {
-    this.certificateNames = [];
-    this.certificateFile = event.target.files;
-
-    if (this.certificateFile && this.certificateFile[0]) {
-      const numberOfFiles = this.certificateFile.length;
-      for (let i = 0; i < numberOfFiles; i++) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-        };
-        reader.readAsDataURL(this.certificateFile[i]);
-        this.certificateNames.push(this.certificateFile[i].name);
-      }
-    }
-  }
-
-  goToColumn(item) {
-    if (!item.verified && !item.rejected) {
-      this.transaction = item;
-      console.log(this.transaction);
-
-      const dialogRef = this.dialog.open(this.dialogRef, {
-        data: item,
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        // this.getTransactions()
-      });
-    }
-  }
 
   editMerchant() {
-
-  }
-  async handlePage(e: any) {
-    // this.helper.global_loading = true;
-    // let from = e.pageIndex * e.pageSize
-    // let newusers = await this.list.getAllMerchants().toPromise();
-    // this.helper.merchants = newusers.data;
-    // this.helper.merchants_count = newusers.data_count;
-    // this.helper.global_loading = false;
-  }
-
-  verifyTransaction(id) {
-    // this.list.verifyTransaction(id).subscribe((res) => {
-    //   if (res) {
-    //     this.getBalance();
-    //     this.dialog.closeAll();
-    //     this.toastr.success('Успешно завершено')
-    //   }
-    // })
-  }
-
-  rejectTransaction(id) {
-    // this.list.rejectTransaction(id).subscribe((res) => {
-    //   if (res) {
-    //     this.dialog.closeAll();
-    //     this.toastr.success('Успешно завершено')
-    //   }
-    // })
-  }
-
-  addItem() {
-    this.data.bankAccounts.push({ account: '', currencyName: 'USD' });
-  }
-
-  removeItem(i) {
-    this.data.bankAccounts.splice(1, i);
-  }
-
-  preview(image?: string): void {
-    if (image) {
-      this.image = image;
-      const dialog = this.dialog.open(this.dialogPreview, {
-        data: image,
-        height: "600px",
-        width: "800px",
-        panelClass: 'custom-dialog-class',
-      });
-    }
-
-  }
-
-  selectFile(event: any, name: string) {
-    if (name == "logoFilePath") this.selectedFileNames = event.target.files[0].name;
-    if (name == "registrationCertificateFilePath")
-      this.certificateNames = event.target.files[0].name;
-    if (name == "passportFilePath")
-      this.passportNames = event.target.files[0].name;
-
-    const file = event.target.files[0];
     const formData = new FormData();
-    formData.append("file", file, file.name);
-    // this.authService.fileUpload(formData).subscribe(
-    //   (response) => {
-    //     if (response) {
-    //       this.toastr.success('Файл успешно загружен')
-    //       this.data[name] = response.filename;
-    //     }
-    //   },
-    //   (error) => {
-    //       this.toastr.error(error.message)
-    //   }
-    // );
+    formData.append('id', this.form.get('id').value);
+    formData.append('bankName', this.form.get('bankName').value);
+    formData.append('companyName', this.form.get('companyName').value);
+    formData.append('phoneNumber', this.form.get('phoneNumber').value);
+    formData.append('dunsNumber', this.form.get('dunsNumber').value);
+    formData.append('email', this.form.get('email').value);
+    formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
+    formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
+    formData.append('responsiblePersonFistName', this.form.get('responsiblePersonFistName').value);
+    formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName').value);
+    formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber').value);
+    formData.append('legalAddress', this.form.get('legalAddress').value);
+    formData.append('inn', this.form.get('inn').value);
+    formData.append('oked', this.form.get('oked').value);
+    formData.append('mfo', this.form.get('mfo').value);
+    formData.append('notes', this.form.get('notes').value);
+    if (typeof this.form.get('logoFilePath')?.value === "string") {
+      formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
+    } else {
+      formData.append('logoFilePath', this.form.get('logoFilePath')?.value, String(new Date().getTime()));
+    }
+    if (typeof this.form.get('registrationCertificateFilePath')?.value === "string") {
+      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
+    } else {
+      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
+    }
+    if (typeof this.form.get('passportFilePath')?.value === "string") {
+      formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
+    } else {
+      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+    }
+    this.merchantService.updateMerchant(formData).subscribe((res: any) => {
+      console.log(res)
+      if (res.success) {
+        this.router.navigate(['/merchants'])
+      }
+    })
   }
 
+  verifyTransaction(transaction) {
+    if (transaction.transactionType=='topupAccount') {
+      this.merchantService.verifyTransaction(transaction.id).subscribe((res:any) => {
+        if (res.success) {
+          this.getBalance();
+          this.toastr.success('Успешно завершено')
+        } else {
+          if (res.errors[0] = 'notEnoughBalance') {
+            this.toastr.error('Баланса не хватает')
+          } else {
+            this.toastr.error('Не успешно завершено')
+          }
+        }
+      })
+    } else {
+      this.toastr.error('Баланса не хватает')
+    }
+  }
+  rejectTransaction(id) {
+    this.merchantService.rejectTransaction(id).subscribe(res => {})
+  }
+
+  cancelTransaction(id) {
+    this.merchantService.cancelTransaction(id).subscribe(res => {})
+  }
 }
 
