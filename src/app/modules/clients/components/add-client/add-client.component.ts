@@ -68,7 +68,6 @@ export class AddClientComponent {
           email: res.data?.email,
           citizenship: res.data?.citizenship,
           passport: res.data?.passport,
-          // password: res.data?.password,
         });
       })
 

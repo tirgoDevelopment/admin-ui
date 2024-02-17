@@ -208,5 +208,7 @@
     "passport_owner":"Menejerning pasporti",
     "responce_phone":"Mas'ul shaxsning telefon raqami",
     "currency_name":"Valyuta nomi",
-    "request":"So'rov"
+    "request":"So'rov",
+    "add_agent":"Agent qo'shing",
+    "edit_agent":"Agentni tahrirlash"
 }

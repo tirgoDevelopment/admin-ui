@@ -31,7 +31,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
   dataSource: any[];
-  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'client'];
+  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'client', 'actions'];
   currentUser: any;
   constructor(
     private orderService: OrdersService,
@@ -43,7 +43,7 @@ export class OrdersComponent implements OnInit {
     this.getOrders();
   }
 
-  detail(){
+  detail() {
     const dialog = this.dialog.open(OrderDetailComponent, {
       width: '500px',
       height: '100vh',
@@ -62,7 +62,7 @@ export class OrdersComponent implements OnInit {
 
   getOrders() {
     this.isLoading = true;
-    this.orderService.getOrdersByMerchant(this.currentUser.userId).subscribe((res: any) => {
+    this.orderService.getOrders().subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data;
@@ -111,14 +111,36 @@ export class OrdersComponent implements OnInit {
         return "status-order";
     }
   }
+  cancel(row) {
+    this.orderService.cancelOrder(row.id).subscribe((res: any) => {
+      if (res && res.success) {
+        this.getOrders();
+      }
+    })
+  }
+
+  edit(row) {
+    const dialogRef = this.dialog.open(CreateOrderComponent, {
+      minWidth: '40vw',
+      maxWidth: '60vw',
+      autoFocus: false,
+      disableClose: true,
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getOrders();
+    });
+  }
+
   createOrderModal() {
     const dialogRef = this.dialog.open(CreateOrderComponent, {
+      minWidth: '40vw',
+      maxWidth: '60vw',
       autoFocus: false,
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getOrders();
-      // this.verifyPhoneForm.enable();
     });
   }
 

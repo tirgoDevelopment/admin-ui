@@ -1,24 +1,33 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { env } from "app/environmens/environment";
 
 @Injectable({ providedIn: 'root' })
 
 export class OrdersService {
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   getOrders() {
-    return this.http.get(env.orderApiUrl+'/orders/all');
+    return this.http.get(env.orderApiUrl + '/orders/staffs/all-orders');
   }
-  getOrdersByMerchant(id) {
-    return this.http.get(env.orderApiUrl + '/orders/clients/all-orders?userId=' + id);
-  }
+
   getOrderById(id) {
-    return this.http.get(env.orderApiUrl + '/orders/id?id=' + id);
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("orderId", id);
+    return this.http.get(env.orderApiUrl + '/orders/staffs/order-by-id', { params: queryParams });
   }
+
   createOrder(data) {
-    return this.http.post(env.orderApiUrl + '/orders',data)
+    return this.http.post(env.orderApiUrl + '/orders/staffs', data)
+  }
+
+  cancelOrder(id) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this.http.post(env.orderApiUrl + '/orders/staffs/cancel-order', {}, { params: queryParams })
+  }
+
+  updateOrder(data) {
+    return this.http.put(env.orderApiUrl + '/orders/staffs/update-order', data)
   }
 }

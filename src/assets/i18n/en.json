@@ -208,5 +208,7 @@
      "passport_owner":"Manager's passport",
      "responce_phone":"Telephone number of the responsible person",
      "currency_name":"currency Name",
-     "request":"Request"
+     "request":"Request",
+     "add_agent":"Add agent",
+     "edit_agent":"Edit agent"
 }

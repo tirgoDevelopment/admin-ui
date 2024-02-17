@@ -1,15 +1,15 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent } from '@fuse/components/alert';
@@ -20,10 +20,10 @@ import { ToastrService } from 'ngx-toastr';
 import { AgreementComponent } from '../agreement/agreement.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { OrdersService } from '../../services/orders.service';
-import { forkJoin } from 'rxjs';
-import { AuthService } from 'app/core/auth/auth.service';
+import { debounceTime, forkJoin, switchMap } from 'rxjs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
+import { ClientModel } from 'app/modules/clients/models/client.model';
 
 @Component({
   selector: 'create-order',
@@ -32,41 +32,109 @@ import { ClientService } from 'app/modules/clients/services/client.service';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, TranslocoModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
+  imports: [RouterLink, NgIf, NgFor, TranslocoModule, MatSelectModule, MatInputModule,   MatFormFieldModule,
+    MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class CreateOrderComponent implements OnInit {
+
+  inputVisited: boolean = false;
+
+
+  selectedPrefix: string;
+  inputText: string;
+  prefixes: string[] = ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.'];
   form: FormGroup;
   loading: boolean = false;
   findList: any[] | undefined = [];
   viewText = false;
   currentStep = 1;
-  currentUser:any;
+  currentUser: any;
   currencies: any;
   cargoTypes: any;
   transportKinds: any;
   transportTypes: any;
-  packagesTypes:any;
-  cargoLoadingMethods:any;
-  users:any;
+  packagesTypes: any;
+  cargoLoadingMethods: any;
+  users: any;
   isAutotransport: any;
   isRefrigerator: any;
   isRefrigeratorMode: boolean = false;
   isCistern: any;
   isContainer: any;
-
+  clientInfo: ClientModel;
   constructor(
     private dialogRef: MatDialogRef<CreateOrderComponent>,
     private formBuilder: FormBuilder,
     private _orderService: OrdersService,
     private _typesService: TypesService,
-    private _clientService:ClientService,
+    private _clientService: ClientService,
     private _countryService: CountryService,
     private toastr: ToastrService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    if (this.data) {
+      this.getOrderById(this.data.id);
+    }
+  }
+
+  onInputFocus() {
+    this.inputVisited = true;
+  }
+
+  getOrderById(id: number): void {
+    this._orderService.getOrderById(id).subscribe((res: any) => {
+      if (res.success) {
+        this.form.patchValue({
+          id: res.data?.id,
+          clientId: res.data?.client?.id,
+          sendDate: res.data?.sendDate,
+          loadingLocation: res.data?.loadingLocation,
+          deliveryLocation: res.data?.deliveryLocation,
+          selectedLocations: [
+            res.data?.customsPlaceLocation ? 'customsPlaceLocation' : null,
+            res.data?.customsClearancePlaceLocation ? 'customsClearancePlaceLocation' : null,
+            res.data?.additionalLoadingLocation ? 'additionalLoadingLocation' : null,
+            res.data?.additionalDeliveryLocation ? 'additionalDeliveryLocation' : null,
+          ].filter(location => location !== null),
+          customsPlaceLocation: res.data?.customsPlaceLocation,
+          customsClearancePlaceLocation: res.data?.customsClearancePlaceLocation,
+          additionalLoadingLocation: res.data?.additionalLoadingLocation,
+          additionalDeliveryLocation: res.data?.additionalDeliveryLocation,
+          isUrgent: res.data?.isUrgent,
+          isTwoDays: res.data?.isTwoDays,
+          isAdr: res.data?.isAdr,
+          isCarnetTir: res.data?.isCarnetTir,
+          isGlonas: res.data?.isGlonas,
+          isParanom: res.data?.isParanom,
+          offeredPrice: res.data?.offeredPrice,
+          offeredPriceCurrencyId: res.data?.offeredPriceCurrency.id,
+          inAdvancePrice: res.data?.inAdvancePrice,
+          inAdvancePriceCurrencyId: res.data?.inAdvancePriceCurrency.id,
+          paymentMethod: res.data?.paymentMethod,
+          isSafeTransaction: res.data?.isSafeTransaction,
+          transportKindIds: res.data?.transportKinds,
+          transportTypeIds: res.data?.transportTypes,
+          refrigeratorFrom: res.data?.refrigeratorFrom,
+          refrigeratorTo: res.data?.refrigeratorTo,
+          refrigeratorCount: res.data?.refrigeratorCount,
+          isHook: res.data?.isHook,
+          cargoTypeId: res.data?.cargoType,
+          cargoWeight: res.data?.cargoWeight,
+          cargoLength: res.data?.cargoLength,
+          cargoWidth: res.data?.cargoWidth,
+          cargoHeight: res.data?.cargoHeight,
+          cubature: res.data?.cubature,
+          cargoPackageId: res.data?.cargoPackage,
+          loadingMethodId: res.data?.loadingMethod,
+        });
+      }
+      console.log(this.form.value.id);
+    })
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      id: [null],
       clientId: [null],
       sendDate: [null],
       loadingLocation: [null],
@@ -111,7 +179,7 @@ export class CreateOrderComponent implements OnInit {
       packagesTypes: this._typesService.getPackages(),
       cargoLoadingMethods: this._typesService.getCargoLoadingMethod(),
       transportKinds: this._typesService.getTransportKinds(),
-      users:this._clientService.getAll()
+      users: this._clientService.getAll()
     }).subscribe({
       next: (results: any) => {
         this.currencies = results.currencies.data;
@@ -130,14 +198,71 @@ export class CreateOrderComponent implements OnInit {
         console.error('Error fetching currencies and cargo types:', error);
       }
     });
+
+    this.form.get('clientId').valueChanges.pipe(
+      debounceTime(300), // Debounce time of 300ms
+      switchMap(clientId => this._clientService.get(clientId)) // Call API with new value
+    ).subscribe(response => {
+      if (response.success) {
+        this.clientInfo = response.data;
+      }
+    });
   }
 
-  createOrder() {
-    this._orderService.createOrder(this.form.value).subscribe((res: any) => {
-      this.toastr.success('Created');
-    })
-    // this.closeModal();
+
+  trackByFn(item: any): number {
+    return item.id;
   }
+
+  compareFn(a?, b?) {
+    if (a && b) {
+      return a === b.id;
+    }
+  }
+
+  compareFin(a?, b?) {
+    if (a && b) {
+      return a === b;
+    }
+  }
+
+  setIds(ids: any[]) {
+    return ids.map(item => item.id);
+  }
+
+  setId(item: any) {
+    return item.id;
+  }
+  
+  createOrder() {
+    if (this.form.get('id').value) {
+      this.form.patchValue({
+        transportKindIds: this.setIds(this.form.get('transportKindIds').value),
+        transportTypeIds: this.setIds(this.form.get('transportTypeIds').value),
+        cargoTypeId: this.setId(this.form.get('cargoTypeId').value),
+        cargoPackageId: this.setId(this.form.get('cargoPackageId').value),
+        loadingMethodId: this.setId(this.form.get('loadingMethodId').value),
+      })
+    }
+    console.log(this.form.value);
+    if (this.form.value.id) {
+      this._orderService.updateOrder(this.form.value).subscribe((res: any) => {
+        if (res.success) {
+          this.dialog.closeAll();
+          this.toastr.success('Заказ успешно изменен');
+        }
+      })
+    } else {
+      this._orderService.createOrder(this.form.value).subscribe((res: any) => {
+        if (res.success) {
+          this.dialog.closeAll();
+          this.toastr.success('Заказ успешно создан');
+        }
+      })
+    }
+
+  }
+
   nextStep() {
     if (this.currentStep < 3) {
       this.currentStep++;

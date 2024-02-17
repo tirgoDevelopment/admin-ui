@@ -9,4 +9,16 @@ export interface AgentModel extends BaseModel {
     lastDateAt?: string;
     phone?: string;
     password?: string;
+    username?: string;
+    companyName?: string;
+    legalAddress?: string;
+    actualAddress?: string;
+    supervisorFirstName?: string;
+    supervisorLastName?: string;
+    inn?: string;
+    oked?: string;
+    mfo?: string;
+    bankName?: string;
+    registrationCertificate?: string;
+    passportOwner?: string;
 }

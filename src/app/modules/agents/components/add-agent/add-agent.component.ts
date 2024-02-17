@@ -17,7 +17,6 @@ import { HeaderTextComponent } from 'app/shared/components/header-text/header-te
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { RoleService } from 'app/modules/main-types/role/services/role.service';
 import { AgentService } from '../../services/agent.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 
@@ -32,13 +31,12 @@ import { PasswordGenerator } from 'app/shared/functions/password-generator';
 })
 
 export class AddAgentComponent {
-  roles = [];
   edit: boolean = false;
   passwordGenerator = new PasswordGenerator();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     companyName: new FormControl('', [Validators.required]),
     legalAddress: new FormControl('', [Validators.required]),
     actualAddress: new FormControl('', [Validators.required]),
@@ -50,37 +48,62 @@ export class AddAgentComponent {
     bankName: new FormControl('', [Validators.required]),
     registrationCertificate: new FormControl('', [Validators.required]),
     passportOwner: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _agentService: AgentService,
-    private _roleService: RoleService,
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
-      this.form.patchValue({
-        id: this.data?.id,
-        companyName: this.data?.companyName,
-        legalAddress: this.data?.legalAddress,
-        actualAddress: this.data?.actualAddress,
-        supervisorFirstName: this.data?.supervisorFirstName,
-        supervisorLastName: this.data?.supervisorLastName,
-        inn: this.data?.inn,
-        oked: this.data?.oked,
-        mfo: this.data?.mfo,
-        bankName: this.data?.bankName,
-        registrationCertificate: this.data?.registrationCertificate,
-        passportOwner: this.data?.passportOwner,
-      });
+      this.getAgentById(this.data);
     }
-    this.getRoles()
+  }
+  getAgentById(id: number): void {
+    this.form.patchValue({
+      techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+      id: 'new value for techPassportFrontFilePath',
+      username: 'new value for techPassportFrontFilePath',
+      companyName: 'new value for techPassportFrontFilePath',
+      legalAddress: 'new value for techPassportFrontFilePath',
+      actualAddress: 'new value for techPassportFrontFilePath',
+      supervisorFirstName: 'new value for techPassportFrontFilePath',
+      supervisorLastName: 'new value for techPassportFrontFilePath',
+      inn: 'new value for techPassportFrontFilePath',
+      oked: 'new value for techPassportFrontFilePath',
+      mfo: 'new value for techPassportFrontFilePath',
+      bankName: 'new value for techPassportFrontFilePath',
+      registrationCertificate: 'new value for techPassportFrontFilePath',
+      passportOwner: 'new value for techPassportFrontFilePath',
+    });
+    this._agentService.get(id).subscribe(res => {
+      if (res.success) {
+        this.form.patchValue({
+          id: res.data.id,
+          username: res.data.username,
+          companyName: res.data.companyName,
+          legalAddress: res.data.legalAddress,
+          actualAddress: res.data.actualAddress,
+          supervisorFirstName: res.data.supervisorFirstName,
+          supervisorLastName: res.data.supervisorLastName,
+          inn: res.data.inn,
+          oked: res.data.oked,
+          mfo: res.data.mfo,
+          bankName: res.data.bankName,
+          registrationCertificate: res.data.registrationCertificate,
+          passportOwner: res.data.passportOwner,
+        });
+      }
+    })
   }
 
-  getRoles() {
-    this._roleService.getAll().subscribe(res => {
-      this.roles = res.data
-    })
+  getImageUrl(formname: string): string {
+    const file = this.form.get(`${formname}`).value;
+    if (file instanceof File) {
+      return URL.createObjectURL(file);
+    }
+    return '';
   }
 
   onFileSelected(event: any, type: string): void {
@@ -97,36 +120,51 @@ export class AddAgentComponent {
     }
   }
 
-  getImageUrl(formname:string): string {
-    const file = this.form.get(`${formname}`).value;
-    if (file instanceof File) {
-      return URL.createObjectURL(file);
-    }
-    return '';
-  }
-
   get f() {
     return this.form.controls
   }
 
   submit() {
-    if (this.form.value.id) {
+    const formData = new FormData();
+    formData.append('id', this.form.get('id').value);
+    formData.append('username', this.form.get('username').value);
+    formData.append('companyName', this.form.get('companyName').value);
+    formData.append('legalAddress', this.form.get('legalAddress').value);
+    formData.append('actualAddress', this.form.get('actualAddress').value);
+    formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
+    formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
+    formData.append('inn', this.form.get('inn').value);
+    formData.append('oked', this.form.get('oked').value);
+    formData.append('mfo', this.form.get('mfo').value);
+    formData.append('bankName', this.form.get('responsiblePersonFistName').value);
+    formData.append('phone', this.form.get('responsiblePersonLastName').value);
+    if (typeof this.form.get('registrationCertificate')?.value === "string") {
+      formData.append('registrationCertificate', this.form.get('registrationCertificate')?.value);
+    } else {
+      formData.append('registrationCertificate', this.form.get('registrationCertificate')?.value, String(new Date().getTime()));
+    }
+    if (typeof this.form.get('passportOwner')?.value === "string") {
+      formData.append('passportOwner', this.form.get('passportOwner')?.value);
+    } else {
+      formData.append('passportOwner', this.form.get('passportOwner')?.value, String(new Date().getTime()));
+    }
+    if (formData) {
       this._agentService.update(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
-          this._toaster.success('Админ успешно обновлена')
+          this._toaster.success('Агент успешно обновлена')
         } else {
-          this._toaster.error('Невозможно сохранить админ')
+          this._toaster.error('Невозможно сохранить агент')
         }
       })
     } else {
-      this._agentService.create(this.form.value).subscribe(res => {
+      this._agentService.create(formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
-          this._toaster.success('Админ успешно добавлена')
+          this._toaster.success('Агент успешно добавлена')
         } else {
-          this._toaster.error('Невозможно сохранить админ')
+          this._toaster.error('Невозможно сохранить агент')
         }
       })
     }
@@ -137,7 +175,5 @@ export class AddAgentComponent {
       password: this.passwordGenerator.generateRandomPassword(),
     });
   }
-
-
 }
 
