@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
@@ -23,16 +23,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 
 @Component({
-  selector: 'app-add-agent-driver',
-  templateUrl: './add-agent-driver.component.html',
-  styleUrls: ['./add-agent-driver.component.scss'],
+  selector: 'app-add-agent-subscription',
+  templateUrl: './add-agent-subscription.component.html',
+  styleUrls: ['./add-agent-subscription.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
-export class AddAgentDriverComponent {
+export class AddAgentSubscriptionComponent {
   subscription = [
     {
       id: 1,
@@ -55,12 +54,6 @@ export class AddAgentDriverComponent {
     id: new FormControl(''),
     subscriptionId: new FormControl(''),
     agentId: new FormControl(''),
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6)]),
-    passportFilePath: new FormControl('', [Validators.required]),
-    driverLisenseFilePath: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -71,13 +64,8 @@ export class AddAgentDriverComponent {
       this.edit = true;
       this.form.patchValue({
         id: this.data?.id,
+        subscriptionId: this.data?.subscriptionId,
         agentId: this.data?.agentId,
-        firstName: this.data?.firstName,
-        lastName: this.data?.lastName,
-        phoneNumbers: this.data?.phoneNumbers,
-        password: this.data?.password,
-        passportFilePath: this.data?.passportFilePath,
-        driverLisenseFilePath: this.data?.driverLisenseFilePath,
       });
     }
     this.getSubscription();
@@ -89,54 +77,15 @@ export class AddAgentDriverComponent {
     // })
   }
 
-  onFileSelected(event: any, type: string): void {
-    const file: File = event.target.files[0];
-    switch (type) {
-      case 'passportFilePath':
-        this.form.patchValue({
-          passportFilePath: file
-        });
-      case 'driverLisenseFilePath':
-        this.form.patchValue({
-          driverLisenseFilePath: file
-        });
-    }
-  }
 
-  getImageUrl(formname: string): string {
-    const file = this.form.get(`${formname}`).value;
-    if (file instanceof File) {
-      return URL.createObjectURL(file);
-    }
-    return '';
-  }
 
   get f() {
     return this.form.controls
   }
 
   submit() {
-    const formData = new FormData();
-    formData.append('id', this.form.get('id').value);
-    formData.append('agentId', this.form.get('agentId').value);
-    formData.append('subscriptionId', this.form.get('subscriptionId').value);
-    formData.append('firstName', this.form.get('firstName').value);
-    formData.append('lastName', this.form.get('lastName').value);
-    formData.append('password', this.form.get('password').value);
-
-    if (typeof this.form.get('passportFilePath')?.value === "string") {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
-    } else {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
-    }
-    if (typeof this.form.get('driverLisenseFilePath')?.value === "string") {
-      formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value);
-    } else {
-      formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
-    }
-
     if (this.form.value.id) {
-      this._driverService.update(formData).subscribe(res => {
+      this._driverService.update(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -145,7 +94,7 @@ export class AddAgentDriverComponent {
         }
       })
     } else {
-      this._driverService.create(formData).subscribe(res => {
+      this._driverService.create(this.form.value).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
@@ -158,3 +107,4 @@ export class AddAgentDriverComponent {
   }
 
 }
+

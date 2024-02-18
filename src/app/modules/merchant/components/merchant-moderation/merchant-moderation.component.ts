@@ -42,9 +42,6 @@ export class MerchantModerationComponent implements OnInit {
 
   certificateFile: FileList;
 
-  phone2: boolean = false;
-  factAddressShow: boolean = false;
-  bankAccountCurrency: boolean = false;
   data
   transactionRequest: any[] = [];
   transaction: any;

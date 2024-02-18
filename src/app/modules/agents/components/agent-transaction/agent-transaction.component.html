@@ -1,0 +1,52 @@
+<div class="flex justify-between items-center">
+   <p mat-dialog-title class="font-bold text-2xl uppercase">История транзакции</p>
+   <button mat-icon-button mat-dialog-close>
+      <mat-icon aria-label="Close dialog">close</mat-icon>
+   </button>
+</div>
+<mat-dialog-content>
+   <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="index">
+         <mat-header-cell *matHeaderCellDef> № </mat-header-cell>
+         <mat-cell *matCellDef="let element; let i = index;">{{i+1}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="admin">
+         <mat-header-cell *matHeaderCellDef>{{'admin'| transloco}} </mat-header-cell>
+         <mat-cell *matCellDef="let row"> {{row.admin_name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="agent">
+         <mat-header-cell *matHeaderCellDef>{{'agent'| transloco}}</mat-header-cell>
+         <mat-cell *matCellDef="let row"> {{row.agent_name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="amount">
+         <mat-header-cell *matHeaderCellDef>{{'sum'| transloco}}</mat-header-cell>
+         <mat-cell *matCellDef="let row"> {{row.amount | thousandSeparator}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="type">
+         <mat-header-cell *matHeaderCellDef>{{'type'| transloco}}</mat-header-cell>
+         <mat-cell *matCellDef="let row">
+            <span *ngIf="row.type=='Пополнение'" class="tw-text-green-500">
+               {{row.type}}
+            </span>
+
+            <span *ngIf="row.type=='Подписка'" class="tw-text-red-500">
+               {{row.type}}
+            </span>
+         </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="driverId">
+         <mat-header-cell *matHeaderCellDef> {{'driver'| transloco}}</mat-header-cell>
+         <mat-cell *matCellDef="let row">
+            {{row.user_name}}
+            <span *ngIf="row.userid" class="tw-mx-2"> ID: </span>
+            {{row.userid}}
+         </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="date">
+         <mat-header-cell *matHeaderCellDef> {{'date_time'|transloco}} </mat-header-cell>
+         <mat-cell *matCellDef="let row"> {{row.created_at | date : "YYYY/MM/dd HH:mm"}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+   </mat-table>
+</mat-dialog-content>

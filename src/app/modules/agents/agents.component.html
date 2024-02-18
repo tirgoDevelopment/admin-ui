@@ -20,7 +20,7 @@
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.fullName}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.managerFirstName}}   {{ row?.managerLastName}}  </mat-cell>
                 </ng-container>
                 
                 <ng-container matColumnDef="login">

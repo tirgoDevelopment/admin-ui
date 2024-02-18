@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,25 +11,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-import { DriverModel } from 'app/modules/drivers/models/driver.model';
-import { AddAgentDriverComponent } from '../add-agent-driver/add-agent-driver.component';
-import { DetailAgentDriverComponent } from '../detail-agent-driver/detail-agent-driver.component';
-import { AgentService } from '../../services/agent.service';
-import { AgentTransactionComponent } from '../agent-transaction/agent-transaction.component';
+import { AgentService } from './services/agent.service';
+import { MatSelectModule } from '@angular/material/select';
+import { DriverModel } from '../drivers/models/driver.model';
+import { DetailAgentDriverComponent } from './components/detail-agent-driver/detail-agent-driver.component';
+import { AgentTransactionComponent } from './components/agent-transaction/agent-transaction.component';
+import { AddAgentDriverComponent } from './components/add-agent-driver/add-agent-driver.component';
 
 @Component({
-  selector: 'app-agent-driver-list',
-  templateUrl: './agent-driver-list.component.html',
-  styleUrls: ['./agent-driver-list.component.scss'],
+  selector: 'app-agent-module',
+  templateUrl: './agent-module.component.html',
+  styleUrls: ['./agent-module.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
-export class AgentDriverListComponent implements OnInit {
+export class AgentModuleComponent implements OnInit {
   balances:[]
   cities: any[] = [];
   displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'rating', 'actions'];

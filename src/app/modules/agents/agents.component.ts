@@ -29,6 +29,7 @@ import { RouterModule } from '@angular/router';
 
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
+  balances: any;
   displayedColumns: string[] = ['full_name', 'login',  'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

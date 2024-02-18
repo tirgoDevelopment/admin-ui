@@ -162,6 +162,9 @@
     "tech_passport_front":"Фотография технического паспорта спереди",
     "tech_passport_back":"Фото технического паспорта сзади",
     "transport_photo":"Фото транспорта",
+    "transport_front_photo":"Транспорт Фото спереди",
+    "transport_back_photo":"Транспорт Фото сзади",
+    "transport_side_photo":"Транспорт Фото сбоку",
     "number_of_transporter":"Количество автовоз",
     "mode_from":"Режим от (°С)",
     "mode_to":"Режим до (°С)",
@@ -210,7 +213,9 @@
     "currency_name":"Валюта Имя",
     "request":"Запрос",
     "add_agent":"Добавить агента",
-    "edit_agent":"Редактировать агента"
+    "edit_agent":"Редактировать агента",
+    "date_time":"Дата Время"
+
 
 
 }

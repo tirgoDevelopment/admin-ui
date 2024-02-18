@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
@@ -27,16 +27,15 @@ import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-add-transport',
-  templateUrl: './add-transport.component.html',
-  styleUrls: ['./add-transport.component.scss'],
+  selector: 'app-add-verification',
+  templateUrl: './add-verification.component.html',
+  styleUrls: ['./add-verification.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
-export class AddTransportComponent implements OnInit {
+export class AddVerificationComponent implements OnInit {
   findList: any[] | undefined = [];
   selectedFileName: string = '';
   passwordGenerator = new PasswordGenerator();
@@ -76,6 +75,8 @@ export class AddTransportComponent implements OnInit {
     techPassportFrontFilePath: new FormControl('', [Validators.required]),
     techPassportBackFilePath: new FormControl('', [Validators.required]),
     transportFrontFilePath: new FormControl('', [Validators.required]),
+    transportBackFilePath: new FormControl('', [Validators.required]),
+    transportSideFilePath: new FormControl('', [Validators.required]),
     goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
     driverLicenseFilePath: new FormControl('', [Validators.required]),
     passportFilePath: new FormControl('', [Validators.required]),
@@ -125,6 +126,8 @@ export class AddTransportComponent implements OnInit {
         techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
         techPassportBackFilePath: 'new value for techPassportBackFilePath',
         transportFrontFilePath: 'new value for techPassportBackFilePath',
+        transportBackFilePath: 'new value for techPassportBackFilePath',
+        transportSideFilePath: 'new value for techPassportBackFilePath',
         goodsTransportationLicenseCardFilePath: 'new value for techPassportBackFilePath',
         driverLicenseFilePath: 'new value for techPassportBackFilePath',
         passportFilePath: 'new value for techPassportBackFilePath',
@@ -145,6 +148,8 @@ export class AddTransportComponent implements OnInit {
           techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
           techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
           transportFrontFilePath: res.data[0]?.transportFrontFilePath,
+          transportBackFilePath: res.data[0]?.transportBackFilePath,
+          transportSideFilePath: res.data[0]?.transportSideFilePath,
           goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
           driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
           passportFilePath: res.data[0]?.passportFilePath,
@@ -186,6 +191,14 @@ export class AddTransportComponent implements OnInit {
       case 'transportFrontFilePath':
         this.form.patchValue({
           transportFrontFilePath: file
+        });
+      case 'transportBackFilePath':
+        this.form.patchValue({
+          transportBackFilePath: file
+        });
+      case 'transportSideFilePath':
+        this.form.patchValue({
+          transportSideFilePath: file
         });
       case 'goodsTransportationLicenseCardFilePath':
         this.form.patchValue({
@@ -246,6 +259,10 @@ export class AddTransportComponent implements OnInit {
     this.form.get('refrigeratorTo').value ? formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value) : ''
     this.form.get('refrigeratorCount').value ? formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
     this.form.get('isHook').value ? formData.append('isHook', this.form.get('isHook').value) : ''
+    // formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
+    // formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
+    // formData.append('isHook', this.form.get('isHook').value);
+    // formData.append('isAdr', this.form.get('isAdr').value);
     if (this.form.get('id').value) {
       formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
       formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
@@ -278,6 +295,19 @@ export class AddTransportComponent implements OnInit {
       formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
     }
 
+
+    if (typeof this.form.get('transportBackFilePath')?.value === "string") {
+      formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value);
+    } else {
+      formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value, String(new Date().getTime()));
+    }
+
+    if (typeof this.form.get('transportSideFilePath')?.value === "string") {
+      formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value);
+    } else {
+      formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value, String(new Date().getTime()));
+    }
+
     if (typeof this.form.get('goodsTransportationLicenseCardFilePath')?.value === "string") {
       formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
     } else {
@@ -298,6 +328,7 @@ export class AddTransportComponent implements OnInit {
 
     if (this.form.value.id) {
       this._driverService.updateTransport(formData).subscribe(res => {
+        console.log(res)
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -307,8 +338,10 @@ export class AddTransportComponent implements OnInit {
       })
     } else {
       this._driverService.createTransport(formData).subscribe(res => {
+        // console.log(res)
         if (res.success) {
           this._dialog.closeAll()
+          this.form.reset()
           this._toaster.success('Добавление транспорта  успешно')
         } else {
           this._toaster.error('Невозможно сохранить водитель')

@@ -36,10 +36,7 @@ import { ClientModel } from 'app/modules/clients/models/client.model';
     MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class CreateOrderComponent implements OnInit {
-
   inputVisited: boolean = false;
-
-
   selectedPrefix: string;
   inputText: string;
   prefixes: string[] = ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.'];

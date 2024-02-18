@@ -94,6 +94,10 @@ export const appRoutes: Route[] = [
             {
                 path: 'agents', loadChildren: () => import('app/modules/agents/agents.resolver')
             },
+
+            {
+                path: 'agent-module', loadChildren: () => import('app/modules/agent-module/agents-module.resolver')
+            },
             {
                 path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver')
             },

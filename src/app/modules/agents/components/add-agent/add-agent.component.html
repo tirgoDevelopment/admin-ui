@@ -49,33 +49,32 @@
 
             <mat-form-field>
                 <mat-label>{{ 'actual_address' | transloco }}</mat-label>
-                <input required matInput name="actualAddress" formControlName="actualAddress"
+                <input required matInput name="physicalAddress" formControlName="physicalAddress"
                     placeholder="{{ 'actual_address' | transloco }}" 
-                    [ngClass]="{'is-invalid': f.actualAddress.errors}"
+                    [ngClass]="{'is-invalid': f.physicalAddress.errors}"
                     />
-                    <mat-error *ngIf="f.actualAddress.errors?.required">
+                    <mat-error *ngIf="f.physicalAddress.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'director_first_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName"
+                <input required matInput name="managerFirstName" formControlName="managerFirstName"
                     placeholder="{{ 'director_first_name' | transloco }}" 
-                    [ngClass]="{'is-invalid': f.supervisorFirstName.errors}"
-                    />
-                    <mat-error *ngIf="f.supervisorFirstName.errors?.required">
+                    [ngClass]="{'is-invalid': f.managerFirstName.errors}"/>
+                    <mat-error *ngIf="f.managerFirstName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'director_last_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorLastName" formControlName="supervisorLastName"
+                <input required matInput name="managerLastName" formControlName="managerLastName"
                     placeholder="{{ 'director_last_name' | transloco }}" 
-                    [ngClass]="{'is-invalid': f.supervisorLastName.errors}"
+                    [ngClass]="{'is-invalid': f.managerLastName.errors}"
                     />
-                    <mat-error *ngIf="f.supervisorLastName.errors?.required">
+                    <mat-error *ngIf="f.managerLastName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
             </mat-form-field>
@@ -116,18 +115,18 @@
 
             <mat-form-field>
                 <mat-label> {{ 'bank_name' | transloco }}</mat-label>
-                <input matInput name="bankName" placeholder="{{ 'bank_name' | transloco }}" 
-                         formControlName="bankName"  required  [ngClass]="{'is-invalid': f.bankName.errors}"
+                <input matInput name="bankBranchName" placeholder="{{ 'bank_name' | transloco }}" 
+                         formControlName="bankBranchName"  required  [ngClass]="{'is-invalid': f.bankBranchName.errors}"
                     />
-                    <mat-error *ngIf="f.bankName.errors?.required">
+                    <mat-error *ngIf="f.bankBranchName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'phone' | transloco }}</mat-label>
-                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
-                    [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber" [preferredCountries]="['uz']"
+                    [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber" #phone>
                 </ngx-mat-intl-tel-input>
                 
             </mat-form-field>
@@ -135,34 +134,34 @@
             <mat-form-field class="flex items-center">
                 <mat-label class="text-xl">{{ 'registration_certificate' | transloco }} </mat-label>
                 <input matInput placeholder="Upload" class="mr-2"
-                    [value]="form.get('registrationCertificate')?.value?.name || ''"
-                    formControlName="registrationCertificate"
-                    [ngClass]="{'is-invalid': f.registrationCertificate.errors}">
+                    [value]="form.get('registrationCertificatePath')?.value?.name || ''"
+                    formControlName="registrationCertificatePath"
+                    [ngClass]="{'is-invalid': f.registrationCertificatePath.errors}">
                 <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
                     <mat-icon aria-label="Upload">cloud_upload</mat-icon>
-                    <input type="file" (change)="onFileSelected($event, 'registration_certificate')"
-                        formControlName="registrationCertificate" id="fileInput" style="display: none;">
+                    <input type="file" (change)="onFileSelected($event, 'registrationCertificatePath')"
+                        formControlName="registrationCertificatePath" id="fileInput" style="display: none;">
                 </label>
-                <mat-error *ngIf="f.registrationCertificate.errors?.required">
+                <mat-error *ngIf="f.registrationCertificatePath.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
-                <img *ngIf="form.get('registrationCertificate').value" [src]="getImageUrl('registrationCertificate')"
+                <img *ngIf="form.get('registrationCertificatePath').value" [src]="getImageUrl('registrationCertificatePath')"
                     class="max-h-12 max-w-12" />
             </mat-form-field>
 
             <mat-form-field class="flex items-center">
                 <mat-label class="text-xl">{{ 'passport_owner' | transloco }} </mat-label>
-                <input matInput placeholder="Upload" class="mr-2" [value]="form.get('passportOwner')?.value?.name || ''"
-                    formControlName="passportOwner" [ngClass]="{'is-invalid': f.passportOwner.errors}">
+                <input matInput placeholder="Upload" class="mr-2" [value]="form.get('managerPassportFilePath')?.value?.name || ''"
+                    formControlName="managerPassportFilePath" [ngClass]="{'is-invalid': f.managerPassportFilePath.errors}">
                 <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
                     <mat-icon aria-label="Upload">cloud_upload</mat-icon>
-                    <input type="file" (change)="onFileSelected($event, 'passportOwner')"
-                        formControlName="passportOwner" id="fileInput" style="display: none;">
+                    <input type="file" (change)="onFileSelected($event, 'managerPassportFilePath')"
+                        formControlName="managerPassportFilePath" id="fileInput" style="display: none;">
                 </label>
-                <mat-error *ngIf="f.passportOwner.errors?.required">
+                <mat-error *ngIf="f.managerPassportFilePath.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
-                <img *ngIf="form.get('passportOwner').value" [src]="getImageUrl('passportOwner')"
+                <img *ngIf="form.get('managerPassportFilePath').value" [src]="getImageUrl('managerPassportFilePath')"
                     class="max-h-12 max-w-12" />
             </mat-form-field>
         </div>

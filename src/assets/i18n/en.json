@@ -162,6 +162,9 @@
     "tech_passport_front":"Tech Passport's Front  photo",
     "tech_passport_back":"Tech Passport's Back  photo",
     "transport_photo":"Transport photo",
+    "transport_front_photo":"Transport Front photo",
+    "transport_back_photo":"Transport Back photo",
+    "transport_side_photo":"Transport Side  photo",
     "number_of_transporter":"Number of car transporters",
     "mode_from":"Mode from (°C)",
     "mode_to":"Mode up to (°C)",
@@ -210,5 +213,6 @@
      "currency_name":"currency Name",
      "request":"Request",
      "add_agent":"Add agent",
-     "edit_agent":"Edit agent"
+     "edit_agent":"Edit agent",
+     "date_time":"Date time"
 }

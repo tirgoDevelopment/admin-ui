@@ -108,7 +108,7 @@
                 <ng-container matColumnDef="subscription">
                     <mat-header-cell *matHeaderCellDef> {{"subscription"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.subscription}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.subscription?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
@@ -136,11 +136,10 @@
                                     </div>
                                 </ng-container>
 
-                                <ng-container *ngIf="row.driverTransports.length<0">
+                                <ng-container>
                                     <button mat-menu-item color="accent" (click)="addTransport(row, null)">
                                         <mat-icon>directions_car</mat-icon>
-                                        {{"transport"|transloco}}:
-                                        {{transport.name}}
+                                        {{"transport"|transloco}}
                                     </button>
                                 </ng-container>
 

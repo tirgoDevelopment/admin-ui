@@ -162,6 +162,9 @@
     "tech_passport_front":"Texnik pasportning oldingi fotosurati",
     "tech_passport_back":"Texnik pasportning orqa tomonidagi fotosurati",
     "transport_photo":"Transport fotosurati",
+    "transport_front_photo":"Transport old tomonidagi fotosurat",
+    "transport_back_photo":"Transport orqa tomonidagi fotosurat",
+    "transport_side_photo":"Transport yon tomonidagi fotosurat",
     "number_of_transporter":"Avtomobil tashuvchilar soni",
     "mode_from":"Rejim (°C) dan",
     "mode_to":"(°C) gacha bo'lgan rejim",
@@ -210,5 +213,6 @@
     "currency_name":"Valyuta nomi",
     "request":"So'rov",
     "add_agent":"Agent qo'shing",
-    "edit_agent":"Agentni tahrirlash"
+    "edit_agent":"Agentni tahrirlash",
+    "date_time":"Sana vaqti"
 }
