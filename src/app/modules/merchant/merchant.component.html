@@ -13,8 +13,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex items-baseline   w-full  ">
-
+        <div class="flex items-baseline w-full">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'id' | transloco }}">
             </mat-form-field>
@@ -34,11 +33,11 @@
                 </mat-select>
             </mat-form-field>
             <div class="px-1">
-                <button mat-flat-button color="warn" class="">
+                <button mat-flat-button color="warn" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class="px-1">
-                <button mat-flat-button color="warn">
+                <button mat-flat-button color="warn" (click)="filterMerchant()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>

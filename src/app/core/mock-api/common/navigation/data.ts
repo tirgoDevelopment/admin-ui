@@ -176,6 +176,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 icon: 'people.svg',
                 link: '/agents',
+            },
+            {
+                id: 'agents',
+                title: 'agents',
+                type: 'basic',
+                icon_w: 'admin-w.svg',
+                icon: 'people.svg',
+                link: '/agent-module',
             }
         ],
     }

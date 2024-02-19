@@ -45,6 +45,22 @@ export class MerchantComponent implements OnInit {
   constructor(private _driversService: MerchantService, protected _dialog?: MatDialog) {
   }
 
+  clearFilters() {
+    this.filters = {
+      id: '',
+      name:'',
+      phone: '',
+      register_date: '',
+      last_enter: '',
+      city: '',
+    };
+  }
+
+  filterMerchant() {
+
+  }
+
+
   ngOnInit() {
     this.getAllDrivers();
   }

@@ -40,6 +40,16 @@ export class UserActivityComponent implements OnInit {
     private _userActivityService: UserActivityService, protected _dialog?: MatDialog) {
   }
 
+  clearFilters() {
+    this.filters = {
+      id: '',
+      full_name: ''
+    };
+  }
+
+  filterUsers() {
+
+  }
 
   ngOnInit() {
     this.getAllUsersActivity();

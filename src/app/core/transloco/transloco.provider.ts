@@ -7,7 +7,6 @@ export const provideTransloco = (): Array<Provider | EnvironmentProviders> =>
     return [
         importProvidersFrom(TranslocoModule),
         {
-            // Provide the default Transloco configuration
             provide : TRANSLOCO_CONFIG,
             useValue: translocoConfig({
                 availableLangs      : [
@@ -31,12 +30,10 @@ export const provideTransloco = (): Array<Provider | EnvironmentProviders> =>
             }),
         },
         {
-            // Provide the default Transloco loader
             provide : TRANSLOCO_LOADER,
             useClass: TranslocoHttpLoader,
         },
         {
-            // Preload the default language before the app starts to prevent empty/jumping content
             provide   : APP_INITIALIZER,
             useFactory: () =>
             {

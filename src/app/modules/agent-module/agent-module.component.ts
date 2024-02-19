@@ -18,6 +18,7 @@ import { DriverModel } from '../drivers/models/driver.model';
 import { DetailAgentDriverComponent } from './components/detail-agent-driver/detail-agent-driver.component';
 import { AgentTransactionComponent } from './components/agent-transaction/agent-transaction.component';
 import { AddAgentDriverComponent } from './components/add-agent-driver/add-agent-driver.component';
+import { AddAgentSubscriptionComponent } from './components/add-agent-subscription/add-agent-subscription.component';
 
 @Component({
   selector: 'app-agent-module',
@@ -83,6 +84,21 @@ export class AgentModuleComponent implements OnInit {
         this.getAllDrivers()
       })
   }
+
+  addSubscription() {
+    const dialog = this._dialog.open(AddAgentSubscriptionComponent, {
+      minWidth: '45vw',
+      maxWidth: '60vw',
+      minHeight: '30vh',
+      maxHeight: '80vh',
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllDrivers()
+      })
+  }
+
   add() {
     const dialog = this._dialog.open(AddAgentDriverComponent, {
       minWidth: '45vw',
