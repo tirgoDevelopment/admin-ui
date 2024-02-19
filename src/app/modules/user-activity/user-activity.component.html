@@ -8,11 +8,11 @@
         <div class="flex items-baseline  w-full">
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'id' | transloco }}">
+                <input matInput placeholder="{{ 'id' | transloco }}" [(ngModel)]="filters.id">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'full_name' | transloco }}">
+                <input matInput placeholder="{{ 'full_name' | transloco }}" [(ngModel)]="filters.full_name">
             </mat-form-field>
 
             <div class="px-1">

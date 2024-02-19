@@ -20,6 +20,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 import { SendPushComponent } from './components/send-push/send-push.component';
 import { AddTransportComponent } from './components/add-transport/add-transport.component';
 import { BlockDriverComponent } from './components/block-driver/block-driver.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-drivers',
@@ -28,11 +29,18 @@ import { BlockDriverComponent } from './components/block-driver/block-driver.com
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
+  imports: [TranslocoModule, DatePipe, MatIconModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
+  filters = {
+    id: '',
+    name: '',
+    phone: '',
+    register_date: '',
+    last_enter: '',
+    city: '',
+  };
   displayedColumns: string[] = ['full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -44,6 +52,21 @@ export class DriversComponent implements OnInit {
 
   ngOnInit() {
     this.getAllDrivers();
+  }
+
+  clearFilters() {
+    this.filters = {
+      id: '',
+      name: '',
+      phone: '',
+      register_date: '',
+      last_enter: '',
+      city: '',
+    };
+  }
+
+  filterDrivers() {
+
   }
 
   getAllDrivers() {

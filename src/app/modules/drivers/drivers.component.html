@@ -21,39 +21,40 @@
                 </button>
             </div>
         </div>
-        <div class="flex items-baseline   w-full  ">
-
+        <div class="flex items-baseline  w-full">
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'id' | transloco }}">
+                <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.id">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'phone' | transloco }}">
+                <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phone">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'register_date' | transloco }}">
+                <input matInput placeholder="{{ 'register_date' | transloco }}" name="register_date"
+                    [(ngModel)]="filters.register_date">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'last_enter' | transloco }}">
+                <input matInput placeholder="{{ 'last_enter' | transloco }}" name="last_enter"
+                    [(ngModel)]="filters.last_enter">
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'name' | transloco }}">
+                <input matInput placeholder="{{ 'name' | transloco }}" name="name" [(ngModel)]="filters.name">
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-select placeholder="{{ 'city' | transloco }}">
+                <mat-select placeholder="{{ 'city' | transloco }}" name="city" [(ngModel)]="filters.city">
                     <ng-container *ngFor="let row of cities">
                         <mat-option [value]="row.id">{{row.name}}</mat-option>
                     </ng-container>
                 </mat-select>
             </mat-form-field>
             <div class="px-1">
-                <button mat-flat-button color="warn" class="">
+                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn">
+                <button mat-flat-button color="warn" (click)="filterDrivers()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>

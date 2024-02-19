@@ -19,6 +19,7 @@ import { MerchantListComponent } from './components/merchant-list/merchant-list.
 import { RouterLink } from '@angular/router';
 import { MerchantService } from './services/merchant.service';
 import { MerchantModel } from './models/merchanr.model';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -26,9 +27,17 @@ import { MerchantModel } from './models/merchanr.model';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, MatIconModule,FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
+  filters = {
+    id: '',
+    name:'',
+    phone: '',
+    register_date: '',
+    last_enter: '',
+    city: '',
+  };
   cities: any[] = [];
   displayedColumns: string[] = ['full_name', 'entity', 'balance',  'last_enter'];
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { UserActivityService } from './services/user-activity.service';
 import { UserActivityModel } from './models/user-activity.model';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-activity',
@@ -24,11 +24,14 @@ import { UserActivityModel } from './models/user-activity.model';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
+  imports: [TranslocoModule, MatIconModule, MatSelectModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class UserActivityComponent implements OnInit {
   cities: any[] = [];
+  filters = {
+    id: '',
+    full_name: ''
+  };
   displayedColumns: string[] = ['id', 'full_name', 'action', 'date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -49,7 +52,7 @@ export class UserActivityComponent implements OnInit {
   }
 
 
-  
+
 
 
 

@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-clients',
@@ -28,10 +29,18 @@ import { BlockClientComponent } from './components/block-client/block-client.com
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, NgIf, DatePipe, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, NgIf, DatePipe, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ClientsComponent {
   cities: any[] = [];
+  filters = {
+    id: '',
+    name:'',
+    phone: '',
+    register_date: '',
+    last_enter: '',
+    city: '',
+  };
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
   displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,7 +51,6 @@ export class ClientsComponent {
     this.getAllClient();
   }
 
-
   getAllClient() {
     this._clientService.getAll().subscribe((response) => {
       console.log(response);
@@ -51,6 +59,20 @@ export class ClientsComponent {
   }
 
 
+  clearFilters() {
+    this.filters = {
+      id: '',
+      name: '',
+      phone: '',
+      register_date: '',
+      last_enter: '',
+      city: '',
+    };
+  }
+
+  filterClients() {
+
+  }
 
   send() {
     this._dialog.open(SendPushComponent, {
