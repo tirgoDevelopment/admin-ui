@@ -5,6 +5,18 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
+                <div class="flex flex-row " *ngFor="let balance of balances">
+                    <div class="mx-3 text-center">
+                        <div class="text-sm font-semibold">Активный баланс</div>
+                        <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+                            <span>{{balance?.activebalance}}</span> </div>
+                    </div>
+                    <div class="mx-3 text-center">
+                        <div class="text-sm font-semibold">Замороженный баланс</div>
+                        <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+                            <span>{{balance?.frozenbalance}}</span></div>
+                    </div>
+                </div>
 
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'"  mat-flat-button (click)="transaction()">
                     <span class="ml-2">Transaction</span>
@@ -18,22 +30,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex items-center justify-between w-full">
-            <div>
-            </div>
-            <div class="flex flex-row " *ngFor="let balance of balances">
-                <div class="mx-3 text-center">
-                    <div class="text-sm font-semibold">Активный баланс</div>
-                    <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                        <span>{{balance?.activebalance}}</span> </div>
-                </div>
-                <div class="mx-3 text-center">
-                    <div class="text-sm font-semibold">Замороженный баланс</div>
-                    <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                        <span>{{balance?.frozenbalance}}</span></div>
-                </div>
-            </div>
-        </div>
+ 
         <div class="flex items-baseline   w-full  ">
 
             <mat-form-field color="accent" class="w-50 px-1">
@@ -65,23 +62,23 @@
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.firstName}} {{ row?.lastName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.phone}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span *ngFor="let phoneNumber of row.phoneNumbers" class="px-2">
+                            {{phoneNumber?.phoneNumber}}
+                        </span>
+                    </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="city">
-                    <mat-header-cell *matHeaderCellDef> {{"city"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
-                </ng-container>
+           
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
@@ -90,11 +87,7 @@
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="rating">
-                    <mat-header-cell *matHeaderCellDef> {{"rating"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.rating}} </mat-cell>
-                </ng-container>
+        
 
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>

@@ -12,16 +12,24 @@ import { env } from 'app/environmens/environment';
 })
 export class AgentService {
 
-  constructor(private _apiService: ApiService, private _http:HttpClient) { }
+  constructor(private _apiService: ApiService, private _http: HttpClient) { }
 
   get(id: number): Observable<Response<AgentModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<AgentModel>(`/agents`,   queryParams );
+    return this._apiService.get<AgentModel>(`/users/agents/agent-by`, queryParams);
   }
 
   getAll(params?): Observable<Response<AgentModel[]>> {
     return this._apiService.get<AgentModel[]>('/users/agents', createHttpParams(params));
+  }
+
+
+  getAllByAgent(id?): Observable<Response<AgentModel[]>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("agentId", id);
+    const options = { params: queryParams };
+    return this._apiService.get<AgentModel[]>('/users/drivers/by-agent', queryParams);
   }
 
   getAgentTransactions(id?): Observable<any> {
@@ -38,14 +46,25 @@ export class AgentService {
     return this._http.get(env.merchantUrl + '/finance/transaction/agent-balance', { params: queryParams });
   }
 
+  block(id: number, body): Observable<Response<AgentModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.patch<AgentModel>(`/users/agents/block-agent`, body, queryParams);
+  }
+
+  active(id: number): Observable<Response<AgentModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.patch<AgentModel>(`/users/agents/activate-agent`, {}, queryParams);
+  }
 
   getAllDeleted(params?): Observable<Response<AgentModel[]>> {
     return this._apiService.get<AgentModel[]>('/agents/deleted', createHttpParams(params));
   }
 
   create(body): Observable<Response<AgentModel>> {
-		return this._apiService.post<AgentModel>('/users/agents/register', body);
-	}
+    return this._apiService.post<AgentModel>('/users/agents/register', body);
+  }
 
   update(body): Observable<Response<AgentModel>> {
     return this._apiService.put<AgentModel>('/users/agents/update', body);

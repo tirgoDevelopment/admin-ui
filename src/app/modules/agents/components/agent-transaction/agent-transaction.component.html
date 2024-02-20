@@ -12,41 +12,48 @@
       </ng-container>
       <ng-container matColumnDef="admin">
          <mat-header-cell *matHeaderCellDef>{{'admin'| transloco}} </mat-header-cell>
-         <mat-cell *matCellDef="let row"> {{row.admin_name}} </mat-cell>
+         <mat-cell *matCellDef="let row">
+            <span *ngIf="row.userType=='staff'">
+               {{row?.createdBy}}
+            </span>
+         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="agent">
          <mat-header-cell *matHeaderCellDef>{{'agent'| transloco}}</mat-header-cell>
-         <mat-cell *matCellDef="let row"> {{row.agent_name}} </mat-cell>
+         <mat-cell *matCellDef="let row">
+          <span *ngIf="row.userType=='agent'">
+               {{row?.createdBy}}
+            </span> </mat-cell>
       </ng-container>
       <ng-container matColumnDef="amount">
          <mat-header-cell *matHeaderCellDef>{{'sum'| transloco}}</mat-header-cell>
-         <mat-cell *matCellDef="let row"> {{row.amount | thousandSeparator}} </mat-cell>
+         <mat-cell *matCellDef="let row"> {{row?.amount }} {{row?.currencyName}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="type">
          <mat-header-cell *matHeaderCellDef>{{'type'| transloco}}</mat-header-cell>
          <mat-cell *matCellDef="let row">
-            <span *ngIf="row.type=='Пополнение'" class="tw-text-green-500">
-               {{row.type}}
-            </span>
 
-            <span *ngIf="row.type=='Подписка'" class="tw-text-red-500">
-               {{row.type}}
+            <span  class="tw-text-red-500">
+               {{row?.transctionType}}
             </span>
          </mat-cell>
       </ng-container>
       <ng-container matColumnDef="driverId">
          <mat-header-cell *matHeaderCellDef> {{'driver'| transloco}}</mat-header-cell>
          <mat-cell *matCellDef="let row">
-            {{row.user_name}}
+            {{row?.user_name}}
             <span *ngIf="row.userid" class="tw-mx-2"> ID: </span>
-            {{row.userid}}
+            {{row?.userid}}
          </mat-cell>
       </ng-container>
       <ng-container matColumnDef="date">
          <mat-header-cell *matHeaderCellDef> {{'date_time'|transloco}} </mat-header-cell>
-         <mat-cell *matCellDef="let row"> {{row.created_at | date : "YYYY/MM/dd HH:mm"}} </mat-cell>
+         <mat-cell *matCellDef="let row"> {{row?.createdAt | date : "YYYY/MM/dd HH:mm"}} </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
    </mat-table>
+   <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+      [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+   </mat-paginator>
 </mat-dialog-content>

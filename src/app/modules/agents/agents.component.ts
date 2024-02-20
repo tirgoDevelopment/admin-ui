@@ -16,7 +16,8 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 import { AgentService } from './services/agent.service';
 import { AgentModel } from './models/agent.model';
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
+import { AgentBlockComponent } from './components/agent-block/agent-block.component';
 
 @Component({
   selector: 'app-agents',
@@ -25,12 +26,12 @@ import { RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, RouterLink, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;
-  displayedColumns: string[] = ['full_name', 'login',  'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['full_name', 'login', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AgentModel>([]);
@@ -39,15 +40,16 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllAdmin();
+    this.getAllagents();
   }
 
-  getAllAdmin() {
+  getAllagents() {
     this._agentService.getAll().subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
 
+  
   add() {
     const dialog = this._dialog.open(AddAgentComponent, {
       minWidth: '50vw',
@@ -58,9 +60,25 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllagents()
       })
   }
+
+  block(id: number) {
+    const dialog = this._dialog.open(AgentBlockComponent, {
+      minWidth: '20vw',
+      maxWidth: '40vw',
+      minHeight: '42vh',
+      maxHeight: '85vh',
+      data: id,
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllagents()
+      })
+  }
+
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddAgentComponent, {
@@ -73,13 +91,13 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllagents()
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllAdmin()
+      this.getAllagents()
     })
   }
 }

@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +18,7 @@ import { AddAgentDriverComponent } from '../add-agent-driver/add-agent-driver.co
 import { DetailAgentDriverComponent } from '../detail-agent-driver/detail-agent-driver.component';
 import { AgentService } from '../../services/agent.service';
 import { AgentTransactionComponent } from '../agent-transaction/agent-transaction.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -26,32 +27,37 @@ import { AgentTransactionComponent } from '../agent-transaction/agent-transactio
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule,DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class AgentDriverListComponent implements OnInit {
-  balances:[]
+  balances: [];
   cities: any[] = [];
-  displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'rating', 'actions'];
+  id: number;
+  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
-  constructor(private _agentService: AgentService, protected _dialog?: MatDialog) {
+  constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
+    this._router.params.subscribe((params) => {
+      console.log(params);
+      this.id = params.id;
+    })
   }
 
   ngOnInit() {
-    this.getAllDrivers();
-    this.getBalance(1)
+    this.getAllDrivers(this.id);
+    this.getBalance(this.id)
   }
 
-  getAllDrivers() {
-    this._agentService.getAll().subscribe((response) => {
+  getAllDrivers(id: number) {
+    this._agentService.getAllByAgent(id).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
 
-  getBalance(id:number) {
+  getBalance(id: number) {
     this._agentService.getAgentbalance(id).subscribe((response) => {
-        this.balances = response?.data;
+      this.balances = response?.data;
     });
   }
 
@@ -64,7 +70,7 @@ export class AgentDriverListComponent implements OnInit {
         top: '0',
         right: '0',
       },
-      maxHeight:'100%'
+      maxHeight: '100%'
     })
   }
 
@@ -75,12 +81,12 @@ export class AgentDriverListComponent implements OnInit {
       maxWidth: '90vw',
       minHeight: '60vh',
       maxHeight: '80vh',
-      data:1,
+      data: this.id,
       autoFocus: false,
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.id)
       })
   }
   add() {
@@ -90,10 +96,11 @@ export class AgentDriverListComponent implements OnInit {
       minHeight: '60vh',
       maxHeight: '80vh',
       autoFocus: false,
+      data: this.id,
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.id)
       })
   }
 
@@ -108,13 +115,13 @@ export class AgentDriverListComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.id)
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllDrivers()
+      this.getAllDrivers(this.id)
     })
   }
 }

@@ -27,4 +27,7 @@ export class TypesService {
     return this.http.get(env.references + '/references/cargo-loading-method/all');
   }
 
+  getSubscription() {
+    return this.http.get(env.references + '/references/subscriptions/all');
+  }
 }

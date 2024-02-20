@@ -20,18 +20,19 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
-import { ClientService } from '../../services/client.service';
+import { AgentService } from '../../services/agent.service';
 
 @Component({
-  selector: 'app-block-client',
-  templateUrl: './block-client.component.html',
-  styleUrls: ['./block-client.component.scss'],
+  selector: 'app-agent-block',
+  templateUrl: './agent-block.component.html',
+  styleUrls: ['./agent-block.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+
 })
-export class BlockClientComponent {
+export class AgentBlockComponent {
 
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -40,7 +41,7 @@ export class BlockClientComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
-    private _clientService: ClientService,
+    private _agentService: AgentService,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
@@ -53,7 +54,7 @@ export class BlockClientComponent {
   }
 
   submit() {
-    this._clientService.block(this.form.get('id').value, this.form.get('block_reason').value).subscribe(res => {
+    this._agentService.block(this.form.get('id').value, this.form.get('block_reason').value).subscribe(res => {
       if (res.success) {
         this._dialog.closeAll()
         this.form.reset()

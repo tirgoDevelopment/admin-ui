@@ -21,6 +21,7 @@ import { SendPushComponent } from './components/send-push/send-push.component';
 import { AddTransportComponent } from './components/add-transport/add-transport.component';
 import { BlockDriverComponent } from './components/block-driver/block-driver.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddVerificationComponent } from './components/add-verification/add-verification.component';
 
 @Component({
   selector: 'app-drivers',
@@ -67,6 +68,22 @@ export class DriversComponent implements OnInit {
 
   filterDrivers() {
 
+  }
+
+  verificatio() {
+    const dialog = this._dialog.open(AddVerificationComponent, {
+      minWidth: '60vw',
+      maxWidth: '80vw',
+      minHeight: '60vh',
+      maxHeight: '100vh',
+      disableClose: true,
+      autoFocus: false,
+      // data: { driverId: this.dataSource.data[0].id, transportId: this.dataSource.data[0]?.driverTransports[0].id }
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllDrivers()
+      })
   }
 
   getAllDrivers() {

@@ -34,6 +34,7 @@ import { forkJoin } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+
 })
 export class AddVerificationComponent implements OnInit {
   findList: any[] | undefined = [];
@@ -60,6 +61,7 @@ export class AddVerificationComponent implements OnInit {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     driverId: new FormControl(''),
+    transportId: new FormControl(''),
     name: new FormControl('', [Validators.required]),
     cubicCapacity: new FormControl('', [Validators.required]),
     stateNumber: new FormControl('', [Validators.required]),
@@ -90,13 +92,17 @@ export class AddVerificationComponent implements OnInit {
     private _subscriptionService: SubscriptionService,
     private cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
+    // this.form.patchValue({
+    //   driverId: data.driverId,
+    //   id: data.transportId
+    // })
     this.form.patchValue({
-      driverId: data.driverId,
-      id: data.transportId
+      driverId: 1,
+      transportId: 2
     })
-    if (data.transportId) {
-      this.edit = true;
-    }
+    // if (data.transportId) {
+    //   this.edit = true;
+    // }
     this.changeValue();
     forkJoin({
       currencies: this._typesService.getCurrencies(),
@@ -121,48 +127,56 @@ export class AddVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.f.id.value) {
-      this.form.patchValue({
-        techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-        techPassportBackFilePath: 'new value for techPassportBackFilePath',
-        transportFrontFilePath: 'new value for techPassportBackFilePath',
-        transportBackFilePath: 'new value for techPassportBackFilePath',
-        transportSideFilePath: 'new value for techPassportBackFilePath',
-        goodsTransportationLicenseCardFilePath: 'new value for techPassportBackFilePath',
-        driverLicenseFilePath: 'new value for techPassportBackFilePath',
-        passportFilePath: 'new value for techPassportBackFilePath',
-        transportKindIds: 'new value for techPassportBackFilePath',
-        transportTypeIds: 'new value for techPassportBackFilePath',
-        loadingMethodIds: 'new value for techPassportBackFilePath',
-        cargoTypeIds: 'new value for techPassportBackFilePath',
-      });
-      this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
-        console.log(res.data[0]);
-        this.edit = true;
-        this.form.patchValue({
-          name: res.data[0]?.name,
-          isHook: res.data[0]?.isHook,
-          isAdr: res.data[0]?.isAdr,
-          cubicCapacity: res.data[0]?.cubicCapacity,
-          stateNumber: res.data[0]?.stateNumber,
-          techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
-          techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
-          transportFrontFilePath: res.data[0]?.transportFrontFilePath,
-          transportBackFilePath: res.data[0]?.transportBackFilePath,
-          transportSideFilePath: res.data[0]?.transportSideFilePath,
-          goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
-          driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
-          passportFilePath: res.data[0]?.passportFilePath,
-          transportKindIds: res.data[0]?.transportKinds,
-          transportTypeIds: res.data[0]?.transportTypes,
-          loadingMethodIds: res.data[0]?.cargoLoadMethods,
-          cargoTypeIds: res.data[0]?.cargoTypes,
-          refrigeratorFrom: res.data[0]?.refrigeratorFrom,
-          refrigeratorTo: res.data[0]?.refrigeratorTo,
-          refrigeratorCount: res.data[0]?.refrigeratorCount,
-        })
-      })
-    }
+    // if (this.f.id.value) {
+    //   this.form.patchValue({
+    //     name: 'new value for techPassportFrontFilePath',
+    //     isHook: 'new value for techPassportFrontFilePath',
+    //     isAdr: 'new value for techPassportFrontFilePath',
+    //     cubicCapacity: 'new value for techPassportFrontFilePath',
+    //     stateNumber: 'new value for techPassportFrontFilePath',
+    //     techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+    //     techPassportBackFilePath: 'new value for techPassportFrontFilePath',
+    //     transportFrontFilePath: 'new value for techPassportFrontFilePath',
+    //     transportBackFilePath: 'new value for techPassportFrontFilePath',
+    //     transportSideFilePath: 'new value for techPassportFrontFilePath',
+    //     goodsTransportationLicenseCardFilePath: 'new value for techPassportFrontFilePath',
+    //     driverLicenseFilePath: 'new value for techPassportFrontFilePath',
+    //     passportFilePath: 'new value for techPassportFrontFilePath',
+    //     transportKindIds: 'new value for techPassportFrontFilePath',
+    //     transportTypeIds: 'new value for techPassportFrontFilePath',
+    //     loadingMethodIds: 'new value for techPassportFrontFilePath',
+    //     cargoTypeIds: 'new value for techPassportFrontFilePath',
+    //     refrigeratorFrom: 'new value for techPassportFrontFilePath',
+    //     refrigeratorTo: 'new value for techPassportFrontFilePath',
+    //     refrigeratorCount: 'new value for techPassportFrontFilePath',
+    //   });
+    //   this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
+    //     console.log(res.data[0]);
+    //     this.edit = true;
+    //     this.form.patchValue({
+    //       name: res.data[0]?.name,
+    //       isHook: res.data[0]?.isHook,
+    //       isAdr: res.data[0]?.isAdr,
+    //       cubicCapacity: res.data[0]?.cubicCapacity,
+    //       stateNumber: res.data[0]?.stateNumber,
+    //       techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
+    //       techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
+    //       transportFrontFilePath: res.data[0]?.transportFrontFilePath,
+    //       transportBackFilePath: res.data[0]?.transportBackFilePath,
+    //       transportSideFilePath: res.data[0]?.transportSideFilePath,
+    //       goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
+    //       driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
+    //       passportFilePath: res.data[0]?.passportFilePath,
+    //       transportKindIds: res.data[0]?.transportKinds,
+    //       transportTypeIds: res.data[0]?.transportTypes,
+    //       loadingMethodIds: res.data[0]?.cargoLoadMethods,
+    //       cargoTypeIds: res.data[0]?.cargoTypes,
+    //       refrigeratorFrom: res.data[0]?.refrigeratorFrom,
+    //       refrigeratorTo: res.data[0]?.refrigeratorTo,
+    //       refrigeratorCount: res.data[0]?.refrigeratorCount,
+    //     })
+    //   })
+    // }
   }
 
 
@@ -252,6 +266,7 @@ export class AddVerificationComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.form.get('id').value);
     formData.append('driverId', this.form.get('driverId').value);
+    formData.append('transportId', this.form.get('transportId').value);
     formData.append('name', this.form.get('name').value);
     formData.append('cubicCapacity', this.form.get('cubicCapacity').value);
     formData.append('stateNumber', this.form.get('stateNumber').value);
@@ -259,10 +274,10 @@ export class AddVerificationComponent implements OnInit {
     this.form.get('refrigeratorTo').value ? formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value) : ''
     this.form.get('refrigeratorCount').value ? formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
     this.form.get('isHook').value ? formData.append('isHook', this.form.get('isHook').value) : ''
-    // formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
-    // formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
-    // formData.append('isHook', this.form.get('isHook').value);
-    // formData.append('isAdr', this.form.get('isAdr').value);
+    formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
+    formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
+    formData.append('isHook', this.form.get('isHook').value);
+    formData.append('isAdr', this.form.get('isAdr').value);
     if (this.form.get('id').value) {
       formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
       formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
@@ -276,6 +291,10 @@ export class AddVerificationComponent implements OnInit {
       formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
     }
 
+    console.log(this.setIds(this.form.get('transportKindIds').value))
+    console.log(this.setIds(this.form.get('cargoTypeIds').value))
+    console.log(this.setIds(this.form.get('transportTypeIds').value))
+    console.log(this.setIds(this.form.get('loadingMethodIds').value))
 
 
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {
@@ -325,29 +344,16 @@ export class AddVerificationComponent implements OnInit {
     } else {
       formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-
-    if (this.form.value.id) {
-      this._driverService.updateTransport(formData).subscribe(res => {
-        console.log(res)
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Водитель успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
-    } else {
-      this._driverService.createTransport(formData).subscribe(res => {
-        // console.log(res)
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Добавление транспорта  успешно')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
-    }
+    this._driverService.updateTransportDriver(formData).subscribe(res => {
+      // console.log(res)
+      if (res.success) {
+        this._dialog.closeAll()
+        this.form.reset()
+        this._toaster.success('Добавление транспорта  успешно')
+      } else {
+        this._toaster.error('Невозможно сохранить водитель')
+      }
+    })
   }
 
   trackByFn(item: any): number {
@@ -363,6 +369,10 @@ export class AddVerificationComponent implements OnInit {
 
   setIds(ids: any[]) {
     return ids.map(item => item.id);
+  }
+
+  setId(item: any) {
+    return item.id;
   }
 
 }

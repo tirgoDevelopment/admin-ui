@@ -23,5 +23,8 @@ export interface AgentModel extends BaseModel {
     mfo?: string;
     bankBranchName?: string;
     registrationCertificatePath?: string;
+    registrationCertificateFilePath?: string;
     managerPassportFilePath?: string;
+    bankAccounts?: any[];
+    phoneNumber?: string;
 }
