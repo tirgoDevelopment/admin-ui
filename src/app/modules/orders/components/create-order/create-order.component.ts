@@ -125,7 +125,6 @@ export class CreateOrderComponent implements OnInit {
           loadingMethodId: res.data?.loadingMethod,
         });
       }
-      console.log(this.form.value.id);
     })
   }
 
@@ -197,8 +196,8 @@ export class CreateOrderComponent implements OnInit {
     });
 
     this.form.get('clientId').valueChanges.pipe(
-      debounceTime(300), // Debounce time of 300ms
-      switchMap(clientId => this._clientService.get(clientId)) // Call API with new value
+      debounceTime(300),
+      switchMap(clientId => this._clientService.get(clientId)) 
     ).subscribe(response => {
       if (response.success) {
         this.clientInfo = response.data;

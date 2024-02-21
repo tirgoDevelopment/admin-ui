@@ -214,5 +214,8 @@
      "request":"Request",
      "add_agent":"Add agent",
      "edit_agent":"Edit agent",
-     "date_time":"Date time"
+     "date_time":"Date time",
+     "amount":"Amount",
+     "transactionType":"Transaction Type",
+     "currency":"Currency"
 }

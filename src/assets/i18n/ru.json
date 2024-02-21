@@ -214,8 +214,8 @@
     "request":"Запрос",
     "add_agent":"Добавить агента",
     "edit_agent":"Редактировать агента",
-    "date_time":"Дата Время"
-
-
-
+    "date_time":"Дата Время",
+    "amount":"Количество",
+    "transactionType":"Тип операции",
+    "currency":"Валюта"
 }

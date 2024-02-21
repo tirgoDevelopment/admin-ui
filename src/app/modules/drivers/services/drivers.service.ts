@@ -5,18 +5,23 @@ import { DriverModel } from '../models/driver.model';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { ApiService } from 'app/core/service/api.service';
 import { HttpParams } from '@angular/common/http';
+import { AuthService } from 'app/core/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriversService {
 
-  constructor(private _apiService: ApiService) { }
-
+  constructor(private _apiService: ApiService, private _authService: AuthService) { }
+  
   get(id: number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
+    let userId=this._authService.getDecodedAccessToken().userId;
+    console.log(this._authService.getDecodedAccessToken());
+    console.log(userId);
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<DriverModel>(`/users/drivers/id`, queryParams);
+    queryParams = queryParams.append("userId", userId);
+    return this._apiService.get<DriverModel>(`/users/drivers/driver-by`, queryParams);
   }
 
   getAll(params?): Observable<Response<DriverModel[]>> {

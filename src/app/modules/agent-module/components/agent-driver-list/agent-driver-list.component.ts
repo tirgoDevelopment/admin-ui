@@ -21,7 +21,6 @@ import { AgentTransactionComponent } from '../agent-transaction/agent-transactio
 import { ActivatedRoute } from '@angular/router';
 import { AddAgentSubscriptionComponent } from '../add-agent-subscription/add-agent-subscription.component';
 import { ConnectDriverComponent } from '../connect-driver/connect-driver.component';
-import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent.component';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -31,16 +30,18 @@ import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+
 })
 export class AgentDriverListComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
-  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter',];
+  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
+      console.log(params);
       this.id = params.id;
     })
   }
@@ -85,6 +86,7 @@ export class AgentDriverListComponent implements OnInit {
     })
   }
 
+
   transaction() {
     const dialog = this._dialog.open(AgentTransactionComponent, {
       minWidth: '70vw',
@@ -114,22 +116,6 @@ export class AgentDriverListComponent implements OnInit {
         this.getAllDrivers(this.id)
       })
   }
-
-  addBalanse() {
-    const dialog = this._dialog.open(AddBalanceAgentComponent, {
-      minWidth: '25vw',
-      maxWidth: '40vw',
-      minHeight: '20vh',
-      maxHeight: '50vh',
-      autoFocus: false,
-      data: { id: this.id },
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this.getAllDrivers(this.id)
-      })
-  }
-
 
   addSubsciption(id: number) {
     const dialog = this._dialog.open(AddAgentSubscriptionComponent, {

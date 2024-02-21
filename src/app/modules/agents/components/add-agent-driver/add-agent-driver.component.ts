@@ -59,14 +59,12 @@ export class AddAgentDriverComponent {
       this.form.patchValue({
         agentId: data
       })
-      console.log(this.form.value)
     }
     this.getSubscription();
   }
 
   getSubscription() {
     this._typeService.getSubscription().subscribe((response: any) => {
-      console.log(response);
       this.subscription = response.data;
     })
   }

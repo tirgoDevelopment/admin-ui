@@ -20,7 +20,9 @@
                     </div>
                 </div>
 
-         
+                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
+                    <span class="ml-2">connect Driver</span>
+                </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
                     <span class="ml-2">Transaction</span>
                 </button>
@@ -65,35 +67,29 @@
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.firstName}} {{ row?.lastName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.phone}} </mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngFor="let phoneNumber of row.phoneNumbers" class="px-2">
+                            {{phoneNumber?.phoneNumber}}
+                        </span>
+                    </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="city">
-                    <mat-header-cell *matHeaderCellDef> {{"city"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
-                </ng-container>
+
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
                     <mat-header-cell *matHeaderCellDef> {{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="rating">
-                    <mat-header-cell *matHeaderCellDef> {{"rating"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.rating}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
@@ -104,15 +100,10 @@
                                 (click)="$event.stopPropagation()">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
-
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item color="accent" (click)="edit(row)">
-                                    <mat-icon>edit</mat-icon>
-                                    {{"edit"|transloco}}
-                                </button>
-                                <button mat-menu-item color="accent" (click)="delete(row.id)">
-                                    <mat-icon>remove</mat-icon>
-                                    {{"remove"|transloco}}
+                                <button mat-menu-item color="accent" (click)="addSubsciption(row.id)">
+                                    <mat-icon>notification_important</mat-icon>
+                                    {{"subscription"|transloco}}
                                 </button>
                             </mat-menu>
                         </div>
@@ -123,7 +114,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
-            <app-no-data-placeholder *ngIf="!dataSource.data.length" >
+            <app-no-data-placeholder *ngIf="!dataSource.data.length">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>

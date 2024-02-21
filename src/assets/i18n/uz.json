@@ -214,5 +214,8 @@
     "request":"So'rov",
     "add_agent":"Agent qo'shing",
     "edit_agent":"Agentni tahrirlash",
-    "date_time":"Sana vaqti"
+    "date_time":"Sana vaqti",
+    "amount":"Miqdori",
+    "transactionType":"Tranzaksiya turi",
+    "currency":"Valyuta"
 }

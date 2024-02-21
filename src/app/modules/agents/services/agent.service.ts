@@ -66,6 +66,18 @@ export class AgentService {
     return this._apiService.post<AgentModel>('/users/agents/register', body);
   }
 
+  CreateBalanseAgent(body): Observable<any> {
+    return this._http.post(env.merchantUrl + '/finance/transaction', body);
+  }
+
+  createsubscription(body): Observable<Response<AgentModel>> {
+    return this._apiService.post<AgentModel>('/users/agents/add-subscription-driver', body);
+  }
+
+  connectToAgent(body): Observable<Response<AgentModel>> {
+    return this._apiService.post<AgentModel>('/users/drivers/append-to-agent', body);
+  }
+
   update(body): Observable<Response<AgentModel>> {
     return this._apiService.put<AgentModel>('/users/agents/update', body);
   }

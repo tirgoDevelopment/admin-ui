@@ -22,22 +22,26 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
+import { DriversService } from 'app/modules/drivers/services/drivers.service';
+import { debounceTime, switchMap } from 'rxjs';
+import { DriverModel } from 'app/modules/drivers/models/driver.model';
 
 @Component({
-  selector: 'app-add-agent-subscription',
-  templateUrl: './add-agent-subscription.component.html',
-  styleUrls: ['./add-agent-subscription.component.scss'],
+  selector: 'app-connect-driver',
+  templateUrl: './connect-driver.component.html',
+  styleUrls: ['./connect-driver.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, JsonPipe, NgxMatSelectSearchModule, NgFor, FormsModule, ReactiveFormsModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+
 })
-export class AddAgentSubscriptionComponent {
+export class ConnectDriverComponent implements OnInit {
+  driverInfo: DriverModel;
   subscription: any;
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     driverId: new FormControl(''),
-    subscriptionId: new FormControl(''),
     agentId: new FormControl(''),
   })
   constructor(
@@ -45,15 +49,28 @@ export class AddAgentSubscriptionComponent {
     private _toaster: ToastrService,
     private _agentService: AgentService,
     private _typeService: TypesService,
+    private _dirfverService: DriversService,
     private cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
+      console.log(this.data)
       this.form.patchValue({
-        driverId: this.data?.driverId,
         agentId: this.data?.agentId,
       });
     }
     this.getSubscription();
+  }
+
+
+  ngOnInit(): void {
+    this.form.get('driverId').valueChanges.pipe(
+      debounceTime(300),
+      switchMap(driverId => this._dirfverService.get(driverId))
+    ).subscribe(response => {
+      if (response.success) {
+        this.driverInfo = response.data;
+      }
+    });
   }
 
   getSubscription() {
@@ -68,7 +85,7 @@ export class AddAgentSubscriptionComponent {
   }
 
   submit() {
-    this._agentService.createsubscription(this.form.value).subscribe(res => {
+    this._agentService.connectToAgent(this.form.value).subscribe(res => {
       if (res.success) {
         this._dialog.closeAll()
         this.form.reset()
@@ -78,6 +95,6 @@ export class AddAgentSubscriptionComponent {
       }
     })
   }
-
 }
+
 

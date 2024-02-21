@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { TypesService } from 'app/shared/services/types.service';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -33,23 +34,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 
 })
 export class AddAgentDriverComponent {
-  subscription = [
-    {
-      id: 1,
-      name: 'asdasd',
-      price: 2
-    },
-    {
-      id: 2,
-      name: 'asdasd',
-      price: 4
-    },
-    {
-      id: 3,
-      name: 'asdasd',
-      price: 10
-    }
-  ];
+  subscription = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -66,27 +51,22 @@ export class AddAgentDriverComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _typeService: TypesService,
     private _dialog: MatDialog) {
     if (this.data) {
+      console.log(this.data)
       this.edit = true;
       this.form.patchValue({
-        id: this.data?.id,
-        agentId: this.data?.agentId,
-        firstName: this.data?.firstName,
-        lastName: this.data?.lastName,
-        phoneNumbers: this.data?.phoneNumbers,
-        password: this.data?.password,
-        passportFilePath: this.data?.passportFilePath,
-        driverLisenseFilePath: this.data?.driverLisenseFilePath,
-      });
+        agentId: data
+      })
     }
     this.getSubscription();
   }
 
   getSubscription() {
-    // this._subscriptionService.getAll().subscribe((response) => {
-    //   this.subscription = response.data;
-    // })
+    this._typeService.getSubscription().subscribe((response: any) => {
+      this.subscription = response.data;
+    })
   }
 
   onFileSelected(event: any, type: string): void {

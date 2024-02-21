@@ -1,21 +1,19 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title *ngIf="!edit" class="font-bold text-2xl uppercase">{{"add_driver"|transloco}}</p>
-    <p mat-dialog-title *ngIf="edit" class="font-bold text-2xl uppercase">{{"edit_driver"|transloco}}</p>
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"add_subscription"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
 </div>
 <mat-dialog-content>
     <form [formGroup]="form">
-        <div class="p-3">
-            <mat-radio-group class="flex items-center">
-                <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg" [color]="white"
-                    [ngClass]="{'card-background-grey': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
-                    value="option1" *ngFor="let row of subscription" [value]="row.id">
-                    <p class="w-40">${{row?.price}}/месяц</p>
-                </mat-radio-button>
-            </mat-radio-group>
-        </div>
+        <mat-radio-group class="flex items-center" formControlName="subscriptionId">
+            <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg" [color]="white"
+                [ngClass]="{'card-background-grey': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
+                *ngFor="let row of subscription" [value]="row.id">
+                <p class="w-40">${{row?.price}}/месяц</p>
+            </mat-radio-button>
+        </mat-radio-group>
+
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
