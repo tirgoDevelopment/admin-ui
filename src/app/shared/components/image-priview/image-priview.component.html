@@ -1,3 +1,13 @@
-<div class="image-preview w-full h-screen flex items-center justify-center">
-    <img [src]="image ? file_url + image : 'https://img.freepik.com/free-photo/ultra-detailed-nebula-abstract-wallpaper-4_1562-749.jpg'" alt="" class="object-cover w-full h-full">
+<div style="height: calc(100% - 100px);">
+    <div class="flex justify-between items-center">
+        <p mat-dialog-title class="font-bold leading-5 text-3xl"></p>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon aria-label="Close dialog">close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        <div class=" w-full   flex items-center justify-center">
+            <img [src]="fileName | fileFetch: 'driver'|async" alt="" class="object-fill w-full ">
+        </div>
+    </mat-dialog-content>
 </div>

@@ -217,5 +217,7 @@
      "date_time":"Date time",
      "amount":"Amount",
      "transactionType":"Transaction Type",
-     "currency":"Currency"
+     "currency":"Currency",
+     "active":"Active",
+     "inactive":"InActive"
 }

@@ -19,4 +19,5 @@ export interface DriverModel extends BaseModel {
     last_enter?: Date;
     order?: boolean;
     geolocation?: boolean;
+    subscribedAt?:string;   
 }

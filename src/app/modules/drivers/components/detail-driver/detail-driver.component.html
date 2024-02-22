@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+    <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"orders"|transloco}}</h2>
         </div>
@@ -38,7 +38,7 @@
                 <p class="text-gray-600">{{"neagtive"|transloco}}</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
@@ -48,15 +48,15 @@
                 <p class="text-xl leading-4 mb-1">{{"full_name"|transloco}}</p>
                 <p class="font-bold">{{driver?.firstName}} {{driver?.lastName }}ч</p>
             </div>
-            <div>
+            <!-- <div>
                 <p class="text-xl leading-4 mb-1">{{"date_birth"|transloco}}</p>
                 <p class="font-bold">01.09.2002</p>
-            </div>
+            </div> -->
             <div>
-                <p class="text-xl leading-4 mb-1">{{"citizenship"|transloco}}</p>
-                <p class="font-bold">{{driver?.citizenship}}</p>
+                <p class="text-xl leading-4 mb-1">{{"subscription"|transloco}}</p>
+                <p class="font-bold">{{driver?.subscribedAt | date:'dd/mm/yyyy' }}</p>
             </div>
-            <div>
+            <!-- <div>
                 <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
                 <p class="font-bold">Ташкент</p>
             </div>
@@ -67,9 +67,9 @@
             <div>
                 <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
                 <p class="font-bold">03 ноября 2023 в 19:52</p>
-            </div>
+            </div> -->
         </div>
-        <div class="flex justify-between mt-4">
+        <!-- <div class="flex justify-between mt-4">
             <div class="flex">
                 <img src="assets/images/icons/info-red.svg" class="h-7 w-7" alt="info">
                 <span class="ml-2 text-red-600">{{"moderation_failed"|transloco}}</span>
@@ -77,66 +77,112 @@
             <button mat-flat-button [color]="'primary'" class="">
                 {{"activate"|transloco}}
             </button>
-        </div>
+        </div> -->
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"transport"|transloco}}</h2>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4" *ngFor="let transport of driver?.driverTransports">
             <div>
                 <p class="text-xl leading-4 mb-1">{{"machine_type"|transloco}}</p>
                 <p class="font-bold">Тентовка</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"max_load_capacity"|transloco}}</p>
-                <p class="font-bold">01.09.2002</p>
+                <p class="text-xl leading-4 mb-1">{{"Date"|transloco}}</p>
+                <p class="font-bold">{{transport?.createdAt}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"adr"|transloco}}</p>
-                <p class="font-bold">Узбекистан {{driver}}</p>
+                <p class="font-bold">
+                    <span *ngIf="transport?.isAdr">
+                        {{"yes"|transloco}}
+                    </span>
+                    <span *ngIf="!transport?.isAdr">
+                        {{"no"|transloco}}
+                    </span>
+                </p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"state_number_trailer"|transloco}}</p>
-                <p class="font-bold">7115</p>
+                <p class="font-bold">{{transport?.stateNumber}}</p>
             </div>
+    
         </div>
-        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
-            <div class="w-3/4">
-                <label class="block mb-2 font-bold">{{"technical_passport"|transloco}}</label>
+
+        <div class="grid grid-cols-1 gap-4" *ngFor="let transport of driver?.driverTransports">
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"technical_passport"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.techPassportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
-            <div class="w-1/4 flex items-center justify-end">
-                <label for="fileInput" class="cursor-pointer">
-                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
-                </label>
-                <input id="fileInput" type="file" class="hidden" />
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"tech_passport_front"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.techPassportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
-        </div>
-        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
-            <div class="w-3/4">
-                <label class="block mb-2 font-bold">{{"lisense"|transloco}}</label>
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"transport_photo"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.transportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
-            <div class="w-1/4 flex items-center justify-end">
-                <label for="fileInput" class="cursor-pointer">
-                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
-                </label>
-                <input id="fileInput" type="file" class="hidden" />
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"transport_back_photo"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.transportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
-        </div>
-        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
-            <div class="w-3/4">
-                <label class="block mb-2 font-bold">{{"trasnport_photo"|transloco}}</label>
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"transport_side_photo"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.transportSideFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
-            <div class="w-1/4 flex items-center justify-end">
-                <label for="fileInput" class="cursor-pointer">
-                    <img src="assets/images/icons/download.svg" class="h-5 w-5" alt="">
-                </label>
-                <input id="fileInput" type="file" class="hidden" />
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.passportFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
+            </div>
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"driver_lisense_card"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.driverLicenseFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
+            </div>
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-bold">{{"good_transportation_lisense"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="preview(transport.goodsTransportationLicenseCardFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"passport"|transloco}}</h2>
         </div>
@@ -157,8 +203,8 @@
                 {{"save"|transloco}}
             </button>
         </div>
-    </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+    </div> -->
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold"> {{"driver_license"|transloco}}
             </h2>
@@ -173,7 +219,7 @@
                 {{"save"|transloco}}
             </button>
         </div>
-    </div>
+    </div> -->
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5 flex">
             <h2 class="text-2xl leading-4 font-bold"> {{"driver_contact"|transloco}}
@@ -183,9 +229,9 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold" *ngIf="driver.phoneNumber">{{client.phoneNumber}}</p>
-                <p class="font-bold" *ngIf="driver.phoneNumbers">
-                    <span *ngFor="let phoneNumber of driver.phoneNumbers">
+                <p class="font-bold" *ngIf="driver?.phoneNumber">{{driver?.phoneNumber}}</p>
+                <p class="font-bold" *ngIf="driver?.phoneNumbers">
+                    <span *ngFor="let phoneNumber of driver?.phoneNumbers">
                         {{phoneNumber?.phoneNumber}}
                     </span>
                 </p>
@@ -198,20 +244,20 @@
         </div>
     </div>
     <div class="flex justify-end mt-4 px-4">
-        <button mat-flat-button [color]="'primary'" class="">
-            {{"remove"|transloco}}
+        <button mat-flat-button [color]="'primary'" (click)="block()">
+            {{"block"|transloco}}
         </button>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-4">
             <h2 class="text-xl font-bold">{{"user_activity"|transloco}}</h2>
             <h4 class="text-xl font-bold">Произведен вход Windows NT 10.0, IP:95.214.211.165</h4>
         </div>
-    </div>
+    </div> -->
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
     <div class="ml-auto p-4">
-        <button mat-flat-button class=" custom-warn-button text-warn-400" mat-dialog-close tabindex="-1">
+        <button mat-flat-button [color]="'warn'" mat-dialog-close tabindex="-1">
             {{"send_push"|transloco}}</button>
         <button mat-flat-button [color]="'primary'" class="" (click)="submit()">
             {{"save"|transloco}}

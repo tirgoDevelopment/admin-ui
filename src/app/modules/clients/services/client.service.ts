@@ -16,7 +16,7 @@ export class ClientService {
   get(id: number): Observable<Response<ClientModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<ClientModel>(`/users/clients/id`, queryParams);
+    return this._apiService.get<ClientModel>(`/users/clients/client-by`, queryParams);
   }
 
   getAll(params?): Observable<Response<ClientModel[]>> {

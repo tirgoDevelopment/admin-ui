@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+    <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4  font-bold">{{"orders"|transloco}}</h2>
         </div>
@@ -38,25 +38,28 @@
                 <p class="text-gray-600">{{"neagtive"|transloco}}</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
-                <p class="font-bold">Активный</p>
+                <p class="font-bold">
+                    <span *ngIf="client?.active"> {{"active"|transloco}}</span>
+                    <span *ngIf="!client?.active">{{"inactive"|transloco}}</span>
+                </p>
             </div>
-            <div>
+            <!-- <div>
                 <p class="text-xl leading-4 mb-1">{{"subscribe_to"|transloco}}</p>
                 <p>Нет подписки</p>
-            </div>
+            </div> -->
             <div>
                 <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
-                <p class="font-bold">{{client.createdAt | date:'d MMMM y в HH:mm'}}</p>
+                <p class="font-bold">{{client?.createdAt | date:'d MMMM y в HH:mm'}}</p>
             </div>
-            <div>
+            <!-- <div>
                 <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
                 <p>19 января 2023 в 17:53</p>
-            </div>
+            </div> -->
             <div>
                 <p class="text-xl leading-4 mb-1">{{"balance"|transloco}}</p>
                 <p class="font-bold">0</p>
@@ -74,7 +77,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"citizenship"|transloco}}</p>
-                <p class="font-bold">{{client.citizenship}}</p>
+                <p class="font-bold">{{client?.citizenship}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
@@ -82,16 +85,25 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold" *ngIf="client.phoneNumber">{{client.phoneNumber}}</p>
-                <p class="font-bold" *ngIf="client.phoneNumbers">
+                <p class="font-bold" *ngIf="client?.phoneNumber">{{client.phoneNumber}}</p>
+                <p class="font-bold" *ngIf="client?.phoneNumbers">
                     <span *ngFor="let phoneNumber of client.phoneNumbers">
                         {{phoneNumber?.phoneNumber}}
                     </span>
                 </p>
             </div>
         </div>
+
+        <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+            <div class="w-3/4">
+                <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
+            </div>
+            <div class="w-1/4 flex items-center justify-end">
+                <mat-icon (click)="preview(client.passport)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+            </div>
+        </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"access_merchant"|transloco}}</h2>
         </div>
@@ -113,7 +125,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold"> {{"contacts"|transloco}}</h2>
@@ -121,17 +133,22 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2">
                 <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                <p class="font-bold">Не указан</p>
+                <p class="font-bold">{{client?.email}}</p>
             </div>
         </div>
+    </div>
+    <div class="flex justify-end mt-4 px-4">
+        <button mat-flat-button [color]="'primary'" [disabled]="!client?.active" (click)="block()">
+            {{"block"|transloco}}
+        </button>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
     <div class="ml-auto p-4">
-        <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
-            {{ 'cancel' | transloco }}</button>
-        <button class=" fuse-mat-button text-white" mat-flat-button [color]="'primary'" (click)="submit()">
-            {{ 'save' | transloco }}
+        <button mat-flat-button [color]="'warn'" (click)="send()">
+            {{"send_push"|transloco}}</button>
+        <button mat-flat-button [color]="'primary'" mat-dialog-close tabindex="-1">
+            {{"cancel"|transloco}}
         </button>
     </div>
 </mat-dialog-actions>

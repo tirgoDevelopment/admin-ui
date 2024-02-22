@@ -47,9 +47,7 @@ export class SendPushComponent {
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
-        id: this.data?.id,
-        theme: this.data?.theme,
-        description: this.data?.description,
+        id: this.data,
       });
     }
   }

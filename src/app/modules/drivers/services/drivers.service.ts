@@ -17,8 +17,6 @@ export class DriversService {
   get(id: number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     let userId=this._authService.getDecodedAccessToken().userId;
-    console.log(this._authService.getDecodedAccessToken());
-    console.log(userId);
     queryParams = queryParams.append("id", id);
     queryParams = queryParams.append("userId", userId);
     return this._apiService.get<DriverModel>(`/users/drivers/driver-by`, queryParams);
