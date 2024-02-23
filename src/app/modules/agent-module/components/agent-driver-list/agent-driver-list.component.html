@@ -26,9 +26,6 @@
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
                     <span class="ml-2">Transaction</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="detail()">
-                    <span class="ml-2">Detail</span>
-                </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">Add</span>
@@ -104,6 +101,10 @@
                                 <button mat-menu-item color="accent" (click)="addSubsciption(row.id)">
                                     <mat-icon>notification_important</mat-icon>
                                     {{"subscription"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" (click)="detail(row.id)">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                    {{"detail"|transloco}}
                                 </button>
                             </mat-menu>
                         </div>

@@ -63,8 +63,12 @@ export class DetailArchiveUserComponent implements OnInit {
       })
   }
 
-  restoreClient(id: number) {
-    this._clientService.active(id).subscribe((response) => {
+  restore(detail: any) {
+    let body = {
+      userId: detail.id,
+      userType: detail.userType,
+    }
+    this._archiveService.restore(body).subscribe((response) => {
       if (response.success) {
         this._dialog.closeAll()
       }
@@ -79,6 +83,20 @@ export class DetailArchiveUserComponent implements OnInit {
       minHeight: '60vh',
       maxHeight: '80vh',
       data: { keyName: 'driver', fileName: fileName },
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+      })
+  }
+
+  previewAgent(fileName: string) {
+    const dialog = this._dialog.open(ImagePriviewComponent, {
+      minWidth: '60vw',
+      maxWidth: '80vw',
+      minHeight: '60vh',
+      maxHeight: '80vh',
+      data: { keyName: 'agent', fileName: fileName },
       autoFocus: false,
     })
     dialog.afterClosed()

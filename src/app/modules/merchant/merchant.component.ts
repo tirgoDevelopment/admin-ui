@@ -13,8 +13,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-import { DriversService } from '../drivers/services/drivers.service';
-import { DriverModel } from '../drivers/models/driver.model';
 import { MerchantListComponent } from './components/merchant-list/merchant-list.component';
 import { RouterLink } from '@angular/router';
 import { MerchantService } from './services/merchant.service';
@@ -27,19 +25,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule,FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, MatIconModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
   filters = {
     id: '',
-    name:'',
+    name: '',
     phone: '',
     register_date: '',
     last_enter: '',
     city: '',
   };
   cities: any[] = [];
-  displayedColumns: string[] = ['full_name', 'entity', 'balance',  'last_enter', 'actions'];
+  displayedColumns: string[] = ['full_name', 'entity', 'balance', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
@@ -48,7 +46,7 @@ export class MerchantComponent implements OnInit {
   clearFilters() {
     this.filters = {
       id: '',
-      name:'',
+      name: '',
       phone: '',
       register_date: '',
       last_enter: '',
@@ -62,12 +60,11 @@ export class MerchantComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllDrivers();
+    this.getAllMerchants();
   }
 
-  getAllDrivers() {
+  getAllMerchants() {
     this._merchantService.Verified().subscribe((response) => {
-      console.log(response)
       this.dataSource.data = response?.data;
     });
   }
@@ -82,13 +79,15 @@ export class MerchantComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllMerchants()
       })
   }
 
   delete(id: number) {
     this._merchantService.delete(id).subscribe((response) => {
-      
+      if (response.status) {
+        this.getAllMerchants()
+      }
     })
   }
 }

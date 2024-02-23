@@ -1,0 +1,30 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"block"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="p-3">
+            <mat-form-field color="accent" class="w-full">
+                <textarea matInput placeholder="{{ 'block_reason' | transloco }}" formControlName="block_reason"
+                    [ngClass]="{'is-invalid': f.block_reason?.errors}" rows="4"></textarea>
+                <mat-error *ngIf="f.block_reason.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{ 'cancel' | transloco }}</button>
+        <button
+            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+            {{ 'save' | transloco }}
+        </button>
+    </div>
+</mat-dialog-actions>

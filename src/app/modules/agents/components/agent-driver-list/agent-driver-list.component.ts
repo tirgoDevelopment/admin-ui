@@ -36,7 +36,7 @@ export class AgentDriverListComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
-  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter',];
+  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
@@ -62,11 +62,12 @@ export class AgentDriverListComponent implements OnInit {
     });
   }
 
-  detail() {
+  detail(id:number) {
     this._dialog.open(DetailAgentDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
+      data:id,
       position: {
         top: '0',
         right: '0',

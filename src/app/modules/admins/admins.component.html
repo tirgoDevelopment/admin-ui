@@ -25,11 +25,7 @@
                     <mat-cell *matCellDef="let row"> {{ row?.username}} </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="role">
-                    <mat-header-cell *matHeaderCellDef> {{"role"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.role.name}} </mat-cell>
-                </ng-container>
+            
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
                     </mat-header-cell>
@@ -55,6 +51,10 @@
                                 <button mat-menu-item color="accent" (click)="edit(row)">
                                     <mat-icon>edit</mat-icon>
                                     {{"edit"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" [disabled]="!row.active" (click)="block(row.id)">
+                                    <mat-icon>lock</mat-icon>
+                                    {{"block"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>

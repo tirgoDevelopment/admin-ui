@@ -32,6 +32,10 @@ export class ArchiveUserService {
 		return this._apiService.post<ClientModel>('/clients', body);
 	}
 
+  restore(body): Observable<Response<ClientModel>> {
+		return this._apiService.patch<ClientModel>('/clients', body, {});
+	}
+
   update(body): Observable<Response<ClientModel>> {
     return this._apiService.put<ClientModel>('/clients', body);
   }

@@ -23,7 +23,7 @@
                 <div class="flex ">
                     <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                     <div>
-                        <p class="text-2xl font-bold">{{archiveUser?.client.firstName}} {{archiveUser?.client.lastName }}</p>
+                        <p class="text-2xl font-semibold">{{archiveUser?.client.firstName}} {{archiveUser?.client.lastName }}</p>
                         <p class="text-gray-600"># {{archiveUser?.client.id}}</p>
                     </div>
                 </div>
@@ -37,42 +37,42 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
-                    <p class="font-bold">
+                    <p class="font-semibold">
                         <span *ngIf="archiveUser?.client.active"> {{"active"|transloco}}</span>
                         <span *ngIf="!archiveUser?.client.active">{{"inactive"|transloco}}</span>
                     </p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
-                    <p class="font-bold">{{archiveUser?.client.createdAt | date:'d MMMM y в HH:mm'}}</p>
+                    <p class="font-semibold">{{archiveUser?.client.createdAt | date:'d MMMM y в HH:mm'}}</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"balance"|transloco}}</p>
-                    <p class="font-bold">0</p>
+                    <p class="font-semibold">0</p>
                 </div>
             </div>
         </div>
         <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
             <div class="mb-5">
-                <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+                <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1"> {{"date_birth"|transloco}}</p>
-                    <p class="font-bold">Не указана</p>
+                    <p class="font-semibold">Не указана</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"citizenship"|transloco}}</p>
-                    <p class="font-bold">{{archiveUser?.client.citizenship}}</p>
+                    <p class="font-semibold">{{archiveUser?.client.citizenship}}</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
-                    <p class="font-bold">Ташкент</p>
+                    <p class="font-semibold">Ташкент</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-bold" *ngIf="archiveUser?.client.phoneNumber">{{archiveUser?.client.phoneNumber}}</p>
-                    <p class="font-bold" *ngIf="archiveUser?.client.phoneNumbers">
+                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumber">{{archiveUser?.client.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.client.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
                         </span>
@@ -82,7 +82,7 @@
     
             <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
+                    <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="previewClient(client.passport)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -91,17 +91,17 @@
         </div>
         <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
             <div class="mb-5">
-                <h2 class="text-2xl leading-4 font-bold"> {{"contacts"|transloco}}</h2>
+                <h2 class="text-2xl leading-4 font-semibold"> {{"contacts"|transloco}}</h2>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2">
                     <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                    <p class="font-bold">{{archiveUser?.client.email}}</p>
+                    <p class="font-semibold">{{archiveUser?.client.email}}</p>
                 </div>
             </div>
         </div>
         <div class="flex justify-end mt-4 px-4">
-            <button mat-flat-button [color]="'primary'" [disabled]="!archiveUser?.client.active" (click)="block()">
+            <button mat-flat-button [color]="'primary'" [disabled]="!archiveUser?.client.active" (click)="restore(archiveUser)">
                 {{"restore"|transloco}}
             </button>
         </div>
@@ -112,7 +112,7 @@
                 <div class="flex ">
                     <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                     <div>
-                        <p class="text-2xl font-bold">{{archiveUser?.driver.firstName}} {{archiveUser?.driver.lastName }}</p>
+                        <p class="text-2xl font-semibold">{{archiveUser?.driver.firstName}} {{archiveUser?.driver.lastName }}</p>
                         <p class="text-gray-600"># {{archiveUser?.driver.id}}</p>
                     </div>
                 </div>
@@ -124,36 +124,36 @@
         </div>
         <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
             <div class="mb-5">
-                <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+                <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"full_name"|transloco}}</p>
-                    <p class="font-bold">{{archiveUser?.driver.firstName}} {{archiveUser?.driver.lastName }}ч</p>
+                    <p class="font-semibold">{{archiveUser?.driver.firstName}} {{archiveUser?.driver.lastName }}ч</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"subscription"|transloco}}</p>
-                    <p class="font-bold">{{archiveUser?.driver.subscribedAt | date:'dd/mm/yyyy' }}</p>
+                    <p class="font-semibold">{{archiveUser?.driver.subscribedAt | date:'dd/mm/yyyy' }}</p>
                 </div>
             </div>
         </div>
         <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
             <div class="mb-5">
-                <h2 class="text-2xl leading-4 font-bold">{{"transport"|transloco}}</h2>
+                <h2 class="text-2xl leading-4 font-semibold">{{"transport"|transloco}}</h2>
             </div>
     
             <div class="grid grid-cols-2 gap-4" *ngFor="let transport of archiveUser?.driver.driverTransports">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"machine_type"|transloco}}</p>
-                    <p class="font-bold">Тентовка</p>
+                    <p class="font-semibold">Тентовка</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"Date"|transloco}}</p>
-                    <p class="font-bold">{{transport?.createdAt}}</p>
+                    <p class="font-semibold">{{transport?.createdAt}}</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"adr"|transloco}}</p>
-                    <p class="font-bold">
+                    <p class="font-semibold">
                         <span *ngIf="transport?.isAdr">
                             {{"yes"|transloco}}
                         </span>
@@ -164,7 +164,7 @@
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"state_number_trailer"|transloco}}</p>
-                    <p class="font-bold">{{transport?.stateNumber}}</p>
+                    <p class="font-semibold">{{transport?.stateNumber}}</p>
                 </div>
         
             </div>
@@ -172,7 +172,7 @@
             <div class="grid grid-cols-1 gap-4" *ngFor="let transport of archiveUser?.driver.driverTransports">
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"technical_passport"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"technical_passport"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.techPassportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"tech_passport_front"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"tech_passport_front"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.techPassportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -189,7 +189,7 @@
     
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"transport_photo"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"transport_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.transportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"transport_back_photo"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"transport_back_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.transportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -206,7 +206,7 @@
     
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"transport_side_photo"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"transport_side_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.transportSideFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -215,7 +215,7 @@
     
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.passportFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -224,7 +224,7 @@
     
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"driver_lisense_card"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"driver_lisense_card"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.driverLicenseFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -232,7 +232,7 @@
                 </div>
                 <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
-                        <label class="block mb-2 font-bold">{{"good_transportation_lisense"|transloco}}</label>
+                        <label class="block mb-2 font-semibold">{{"good_transportation_lisense"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
                         <mat-icon (click)="previewDriver(transport.goodsTransportationLicenseCardFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
@@ -242,24 +242,24 @@
         </div>
         <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
             <div class="mb-5 flex">
-                <h2 class="text-2xl leading-4 font-bold"> {{"driver_contact"|transloco}}
+                <h2 class="text-2xl leading-4 font-semibold"> {{"driver_contact"|transloco}}
                 </h2>
                 <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-bold" *ngIf="archiveUser?.driver.phoneNumber">{{archiveUser?.driver.phoneNumber}}</p>
-                    <p class="font-bold" *ngIf="archiveUser?.driver.phoneNumbers">
+                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumber">{{archiveUser?.driver.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.driver.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
                         </span>
                     </p>
-                    <p class="font-bold">Подтвержден</p>
+                    <p class="font-semibold">Подтвержден</p>
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                    <p class="font-bold"> {{archiveUser?.driver.email}}</p>
+                    <p class="font-semibold"> {{archiveUser?.driver.email}}</p>
                 </div>
             </div>
         </div>
@@ -270,140 +270,209 @@
         </div>
  
     </div>
-
-    <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
-        <div class="flex items-center">
-            <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16">
-            <div class="flex justify-end ml-4">
+    <div *ngIf="archiveUser?.clientMerchant">
+        <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+            <div class="mb-5">
+                <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
+            </div>
+            <div class="gap-4 ">
                 <div>
-                    <p class="text-2xl font-bold">Ройтман Рафаэль Евгеньевич</p>
-                    <p class="text-gray-600">#4502</p>
+                    <p class="text-xl leading-4 mb-1">{{"director_first_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.supervisorFirstName}}</p>
                 </div>
-                <div class="flex justify-end  ml-4">
-                    <p class="text-gray-600"> 5.0</p>
-                    <img src="assets/images/icons/start.svg" alt="star Image" class="rounded-full w-4 h-4 ml-1 mt-1">
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"director_last_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.supervisorLastName}}</p>
+                </div>
+
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"response_first_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.responsiblePersonLastName}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"response_last_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.responsiblePersonFistName}}</p>
+                </div>
+                <div class="col-span-2">
+                    <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.email}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumber">{{archiveUser?.clientMerchant.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumbers">
+                        <span *ngFor="let phoneNumber of archiveUser?.clientMerchant.phoneNumbers">
+                            {{phoneNumber?.phoneNumber}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
+                    <p class="font-semibold">
+                        <span *ngIf="archiveUser?.clientMerchant.active"> {{"active"|transloco}}</span>
+                        <span *ngIf="!archiveUser?.clientMerchant.active">{{"inactive"|transloco}}</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.createdAt | date:'d MMMM y в HH:mm'}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"company"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.companyName}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"company_type"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.companyType}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"mfo"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.mfo}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"oked"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.oked}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"inn"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.inn}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"legal_address"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.legalAddress}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"actual_address"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.clientMerchant.factAddress}}</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"orders"|transloco}}</h2>
-        </div>
-        <div class="flex mb-4">
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">25</p>
-                <p class="text-gray-600">{{"total"|transloco}}</p>
-            </div>
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600">{{"completed"|transloco}} </p>
-            </div>
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600">{{"neagtive"|transloco}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"full_name"|transloco}}</p>
-                <p class="font-bold">Ройтман Рафаэль Евгеньвич</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"date_birth"|transloco}}</p>
-                <p class="font-bold">01.09.2002</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"citizenship"|transloco}}</p>
-                <p class="font-bold">Узбекистан</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
-                <p class="font-bold">Ташкент</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
-                <p class="font-bold">03 ноября 2023 в 19:52</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
-                <p class="font-bold">03 ноября 2023 в 19:52</p>
-            </div>
-        </div>
-        <div class="flex justify-between mt-4">
-            <div class="flex">
-                <img src="assets/images/icons/info-red.svg" class="h-7 w-7" alt="info">
-                <span class="ml-2 text-red-600">{{"moderation_failed"|transloco}}</span>
-            </div>
-            <button mat-flat-button [color]="'primary'" class="">
-                {{"activate"|transloco}}
+        <div class="flex justify-end mt-4 px-4">
+            <button mat-flat-button [color]="'primary'" (click)="restore(archiveUser)">
+                {{"restore"|transloco}}
             </button>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"passport"|transloco}}</h2>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <mat-form-field color="accent" class="w-full  ">
-                    <input matInput placeholder="Серия и номер">
-                </mat-form-field>
+    <div *ngIf="archiveUser?.agent">
+        <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+            <div class="mb-5">
+                <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
             </div>
-            <div>
-                <mat-form-field color="accent" class="w-full  ">
-                    <input matInput placeholder="Дата выдачи">
-                </mat-form-field>
+       
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
+                    <p class="font-semibold">
+                        <span *ngIf="archiveUser?.agent.active"> {{"active"|transloco}}</span>
+                        <span *ngIf="!archiveUser?.agent.active">{{"inactive"|transloco}}</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.createdAt | date:'d MMMM y в HH:mm'}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"company"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.companyName}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"username"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.companyType}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"director_first_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.managerFirstName}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"director_last_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.managerLastName}}</p>
+                </div>
+        
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"legal_address"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.legalAddress}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"actual_address"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.physicalAddress}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"mfo"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.mfo}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"inn"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.inn}}</p>
+                </div>
+
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"oked"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.agent.oked}}</p>
+                </div>
+            </div>
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-semibold">{{"registration_certificate"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="previewAgent(archiveUser?.agent.registrationCertificateFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
+            </div>
+
+            <div class="flex space-x-4 card-background-grey mt-2 px-4 py-2 rounded-lg">
+                <div class="w-3/4">
+                    <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
+                </div>
+                <div class="w-1/4 flex items-center justify-end">
+                    <mat-icon (click)="previewAgent(archiveUser?.agent.managerPassportFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                </div>
             </div>
         </div>
-        <div class="flex justify-end mt-4">
-            <button mat-flat-button [color]="'primary'" class="">
-                {{"save"|transloco}}
+        <div class="flex justify-end mt-4 px-4">
+            <button mat-flat-button [color]="'primary'" (click)="restore(archiveUser)">
+                {{"restore"|transloco}}
             </button>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold"> {{"driver_license"|transloco}}
-            </h2>
+    <div *ngIf="archiveUser?.staff ">
+        <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+            <div class="mb-5">
+                <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
+            </div>
+       
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
+                    <p class="font-semibold">
+                        <span *ngIf="archiveUser?.staff.active"> {{"active"|transloco}}</span>
+                        <span *ngIf="!archiveUser?.staff.active">{{"inactive"|transloco}}</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.staff.createdAt | date:'d MMMM y в HH:mm'}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.staff.phone}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"username"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.staff.companyType}}</p>
+                </div>
+                <div>
+                    <p class="text-xl leading-4 mb-1">{{"full_name"|transloco}}</p>
+                    <p class="font-semibold">{{archiveUser?.staff.fullName}}</p>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-1 gap-4">
-            <mat-form-field class="w-full ">
-                <input matInput placeholder="Водительское удостоверение" class="w-full">
-            </mat-form-field>
-        </div>
-        <div class="flex justify-end mt-4">
-            <button mat-flat-button [color]="'primary'" class="">
-                {{"save"|transloco}}
+        <div class="flex justify-end mt-4 px-4">
+            <button mat-flat-button [color]="'primary'" (click)="restore(archiveUser)">
+                {{"restore"|transloco}}
             </button>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5 flex">
-            <h2 class="text-2xl leading-4 font-bold"> {{"driver_contact"|transloco}}
-            </h2>
-            <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold">+998 999 99 99</p>
-                <p class="font-bold">Подтвержден</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                <p class="font-bold">raphaelroytman@mail.ru</p>
-            </div>
-        </div>
-    </div>
-    <div class="flex justify-end mt-4 px-4">
-        <button mat-flat-button [color]="'primary'" class="">
-            {{"restore"|transloco}}
-        </button>
-    </div> -->
 </mat-dialog-content>

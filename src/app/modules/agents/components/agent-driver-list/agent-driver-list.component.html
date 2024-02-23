@@ -28,13 +28,9 @@
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="addBalanse()">
                     <span class="ml-2">Balanse</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="detail()">
-                    <span class="ml-2">Detail</span>
-                </button>
             </div>
         </div>
-
-        <div class="flex items-baseline   w-full  ">
+        <div class="flex items-baseline w-full">
 
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'id' | transloco }}">
@@ -99,6 +95,10 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" (click)="detail(row.id)">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                    {{"detail"|transloco}}
+                                </button>
                                 <!-- <button mat-menu-item color="accent" (click)="addSubsciption(row.id)">
                                     <mat-icon>notification_important</mat-icon>
                                     {{"subscription"|transloco}}

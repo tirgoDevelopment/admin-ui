@@ -7,6 +7,11 @@
         </div>
         <div class="mt-4">
             <mat-table matSort [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
@@ -14,8 +19,9 @@
                         <div [ngSwitch]="row.userType">
                             <div *ngSwitchCase="'client'">{{row?.client?.firstName}} {{row?.client?.lastName}}</div>
                             <div *ngSwitchCase="'driver'">{{row?.driver?.firstName}} {{row?.driver?.lastName}}</div>
-                            <div *ngSwitchCase="'staff'">{{row?.staff?.firstName}} {{row?.staff?.lastName}}</div>
-                            <div *ngSwitchCase="'agent'">{{row?.agent?.firstName}} {{row?.agent?.lastName}}</div>
+                            <div *ngSwitchCase="'staff'">{{row?.staff?.fullName}} {{row?.staff?.username}}</div>
+                            <div *ngSwitchCase="'agent'">{{row?.agent?.managerFirstName}} {{row?.agent?.managerLastName}}</div>
+                            <div *ngSwitchCase="'client_merchant'">{{row?.clientMerchant?.supervisorFirstName}} {{row?.clientMerchant?.supervisorLastName}}</div>
                         </div>
                     </mat-cell>
                 </ng-container>
@@ -40,14 +46,13 @@
                                 </span>
                             </div>
                             <div *ngSwitchCase="'staff'">
-                                <span *ngFor="let phone of row?.staff?.phoneNumbers">
-                                    {{phone.phoneNumber}}
-                                </span>
+                                {{row?.staff?.phone}}
+                            </div>
+                            <div *ngSwitchCase="'client_merchant'">
+                                {{row?.clientMerchant.phoneNumber}}
                             </div>
                             <div *ngSwitchCase="'agent'">
-                                <span *ngFor="let phone of row?.agent?.phoneNumbers">
-                                    {{phone.phoneNumber}}
-                                </span>
+                                {{row?.agent?.phoneNumber}}
                             </div>
                         </div>
                     </mat-cell>
@@ -74,6 +79,7 @@
                             <div *ngSwitchCase="'driver'">{{row?.driver?.createdAt | date: 'dd/MM/yyyy'}} </div>
                             <div *ngSwitchCase="'staff'">{{row?.staff?.createdAt | date: 'dd/MM/yyyy'}} </div>
                             <div *ngSwitchCase="'agent'">{{row?.agent?.createdAt | date: 'dd/MM/yyyy'}} </div>
+                            <div *ngSwitchCase="'client_merchant'">{{row?.clientMerchant?.createdAt | date: 'dd/MM/yyyy'}} </div>
                         </div>
                     </mat-cell>
                 </ng-container>

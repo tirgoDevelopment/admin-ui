@@ -9,33 +9,41 @@ import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminsService {
+export class AdminsService{
+    constructor(private _apiService: ApiService) {
+    }
 
-  constructor(private _apiService: ApiService) { }
+    get(id: number): Observable<Response<AdminModel>> {
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append('id', id);
+        return this._apiService.get<AdminModel>(`/users/staffs/staff-by`, queryParams);
+    }
 
-  get(id: number): Observable<Response<AdminModel>> {
-    return this._apiService.get<AdminModel>(`/staffs/${id}`);
-  }
+    getAll(params?): Observable<Response<AdminModel[]>> {
+        return this._apiService.get<AdminModel[]>(
+            '/users/staffs/all-staffs',
+            createHttpParams(params)
+        );
+    }
 
-  getAll(params?): Observable<Response<AdminModel[]>> {
-    return this._apiService.get<AdminModel[]>('/staffs/all', createHttpParams(params));
-  }
+    create(body): Observable<Response<AdminModel>> {
+        return this._apiService.post<AdminModel>('/users/auth/register', body);
+    }
 
-  create(body): Observable<Response<AdminModel>> {
-    return this._apiService.post<AdminModel>('/auth/register', body);
-  }
+    update(body): Observable<Response<AdminModel>> {
+        return this._apiService.put<AdminModel>('/users/staffs', body);
+    }
 
-  update(body): Observable<Response<AdminModel>> {
-    return this._apiService.put<AdminModel>('/staffs', body);
-  }
+    block(id: number,body:any): Observable<Response<AdminModel>> {
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append("id", id);
+        return this._apiService.patch<AdminModel>(`/users/clients/block`, body, queryParams);
+      }
+    
 
-  block(queryParams): Observable<Response<AdminModel>> {
-    return this._apiService.patch<AdminModel>(`/staffs/block`, {}, queryParams);
-  }
-
-  delete(id: number): Observable<Response<AdminModel>> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", id);
-    return this._apiService.delete<AdminModel>(`/staffs`, queryParams);;
-  }
+    delete(id: number): Observable<Response<AdminModel>> {
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append('id', id);
+        return this._apiService.delete<AdminModel>(`/users/staffs`, queryParams);
+    }
 }

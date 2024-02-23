@@ -16,6 +16,10 @@ import { AdminsService } from './services/admins.service';
 import { AdminModel } from './models/admin.model';
 import { AddAdminsComponent } from './components/add-admins/add-admins.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { ClientDetailComponent } from '../clients/components/client-detail/client-detail.component';
+import { AdminBlockComponent } from './components/admin-block/admin-block.component';
 
 @Component({
   selector: 'app-admins',
@@ -24,10 +28,11 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, NgIf, DatePipe, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule]
+
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
-  displayedColumns: string[] = ['full_name', 'login', 'role', 'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['full_name', 'login', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AdminModel>([]);
@@ -51,6 +56,22 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
       maxWidth: '50vw',
       minHeight: '42vh',
       maxHeight: '80vh',
+      autoFocus: false,
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllAdmin()
+      })
+  }
+
+
+  block(id: number) {
+    const dialog = this._dialog.open(AdminBlockComponent, {
+      minWidth: '20vw',
+      maxWidth: '40vw',
+      minHeight: '42vh',
+      maxHeight: '85vh',
+      data: id,
       autoFocus: false,
     })
     dialog.afterClosed()

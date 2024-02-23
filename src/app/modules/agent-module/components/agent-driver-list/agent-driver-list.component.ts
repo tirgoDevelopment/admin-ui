@@ -63,11 +63,12 @@ export class AgentDriverListComponent implements OnInit {
     });
   }
 
-  detail() {
+  detail(id:number) {
     this._dialog.open(DetailAgentDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
+      data:id,
       position: {
         top: '0',
         right: '0',

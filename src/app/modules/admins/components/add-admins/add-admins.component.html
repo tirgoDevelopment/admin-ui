@@ -67,11 +67,6 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
-    <div class="mr-auto p-4">
-        <button mat-stroked-button color="warn" *ngIf="edit" class=" custom-warn-button text-warn-400"
-            (click)="block()">
-            {{ 'block' | transloco }}</button>
-    </div>
     <div class="ml-auto p-4">
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>

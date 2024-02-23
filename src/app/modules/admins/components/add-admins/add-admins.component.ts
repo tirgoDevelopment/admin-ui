@@ -101,17 +101,5 @@ export class AddAdminsComponent {
     });
   }
 
-  block(): void {
-    const queryParams = {
-      id: this.form.value.id,
-    };
-    this._adminService.block(queryParams).subscribe(res => {
-      if (res.success) {
-        this._toaster.success('Админ заблокирован')
-      } else {
-        this._toaster.error('Невозможно заблокировать админ')
-      }
-    })
-  }
 }
 
