@@ -4,6 +4,7 @@ import { Response } from 'app/core/models/reponse';
 import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { TrackingModel } from '../models/tracking.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class TrackingService {
   }
 
   delete(id: number): Observable<Response<TrackingModel>> {
-    return this._apiService.delete<TrackingModel>(`/tracking/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<TrackingModel>(`/tracking`, queryParams);
   }
 }

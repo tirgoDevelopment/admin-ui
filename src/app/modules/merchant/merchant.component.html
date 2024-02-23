@@ -80,22 +80,22 @@
                                 (click)="$event.stopPropagation()">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
-
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item color="accent" (click)="edit(row)">
-                                    <mat-icon>edit</mat-icon>
-                                    {{"edit"|transloco}}
+                                <button mat-menu-item color="accent"  [routerLink]="['edit', row.id]">
+                                    <mat-icon>list</mat-icon>
+                                    {{"list"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
                                     {{"remove"|transloco}}
                                 </button>
+                           
                             </mat-menu>
                         </div>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="['edit', row.id]">
+                <mat-row *matRowDef="let row; columns: displayedColumns" >
                 </mat-row>
             </mat-table>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"

@@ -4,6 +4,7 @@ import { Response } from 'app/core/models/reponse';
 import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { SubscriptionModel } from '../models/subscription.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class SubscriptionService {
   }
 
   delete(id: number): Observable<Response<SubscriptionModel>> {
-    return this._apiService.delete<SubscriptionModel>(`/references/subscriptions/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<SubscriptionModel>(`/references/subscriptions`, queryParams);;
   }
 }

@@ -61,7 +61,15 @@ export class DriversService {
     return this._apiService.patch<DriverModel>(`/users/drivers/block`, body, queryParams);
   }
 
+  active(id:number): Observable<Response<DriverModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.patch<DriverModel>(`/users/drivers/active`, {}, queryParams);
+  }
+
   delete(id: number): Observable<Response<DriverModel>> {
-    return this._apiService.delete<DriverModel>(`/users/drivers/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<DriverModel>(`/users/drivers`, queryParams);;
   }
 }

@@ -20,6 +20,12 @@ export class MerchantService {
     return this._apiService.get<MerchantModel>(`/users/client-merchant/id`, queryParams);
   }
 
+  delete(id: number): Observable<Response<MerchantModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<MerchantModel>(`/users/client-merchant`, queryParams);;
+  }
+  
   Verified(params?): Observable<Response<MerchantModel[]>> {
     return this._apiService.get<MerchantModel[]>('/users/client-merchant/verified-merchants', createHttpParams(params));
   }

@@ -4,6 +4,7 @@ import { Response } from 'app/core/models/reponse';
 import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { UserActivityModel } from '../models/user-activity.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ export class UserActivityService {
   }
 
   delete(id: number): Observable<Response<UserActivityModel>> {
-    return this._apiService.delete<UserActivityModel>(`/clients/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<UserActivityModel>(`/clients`, queryParams);;
   }
 }

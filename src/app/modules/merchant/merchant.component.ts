@@ -39,10 +39,10 @@ export class MerchantComponent implements OnInit {
     city: '',
   };
   cities: any[] = [];
-  displayedColumns: string[] = ['full_name', 'entity', 'balance',  'last_enter'];
+  displayedColumns: string[] = ['full_name', 'entity', 'balance',  'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
-  constructor(private _driversService: MerchantService, protected _dialog?: MatDialog) {
+  constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
   }
 
   clearFilters() {
@@ -66,7 +66,7 @@ export class MerchantComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this._driversService.Verified().subscribe((response) => {
+    this._merchantService.Verified().subscribe((response) => {
       console.log(response)
       this.dataSource.data = response?.data;
     });
@@ -86,6 +86,10 @@ export class MerchantComponent implements OnInit {
       })
   }
 
-
+  delete(id: number) {
+    this._merchantService.delete(id).subscribe((response) => {
+      
+    })
+  }
 }
 

@@ -148,6 +148,11 @@
                                     <mat-icon>lock</mat-icon>
                                     {{"block"|transloco}}
                                 </button>
+
+                                <button mat-menu-item color="warn" (click)="delete(row.id)">
+                                     <mat-icon>remove</mat-icon>
+                                    {{"delete"|transloco}}
+                                </button>
                             </mat-menu>
                         </div>
                     </mat-cell>

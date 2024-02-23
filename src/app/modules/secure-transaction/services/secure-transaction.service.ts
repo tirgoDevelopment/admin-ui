@@ -4,6 +4,7 @@ import { Response } from 'app/core/models/reponse';
 import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { SecureTransactionModel } from '../models/secure-transaction.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class SecureTransactionService {
   }
 
   delete(id: number): Observable<Response<SecureTransactionModel>> {
-    return this._apiService.delete<SecureTransactionModel>(`/secure-transactions/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<SecureTransactionModel>(`/secure-transactions`, queryParams);;
   }
 }

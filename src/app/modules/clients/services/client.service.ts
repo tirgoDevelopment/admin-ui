@@ -45,11 +45,15 @@ export class ClientService {
     return this._apiService.patch<ClientModel>(`/users/clients/block`, body, queryParams);
   }
 
-  active(queryParams): Observable<Response<ClientModel>> {
+  active(id:number): Observable<Response<ClientModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
     return this._apiService.patch<ClientModel>(`/users/clients/active`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<ClientModel>> {
-    return this._apiService.delete<ClientModel>(`/users/clients/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<ClientModel>(`/users/clients/`, queryParams);;
   }
 }

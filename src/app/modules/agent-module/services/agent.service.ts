@@ -79,6 +79,8 @@ export class AgentService {
   }
 
   delete(id: number): Observable<Response<AgentModel>> {
-    return this._apiService.delete<AgentModel>(`/agents/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<AgentModel>(`/agents`, queryParams);;
   }
 }

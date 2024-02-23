@@ -30,18 +30,19 @@ import { ArchiveUserService } from './services/archive-user.service';
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['full_name', 'phone', 'type', 'register_date'];;
+  displayedColumns: string[] = ['full_name', 'phone', 'type', 'register_date', 'actions'];;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ArchiveUserModel>([]);
   constructor(private _archiveUserService: ArchiveUserService, protected _dialog?: MatDialog) {
   }
 
-  detail() {
+  detail(id: number) {
     this._dialog.open(DetailArchiveUserComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
+      data: id,
       position: {
         top: '0',
         right: '0',

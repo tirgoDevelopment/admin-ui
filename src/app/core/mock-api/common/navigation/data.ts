@@ -161,14 +161,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'computer.svg',
                 link: '/active',
             },
-            {
-                id: 'verification',
-                title: 'verification',
-                type: 'basic',
-                icon: 'verify.svg',
-                icon_w: 'verify-w.svg',
-                link: '/verification',
-            },
+            // {
+            //     id: 'verification',
+            //     title: 'verification',
+            //     type: 'basic',
+            //     icon: 'verify.svg',
+            //     icon_w: 'verify-w.svg',
+            //     link: '/verification',
+            // },
             {
                 id: 'agents',
                 title: 'agents',

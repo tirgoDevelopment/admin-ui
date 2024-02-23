@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from 'app/core/service/api.service';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { CargoModel } from '../models/cargo.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class CargoService {
   }
 
   delete(id: number): Observable<Response<CargoModel>> {
-    return this._apiService.delete<CargoModel>(`/references/cargo-types/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<CargoModel>(`/references/cargo-types`,queryParams);;
   }
 }

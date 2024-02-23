@@ -4,6 +4,7 @@ import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { CurrencyModel } from '../models/currency.model';
 import { createHttpParams } from 'app/core/functions/http-param';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class CurrencyService {
   }
 
   delete(id: number): Observable<Response<CurrencyModel>> {
-    return this._apiService.delete<CurrencyModel>(`/references/currencies/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<CurrencyModel>(`/references/currencies`, queryParams);;
   }
 }

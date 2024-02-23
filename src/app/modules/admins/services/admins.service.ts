@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AdminModel } from '../models/admin.model';
 import { ApiService } from 'app/core/service/api.service';
 import { createHttpParams } from 'app/core/functions/http-param';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,8 @@ export class AdminsService {
   }
 
   delete(id: number): Observable<Response<AdminModel>> {
-    return this._apiService.delete<AdminModel>(`/staffs/${id}`);;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this._apiService.delete<AdminModel>(`/staffs`, queryParams);;
   }
 }

@@ -107,10 +107,11 @@ export class ApiService {
 		);
 	}
 
-	delete<T>(path: string, headers = this.httpOptions): Observable<Response<T>> {
+	delete<T>(path: string, queryParams): Observable<Response<T>> {
+		const params = queryParams ? { params: queryParams } : {};
 		return this._http.delete<Response<T>>(
 			`${this.apiUrl}${path}`,
-			headers
+			params
 		).pipe(
 			catchError(this.formatErrors)
 		);
