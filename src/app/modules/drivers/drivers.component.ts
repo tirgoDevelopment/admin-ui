@@ -22,6 +22,8 @@ import { AddTransportComponent } from './components/add-transport/add-transport.
 import { BlockDriverComponent } from './components/block-driver/block-driver.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddVerificationComponent } from './components/add-verification/add-verification.component';
+import { TypesService } from 'app/shared/services/types.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-drivers',
@@ -30,39 +32,51 @@ import { AddVerificationComponent } from './components/add-verification/add-veri
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule,  MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
+  transportKinds: any[] = [];
   filters = {
-    id: '',
-    name: '',
-    phone: '',
-    register_date: '',
-    last_enter: '',
-    city: '',
+    driverId: '',
+    firstName:'',
+    phoneNumber: '',
+    transportKindId: '',
+    isSubscribed: '',
+    isVerified:'',
+    createdFrom: '',
+    createdAtTo: '',
+    lastLoginFrom: '',
+    lastLoginTo: '',
   };
-  displayedColumns: string[] = ['full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
+  displayedColumns: string[] = ['id','full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(
-    private _driversService: DriversService, protected _dialog?: MatDialog) {
+    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService:TypesService) {
   }
 
 
   ngOnInit() {
     this.getAllDrivers();
+    this._typeService.getTransportKinds().subscribe((response:any) => {
+      this.transportKinds = response.data;
+    })
   }
 
   clearFilters() {
     this.filters = {
-      id: '',
-      name: '',
-      phone: '',
-      register_date: '',
-      last_enter: '',
-      city: '',
+      driverId: '',
+      firstName:'',
+      phoneNumber: '',
+      transportKindId: '',
+      isSubscribed: '',
+      isVerified:'',
+      createdFrom: '',
+      createdAtTo: '',
+      lastLoginFrom: '',
+      lastLoginTo: '',
     };
   }
 
@@ -87,8 +101,7 @@ export class DriversComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this._driversService.getAll().subscribe((response) => {
-      console.log(response)
+    this._driversService.getAll(this.filters).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
@@ -145,6 +158,11 @@ export class DriversComponent implements OnInit {
       .subscribe(() => {
         this.getAllDrivers()
       })
+  }
+  active(id:number){
+    this._driversService.active(id).subscribe(() => {
+      this.getAllDrivers()
+    })
   }
 
   edit(id: number) {

@@ -219,5 +219,12 @@
     "transactionType":"Тип операции",
     "currency":"Валюта",
     "active":"Активный",
-    "inactive":"Неактивный"
+    "inactive":"Неактивный",
+    "subscribed":"Подписан",
+    "notSubscribed":"Не подписан",
+    "verified":"Проверено",
+    "notVerified":"Не подтверждено",
+    "merchant_order":"Торговый заказ",
+    "no_merchant_order":"Не торговый заказ",
+    "unblock":"Разблокировать"
 }

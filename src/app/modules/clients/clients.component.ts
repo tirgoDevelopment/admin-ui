@@ -21,6 +21,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-clients',
@@ -29,20 +30,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, NgIf, DatePipe, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule,  DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ClientsComponent {
   cities: any[] = [];
   filters = {
-    id: '',
-    name:'',
-    phone: '',
-    register_date: '',
-    last_enter: '',
-    city: '',
+    clientId: '',
+    firstName:'',
+    phoneNumber: '',
+    createdAt_from: '',
+    createdAt_to: '',
+    lastLogin_from: '',
+    lastLogin_to: '',
   };
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ClientModel>([]);
@@ -52,7 +54,7 @@ export class ClientsComponent {
   }
 
   getAllClient() {
-    this._clientService.getAll().subscribe((response) => {
+    this._clientService.getAll(this.filters).subscribe((response) => {
       console.log(response);
       this.dataSource.data = response?.data;
     });
@@ -61,12 +63,13 @@ export class ClientsComponent {
 
   clearFilters() {
     this.filters = {
-      id: '',
-      name: '',
-      phone: '',
-      register_date: '',
-      last_enter: '',
-      city: '',
+      clientId: '',
+      firstName:'',
+      phoneNumber: '',
+      createdAt_from: '',
+      createdAt_to: '',
+      lastLogin_from: '',
+      lastLogin_to: '',
     };
   }
 
@@ -119,6 +122,12 @@ export class ClientsComponent {
       .subscribe(() => {
         this.getAllClient()
       })
+  }
+
+  active(id:number){
+    this._clientService.active(id).subscribe(() => {
+      this.getAllClient()
+    })
   }
 
   add() {

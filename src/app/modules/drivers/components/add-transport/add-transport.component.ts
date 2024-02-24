@@ -121,18 +121,18 @@ export class AddTransportComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.f.id.value) {
-      this.form.patchValue({
-        techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-        techPassportBackFilePath: 'new value for techPassportBackFilePath',
-        transportFrontFilePath: 'new value for techPassportBackFilePath',
-        goodsTransportationLicenseCardFilePath: 'new value for techPassportBackFilePath',
-        driverLicenseFilePath: 'new value for techPassportBackFilePath',
-        passportFilePath: 'new value for techPassportBackFilePath',
-        transportKindIds: 'new value for techPassportBackFilePath',
-        transportTypeIds: 'new value for techPassportBackFilePath',
-        loadingMethodIds: 'new value for techPassportBackFilePath',
-        cargoTypeIds: 'new value for techPassportBackFilePath',
-      });
+      // this.form.patchValue({
+      //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+      //   techPassportBackFilePath: 'new value for techPassportBackFilePath',
+      //   transportFrontFilePath: 'new value for techPassportBackFilePath',
+      //   goodsTransportationLicenseCardFilePath: 'new value for techPassportBackFilePath',
+      //   driverLicenseFilePath: 'new value for techPassportBackFilePath',
+      //   passportFilePath: 'new value for techPassportBackFilePath',
+      //   transportKindIds: 'new value for techPassportBackFilePath',
+      //   transportTypeIds: 'new value for techPassportBackFilePath',
+      //   loadingMethodIds: 'new value for techPassportBackFilePath',
+      //   cargoTypeIds: 'new value for techPassportBackFilePath',
+      // });
       this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
         console.log(res.data[0]);
         this.edit = true;

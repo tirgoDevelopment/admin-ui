@@ -48,7 +48,7 @@ export class ClientService {
   active(id:number): Observable<Response<ClientModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<ClientModel>(`/users/clients/active`, {}, queryParams);
+    return this._apiService.patch<ClientModel>(`/users/clients/activate`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<ClientModel>> {

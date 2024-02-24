@@ -16,43 +16,53 @@
         </div>
         <div class="flex items-baseline  w-full  ">
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.id">
+                <mat-label>{{ 'id' | transloco }}</mat-label>
+                <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.clientId">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phone">
+                <input matInput placeholder="{{ 'name' | transloco }}" name="name" [(ngModel)]="filters.firstName">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'register_date' | transloco }}" name="register_date"
-                    [(ngModel)]="filters.register_date">
+                <mat-label>{{ 'phone' | transloco }}</mat-label>
+                <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'last_enter' | transloco }}" name="last_enter"
-                    [(ngModel)]="filters.last_enter">
+                <mat-label>{{ 'register_date' | transloco }}</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdAt_from">
+                    <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAt_to">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'name' | transloco }}" name="name" [(ngModel)]="filters.name">
-            </mat-form-field>
-            <mat-form-field color="accent" class="w-50 px-1">
-                <mat-select placeholder="{{ 'city' | transloco }}" name="city" [(ngModel)]="filters.city">
-                    <ng-container *ngFor="let row of cities">
-                        <mat-option [value]="row.id">{{row.name}}</mat-option>
-                    </ng-container>
-                </mat-select>
+                <mat-label>{{ 'last_enter' | transloco }}</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" [(ngModel)]="filters.lastLogin_from">
+                    <input matEndDate placeholder="End date" [(ngModel)]="filters.lastLogin_to">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
             <div class="px-1">
                 <button mat-flat-button color="warn" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn" (click)="filterClients()">
+                <button mat-flat-button color="warn" (click)="getAllClient()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
@@ -116,13 +126,16 @@
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" [disabled]="!row.active" (click)="block(row.id)">
+                                <button mat-menu-item color="accent" *ngIf="row.active" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>
                                     {{"block"|transloco}}
                                 </button>
-
+                                <button mat-menu-item color="accent" *ngIf="!row.active" (click)="active(row.id)">
+                                    <mat-icon>lock_open</mat-icon>
+                                    {{"unblock"|transloco}}
+                                </button>
                                 <button mat-menu-item color="warn" (click)="delete(row.id)">
-                                     <mat-icon>remove</mat-icon>
+                                    <mat-icon>remove</mat-icon>
                                     {{"delete"|transloco}}
                                 </button>
                             </mat-menu>

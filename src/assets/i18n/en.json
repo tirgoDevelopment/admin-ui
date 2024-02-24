@@ -219,5 +219,12 @@
      "transactionType":"Transaction Type",
      "currency":"Currency",
      "active":"Active",
-     "inactive":"InActive"
+     "inactive":"InActive",
+     "subscribed":"Subscribed",
+     "notSubscribed":"Not Subscribed",
+     "verified":"Verified",
+     "notVerified":"Not Verified",
+     "merchant_order":"Merchant Order",
+     "no_merchant_order":"No Merchant Order",
+     "unblock":"Unblock"
 }

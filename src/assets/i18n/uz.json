@@ -219,5 +219,12 @@
     "transactionType":"Tranzaksiya turi",
     "currency":"Valyuta",
     "active":"Faol",
-    "inactive":"Faol emas"
+    "inactive":"Faol emas",
+    "subscribed":"Obuna boʻlgan",
+    "notSubscribed":"Obuna boʻlmagan",
+    "verified":"Tasdiqlangan",
+    "notVerified":"Tasdiqlanmagan",
+    "merchant_order":"Savdogar buyurtmasi",
+    "no_merchant_order":"Savdogar buyurtmasi emas",
+    "unblock":"Blokdan chiqarish"
 }

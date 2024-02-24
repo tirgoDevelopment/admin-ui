@@ -31,7 +31,7 @@ import { AgentBlockComponent } from './components/agent-block/agent-block.compon
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;
-  displayedColumns: string[] = ['full_name', 'login', 'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['id','full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AgentModel>([]);
@@ -79,6 +79,12 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
       })
   }
 
+
+  active(id: number) {
+    this._agentService.active(id).subscribe(() => {
+      this.getAllagents()
+    })
+  }
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddAgentComponent, {

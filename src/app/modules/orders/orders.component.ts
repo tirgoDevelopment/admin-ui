@@ -1,24 +1,27 @@
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { OrdersService } from './services/orders.service';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from 'app/core/auth/auth.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrderComponent } from './components/create-order/create-order.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TypesService } from 'app/shared/services/types.service';
+import { MatSelectModule } from '@angular/material/select';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { OrderModel } from './models/order.model';
 
 @Component({
   selector: 'app-orders',
@@ -26,21 +29,45 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
   styleUrls: ['./orders.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [ReactiveFormsModule, TranslocoModule, FormsModule, MatProgressSpinnerModule, DatePipe, MatPaginatorModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatRippleModule, MatMenuModule, MatTabsModule, MatButtonToggleModule, NgApexchartsModule, NgFor, NgIf, MatTableModule, NgClass],
+  imports: [TranslocoModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
-  dataSource: any[];
   displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'client', 'actions'];
   currentUser: any;
+  transportKinds: any[] = [];
+  transportTypes: any[] = [];
+  filters = {
+    orderId: '',
+    statusId: '',
+    loadingLocation: '',
+    deliveryLocation: '',
+    transportKindId: '',
+    transportTypeId: '',
+    createdBy: '',
+    createdAt: '',
+    sendDate: '',
+    merchantOrder: ''
+  };
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  dataSource = new MatTableDataSource<OrderModel>([]);
   constructor(
     private orderService: OrdersService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _typeService: TypesService
   ) { }
   ngOnInit(): void {
     this.currentUser = jwtDecode(this.authService.accessToken);
     this.getOrders();
+    this._typeService.getTransportKinds().subscribe((response: any) => {
+      this.transportKinds = response.data;
+    })
+    this._typeService.getTransportTypes().subscribe((response: any) => {
+      this.transportTypes = response.data;
+    })
   }
 
   detail() {
@@ -60,16 +87,36 @@ export class OrdersComponent implements OnInit {
       })
   }
 
+
+  clearFilters() {
+    this.filters = {
+      orderId: '',
+      statusId: '',
+      loadingLocation: '',
+      deliveryLocation: '',
+      transportKindId: '',
+      transportTypeId: '',
+      createdBy: '',
+      createdAt: '',
+      sendDate: '',
+      merchantOrder: ''
+    };
+  }
+
+  filterDrivers() {
+
+  }
+
   getOrders() {
     this.isLoading = true;
-    this.orderService.getOrders().subscribe((res: any) => {
+    this.orderService.getOrders(this.filters).subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data;
       }
       else {
         this.isLoading = false;
-        this.dataSource = [];
+        this.dataSource.data = [];
       }
     })
     this.isLoading = false;

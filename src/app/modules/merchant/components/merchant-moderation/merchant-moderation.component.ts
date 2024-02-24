@@ -84,28 +84,28 @@ export class MerchantModerationComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-    this.form.patchValue({
-      techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-      id: 'new value for techPassportFrontFilePath',
-      bankName: 'new value for techPassportFrontFilePath',
-      companyName: 'new value for techPassportFrontFilePath',
-      phoneNumber: 'new value for techPassportFrontFilePath',
-      dunsNumber: 'new value for techPassportFrontFilePath',
-      email: 'new value for techPassportFrontFilePath',
-      supervisorFirstName: 'new value for techPassportFrontFilePath',
-      supervisorLastName: 'new value for techPassportFrontFilePath',
-      responsiblePersonFistName: 'new value for techPassportFrontFilePath',
-      responsiblePersonLastName: 'new value for techPassportFrontFilePath',
-      responsbilePersonPhoneNumber: 'new value for techPassportFrontFilePath',
-      inn: 'new value for techPassportFrontFilePath',
-      oked: 'new value for techPassportFrontFilePath',
-      mfo: 'new value for techPassportFrontFilePath',
-      notes: 'new value for techPassportFrontFilePath',
-      logoFilePath: 'new value for techPassportFrontFilePath',
-      registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
-      passportFilePath: 'new value for techPassportFrontFilePath',
-      legalAddress: 'new value for techPassportFrontFilePath',
-    });
+    // this.form.patchValue({
+    //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+    //   id: 'new value for techPassportFrontFilePath',
+    //   bankName: 'new value for techPassportFrontFilePath',
+    //   companyName: 'new value for techPassportFrontFilePath',
+    //   phoneNumber: 'new value for techPassportFrontFilePath',
+    //   dunsNumber: 'new value for techPassportFrontFilePath',
+    //   email: 'new value for techPassportFrontFilePath',
+    //   supervisorFirstName: 'new value for techPassportFrontFilePath',
+    //   supervisorLastName: 'new value for techPassportFrontFilePath',
+    //   responsiblePersonFistName: 'new value for techPassportFrontFilePath',
+    //   responsiblePersonLastName: 'new value for techPassportFrontFilePath',
+    //   responsbilePersonPhoneNumber: 'new value for techPassportFrontFilePath',
+    //   inn: 'new value for techPassportFrontFilePath',
+    //   oked: 'new value for techPassportFrontFilePath',
+    //   mfo: 'new value for techPassportFrontFilePath',
+    //   notes: 'new value for techPassportFrontFilePath',
+    //   logoFilePath: 'new value for techPassportFrontFilePath',
+    //   registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
+    //   passportFilePath: 'new value for techPassportFrontFilePath',
+    //   legalAddress: 'new value for techPassportFrontFilePath',
+    // });
     this.merchantService.get(id).subscribe(responce => {
       this.form.patchValue({
         id: responce.data.id,
@@ -221,10 +221,12 @@ export class MerchantModerationComponent implements OnInit {
   }
 
   verifyTransaction(transaction) {
-    if (transaction.transactionType=='topupAccount') {
-      this.merchantService.verifyTransaction(transaction.id).subscribe((res:any) => {
+    console.log(transaction)
+    // if (transaction.transactionType=='withdrawAccount' ) {
+      this.merchantService.verifyTransaction(transaction).subscribe((res:any) => {
         if (res.success) {
           this.getBalance();
+          this.getTransactions()
           this.toastr.success('Успешно завершено')
         } else {
           if (res.errors[0] = 'notEnoughBalance') {
@@ -234,16 +236,28 @@ export class MerchantModerationComponent implements OnInit {
           }
         }
       })
-    } else {
-      this.toastr.error('Баланса не хватает')
-    }
+    // } else {
+    //   this.toastr.error('Баланса не хватает')
+    // }
   }
   rejectTransaction(id) {
-    this.merchantService.rejectTransaction(id).subscribe(res => {})
+    this.merchantService.rejectTransaction(id).subscribe(res => {
+      if (res.success) {
+        this.getBalance();
+        this.getTransactions()
+        this.toastr.success('Успешно завершено')
+      } 
+    })
   }
 
   cancelTransaction(id) {
-    this.merchantService.cancelTransaction(id).subscribe(res => {})
+    this.merchantService.cancelTransaction(id).subscribe(res => {
+      if (res.success) {
+        this.getBalance();
+        this.getTransactions()
+        this.toastr.success('Успешно завершено')
+      } 
+    })
   }
 }
 

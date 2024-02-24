@@ -64,7 +64,7 @@ export class DriversService {
   active(id:number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<DriverModel>(`/users/drivers/active`, {}, queryParams);
+    return this._apiService.patch<DriverModel>(`/users/drivers/activate`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<DriverModel>> {

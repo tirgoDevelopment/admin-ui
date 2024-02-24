@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { createHttpParams } from "app/core/functions/http-param";
 import { env } from "app/environmens/environment";
 
 @Injectable({ providedIn: 'root' })
@@ -7,8 +8,8 @@ import { env } from "app/environmens/environment";
 export class OrdersService {
   constructor(private http: HttpClient) { }
 
-  getOrders() {
-    return this.http.get(env.orderApiUrl + '/orders/staffs/all-orders');
+  getOrders(params?) {
+    return this.http.get(env.orderApiUrl + '/orders/staffs/all-orders', { params: createHttpParams(params) });
   }
 
   getOrderById(id) {
