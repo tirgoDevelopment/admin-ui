@@ -6,7 +6,7 @@ import { Observable, of, switchMap } from 'rxjs';
 
 export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
     const router: Router = inject(Router);
-    const permissionService: NgxPermissionsService = inject(NgxPermissionsService);
+    // const permissionService: NgxPermissionsService = inject(NgxPermissionsService);
     return inject(AuthService).check().pipe(
         switchMap((authenticated) => {
             if (!authenticated) {

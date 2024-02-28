@@ -9,8 +9,8 @@ export const appRoutes: Route[] = [
     { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboards' },
     {
         path: 'auth',
-        // canActivate: [NoAuthGuard],
-        // canActivateChild: [NoAuthGuard],
+        canActivate: [NoAuthGuard],
+        canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         children: [
             { path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes') },
@@ -22,8 +22,8 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        // canActivate: [AuthGuard],
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -101,8 +101,8 @@ export const appRoutes: Route[] = [
             {
                 path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver')
             },
-            // { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
-            // { path: '**', redirectTo: '404-not-found' }
+            { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
+            { path: '**', redirectTo: '404-not-found' }
         ]
     }
 ];

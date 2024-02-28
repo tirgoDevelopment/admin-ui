@@ -7,9 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
+import { FuseAlertComponent } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
@@ -29,11 +29,12 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router,
-  ) {}
+  ) { }
   ngOnInit() {
     this.signInForm = this._formBuilder.group({
-      username: ['asl', [Validators.required]],
-      password: ['asliddin', Validators.required],
+      username: ['', [Validators.required]],
+      password: ['', Validators.required],
+      userType: ['staff'],
     });
   }
 
@@ -45,7 +46,7 @@ export class AuthSignInComponent implements OnInit {
     this._authService.signIn(this.signInForm.value)
       .subscribe(
         (response) => {
-          if (response.data.access_token) {
+          if (response.data.token) {
             this._router.navigateByUrl('dashboards');
           }
         },

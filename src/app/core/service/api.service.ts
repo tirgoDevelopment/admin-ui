@@ -15,7 +15,7 @@ export class ApiService {
 
 
 	constructor(protected _http: HttpClient) {
-		this.apiUrl = `http://192.168.1.218:3000/api/v2`;
+		this.apiUrl = `http://65.1.134.189/api/v2`;
 	}
 
 	httpOptions = {
