@@ -19,6 +19,7 @@ import { MerchantService } from './services/merchant.service';
 import { MerchantModel } from './models/merchanr.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlockMerchantComponent } from './components/block-merchant/block-merchant.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -26,25 +27,19 @@ import { BlockMerchantComponent } from './components/block-merchant/block-mercha
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, MatIconModule,MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];
   transportKinds: any[] = [];
   transportTypes: any[] = [];
   filters = {
-    orderId: '',
-    statusId: '',
-    loadingLocation: '',
-    deliveryLocation: '',
-    transportKindId: '',
-    transportTypeId: '',
-    createdBy: '',
-    createdAt: '',
-    sendDate: '',
-    merchantOrder: ''
+    merchantid: '',
+    companyName: '',
+    createdFrom: '',
+    createdAtTo: '',
   };
-  displayedColumns: string[] = ['id', 'full_name', 'entity', 'balance', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'full_name', 'companyName' ,'entity', 'balance', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
@@ -52,16 +47,10 @@ export class MerchantComponent implements OnInit {
 
   clearFilters() {
     this.filters = {
-      orderId: '',
-      statusId: '',
-      loadingLocation: '',
-      deliveryLocation: '',
-      transportKindId: '',
-      transportTypeId: '',
-      createdBy: '',
-      createdAt: '',
-      sendDate: '',
-      merchantOrder: ''
+      merchantid: '',
+      companyName: '',
+      createdFrom: '',
+      createdAtTo: '',
     };
   }
 

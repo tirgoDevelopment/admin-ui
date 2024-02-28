@@ -16,46 +16,23 @@
         <div class="flex items-baseline  w-full">
             <mat-form-field color="accent" class="w-50 px-1">
               <mat-label class="text-xl"> {{ 'id' | transloco }}</mat-label>
-              <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.orderId">
+              <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.merchantid">
             </mat-form-field>
       
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> {{ 'StatusID' | transloco }}</mat-label>
-              <input matInput placeholder="{{ 'StatusID' | transloco }}" name="id" [(ngModel)]="filters.statusId">
+              <mat-label class="text-xl"> {{ 'company_name' | transloco }}</mat-label>
+              <input matInput placeholder="{{ 'company_name' | transloco }}" name="id" [(ngModel)]="filters.companyName">
             </mat-form-field>
-      
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> Место отправки груза</mat-label>
-              <input matInput placeholder="Место отправки груза" name="loadingLocation" [(ngModel)]="filters.loadingLocation">
-            </mat-form-field>
+              <mat-label>{{ 'register_date' | transloco }}</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdFrom">
+                  <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAtTo">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
       
-            <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> Место доставки груза</mat-label>
-              <input matInput placeholder="Место доставки груза" name="deliveryLocation"
-                [(ngModel)]="filters.deliveryLocation">
-            </mat-form-field>
-      
-            <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> {{ 'transport_type' | transloco }}</mat-label>
-              <mat-select [(ngModel)]="filters.transportTypeId" name="transportTypeId">
-                <mat-option *ngFor="let item of transportTypes ; " [value]="item.id">{{item.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-      
-            <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
-              <mat-select [(ngModel)]="filters.transportKindId" name="transportKindId">
-                <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-      
-            <mat-form-field color="accent" class="w-50 px-1">
-              <mat-select placeholder="{{ 'merchant_order' | transloco }}" name="merchantOrder"
-                [(ngModel)]="filters.merchantOrder">
-                <mat-option value="true">{{ 'merchant_order' | transloco }}</mat-option>
-                <mat-option value="false">{{ 'no_merchant_order' | transloco }}</mat-option>
-              </mat-select>
-            </mat-form-field>
             <div class="px-1">
               <button mat-flat-button color="warn" class="" (click)="clearFilters()">
                 {{ 'clear' | transloco }}</button>
@@ -64,7 +41,7 @@
               <button mat-flat-button color="warn" (click)="getAllMerchants()">
                 {{ 'filter' | transloco }}</button>
             </div>
-          </div>
+        </div>
         <div class="mt-4">
             <mat-table matSort [dataSource]="dataSource">
               <ng-container matColumnDef="id">
@@ -78,6 +55,11 @@
                     <mat-cell *matCellDef="let row"> {{ row?.supervisorFirstName}} {{
                         row?.supervisorLastName}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="companyName">
+                  <mat-header-cell *matHeaderCellDef> {{"company_name"|transloco}}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
+              </ng-container>
                 <ng-container matColumnDef="entity">
                     <mat-header-cell *matHeaderCellDef> {{"entity"|transloco}}
                     </mat-header-cell>

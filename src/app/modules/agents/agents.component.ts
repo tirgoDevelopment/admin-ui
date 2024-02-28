@@ -18,6 +18,8 @@ import { AgentModel } from './models/agent.model';
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { RouterLink, RouterModule } from '@angular/router';
 import { AgentBlockComponent } from './components/agent-block/agent-block.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-agents',
@@ -26,11 +28,17 @@ import { AgentBlockComponent } from './components/agent-block/agent-block.compon
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, RouterLink, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, RouterLink, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;
+  filters = {
+    merchantid: '',
+    companyName: '',
+    createdFrom: '',
+    createdAtTo: '',
+  };
   displayedColumns: string[] = ['id','full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -38,7 +46,19 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   constructor(private _agentService: AgentService, protected _dialog?: MatDialog) {
     super();
   }
+  
+  clearFilters() {
+    this.filters = {
+      merchantid: '',
+      companyName: '',
+      createdFrom: '',
+      createdAtTo: '',
+    };
+  }
 
+  filterDrivers() {
+
+  }
   ngOnInit() {
     this.getAllagents();
   }
@@ -52,10 +72,10 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   
   add() {
     const dialog = this._dialog.open(AddAgentComponent, {
-      minWidth: '50vw',
-      maxWidth: '75vw',
+      minWidth: '80vw',
+      maxWidth: '90vw',
       minHeight: '50vh',
-      maxHeight: '80vh',
+      maxHeight: '90vh',
       autoFocus: false,
     })
     dialog.afterClosed()
