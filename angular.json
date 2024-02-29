@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "admin-ui": {
+        "fuse": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {

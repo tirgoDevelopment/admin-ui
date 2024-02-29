@@ -27,47 +27,26 @@ import { Subject, takeUntil } from 'rxjs';
     imports: [FuseLoadingBarComponent, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
 })
 export class DenseLayoutComponent implements OnInit, OnDestroy {
-    @Input('isAthenticated')isAthenticated:boolean
+    @Input('isAthenticated') isAthenticated: boolean
     isScreenSmall: boolean;
     navigation: Navigation;
-    navigationAppearance: 'default' | 'dense' = 'dense';
+    navigationAppearance: 'default' | 'dense';
     scheme: 'dark' | 'light';
     config: FuseConfig;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
-
-    /**
-     * Constructor
-     */
     constructor(
         private _authService: AuthService,
         private _fuseConfigService: FuseConfigService,
         private _router: Router,
         private _navigationService: NavigationService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService,
-    ) {
-    }
+        private _fuseNavigationService: FuseNavigationService) { }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Getter for current year
-     */
     get currentYear(): number {
         return new Date().getFullYear();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
-        // Subscribe to navigation data
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((navigation: Navigation) => {
@@ -77,47 +56,27 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
         this._fuseConfigService.config$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config: FuseConfig) => {
-                // Store the config
                 this.config = config;
             });
 
-      
-        // Subscribe to media changes
+
         this._fuseMediaWatcherService.onMediaChange$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(({ matchingAliases }) => {
-                // Check if the screen is small
                 this.isScreenSmall = !matchingAliases.includes('md');
 
-                // Change the navigation appearance
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Toggle navigation
-     *
-     * @param name
-     */
     toggleNavigation(name: string): void {
-        // Get the navigation
         const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
-
         if (navigation) {
-            // Toggle the opened status
             navigation.toggle();
         }
     }
@@ -126,16 +85,13 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
         this._fuseConfigService.config = { scheme };
     }
 
-    /**
-     * Toggle the navigation appearance
-     */
     toggleNavigationAppearance(): void {
         this.navigationAppearance = (this.navigationAppearance === 'default' ? 'dense' : 'default');
     }
 
     signOut(): void {
-        this._authService.signOut().subscribe(()=>{
-            
+        this._authService.signOut().subscribe(() => {
+
         })
         this._router.navigate(['/sign-out']);
     }
