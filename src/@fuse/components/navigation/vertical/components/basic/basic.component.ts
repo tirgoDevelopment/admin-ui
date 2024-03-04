@@ -7,6 +7,7 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
 import { FuseConfig, FuseConfigService } from '@fuse/services/config';
+import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Subject, takeUntil } from 'rxjs';
@@ -22,6 +23,8 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
 {
     @Input() item: FuseNavigationItem;
     @Input() name: string;
+    isScreenSmall: boolean;
+    navigationAppearance: 'default' | 'dense';
     config: FuseConfig;
     isActiveMatchOptions: IsActiveMatchOptions;
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
@@ -35,6 +38,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         private _fuseNavigationService: FuseNavigationService,
         private _fuseUtilsService: FuseUtilsService,
         private _fuseConfigService: FuseConfigService,
+        private _fuseMediaWatcherService: FuseMediaWatcherService,
         private cdr: ChangeDetectorRef
     )
     {

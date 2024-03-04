@@ -84,6 +84,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
         .subscribe((config: FuseConfig) => {
             // Store the config
             this.config = config;
+            console.log(this.config);
             this.cdr.detectChanges();
         });
         // Get the parent navigation component
