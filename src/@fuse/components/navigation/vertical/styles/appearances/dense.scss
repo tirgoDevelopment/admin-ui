@@ -117,8 +117,11 @@ fuse-vertical-navigation {
 
                     fuse-vertical-navigation-collapsable-item {
 
-                        .fuse-vertical-navigation-item-children {
-                            display: none;
+                        // .fuse-vertical-navigation-item-children {
+                        //     display: none;
+                        // }
+                        .fuse-vertical-navigation-item {
+                            padding-left: 104px;
                         }
                     }
 

@@ -8,7 +8,7 @@ export class FuseAnimationCurves
 
 export class FuseAnimationDurations
 {
-    static complex = '375ms';
-    static entering = '225ms';
-    static exiting = '195ms';
+    static complex = '575ms';
+    static entering = '425ms';
+    static exiting = '295ms';
 }
