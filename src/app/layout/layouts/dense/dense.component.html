@@ -2,7 +2,7 @@
 <fuse-vertical-navigation class="print:hidden" *ngIf="isAthenticated" [config]="config"
     [appearance]="navigationAppearance" [mode]="isScreenSmall ? 'over' : 'side'" [name]="'mainNavigation'"
     [navigation]="navigation?.default" [opened]="!isScreenSmall">
-    <ng-container fuseVerticalNavigationContentHeader>
+    <ng-container fuseVerticalNavigationHeader>
         <div class="flex items-center justify-start h-15 ml-5">
             <button class="hidden md:inline-flex" mat-icon-button (click)="toggleNavigationAppearance()">
                 <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
