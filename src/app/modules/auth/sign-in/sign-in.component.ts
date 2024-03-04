@@ -46,6 +46,7 @@ export class AuthSignInComponent implements OnInit {
     this._authService.signIn(this.signInForm.value)
       .subscribe(
         (response) => {
+          this.signInForm.enable();
           if (response.data.token) {
             this._router.navigateByUrl('dashboards');
           }

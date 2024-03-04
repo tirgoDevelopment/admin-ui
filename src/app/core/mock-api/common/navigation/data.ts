@@ -23,14 +23,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 link: '/admins',
             },
-            {
-                id: 'role',
-                title: 'secure_transaction',
-                type: 'basic',
-                icon: 'role.svg',
-                icon_w: 'role-w.svg',
-                link: '/secure-transaction',
-            },
+            // {
+            //     id: 'role',
+            //     title: 'secure_transaction',
+            //     type: 'basic',
+            //     icon: 'role.svg',
+            //     icon_w: 'role-w.svg',
+            //     link: '/secure-transaction',
+            // },
             {
                 id: 'clients',
                 title: 'clients',
