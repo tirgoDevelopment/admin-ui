@@ -13,17 +13,15 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> {{ 'id' | transloco }}</mat-label>
-              <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.merchantid">
+              <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
             </mat-form-field>
       
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label class="text-xl"> {{ 'company_name' | transloco }}</mat-label>
-              <input matInput placeholder="{{ 'company_name' | transloco }}" name="id" [(ngModel)]="filters.companyName">
+              <input matInput placeholder="{{ 'company_name' | transloco }}" name="company_name" [(ngModel)]="filters.companyName">
             </mat-form-field>
+
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-label>{{ 'register_date' | transloco }}</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
+              <mat-date-range-input   [rangePicker]="picker">
                   <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdFrom">
                   <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAtTo">
               </mat-date-range-input>

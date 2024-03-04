@@ -16,36 +16,30 @@
     </div>
     <div class="flex items-baseline  flex-wrap">
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> {{ 'id' | transloco }}</mat-label>
-        <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.orderId">
+        <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.orderId">
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> {{ 'StatusID' | transloco }}</mat-label>
-        <input matInput placeholder="{{ 'StatusID' | transloco }}" name="id" [(ngModel)]="filters.statusId">
+        <input matInput placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> Место отправки груза</mat-label>
         <input matInput placeholder="Место отправки груза" name="loadingLocation" [(ngModel)]="filters.loadingLocation">
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> Место доставки груза</mat-label>
         <input matInput placeholder="Место доставки груза" name="deliveryLocation"
           [(ngModel)]="filters.deliveryLocation">
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> {{ 'transport_type' | transloco }}</mat-label>
-        <mat-select [(ngModel)]="filters.transportTypeId" name="transportTypeId">
+        <mat-select placeholder="{{ 'transport_type' | transloco }}" [(ngModel)]="filters.transportTypeId" name="transportTypeId">
           <mat-option *ngFor="let item of transportTypes ; " [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-label class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
-        <mat-select [(ngModel)]="filters.transportKindId" name="transportKindId">
+        <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId" name="transportKindId">
           <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
       </mat-form-field>

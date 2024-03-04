@@ -16,23 +16,19 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-label class="text-xl"> {{ 'id' | transloco }}</mat-label>
                 <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.driverId">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-label class="text-xl"> {{ 'first_name' | transloco }}</mat-label>
                 <input matInput placeholder="{{ 'first_name' | transloco }}" name="name"
                     [(ngModel)]="filters.firstName">
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-label class="text-xl"> {{ 'phone' | transloco }}</mat-label>
                 <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
 
             <mat-form-field class="flex items-center">
-                <mat-label class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
-                <mat-select [(ngModel)]="filters.transportKindId" name="transportKindId">
+                <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId" name="transportKindId">
                     <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -50,7 +46,6 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-label>{{ 'register_date' | transloco }}</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdFrom">
                     <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAtTo">
@@ -59,7 +54,6 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-label>{{ 'last_enter' | transloco }}</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Start date" [(ngModel)]="filters.lastLoginFrom">
                     <input matEndDate placeholder="End date" [(ngModel)]="filters.lastLoginTo">
