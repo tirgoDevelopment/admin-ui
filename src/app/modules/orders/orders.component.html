@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-    <div class="flex items-baseline  w-full">
+    <div class="flex items-baseline  flex-wrap">
       <mat-form-field color="accent" class="w-50 px-1">
         <mat-label class="text-xl"> {{ 'id' | transloco }}</mat-label>
         <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.orderId">
