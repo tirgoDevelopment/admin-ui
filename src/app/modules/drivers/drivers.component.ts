@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule,  MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
@@ -54,7 +54,7 @@ export class DriversComponent implements OnInit {
 
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(
-    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService:TypesService) {
+    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService:TypesService, private cdr: ChangeDetectorRef,) {
   }
 
 
@@ -63,6 +63,7 @@ export class DriversComponent implements OnInit {
     this._typeService.getTransportKinds().subscribe((response:any) => {
       this.transportKinds = response.data;
     })
+    this.cdr.checkNoChanges()
   }
 
   clearFilters() {

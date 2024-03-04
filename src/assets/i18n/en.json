@@ -226,5 +226,7 @@
      "notVerified":"Not Verified",
      "merchant_order":"Merchant Order",
      "no_merchant_order":"No Merchant Order",
-     "unblock":"Unblock"
+     "unblock":"Unblock",
+     "start_date":"Start date",
+     "end_date":"End date"
 }

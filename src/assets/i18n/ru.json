@@ -226,5 +226,7 @@
     "notVerified":"Не подтверждено",
     "merchant_order":"Торговый заказ",
     "no_merchant_order":"Не торговый заказ",
-    "unblock":"Разблокировать"
+    "unblock":"Разблокировать",
+    "start_date":"Дата начала",
+    "end_date":"Дата окончания"
 }

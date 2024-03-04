@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ArchiveUserModel } from './models/archive-user.model';
 import { DetailArchiveUserComponent } from './components/detail-archive-user/detail-archive-user.component';
 import { ArchiveUserService } from './services/archive-user.service';
+import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 
 @Component({
   selector: 'app-archive-user',
@@ -24,7 +25,7 @@ import { ArchiveUserService } from './services/archive-user.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, DatePipe, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, DatePipe,NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class ArchiveUserComponent implements OnInit {

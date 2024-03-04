@@ -22,8 +22,8 @@
 
             <mat-form-field color="accent" class="w-50 px-1">
               <mat-date-range-input   [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdFrom">
-                  <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAtTo">
+                  <input matStartDate placeholder="{{ 'start_date' | transloco }}" [(ngModel)]="filters.createdFrom">
+                  <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.createdAtTo">
               </mat-date-range-input>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
@@ -38,7 +38,7 @@
                 {{ 'filter' | transloco }}</button>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
@@ -122,7 +122,7 @@
                 </mat-row>
             </mat-table>
 
-            <app-no-data-placeholder *ngIf="!dataSource.data.length">
+                 <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>

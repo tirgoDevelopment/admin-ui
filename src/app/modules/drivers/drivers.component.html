@@ -16,7 +16,7 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'id' | transloco }}" name="id" [(ngModel)]="filters.driverId">
+                <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.driverId">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
@@ -28,26 +28,29 @@
             </mat-form-field>
 
             <mat-form-field class="flex items-center">
-                <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId" name="transportKindId">
+                <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId"
+                    name="transportKindId">
                     <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-select placeholder="{{ 'subscription' | transloco }}" name="isSubscribed" [(ngModel)]="filters.isSubscribed">
+                <mat-select placeholder="{{ 'subscription' | transloco }}" name="isSubscribed"
+                    [(ngModel)]="filters.isSubscribed">
                     <mat-option value="true">{{ 'subscribed' | transloco }}</mat-option>
                     <mat-option value="false">{{ 'notSubscribed' | transloco }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <mat-select placeholder="{{ 'verified' | transloco }}" name="isVerified" [(ngModel)]="filters.isVerified">
+                <mat-select placeholder="{{ 'verified' | transloco }}" name="isVerified"
+                    [(ngModel)]="filters.isVerified">
                     <mat-option value="option1">{{ 'verified' | transloco }}</mat-option>
                     <mat-option value="option3">{{ 'notVerified' | transloco }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Start date" [(ngModel)]="filters.createdFrom">
+                    <input matStartDate placeholder="{{ 'start_date' | transloco }}" [(ngModel)]="filters.createdFrom">
                     <input matEndDate placeholder="End date" [(ngModel)]="filters.createdAtTo">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -55,7 +58,8 @@
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Start date" [(ngModel)]="filters.lastLoginFrom">
+                    <input matStartDate placeholder="{{ 'start_date' | transloco }}"
+                        [(ngModel)]="filters.lastLoginFrom">
                     <input matEndDate placeholder="End date" [(ngModel)]="filters.lastLoginTo">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -71,10 +75,10 @@
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id }}</mat-cell>
                 </ng-container>
@@ -185,12 +189,11 @@
                         </div>
                     </mat-cell>
                 </ng-container>
-
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
-            <app-no-data-placeholder *ngIf="!dataSource.data.length">
+                 <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
                 [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
@@ -198,3 +201,4 @@
         </div>
     </div>
 </div>
+

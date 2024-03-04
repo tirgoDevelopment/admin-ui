@@ -226,5 +226,7 @@
     "notVerified":"Tasdiqlanmagan",
     "merchant_order":"Savdogar buyurtmasi",
     "no_merchant_order":"Savdogar buyurtmasi emas",
-    "unblock":"Blokdan chiqarish"
+    "unblock":"Blokdan chiqarish",
+    "start_date":"Boshlanish sanasi",
+    "end_date":"Tugash sanasi"
 }
