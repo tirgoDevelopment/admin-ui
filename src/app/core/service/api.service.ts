@@ -15,7 +15,7 @@ export class ApiService {
 
 
 	constructor(protected _http: HttpClient) {
-		this.apiUrl = `https://test-admin.tirgo.io/api/v2`;
+		this.apiUrl = `https://test-api.tirgo.io/api/v2`;
 	}
 
 	httpOptions = {
@@ -31,23 +31,19 @@ export class ApiService {
 
 	get<T>(path: string, params: HttpParams = new HttpParams()): Observable<Response<T>> {
 		return this._http.get<Response<T>>(`${this.apiUrl}${path}`, { params })
-			.pipe(catchError(this.formatErrors));
 	}
 
 	getOne<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
 		return this._http.get<T>(`${this.apiUrl}${path}`, { params })
-			.pipe(catchError(this.formatErrors));
+			
 	}
 
 	put<T>(path: string, body: Object = {}): Observable<Response<T>> {
-		console.log(body);
 		return this._http.put<Response<T>>(
 			`${this.apiUrl}${path}`,
 			body,
 			this.httpOptions
-		).pipe(
-			catchError(this.formatErrors)
-		);
+		)
 	}
 
 	patch<T>(path: string, body: Object = {}, queryParams): Observable<Response<T>> {
@@ -56,20 +52,27 @@ export class ApiService {
 			`${this.apiUrl}${path}`,
 			body,
 			params,
-		).pipe(
-			catchError(this.formatErrors)
-		);
+		)
 	}
 
 	post<T>(path: string, body: Object = {}, headers = this.httpOptions): Observable<Response<T>> {
 		const baseUrl = path.indexOf('http') === 0 ? '' : this.apiUrl;
-		return this._http.post<Response<T>>(
-			`${this.apiUrl}${path}`,
-			body,
-			headers
-		).pipe(
-			catchError(this.formatErrors)
-		);
+		if (body instanceof FormData) {
+			headers.headers.set('Content-Type','multipart/form-data');
+			console.log(headers.headers);
+			return this._http.post<Response<T>>(
+				`${this.apiUrl}${path}`,
+				body,
+				headers
+			)
+		} else {
+			return this._http.post<Response<T>>(
+				`${this.apiUrl}${path}`,
+				body,
+				headers
+			)
+		}
+	
 	}
 
 	postFile(path: string, body: FormData, responseType = 'text' as 'json'): Observable<any> {
@@ -78,9 +81,7 @@ export class ApiService {
 			reportProgress: true,
 			observe: 'events',
 			responseType
-		}).pipe(
-			catchError(this.formatErrors)
-		);
+		})
 	}
 
 	downLoadFile(path: string, body): Observable<any> {
@@ -91,10 +92,7 @@ export class ApiService {
 			{
 				responseType: 'blob' as 'json'
 			}
-		).pipe(
-			retry(1),
-			catchError(this.formatErrors)
-		);
+		)
 	}
 
 	getFile(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -102,9 +100,7 @@ export class ApiService {
 		return this._http.get<any>(`${baseUrl}${path}`, {
 			params,
 			responseType: 'blob' as 'json'
-		}).pipe(
-			catchError(this.formatErrors)
-		);
+		})
 	}
 
 	delete<T>(path: string, queryParams): Observable<Response<T>> {
@@ -112,9 +108,6 @@ export class ApiService {
 		return this._http.delete<Response<T>>(
 			`${this.apiUrl}${path}`,
 			params
-		).pipe(
-			catchError(this.formatErrors)
-		);
-
+		)
 	}
 }

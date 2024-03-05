@@ -1,5 +1,5 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { AsyncPipe, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CountryService } from 'app/shared/services/country.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
@@ -29,13 +31,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgxMatSelectSearchModule, MatToolbarModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, PipeModule,AsyncPipe, NgxMatSelectSearchModule, MatToolbarModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddClientComponent {
   findList: any[] | undefined = [];
   file: File | null = null;
   fileName: string | undefined;
   viewText = false;
+  passport: File | null = null;
+  formData = new FormData();
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
 
@@ -56,6 +60,7 @@ export class AddClientComponent {
     private countryService: CountryService,
     private _toaster: ToastrService,
     private _clientService: ClientService,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
@@ -109,6 +114,19 @@ export class AddClientComponent {
     }
   }
 
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   get f() {
     return this.form.controls
   }
@@ -129,16 +147,15 @@ export class AddClientComponent {
         }
       })
     } else {
-      const formData = new FormData();
-      formData.append('password', this.form.get('password').value);
-      formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
-      formData.append('id', this.form.get('id').value);
-      formData.append('firstName', this.form.get('firstName').value);
-      formData.append('lastName', this.form.get('lastName').value);
-      formData.append('phoneNumber', this.form.get('phoneNumber').value);
-      formData.append('email', this.form.get('email').value);
-      formData.append('citizenship', this.form.get('citizenship').value);
-      this._clientService.create(formData).subscribe(res => {
+      this.formData.append('password', this.form.get('password').value);
+      this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
+      this.formData.append('id', this.form.get('id').value);
+      this.formData.append('firstName', this.form.get('firstName').value);
+      this.formData.append('lastName', this.form.get('lastName').value);
+      this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
+      this.formData.append('email', this.form.get('email').value);
+      this.formData.append('citizenship', this.form.get('citizenship').value);
+      this._clientService.create(this.formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

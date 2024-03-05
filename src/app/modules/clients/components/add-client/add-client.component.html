@@ -19,7 +19,7 @@
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'phone' | transloco }}*</mat-label>
-                    <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
+                    <ngx-mat-intl-tel-input tyle="border: 2px solid red; padding: 10px; margin-left: 100px;width: 100px; height: 100px;"  [cssClass]="'custom'" formControlName="phoneNumber"
                         [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
                         name="phoneNumber" #phoneNumber>
                     </ngx-mat-intl-tel-input>
@@ -98,7 +98,7 @@
                     <input type="file" (change)="onPassportSelected($event)" hidden>
                 </mat-form-field> -->
 
-                <mat-form-field class="flex items-center" *ngIf="!edit">
+                <!-- <mat-form-field class="flex items-center" *ngIf="!edit">
                     <mat-label>{{ 'driver_lisense' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2" [value]="form.get('passport').value?.name || ''">
                     <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
@@ -110,8 +110,29 @@
 
                     <mat-error *ngIf="f.passport.errors?.required">
                         {{ 'is_empty' | transloco }}
-                    </mat-error>
-                </mat-form-field>
+                    </mat-error>    
+                </mat-form-field> -->
+
+                <div class="w-32">
+                    <mat-label class="font-bold">{{ 'driver_lisense' | transloco }}</mat-label>
+                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
+                      <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                      <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                          <input formControlName="passport" id="avatar-file-input1"
+                            class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file" [multiple]="false"
+                            [accept]="'image/jpeg, image/png'" (change)="selectFile($event, 'passport')">
+                          <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                            for="avatar-file-input1" matRipple>
+                            <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                          </label>
+                        </div>
+                      </div>
+                      <img class="object-fill w-full h-full" *ngIf="passport" [src]="passport">
+                      <img class="object-fill w-full h-full" *ngIf="passport&&edit" [src]="passport| fileFetch: 'client'|async">
+                    </div>
+                  </div>
+
                 <!-- <div *ngIf="!edit">
                     <p class="text-xl mb-1">Фото паспорта </p>
                     <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">

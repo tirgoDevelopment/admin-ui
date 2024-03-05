@@ -6,7 +6,7 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public _baseUrl: string = 'http://65.1.134.189/';
+  public _baseUrl: string = 'https://test-api.tirgo.io/';
   public _authenticated: boolean = false;
 
   constructor(
@@ -40,7 +40,6 @@ export class AuthService {
     return this._httpClient.post(`${this._baseUrl}api/v2/users/login`, credentials).pipe(
       switchMap((response: any) => {
         this.accessToken = response.data.token;
-        
         this._authenticated = true;
         return of(response);
       }),
