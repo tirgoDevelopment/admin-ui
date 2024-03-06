@@ -15,37 +15,39 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-              <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
+                <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
             </mat-form-field>
-      
+
             <mat-form-field color="accent" class="w-50 px-1">
-              <input matInput  name="id" [(ngModel)]="filters.companyName">
+                <input matInput placeholder="{{ 'company_name' | transloco }}" name="ID"
+                    [(ngModel)]="filters.companyName">
             </mat-form-field>
+
             <mat-form-field color="accent" class="w-50 px-1">
-              <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="{{ 'start_date' | transloco }}" [(ngModel)]="filters.createdFrom">
-                  <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.createdAtTo">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-      
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="{{ 'start_date' | transloco }}" [(ngModel)]="filters.createdFrom">
+                    <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.createdAtTo">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+
             <div class="px-1">
-              <button mat-flat-button color="warn" class="" (click)="clearFilters()">
-                {{ 'clear' | transloco }}</button>
+                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+                    {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-              <button mat-flat-button color="warn" (click)="getAllMerchants()">
-                {{ 'filter' | transloco }}</button>
+                <button mat-flat-button color="warn" (click)="getAllMerchants()">
+                    {{ 'filter' | transloco }}</button>
             </div>
         </div>
-       <div class="mt-4 h-100">
+        <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
-              <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
-            </ng-container>
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
                     </mat-header-cell>
@@ -53,10 +55,10 @@
                         row?.supervisorLastName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="companyName">
-                  <mat-header-cell *matHeaderCellDef> {{"company_name"|transloco}}
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
-              </ng-container>
+                    <mat-header-cell *matHeaderCellDef> {{"company_name"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="entity">
                     <mat-header-cell *matHeaderCellDef> {{"entity"|transloco}}
                     </mat-header-cell>
@@ -81,17 +83,17 @@
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                      <button *ngIf="row?.active"
-                          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
-                      </button>
-                      <button *ngIf="!row?.active"
-                          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
-                      </button>
-                  </mat-cell>
-              </ng-container>
+                    <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button *ngIf="row?.active"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
+                        <button *ngIf="!row?.active"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                        </button>
+                    </mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -102,7 +104,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item color="accent"  [routerLink]="['edit', row.id]">
+                                <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
                                     <mat-icon>list</mat-icon>
                                     {{"list"|transloco}}
                                 </button>
@@ -113,18 +115,18 @@
                                 <button mat-menu-item color="accent" *ngIf="!row.active" (click)="active(row.id)">
                                     <mat-icon>lock_open</mat-icon>
                                     {{"unblock"|transloco}}
-                                </button> 
+                                </button>
                                 <button mat-menu-item color="accent" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
                                     {{"remove"|transloco}}
                                 </button>
-                           
+
                             </mat-menu>
                         </div>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns" >
+                <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
             <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
