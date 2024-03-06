@@ -10,7 +10,6 @@ import { ClientService } from '../../services/client.service';
 import { ClientModel } from '../../models/client.model';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
 import { BlockClientComponent } from '../block-client/block-client.component';
 import { SendPushComponent } from '../send-push/send-push.component';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';

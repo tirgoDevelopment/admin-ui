@@ -57,6 +57,13 @@ export class AddTransportComponent implements OnInit {
   roles = [];
   subscription = [];
   edit: boolean = false;
+  formData = new FormData();
+  techPassportFrontFilePath: string;
+  techPassportBackFilePath: string;
+  transportFrontFilePath: string;
+  goodsTransportationLicenseCardFilePath: string;
+  driverLicenseFilePath: string;
+  passportFilePath: string;
 
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -87,7 +94,7 @@ export class AddTransportComponent implements OnInit {
     private _driverService: DriversService,
     private _typesService: TypesService,
     private _subscriptionService: SubscriptionService,
-    private cdr: ChangeDetectorRef,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     this.form.patchValue({
       driverId: data.driverId,
@@ -121,20 +128,13 @@ export class AddTransportComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.f.id.value) {
-      // this.form.patchValue({
-      //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-      //   techPassportBackFilePath: 'new value for techPassportBackFilePath',
-      //   transportFrontFilePath: 'new value for techPassportBackFilePath',
-      //   goodsTransportationLicenseCardFilePath: 'new value for techPassportBackFilePath',
-      //   driverLicenseFilePath: 'new value for techPassportBackFilePath',
-      //   passportFilePath: 'new value for techPassportBackFilePath',
-      //   transportKindIds: 'new value for techPassportBackFilePath',
-      //   transportTypeIds: 'new value for techPassportBackFilePath',
-      //   loadingMethodIds: 'new value for techPassportBackFilePath',
-      //   cargoTypeIds: 'new value for techPassportBackFilePath',
-      // });
       this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
-        console.log(res.data[0]);
+        this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
+        this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
+        this.transportFrontFilePath = res.data[0].transportFrontFilePath;
+        this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
+        this.driverLicenseFilePath = res.data[0].driverLicenseFilePath;
+        this.passportFilePath = res.data[0].passportFilePath;
         this.edit = true;
         this.form.patchValue({
           name: res.data[0]?.name,
@@ -160,6 +160,19 @@ export class AddTransportComponent implements OnInit {
     }
   }
 
+
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   changeValue() {
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {

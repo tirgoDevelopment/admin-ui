@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
+import { removeFieldsFormData } from 'app/shared/functions/remove-formData';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -37,6 +38,7 @@ export class AddDriverComponent {
   findList: any[] | undefined = [];
   passwordGenerator = new PasswordGenerator();
   viewText = false;
+  formData = new FormData();
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
 
@@ -49,7 +51,7 @@ export class AddDriverComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required,  Validators.maxLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6)]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -66,7 +68,7 @@ export class AddDriverComponent {
           firstName: response.data?.firstName,
           lastName: response.data?.lastName,
           email: response.data?.email,
-          // phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,s
+          phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,
           password: response.data?.password,
         });
       })
@@ -101,24 +103,30 @@ export class AddDriverComponent {
   }
 
   submit() {
-    // const formData = new FormData();
-    // formData.forEach((value, key) => {
-    //   this.form.get(key)?.setValue(value);
-    // });
+    this.formData = new FormData();
+    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('firstName', this.form.get('firstName').value);
+    this.formData.append('lastName', this.form.get('lastName').value);
+    this.formData.append('email', this.form.get('email').value);
+    this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumbers').value]));
+    this.formData.append('password', this.form.get('password').value);
     if (this.form.value.id) {
-      this._driverService.update(this.form.value).subscribe(res => {
-        console.log(res)
+      this._driverService.update(this.formData).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
+          this.form.reset()
           this._toaster.success('Водитель успешно обновлена')
         } else {
+          this.form.reset()
           this._toaster.error('Невозможно сохранить водитель')
         }
       })
     } else {
-      this._driverService.create(this.form.value).subscribe(res => {
+      this._driverService.create(this.formData).subscribe(res => {
+        console.log(res)
         // console.log(res)
         // if (res.success) {
+        this.form.reset()
         this._dialog.closeAll()
         this.form.reset()
         this._toaster.success('Водитель успешно добавлена')

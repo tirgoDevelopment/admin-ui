@@ -10,21 +10,22 @@
         <div class="flex">
             <div class="w-full">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
-                        [ngClass]="{'is-invalid': f.name.errors}">
+                    <mat-label>{{ 'name' | transloco }}</mat-label>
+                    <input matInput formControlName="name" [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'price' | transloco }}" type="number" formControlName="price"
-                        [ngClass]="{'is-invalid': f.price.errors}">
+                    <mat-label>{{ 'price' | transloco }}</mat-label>
+                    <input matInput type="number" formControlName="price" [ngClass]="{'is-invalid': f.price.errors}">
                     <mat-error *ngIf="f.price.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'duration' | transloco }}" type="number" formControlName="duration"
+                    <mat-label>{{ 'duration' | transloco }}</mat-label>
+                    <input matInput type="number" formControlName="duration"
                         [ngClass]="{'is-invalid': f.duration.errors}">
                     <mat-error *ngIf="f.duration.errors?.required">
                         {{ 'is_empty' | transloco }}

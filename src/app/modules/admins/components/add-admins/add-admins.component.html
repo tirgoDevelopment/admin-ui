@@ -10,21 +10,24 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'full_name' | transloco }}" formControlName="fullName"
+                    <mat-label>{{ 'full_name' | transloco }}</mat-label>
+                    <input matInput  formControlName="fullName"
                         [ngClass]="{'is-invalid': f.fullName.errors}">
                     <mat-error *ngIf="f.fullName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-full">
-                    <mat-select placeholder="{{ 'role' | transloco }}" formControlName="roleId">
+                    <mat-label>{{ 'role' | transloco }}</mat-label>
+                    <mat-select  formControlName="roleId">
                         <ng-container *ngFor="let row of roles">
                             <mat-option [value]="row.id">{{row.name}}</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                    <input matInput  formControlName="password"
                         [ngClass]="{'is-invalid': f.password.errors}">
                     <mat-error *ngIf="f.password.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -46,12 +49,14 @@
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'phone' | transloco }}</mat-label>
                     <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
                         [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'login' | transloco }}" formControlName="username"
+                    <mat-label>{{ 'login' | transloco }}</mat-label>
+                    <input matInput  formControlName="username"
                         [ngClass]="{'is-invalid': f.username.errors}">
                     <mat-error *ngIf="f.username.errors?.required">
                         {{ 'is_empty' | transloco }}

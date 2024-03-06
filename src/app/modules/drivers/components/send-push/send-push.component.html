@@ -1,29 +1,30 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title  class="font-bold text-2xl uppercase">{{"send_push"|transloco}}</p>
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"send_push"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
 </div>
 <mat-dialog-content>
     <form [formGroup]="form">
-            <div class="p-3">
-                <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'theme' | transloco }}" formControlName="theme"
-                        [ngClass]="{'is-invalid': f.theme.errors}">
-                    <mat-error *ngIf="f.theme.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="p-3">
-                <mat-form-field color="accent" class="w-full">
-                    <textarea matInput  placeholder="{{ 'description' | transloco }}" formControlName="description"
+        <div class="p-3">
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'theme' | transloco }}</mat-label>
+                <input matInput formControlName="theme" [ngClass]="{'is-invalid': f.theme.errors}">
+                <mat-error *ngIf="f.theme.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="p-3">
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'description' | transloco }}</mat-label>
+                <textarea matInput formControlName="description"
                     [ngClass]="{'is-invalid': f.description.errors}"></textarea>
-                    <mat-error *ngIf="f.description.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>
-                </mat-form-field>
-            </div>
+                <mat-error *ngIf="f.description.errors?.required">
+                    {{ 'is_empty' | transloco }}
+                </mat-error>
+            </mat-form-field>
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">

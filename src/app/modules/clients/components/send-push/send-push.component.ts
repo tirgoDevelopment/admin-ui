@@ -22,7 +22,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 
-
 @Component({
   selector: 'app-send-push',
   templateUrl: './send-push.component.html',
@@ -31,7 +30,6 @@ import { DriversService } from 'app/modules/drivers/services/drivers.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
 export class SendPushComponent {
 

@@ -15,7 +15,9 @@ export class ApiService {
 
 
 	constructor(protected _http: HttpClient) {
-		this.apiUrl = `https://test-api.tirgo.io/api/v2`;
+		// this.apiUrl = `https://test-api.tirgo.io/api/v2`;
+		// 'http://192.168.1.218:3003/api/v2'
+		this.apiUrl = `http://192.168.1.218:3000/api/v2`;
 	}
 
 	httpOptions = {

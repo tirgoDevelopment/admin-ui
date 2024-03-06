@@ -10,7 +10,8 @@
         <div class="flex">
             <div class="w-full px-2">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
+                    <mat-label>{{ 'name' | transloco }}</mat-label>
+                    <input matInput formControlName="name"
                         [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -18,7 +19,8 @@
                 </mat-form-field>
 
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'code' | transloco }}" formControlName="code" type="number"
+                    <mat-label>{{ 'code' | transloco }}</mat-label>
+                    <input matInput formControlName="code" type="number"
                         [ngClass]="{'is-invalid': f.code.errors}">
                     <mat-error *ngIf="f.code.errors?.required">
                         {{ 'is_empty' | transloco }}

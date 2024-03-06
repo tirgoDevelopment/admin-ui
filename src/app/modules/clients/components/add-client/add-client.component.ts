@@ -42,7 +42,6 @@ export class AddClientComponent {
   formData = new FormData();
   public citiesSelected: FormControl = new FormControl();
   public selectTechnicalRoomFilterCtrl: FormControl = new FormControl();
-
   roles = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
@@ -65,6 +64,8 @@ export class AddClientComponent {
     if (this.data) {
       this.edit = true;
       this._clientService.get(this.data.id).subscribe((res: any) => {
+        this.edit = true;
+        this.passport=res.data?.passportFilePath;
         this.form.patchValue({
           id: res.data?.id,
           firstName: res.data?.firstName,
@@ -72,7 +73,7 @@ export class AddClientComponent {
           phoneNumber: res.data?.phoneNumbers[0].phoneNumber,
           email: res.data?.email,
           citizenship: res.data?.citizenship,
-          passport: res.data?.passport,
+          passport: res.data?.passportFilePath,
         });
       })
 
@@ -148,7 +149,7 @@ export class AddClientComponent {
       })
     } else {
       this.formData.append('password', this.form.get('password').value);
-      this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
+      // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
       this.formData.append('id', this.form.get('id').value);
       this.formData.append('firstName', this.form.get('firstName').value);
       this.formData.append('lastName', this.form.get('lastName').value);

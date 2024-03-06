@@ -18,7 +18,7 @@
             <mat-form-field class="w-full">
                 <mat-label>{{ 'amount' | transloco }}</mat-label>
                 <input required matInput name="amount" type="number" [ngClass]="{'is-invalid': f.amount.errors}"
-                    formControlName="amount" placeholder="{{ 'amount' | transloco }}" />
+                    formControlName="amount"  />
                 <mat-error *ngIf="f.amount.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>

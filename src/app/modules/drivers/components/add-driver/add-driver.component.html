@@ -11,7 +11,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'first_name' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
+                    <input matInput  formControlName="firstName"
                         [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -28,7 +28,7 @@
                 <div class="w-full flex">
                     <mat-form-field color="accent" class="w-full">
                         <mat-label>{{ 'password' | transloco }}</mat-label>
-                        <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                        <input matInput  formControlName="password"
                             [ngClass]="{'is-invalid': f.password.errors}">
                         <mat-error *ngIf="f.password.errors?.required">
                             {{ 'is_empty' | transloco }}
@@ -52,7 +52,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'last_name' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
+                    <input matInput  formControlName="lastName"
                         [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -60,7 +60,7 @@
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'email' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
+                    <input matInput  formControlName="email"
                         [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">
                         {{ 'is_empty' | transloco }}

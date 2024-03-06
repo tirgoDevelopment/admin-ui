@@ -11,7 +11,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'first_name' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'first_name' | transloco }}" formControlName="firstName"
+                    <input matInput  formControlName="firstName"
                         [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -19,15 +19,16 @@
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'phone' | transloco }}*</mat-label>
-                    <ngx-mat-intl-tel-input tyle="border: 2px solid red; padding: 10px; margin-left: 100px;width: 100px; height: 100px;"  [cssClass]="'custom'" formControlName="phoneNumber"
-                        [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
-                        name="phoneNumber" #phoneNumber>
+                    <ngx-mat-intl-tel-input
+                        tyle="border: 2px solid red; padding: 10px; margin-left: 100px;width: 100px; height: 100px;"
+                        [cssClass]="'custom'" formControlName="phoneNumber" [preferredCountries]="['uz']"
+                        [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber" #phoneNumber>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
 
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'citizenship' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'citizenship' | transloco }}" formControlName="citizenship"
+                    <input matInput  formControlName="citizenship"
                         [ngClass]="{'is-invalid': f.citizenship.errors}">
                     <mat-error *ngIf="f.citizenship.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -36,7 +37,7 @@
                 <div class="w-full flex" *ngIf="!edit">
                     <mat-form-field color="accent" class="w-full">
                         <mat-label>{{ 'password' | transloco }}</mat-label>
-                        <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                        <input matInput  formControlName="password"
                             [ngClass]="{'is-invalid': f.password.errors}">
                         <mat-error *ngIf="f.password.errors?.required">
                             {{ 'is_empty' | transloco }}
@@ -73,7 +74,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'last_name' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'last_name' | transloco }}" formControlName="lastName"
+                    <input matInput  formControlName="lastName"
                         [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -81,7 +82,7 @@
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'email' | transloco }}</mat-label>
-                    <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email"
+                    <input matInput  formControlName="email"
                         [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -112,27 +113,28 @@
                         {{ 'is_empty' | transloco }}
                     </mat-error>    
                 </mat-form-field> -->
-
                 <div class="w-32">
                     <mat-label class="font-bold">{{ 'driver_lisense' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                      <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                      <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div>
-                          <input formControlName="passport" id="avatar-file-input1"
-                            class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file" [multiple]="false"
-                            [accept]="'image/jpeg, image/png'" (change)="selectFile($event, 'passport')">
-                          <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                            for="avatar-file-input1" matRipple>
-                            <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                          </label>
+                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div>
+                                <input formControlName="passport" id="avatar-file-input1"
+                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                    (change)="selectFile($event, 'passport')">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input1" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                            </div>
                         </div>
-                      </div>
-                      <img class="object-fill w-full h-full" *ngIf="passport" [src]="passport">
-                      <img class="object-fill w-full h-full" *ngIf="passport&&edit" [src]="passport| fileFetch: 'client'|async">
+                        <img class="object-fill w-full h-full" *ngIf="passport&&!edit" [src]="passport">
+                        <img class="object-fill w-full h-full" *ngIf="passport&&edit"
+                            [src]="passport | fileFetch: 'client'|async">
                     </div>
-                  </div>
-
+                </div>
                 <!-- <div *ngIf="!edit">
                     <p class="text-xl mb-1">Фото паспорта </p>
                     <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">

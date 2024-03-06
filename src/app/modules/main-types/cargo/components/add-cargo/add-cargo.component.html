@@ -10,14 +10,16 @@
         <div class="flex">
             <div class="w-full">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'name' | transloco }}" formControlName="name"
+                    <mat-label>{{ 'name' | transloco }}</mat-label>
+                    <input matInput formControlName="name"
                         [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-full">
-                    <mat-select placeholder="{{ 'cargo_group_type' | transloco }}" formControlName="cargoTypeGroupId">
+                    <mat-label>{{ 'cargo_group_type' | transloco }}</mat-label>
+                    <mat-select  formControlName="cargoTypeGroupId">
                         <ng-container *ngFor="let cargo of cargoGroup">
                             <mat-option [value]="cargo?.id" >{{cargo?.name}}</mat-option>
                         </ng-container>
