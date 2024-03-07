@@ -24,7 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-verification',
@@ -336,7 +336,15 @@ export class AddVerificationComponent implements OnInit {
     } else {
       // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    this._driverService.updateTransportDriver(formData).subscribe(res => {
+    this._driverService.updateTransportDriver(formData)  
+    .pipe(res => {
+      if (isObservable(res)) {
+        this.formData = new FormData();
+        return res
+      } else {
+        return res
+      }
+    }).subscribe(res => {
       if (res.success) {
         this._dialog.closeAll()
         this.form.reset()

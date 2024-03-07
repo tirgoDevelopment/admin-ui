@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -36,6 +37,9 @@ import { TypesService } from 'app/shared/services/types.service';
 export class AddAgentDriverComponent {
   subscription = [];
   edit: boolean = false;
+  formData = new FormData();
+  passportFilePath: string;
+  driverLisenseFilePath: string;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     subscriptionId: new FormControl(''),
@@ -52,6 +56,7 @@ export class AddAgentDriverComponent {
     private _toaster: ToastrService,
     private _driverService: DriversService,
     private _typeService: TypesService,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       console.log(this.data)
@@ -83,6 +88,20 @@ export class AddAgentDriverComponent {
     }
   }
 
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+
   getImageUrl(formname: string): string {
     const file = this.form.get(`${formname}`).value;
     if (file instanceof File) {
@@ -96,27 +115,34 @@ export class AddAgentDriverComponent {
   }
 
   submit() {
-    const formData = new FormData();
-    formData.append('id', this.form.get('id').value);
-    formData.append('agentId', this.form.get('agentId').value);
-    formData.append('subscriptionId', this.form.get('subscriptionId').value);
-    formData.append('firstName', this.form.get('firstName').value);
-    formData.append('lastName', this.form.get('lastName').value);
-    formData.append('password', this.form.get('password').value);
+    // const formData = new FormData();
+    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('agentId', this.form.get('agentId').value);
+    this.formData.append('subscriptionId', this.form.get('subscriptionId').value);
+    this.formData.append('firstName', this.form.get('firstName').value);
+    this.formData.append('lastName', this.form.get('lastName').value);
+    this.formData.append('password', this.form.get('password').value);
 
     if (typeof this.form.get('passportFilePath')?.value === "string") {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
+      this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
     } else {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+      // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('driverLisenseFilePath')?.value === "string") {
-      formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value);
+      this.formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value);
     } else {
-      formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
+      // this.formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
     }
 
     if (this.form.value.id) {
-      this._driverService.update(formData).subscribe(res => {
+      this._driverService.update(this.formData).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -125,7 +151,14 @@ export class AddAgentDriverComponent {
         }
       })
     } else {
-      this._driverService.create(formData).subscribe(res => {
+      this._driverService.create(this.formData).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

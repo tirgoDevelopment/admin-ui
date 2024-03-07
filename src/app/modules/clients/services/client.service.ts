@@ -32,7 +32,7 @@ export class ClientService {
   }
 
   create(body): Observable<Response<ClientModel>> {
-    return this._apiService.post<ClientModel>('/users/clients/register', body);
+    return this._apiService.post<ClientModel>('/users/clients/register', body)
   }
 
   update(body): Observable<Response<ClientModel>> {

@@ -31,7 +31,8 @@ export class ApiService {
 
 	public formatErrors(error: any) {
 		this._toasterService.error(error.error.message ,error.message)
-		return throwError(error);
+		return error;
+		// return throwError(error);
 	}
 
 	get<T>(path: string, params: HttpParams = new HttpParams()): Observable<Response<T>> {
@@ -39,8 +40,7 @@ export class ApiService {
 	}
 
 	getOne<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
-		return this._http.get<T>(`${this.apiUrl}${path}`, { params }).pipe(catchError(this.formatErrors));
-			
+		return this._http.get<T>(`${this.apiUrl}${path}`, { params })			
 	}
 
 	put<T>(path: string, body: Object = {}): Observable<Response<T>> {

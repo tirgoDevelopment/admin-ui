@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { AgentService } from '../../services/agent.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-agent',
@@ -37,6 +38,7 @@ export class AddAgentComponent {
   registrationCertificateFilePath: string;
   managerPassportFilePath: string;
   passwordGenerator = new PasswordGenerator();
+  formData=new FormData();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     username: new FormControl('', [Validators.required]),
@@ -61,6 +63,7 @@ export class AddAgentComponent {
     private _toaster: ToastrService,
     private _agentService: AgentService,
     private _typeService: TypesService,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     this._typeService.getCurrencies().subscribe((response: any) => {
       this.currencies = response.data;
@@ -73,24 +76,6 @@ export class AddAgentComponent {
     this.addItem()
   }
   getAgentById(id: number): void {
-    console.log(id);
-    // this.form.patchValue({
-    //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-    //   id: 'new value for techPassportFrontFilePath',
-    //   username: 'new value for techPassportFrontFilePath',
-    //   companyName: 'new value for techPassportFrontFilePath',
-    //   legalAddress: 'new value for techPassportFrontFilePath',
-    //   physicalAddress: 'new value for techPassportFrontFilePath',
-    //   managerFirstName: 'new value for techPassportFrontFilePath',
-    //   managerLastName: 'new value for techPassportFrontFilePath',
-    //   inn: 'new value for techPassportFrontFilePath',
-    //   oked: 'new value for techPassportFrontFilePath',
-    //   mfo: 'new value for techPassportFrontFilePath',
-    //   bankBranchName: 'new value for techPassportFrontFilePath',
-    //   phoneNumber: 'new value for techPassportFrontFilePath',
-    //   registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
-    //   managerPassportFilePath: 'new value for techPassportFrontFilePath',
-    // });
     this._agentService.get(id).subscribe(res => {
       this.registrationCertificateFilePath = res.data.registrationCertificateFilePath;
       this.managerPassportFilePath = res.data.managerPassportFilePath;
@@ -161,34 +146,53 @@ export class AddAgentComponent {
     return this.form.controls
   }
 
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   submit() {
-    const formData = new FormData();
-    formData.append('id', this.form.get('id').value);
-    formData.append('username', this.form.get('username').value);
-    formData.append('companyName', this.form.get('companyName').value);
-    formData.append('password', this.form.get('password').value);
-    formData.append('bankAccounts', JSON.stringify(this.form.get('bankAccounts').value));
-    formData.append('legalAddress', this.form.get('legalAddress').value);
-    formData.append('physicalAddress', this.form.get('physicalAddress').value);
-    formData.append('managerFirstName', this.form.get('managerFirstName').value);
-    formData.append('managerLastName', this.form.get('managerLastName').value);
-    formData.append('inn', this.form.get('inn').value);
-    formData.append('oked', this.form.get('oked').value);
-    formData.append('mfo', this.form.get('mfo').value);
-    formData.append('bankBranchName', this.form.get('bankBranchName').value);
-    formData.append('phoneNumber', this.form.get('phoneNumber').value);
+    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('username', this.form.get('username').value);
+    this.formData.append('companyName', this.form.get('companyName').value);
+    this.formData.append('password', this.form.get('password').value);
+    this.formData.append('bankAccounts', JSON.stringify(this.form.get('bankAccounts').value));
+    this.formData.append('legalAddress', this.form.get('legalAddress').value);
+    this.formData.append('physicalAddress', this.form.get('physicalAddress').value);
+    this.formData.append('managerFirstName', this.form.get('managerFirstName').value);
+    this.formData.append('managerLastName', this.form.get('managerLastName').value);
+    this.formData.append('inn', this.form.get('inn').value);
+    this.formData.append('oked', this.form.get('oked').value);
+    this.formData.append('mfo', this.form.get('mfo').value);
+    this.formData.append('bankBranchName', this.form.get('bankBranchName').value);
+    this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
     if (typeof this.form.get('registrationCertificateFilePath')?.value === "string") {
-      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
+      this.formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
     } else {
       // formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('managerPassportFilePath')?.value === "string") {
-      formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value);
+      this.formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value);
     } else {
       // formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
     if (this.form.value.id) {
-      this._agentService.update(this.form.value).subscribe(res => {
+      this._agentService.update(this.form.value).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Агент успешно обновлена')
@@ -197,7 +201,14 @@ export class AddAgentComponent {
         }
       })
     } else {
-      this._agentService.create(formData).subscribe(res => {
+      this._agentService.create( this.formData).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

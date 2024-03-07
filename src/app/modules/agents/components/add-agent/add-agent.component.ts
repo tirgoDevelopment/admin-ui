@@ -20,6 +20,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { AgentService } from '../../services/agent.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-agent',
@@ -182,7 +183,14 @@ export class AddAgentComponent {
       // this.formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
     if (this.form.value.id) {
-      this._agentService.update(this.form.value).subscribe(res => {
+      this._agentService.update(this.form.value).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Агент успешно обновлена')
@@ -191,7 +199,14 @@ export class AddAgentComponent {
         }
       })
     } else {
-      this._agentService.create(this.formData).subscribe(res => {
+      this._agentService.create(this.formData).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

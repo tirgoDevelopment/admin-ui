@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { removeFieldsFormData } from 'app/shared/functions/remove-formData';
+import { isObservable } from 'rxjs';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -111,7 +112,15 @@ export class AddDriverComponent {
     this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumbers').value]));
     this.formData.append('password', this.form.get('password').value);
     if (this.form.value.id) {
-      this._driverService.update(this.formData).subscribe(res => {
+      this._driverService.update(this.formData)
+      .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()
@@ -122,7 +131,15 @@ export class AddDriverComponent {
         }
       })
     } else {
-      this._driverService.create(this.formData).subscribe(res => {
+      this._driverService.create(this.formData)
+      .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         console.log(res)
         // console.log(res)
         // if (res.success) {

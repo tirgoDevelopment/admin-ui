@@ -24,7 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-transport',
@@ -310,7 +310,15 @@ export class AddTransportComponent implements OnInit {
     }
 
     if (this.form.value.id) {
-      this._driverService.updateTransport(formData).subscribe(res => {
+      this._driverService.updateTransport(formData)   
+      .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -319,7 +327,15 @@ export class AddTransportComponent implements OnInit {
         }
       })
     } else {
-      this._driverService.createTransport(formData).subscribe(res => {
+      this._driverService.createTransport(formData)  
+       .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Добавление транспорта  успешно')

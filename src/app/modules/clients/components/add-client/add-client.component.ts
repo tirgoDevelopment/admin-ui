@@ -23,6 +23,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CountryService } from 'app/shared/services/country.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-client',
@@ -31,7 +32,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, PipeModule,AsyncPipe, NgxMatSelectSearchModule, MatToolbarModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, PipeModule, AsyncPipe, NgxMatSelectSearchModule, MatToolbarModule, MatAutocompleteModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddClientComponent {
   findList: any[] | undefined = [];
@@ -65,7 +66,7 @@ export class AddClientComponent {
       this.edit = true;
       this._clientService.get(this.data.id).subscribe((res: any) => {
         this.edit = true;
-        this.passport=res.data?.passportFilePath;
+        this.passport = res.data?.passportFilePath;
         this.form.patchValue({
           id: res.data?.id,
           firstName: res.data?.firstName,
@@ -134,19 +135,32 @@ export class AddClientComponent {
 
   submit() {
     if (this.form.value.id) {
-      this._clientService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Пользователь успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить пользователь')
-          // this.form.patchValue({
-          //   phoneNumbers: [
-          //     ...this.form.get('phoneNumbers').value
-          //   ]
-          // })
-        }
-      })
+      this._clientService.update(this.form.value)
+        .pipe(res => {
+          if (isObservable(res)) {
+            this.form.patchValue({
+              phoneNumbers: [
+                ...this.form.get('phoneNumbers').value
+              ]
+            })
+            this.formData = new FormData();
+            return res
+          } else {
+            return res
+          }
+        }).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Пользователь успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить пользователь')
+            // this.form.patchValue({
+            //   phoneNumbers: [
+            //     ...this.form.get('phoneNumbers').value
+            //   ]
+            // })
+          }
+        })
     } else {
       this.formData.append('password', this.form.get('password').value);
       // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
@@ -156,7 +170,20 @@ export class AddClientComponent {
       this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
       this.formData.append('email', this.form.get('email').value);
       this.formData.append('citizenship', this.form.get('citizenship').value);
-      this._clientService.create(this.formData).subscribe(res => {
+      this._clientService.create(this.formData).pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          this.form.patchValue({
+            phoneNumbers: [
+              ...this.form.get('phoneNumbers').value
+            ]
+          })
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
+        console.log(res)
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

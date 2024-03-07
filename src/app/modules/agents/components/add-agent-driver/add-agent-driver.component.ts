@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -132,7 +133,15 @@ export class AddAgentDriverComponent {
     }
 
     if (this.form.value.id) {
-      this._driverService.update(this.formData).subscribe(res => {
+      this._driverService.update(this.formData)
+      .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this._toaster.success('Водитель успешно обновлена')
@@ -141,7 +150,15 @@ export class AddAgentDriverComponent {
         }
       })
     } else {
-      this._driverService.create(this.formData).subscribe(res => {
+      this._driverService.create(this.formData)
+      .pipe(res => {
+        if (isObservable(res)) {
+          this.formData = new FormData();
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

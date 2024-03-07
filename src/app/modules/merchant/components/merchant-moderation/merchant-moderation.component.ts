@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -49,6 +50,11 @@ export class MerchantModerationComponent implements OnInit {
   frozenBalance: any;
   image: any;
   id: number;
+  formData = new FormData();
+  logoFilePath: string;
+  registrationCertificateFilePath: string;
+  passportFilePath: string;
+  edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
@@ -73,9 +79,9 @@ export class MerchantModerationComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private toastr:ToastrService,
+    private toastr: ToastrService,
+    private _cdr: ChangeDetectorRef,
     private merchantService: MerchantService) {
-
     this.route.params.subscribe(params => {
       const param = params.id;
       this.id = param;
@@ -84,7 +90,7 @@ export class MerchantModerationComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-
+    this.edit = true
     this.merchantService.get(id).subscribe(responce => {
       this.form.patchValue({
         id: responce.data.id,
@@ -113,7 +119,18 @@ export class MerchantModerationComponent implements OnInit {
     this.getTransactions()
     this.getBalance()
   }
-
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   getTransactions() {
     this.merchantService.getMerchantTransactions(this.id).subscribe(res => {
       this.data = res.data
@@ -159,39 +176,45 @@ export class MerchantModerationComponent implements OnInit {
   }
 
   editMerchant() {
-    const formData = new FormData();
-    formData.append('id', this.form.get('id').value);
-    formData.append('bankName', this.form.get('bankName').value);
-    formData.append('companyName', this.form.get('companyName').value);
-    formData.append('phoneNumber', this.form.get('phoneNumber').value);
-    formData.append('dunsNumber', this.form.get('dunsNumber').value);
-    formData.append('email', this.form.get('email').value);
-    formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
-    formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
-    formData.append('responsiblePersonFistName', this.form.get('responsiblePersonFistName').value);
-    formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName').value);
-    formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber').value);
-    formData.append('legalAddress', this.form.get('legalAddress').value);
-    formData.append('inn', this.form.get('inn').value);
-    formData.append('oked', this.form.get('oked').value);
-    formData.append('mfo', this.form.get('mfo').value);
-    formData.append('notes', this.form.get('notes').value);
+    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('bankName', this.form.get('bankName').value);
+    this.formData.append('companyName', this.form.get('companyName').value);
+    this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
+    this.formData.append('dunsNumber', this.form.get('dunsNumber').value);
+    this.formData.append('email', this.form.get('email').value);
+    this.formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
+    this.formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
+    this.formData.append('responsiblePersonFistName', this.form.get('responsiblePersonFistName').value);
+    this.formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName').value);
+    this.formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber').value);
+    this.formData.append('legalAddress', this.form.get('legalAddress').value);
+    this.formData.append('inn', this.form.get('inn').value);
+    this.formData.append('oked', this.form.get('oked').value);
+    this.formData.append('mfo', this.form.get('mfo').value);
+    this.formData.append('notes', this.form.get('notes').value);
     if (typeof this.form.get('logoFilePath')?.value === "string") {
-      formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
+      this.formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
     } else {
-      formData.append('logoFilePath', this.form.get('logoFilePath')?.value, String(new Date().getTime()));
+      // formData.append('logoFilePath', this.form.get('logoFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('registrationCertificateFilePath')?.value === "string") {
-      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
+      this.formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
     } else {
-      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
+      // this.formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('passportFilePath')?.value === "string") {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
+      this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
     } else {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+      // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    this.merchantService.updateMerchant(formData).subscribe((res: any) => {
+    this.merchantService.updateMerchant(this.formData).pipe(res => {
+      if (isObservable(res)) {
+        this.formData = new FormData();
+        return res
+      } else {
+        return res
+      }
+    }).subscribe((res: any) => {
       console.log(res)
       if (res.success) {
         this.router.navigate(['/merchants'])
@@ -202,19 +225,19 @@ export class MerchantModerationComponent implements OnInit {
   verifyTransaction(transaction) {
     console.log(transaction)
     // if (transaction.transactionType=='withdrawAccount' ) {
-      this.merchantService.verifyTransaction(transaction).subscribe((res:any) => {
-        if (res.success) {
-          this.getBalance();
-          this.getTransactions()
-          this.toastr.success('Успешно завершено')
+    this.merchantService.verifyTransaction(transaction).subscribe((res: any) => {
+      if (res.success) {
+        this.getBalance();
+        this.getTransactions()
+        this.toastr.success('Успешно завершено')
+      } else {
+        if (res.errors[0] = 'notEnoughBalance') {
+          this.toastr.error('Баланса не хватает')
         } else {
-          if (res.errors[0] = 'notEnoughBalance') {
-            this.toastr.error('Баланса не хватает')
-          } else {
-            this.toastr.error('Не успешно завершено')
-          }
+          this.toastr.error('Не успешно завершено')
         }
-      })
+      }
+    })
     // } else {
     //   this.toastr.error('Баланса не хватает')
     // }
@@ -225,7 +248,7 @@ export class MerchantModerationComponent implements OnInit {
         this.getBalance();
         this.getTransactions()
         this.toastr.success('Успешно завершено')
-      } 
+      }
     })
   }
 
@@ -235,7 +258,7 @@ export class MerchantModerationComponent implements OnInit {
         this.getBalance();
         this.getTransactions()
         this.toastr.success('Успешно завершено')
-      } 
+      }
     })
   }
 }
