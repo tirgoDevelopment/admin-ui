@@ -36,7 +36,7 @@ export class AdminsService {
     block(id: number, body: any): Observable<Response<AdminModel>> {
         let queryParams = new HttpParams();
         queryParams = queryParams.append("id", id);
-        return this._apiService.patch<AdminModel>(`/users/staffs/block`, body, queryParams);
+        return this._apiService.patch<AdminModel>(`/users/staffs`, body, queryParams);
     }
 
     delete(id: number): Observable<Response<AdminModel>> {
