@@ -22,6 +22,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -42,7 +43,6 @@ export class MerchantModerationComponent implements OnInit {
   passportFile: FileList;
 
   certificateFile: FileList;
-
   data
   transactionRequest: any[] = [];
   transaction: any;
@@ -209,7 +209,7 @@ export class MerchantModerationComponent implements OnInit {
     }
     this.merchantService.updateMerchant(this.formData).pipe(res => {
       if (isObservable(res)) {
-        this.formData = new FormData();
+        this.formData = removeUnselected(this.formData,['logoFilePath', 'registrationCertificateFilePath','passportFilePath']);
         return res
       } else {
         return res

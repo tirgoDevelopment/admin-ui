@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -133,11 +134,10 @@ export class AddAgentDriverComponent {
     } else {
       // this.formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
     }
-
     if (this.form.value.id) {
       this._driverService.update(this.formData).pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['passportFilePath', 'driverLisenseFilePath']);
           return res
         } else {
           return res
@@ -153,7 +153,7 @@ export class AddAgentDriverComponent {
     } else {
       this._driverService.create(this.formData).pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['passportFilePath', 'driverLisenseFilePath']);
           return res
         } else {
           return res

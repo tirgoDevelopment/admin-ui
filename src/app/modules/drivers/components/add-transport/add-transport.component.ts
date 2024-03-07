@@ -25,6 +25,7 @@ import { SubscriptionService } from 'app/modules/main-types/subscription/service
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-add-transport',
@@ -308,12 +309,18 @@ export class AddTransportComponent implements OnInit {
     } else {
       // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
+    // techPassportFrontFilePath: string;
+    // techPassportBackFilePath: string;
+    // transportFrontFilePath: string;
+    // goodsTransportationLicenseCardFilePath: string;
+    // driverLicenseFilePath: string;
+    // passportFilePath: string;
 
     if (this.form.value.id) {
       this._driverService.updateTransport(formData)   
       .pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
           return res
         } else {
           return res
@@ -330,7 +337,7 @@ export class AddTransportComponent implements OnInit {
       this._driverService.createTransport(formData)  
        .pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
           return res
         } else {
           return res

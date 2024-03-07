@@ -24,6 +24,7 @@ import { CountryService } from 'app/shared/services/country.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-add-client',
@@ -138,11 +139,11 @@ export class AddClientComponent {
       this._clientService.update(this.form.value)
         .pipe(res => {
           if (isObservable(res)) {
-            this.form.patchValue({
-              phoneNumbers: [
-                ...this.form.get('phoneNumbers').value
-              ]
-            })
+            // this.form.patchValue({
+            //   phoneNumbers: [
+            //     ...this.form.get('phoneNumbers').value
+            //   ]
+            // })
             this.formData = new FormData();
             return res
           } else {
@@ -172,12 +173,12 @@ export class AddClientComponent {
       this.formData.append('citizenship', this.form.get('citizenship').value);
       this._clientService.create(this.formData).pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
-          this.form.patchValue({
-            phoneNumbers: [
-              ...this.form.get('phoneNumbers').value
-            ]
-          })
+          this.formData = removeUnselected(this.formData,['passport']);
+          // this.form.patchValue({
+          //   phoneNumbers: [
+          //     ...this.form.get('phoneNumbers').value
+          //   ]
+          // })
           return res
         } else {
           return res

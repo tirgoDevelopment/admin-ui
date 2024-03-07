@@ -21,6 +21,7 @@ import { AgentService } from '../../services/agent.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-add-agent',
@@ -184,10 +185,11 @@ export class AddAgentComponent {
     } else {
       // formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
+
     if (this.form.value.id) {
       this._agentService.update(this.form.value).pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
           return res
         } else {
           return res
@@ -203,7 +205,7 @@ export class AddAgentComponent {
     } else {
       this._agentService.create( this.formData).pipe(res => {
         if (isObservable(res)) {
-          this.formData = new FormData();
+          this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
           return res
         } else {
           return res

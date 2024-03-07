@@ -25,6 +25,7 @@ import { SubscriptionService } from 'app/modules/main-types/subscription/service
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
+import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 
 @Component({
   selector: 'app-add-verification',
@@ -339,7 +340,7 @@ export class AddVerificationComponent implements OnInit {
     this._driverService.updateTransportDriver(formData)  
     .pipe(res => {
       if (isObservable(res)) {
-        this.formData = new FormData();
+        this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath','transportBackFilePath','transportSideFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
         return res
       } else {
         return res
