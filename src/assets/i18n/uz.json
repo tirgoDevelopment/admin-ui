@@ -230,5 +230,9 @@
     "no_merchant_order":"Savdogar buyurtmasi emas",
     "unblock":"Blokdan chiqarish",
     "start_date":"Boshlanish sanasi",
-    "end_date":"Tugash sanasi"
+    "end_date":"Tugash sanasi",
+    "start_date_reg":"Ro'yxatdan o'tishning boshlanish sanasi",
+    "end_date_reg":"Ro'yxatdan o'tishning tugash sanasi",
+    "start_date_log":"Kirish Boshlanish sanasi ",
+    "end_date_log":"kirish Tugash sanasi "
 }

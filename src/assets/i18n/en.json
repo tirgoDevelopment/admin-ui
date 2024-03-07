@@ -230,5 +230,9 @@
      "no_merchant_order":"No Merchant Order",
      "unblock":"Unblock",
      "start_date":"Start date",
-     "end_date":"End date"
+     "end_date":"End date",
+     "start_date_reg":"Start date registration",
+     "end_date_reg":"End date registration",
+     "start_date_log":"Start date login",
+     "end_date_log":"End date login"
 }

@@ -20,10 +20,10 @@
               <input matInput placeholder="{{ 'company_name' | transloco }}"   name="company_name" [(ngModel)]="filters.companyName">
             </mat-form-field>
 
-            <mat-form-field color="accent" class="w-50 px-1">
+            <mat-form-field color="accent" class="w-100 px-1">
               <mat-date-range-input   [rangePicker]="picker">
-                  <input matStartDate placeholder="{{ 'start_date' | transloco }}" [(ngModel)]="filters.createdFrom">
-                  <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.createdAtTo">
+                  <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}" [(ngModel)]="filters.createdFrom">
+                  <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAtTo">
               </mat-date-range-input>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>

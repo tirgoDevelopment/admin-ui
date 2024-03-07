@@ -28,20 +28,20 @@
                 <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
 
-            <mat-form-field color="accent" class="w-50 px-1">
+            <mat-form-field color="accent" class="w-100 px-1">
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="{{ 'start_date' | transloco }}"
+                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}"
                         [(ngModel)]="filters.createdAt_from">
-                    <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.createdAt_to">
+                    <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAt_to">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
-            <mat-form-field color="accent" class="w-50 px-1">
+            <mat-form-field color="accent" class="w-80 px-1">
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="{{ 'start_date' | transloco }}"
+                    <input matStartDate placeholder="{{ 'start_date_log' | transloco }}"
                         [(ngModel)]="filters.lastLogin_from">
-                    <input matEndDate placeholder="{{ 'end_date' | transloco }}" [(ngModel)]="filters.lastLogin_to">
+                    <input matEndDate placeholder="{{ 'end_date_log' | transloco }}" [(ngModel)]="filters.lastLogin_to">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
