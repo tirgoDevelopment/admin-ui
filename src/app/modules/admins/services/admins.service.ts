@@ -7,11 +7,10 @@ import { createHttpParams } from 'app/core/functions/http-param';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class AdminsService{
-    constructor(private _apiService: ApiService) {
-    }
+export class AdminsService {
+    constructor(private _apiService: ApiService) { }
 
     get(id: number): Observable<Response<AdminModel>> {
         let queryParams = new HttpParams();
@@ -27,19 +26,18 @@ export class AdminsService{
     }
 
     create(body): Observable<Response<AdminModel>> {
-        return this._apiService.post<AdminModel>('/users/auth/register', body);
+        return this._apiService.post<AdminModel>('/users/staffs/register', body);
     }
 
     update(body): Observable<Response<AdminModel>> {
         return this._apiService.put<AdminModel>('/users/staffs', body);
     }
 
-    block(id: number,body:any): Observable<Response<AdminModel>> {
+    block(id: number, body: any): Observable<Response<AdminModel>> {
         let queryParams = new HttpParams();
         queryParams = queryParams.append("id", id);
-        return this._apiService.patch<AdminModel>(`/users/clients/block`, body, queryParams);
-      }
-    
+        return this._apiService.patch<AdminModel>(`/users/staffs/block`, body, queryParams);
+    }
 
     delete(id: number): Observable<Response<AdminModel>> {
         let queryParams = new HttpParams();

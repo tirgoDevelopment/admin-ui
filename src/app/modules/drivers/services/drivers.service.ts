@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DriverModel } from '../models/driver.model';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { ApiService } from 'app/core/service/api.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 export class DriversService {
 
-  constructor(private _apiService: ApiService, private _authService: AuthService, private _http: HttpClient) { }
+  constructor(private _apiService: ApiService, private _authService: AuthService) { }
   
   get(id: number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();

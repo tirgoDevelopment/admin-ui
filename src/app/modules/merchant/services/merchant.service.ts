@@ -17,53 +17,53 @@ export class MerchantService {
   get(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<MerchantModel>(`/users/client-merchant/id`, queryParams);
+    return this._apiService.get<MerchantModel>(`/users/client-merchants`, queryParams);
   }
 
   delete(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.delete<MerchantModel>(`/users/client-merchant`, queryParams);;
+    return this._apiService.delete<MerchantModel>(`/users/client-merchants`, queryParams);;
   }
 
   Verified(params?): Observable<Response<MerchantModel[]>> {
-    return this._apiService.get<MerchantModel[]>('/users/client-merchant/verified-merchants', createHttpParams(params));
+    return this._apiService.get<MerchantModel[]>('/users/client-merchants/verified-merchants', createHttpParams(params));
   }
 
   unVerified(params?): Observable<Response<MerchantModel[]>> {
-    return this._apiService.get<MerchantModel[]>('/users/client-merchant/unverified-merchants', createHttpParams(params));
+    return this._apiService.get<MerchantModel[]>('/users/client-merchants/unverified-merchants', createHttpParams(params));
   }
 
   rejected(params?): Observable<Response<MerchantModel[]>> {
-    return this._apiService.get<MerchantModel[]>('/users/client-merchant/rejected-merchants', createHttpParams(params));
+    return this._apiService.get<MerchantModel[]>('/users/client-merchants/rejected-merchants', createHttpParams(params));
   }
 
   verify(id: number,): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<MerchantModel>(`/users/client-merchant/verify`, {}, queryParams);
+    return this._apiService.patch<MerchantModel>(`/users/client-merchants/verify-client-merchant`, {}, queryParams);
   }
 
   reject(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<MerchantModel>(`/users/client-merchant/reject`, {}, queryParams);
+    return this._apiService.patch<MerchantModel>(`/users/client-merchants/reject-client-merchant`, {}, queryParams);
   }
 
   block(id: number, body): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<MerchantModel>(`/users/client-merchant/block-merchant`, body, queryParams);
+    return this._apiService.patch<MerchantModel>(`/users/client-merchants/block-merchant`, body, queryParams);
   }
 
   active(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<MerchantModel>(`/users/client-merchant/activate-merchant`, {}, queryParams);
+    return this._apiService.patch<MerchantModel>(`/users/client-merchants/activate-merchant`, {}, queryParams);
   }
 
   updateMerchant(body): Observable<Response<MerchantModel>> {
-    return this._apiService.put<MerchantModel>('/users/register/client-merchant', body);
+    return this._apiService.put<MerchantModel>('/users/client-merchant/register', body);
   }
 
   getMerchantTransactions(id?): Observable<any> {

@@ -11,7 +11,6 @@ import { HttpParams } from '@angular/common/http';
 })
 export class ArchiveUserService {
 
-
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<ClientModel>> {
@@ -24,25 +23,8 @@ export class ArchiveUserService {
     return this._apiService.get<ClientModel[]>('/users/archive', createHttpParams(params));
   }
 
-  getAllDeleted(params?): Observable<Response<ClientModel[]>> {
-    return this._apiService.get<ClientModel[]>('/clients/deleted', createHttpParams(params));
-  }
-
-  create(body): Observable<Response<ClientModel>> {
-		return this._apiService.post<ClientModel>('/clients', body);
-	}
-
   restore(body): Observable<Response<ClientModel>> {
-		return this._apiService.patch<ClientModel>('/clients', body, {});
+		return this._apiService.patch<ClientModel>('/restore-user', body, {});
 	}
 
-  update(body): Observable<Response<ClientModel>> {
-    return this._apiService.put<ClientModel>('/clients', body);
-  }
-
-  delete(id: number): Observable<Response<ClientModel>> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", id);
-    return this._apiService.delete<ClientModel>(`/clients`, queryParams);;
-  }
 }
