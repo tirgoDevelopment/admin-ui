@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 
 @Component({
   selector: 'app-add-subscription',
@@ -33,23 +34,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 
 })
 export class AddSubscriptionComponent {
-  subscription = [
-    {
-      id: 1,
-      name: 'asdasd',
-      price: 2
-    },
-    {
-      id: 2,
-      name: 'asdasd',
-      price: 4
-    },
-    {
-      id: 3,
-      name: 'asdasd',
-      price: 10
-    }
-  ];
+  subscription = [];
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -60,6 +45,7 @@ export class AddSubscriptionComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _subscriptionService: SubscriptionService,
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
@@ -73,12 +59,10 @@ export class AddSubscriptionComponent {
   }
 
   getSubscription() {
-    // this._subscriptionService.getAll().subscribe((response) => {
-    //   this.subscription = response.data;
-    // })
+    this._subscriptionService.getAll().subscribe((response) => {
+      this.subscription = response.data;
+    })
   }
-
-
 
   get f() {
     return this.form.controls

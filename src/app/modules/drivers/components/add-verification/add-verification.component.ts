@@ -57,6 +57,15 @@ export class AddVerificationComponent implements OnInit {
   roles = [];
   subscription = [];
   edit: boolean = false;
+  formData = new FormData();
+  techPassportFrontFilePath: string;
+  techPassportBackFilePath: string;
+  transportFrontFilePath: string;
+  transportBackFilePath: string;
+  transportSideFilePath: string;
+  goodsTransportationLicenseCardFilePath: string;
+  driverLicenseFilePath: string;
+  passportFilePath: string;
 
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -90,7 +99,7 @@ export class AddVerificationComponent implements OnInit {
     private _driverService: DriversService,
     private _typesService: TypesService,
     private _subscriptionService: SubscriptionService,
-    private cdr: ChangeDetectorRef,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     // this.form.patchValue({
     //   driverId: data.driverId,
@@ -128,28 +137,6 @@ export class AddVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     // if (this.f.id.value) {
-    //   this.form.patchValue({
-    //     name: 'new value for techPassportFrontFilePath',
-    //     isHook: 'new value for techPassportFrontFilePath',
-    //     isAdr: 'new value for techPassportFrontFilePath',
-    //     cubicCapacity: 'new value for techPassportFrontFilePath',
-    //     stateNumber: 'new value for techPassportFrontFilePath',
-    //     techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-    //     techPassportBackFilePath: 'new value for techPassportFrontFilePath',
-    //     transportFrontFilePath: 'new value for techPassportFrontFilePath',
-    //     transportBackFilePath: 'new value for techPassportFrontFilePath',
-    //     transportSideFilePath: 'new value for techPassportFrontFilePath',
-    //     goodsTransportationLicenseCardFilePath: 'new value for techPassportFrontFilePath',
-    //     driverLicenseFilePath: 'new value for techPassportFrontFilePath',
-    //     passportFilePath: 'new value for techPassportFrontFilePath',
-    //     transportKindIds: 'new value for techPassportFrontFilePath',
-    //     transportTypeIds: 'new value for techPassportFrontFilePath',
-    //     loadingMethodIds: 'new value for techPassportFrontFilePath',
-    //     cargoTypeIds: 'new value for techPassportFrontFilePath',
-    //     refrigeratorFrom: 'new value for techPassportFrontFilePath',
-    //     refrigeratorTo: 'new value for techPassportFrontFilePath',
-    //     refrigeratorCount: 'new value for techPassportFrontFilePath',
-    //   });
     //   this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
     //     console.log(res.data[0]);
     //     this.edit = true;
@@ -262,6 +249,19 @@ export class AddVerificationComponent implements OnInit {
     return this.form.controls
   }
 
+  selectFile(event: any, name: string) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      const reader = new FileReader();
+      reader.onload = () => {
+        this[name] = reader.result;
+        this._cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   submit() {
     const formData = new FormData();
     formData.append('id', this.form.get('id').value);
@@ -282,7 +282,6 @@ export class AddVerificationComponent implements OnInit {
       formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
       formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
       formData.append('loadingMethodIds', JSON.stringify(this.setIds(this.form.get('loadingMethodIds').value)));
-      // formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
       formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
     } else {
       formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
@@ -291,61 +290,53 @@ export class AddVerificationComponent implements OnInit {
       formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
     }
 
-    console.log(this.setIds(this.form.get('transportKindIds').value))
-    console.log(this.setIds(this.form.get('cargoTypeIds').value))
-    console.log(this.setIds(this.form.get('transportTypeIds').value))
-    console.log(this.setIds(this.form.get('loadingMethodIds').value))
-
-
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {
       formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value);
     } else {
-      formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
+      // formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('techPassportBackFilePath')?.value === "string") {
       formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value);
     } else {
-      formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
+      // formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportFrontFilePath')?.value === "string") {
       formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value);
     } else {
-      formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
+      // formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
     }
-
 
     if (typeof this.form.get('transportBackFilePath')?.value === "string") {
       formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value);
     } else {
-      formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value, String(new Date().getTime()));
+      // formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportSideFilePath')?.value === "string") {
       formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value);
     } else {
-      formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value, String(new Date().getTime()));
+      // formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('goodsTransportationLicenseCardFilePath')?.value === "string") {
       formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
     } else {
-      formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
+      // formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('driverLicenseFilePath')?.value === "string") {
       formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value);
     } else {
-      formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
+      // formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('passportFilePath')?.value === "string") {
       formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
     } else {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+      // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
     this._driverService.updateTransportDriver(formData).subscribe(res => {
-      // console.log(res)
       if (res.success) {
         this._dialog.closeAll()
         this.form.reset()

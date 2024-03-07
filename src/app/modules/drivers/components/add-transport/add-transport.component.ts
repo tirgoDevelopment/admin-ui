@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
@@ -277,36 +277,36 @@ export class AddTransportComponent implements OnInit {
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {
       formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value);
     } else {
-      formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
+      // formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('techPassportBackFilePath')?.value === "string") {
       formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value);
     } else {
-      formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
+      // formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportFrontFilePath')?.value === "string") {
       formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value);
     } else {
-      formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
+      // formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('goodsTransportationLicenseCardFilePath')?.value === "string") {
       formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
     } else {
-      formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
+      // formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('driverLicenseFilePath')?.value === "string") {
       formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value);
     } else {
-      formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
+      // formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('passportFilePath')?.value === "string") {
       formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
     } else {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+      // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
 
     if (this.form.value.id) {

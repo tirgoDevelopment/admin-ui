@@ -34,6 +34,8 @@ import { TypesService } from 'app/shared/services/types.service';
 export class AddAgentComponent {
   edit: boolean = false;
   currencies: any;
+  registrationCertificateFilePath: string;
+  managerPassportFilePath: string;
   passwordGenerator = new PasswordGenerator();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -72,25 +74,26 @@ export class AddAgentComponent {
   }
   getAgentById(id: number): void {
     console.log(id);
-    this.form.patchValue({
-      techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-      id: 'new value for techPassportFrontFilePath',
-      username: 'new value for techPassportFrontFilePath',
-      companyName: 'new value for techPassportFrontFilePath',
-      legalAddress: 'new value for techPassportFrontFilePath',
-      physicalAddress: 'new value for techPassportFrontFilePath',
-      managerFirstName: 'new value for techPassportFrontFilePath',
-      managerLastName: 'new value for techPassportFrontFilePath',
-      inn: 'new value for techPassportFrontFilePath',
-      oked: 'new value for techPassportFrontFilePath',
-      mfo: 'new value for techPassportFrontFilePath',
-      bankBranchName: 'new value for techPassportFrontFilePath',
-      phoneNumber: 'new value for techPassportFrontFilePath',
-      registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
-      managerPassportFilePath: 'new value for techPassportFrontFilePath',
-    });
+    // this.form.patchValue({
+    //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
+    //   id: 'new value for techPassportFrontFilePath',
+    //   username: 'new value for techPassportFrontFilePath',
+    //   companyName: 'new value for techPassportFrontFilePath',
+    //   legalAddress: 'new value for techPassportFrontFilePath',
+    //   physicalAddress: 'new value for techPassportFrontFilePath',
+    //   managerFirstName: 'new value for techPassportFrontFilePath',
+    //   managerLastName: 'new value for techPassportFrontFilePath',
+    //   inn: 'new value for techPassportFrontFilePath',
+    //   oked: 'new value for techPassportFrontFilePath',
+    //   mfo: 'new value for techPassportFrontFilePath',
+    //   bankBranchName: 'new value for techPassportFrontFilePath',
+    //   phoneNumber: 'new value for techPassportFrontFilePath',
+    //   registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
+    //   managerPassportFilePath: 'new value for techPassportFrontFilePath',
+    // });
     this._agentService.get(id).subscribe(res => {
-      console.log(res);
+      this.registrationCertificateFilePath = res.data.registrationCertificateFilePath;
+      this.managerPassportFilePath = res.data.managerPassportFilePath;
       if (res.success) {
         this.form.patchValue({
           id: res.data.id,
@@ -177,12 +180,12 @@ export class AddAgentComponent {
     if (typeof this.form.get('registrationCertificateFilePath')?.value === "string") {
       formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value);
     } else {
-      formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
+      // formData.append('registrationCertificateFilePath', this.form.get('registrationCertificateFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('managerPassportFilePath')?.value === "string") {
       formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value);
     } else {
-      formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
+      // formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
     if (this.form.value.id) {
       this._agentService.update(this.form.value).subscribe(res => {

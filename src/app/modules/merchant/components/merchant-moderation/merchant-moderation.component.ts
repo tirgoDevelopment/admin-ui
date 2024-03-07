@@ -84,28 +84,7 @@ export class MerchantModerationComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-    // this.form.patchValue({
-    //   techPassportFrontFilePath: 'new value for techPassportFrontFilePath',
-    //   id: 'new value for techPassportFrontFilePath',
-    //   bankName: 'new value for techPassportFrontFilePath',
-    //   companyName: 'new value for techPassportFrontFilePath',
-    //   phoneNumber: 'new value for techPassportFrontFilePath',
-    //   dunsNumber: 'new value for techPassportFrontFilePath',
-    //   email: 'new value for techPassportFrontFilePath',
-    //   supervisorFirstName: 'new value for techPassportFrontFilePath',
-    //   supervisorLastName: 'new value for techPassportFrontFilePath',
-    //   responsiblePersonFistName: 'new value for techPassportFrontFilePath',
-    //   responsiblePersonLastName: 'new value for techPassportFrontFilePath',
-    //   responsbilePersonPhoneNumber: 'new value for techPassportFrontFilePath',
-    //   inn: 'new value for techPassportFrontFilePath',
-    //   oked: 'new value for techPassportFrontFilePath',
-    //   mfo: 'new value for techPassportFrontFilePath',
-    //   notes: 'new value for techPassportFrontFilePath',
-    //   logoFilePath: 'new value for techPassportFrontFilePath',
-    //   registrationCertificateFilePath: 'new value for techPassportFrontFilePath',
-    //   passportFilePath: 'new value for techPassportFrontFilePath',
-    //   legalAddress: 'new value for techPassportFrontFilePath',
-    // });
+
     this.merchantService.get(id).subscribe(responce => {
       this.form.patchValue({
         id: responce.data.id,

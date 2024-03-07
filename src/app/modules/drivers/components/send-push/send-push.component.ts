@@ -21,7 +21,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DriversService } from '../../services/drivers.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
-import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 
 @Component({
   selector: 'app-send-push',
