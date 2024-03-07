@@ -16,6 +16,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { SubscriptionService } from '../../services/subscription.service';
+import { CurrencyService } from 'app/shared/services/currency.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-subscription',
@@ -24,21 +26,27 @@ import { SubscriptionService } from '../../services/subscription.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddSubscriptionComponent {
   edit: boolean = false;
+  currencies: any;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required]),
     duration: new FormControl('', [Validators.required]),
+    currencyId: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _subscripionService: SubscriptionService,
+    private _typeService:CurrencyService,
     private _dialog: MatDialog) {
+      this._typeService.getCurrencies().subscribe((response: any) => {
+        this.currencies = response.data;
+      })
     if (this.data) {
       this.edit = true;
       this.form.patchValue({
@@ -46,10 +54,16 @@ export class AddSubscriptionComponent {
         name: this.data?.name,
         price: this.data?.price,
         duration: this.data?.duration,
+        currencyId: this.data?.currencyId,
       });
     }
   }
 
+  compareFn(a?, b?) {
+    if (a && b) {
+      return a === b.id;
+    }
+  }
 
   get f() {
     return this.form.controls

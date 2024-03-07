@@ -14,11 +14,11 @@ export class TransportService {
   constructor(private _apiService: ApiService) { }
 
   get(id: number): Observable<Response<TransportModel>> {
-    return this._apiService.get<TransportModel>(`/references/transport-types${id}`);
+    return this._apiService.get<TransportModel>(`/references/transport-types/${id}`);
   }
 
   getAll(params?): Observable<Response<TransportModel[]>> {
-    return this._apiService.get<TransportModel[]>('/references/transport-typesall', createHttpParams(params));
+    return this._apiService.get<TransportModel[]>('/references/transport-types/all', createHttpParams(params));
   }
 
   create(body): Observable<Response<TransportModel>> {
