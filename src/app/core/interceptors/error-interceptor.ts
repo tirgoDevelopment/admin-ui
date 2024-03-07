@@ -13,8 +13,11 @@ import { ToastrService } from 'ngx-toastr';
 export class ErrorInterceptorService implements HttpInterceptor {
   constructor(private toastr: ToastrService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler) {
+    console.log('intercept')
+    console.log(request)
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error)
         this.toastr.error(error.error?.error)
         return throwError(error);
       })

@@ -111,6 +111,8 @@
     "phone":"Phone number",
     "access_merchant":"Merchant access",
     "edit_password":"Edit password",
+    "email":"Email",
+    "password":"Password",
     "contancts":"Contacts",
     "moderation_failed":"Moderation failed",
     "machine_type":"Machine type",

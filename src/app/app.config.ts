@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -11,7 +11,9 @@ import { provideIcons } from 'app/core/icons/icons.provider';
 import { provideTransloco } from 'app/core/transloco/transloco.provider';
 import { mockApiServices } from './core/mock-api';
 import { provideToastr } from 'ngx-toastr';
-import {  AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { authInterceptor } from './core/auth/auth.interceptor';
+import { ErrorInterceptorService } from './core/interceptors/error-interceptor';
 
 const mapConfig: YaConfig = {
     apikey: 'df0cb391-97e5-47ce-a954-f54cb0644e56',
@@ -20,6 +22,11 @@ const mapConfig: YaConfig = {
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptorService,
+            multi: true
+        },
         importProvidersFrom(AngularYandexMapsModule.forRoot(mapConfig)),
         provideAnimations(),
         provideHttpClient(),

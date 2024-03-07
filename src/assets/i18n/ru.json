@@ -1,4 +1,6 @@
 {
+    "email":"Email",
+    "password":"Пароль",
     "control_panel": "Панель управления",
     "adminstration": "Администраторы",
     "secure_transaction": "Безопасная сделка",

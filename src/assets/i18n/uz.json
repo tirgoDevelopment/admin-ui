@@ -1,4 +1,6 @@
 {
+    "email":"Email",
+    "password":"Parol",
     "control_panel": "Boshqaruv paneli",
     "adminstration": "Administratorlar",
     "secure_transaction": "Xavfsiz tranzaksiya",
