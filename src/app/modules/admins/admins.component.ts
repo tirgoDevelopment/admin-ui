@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -32,6 +32,14 @@ import { AdminBlockComponent } from './components/admin-block/admin-block.compon
 
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
+  
   displayedColumns: string[] = ['full_name', 'login', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -40,12 +48,19 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     super();
   }
 
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllAdmin(this.pageParams);
+  }
+
   ngOnInit() {
     this.getAllAdmin();
   }
 
-  getAllAdmin() {
-    this._admninService.getAll().subscribe((response) => {
+  getAllAdmin(patams?) {
+    this._admninService.getAll(patams).subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }

@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -39,6 +39,13 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     createdFrom: '',
     createdAtTo: '',
   };
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   displayedColumns: string[] = ['id','full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -60,16 +67,23 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
 
   }
   ngOnInit() {
-    this.getAllagents();
+    this.getAllAgents(this.pageParams);
   }
 
-  getAllagents() {
+  getAllAgents(params?) {
     this._agentService.getAll().subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
 
   
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllAgents(this.pageParams);
+  }
+
   add() {
     const dialog = this._dialog.open(AddAgentComponent, {
       minWidth: '80vw',
@@ -80,7 +94,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllagents()
+        this.getAllAgents()
       })
   }
 
@@ -95,14 +109,14 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllagents()
+        this.getAllAgents()
       })
   }
 
 
   active(id: number) {
     this._agentService.active(id).subscribe(() => {
-      this.getAllagents()
+      this.getAllAgents()
     })
   }
 
@@ -117,13 +131,13 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllagents()
+        this.getAllAgents()
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllagents()
+      this.getAllAgents()
     })
   }
 }

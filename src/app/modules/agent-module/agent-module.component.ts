@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -20,9 +20,7 @@ import { AddAgentDriverComponent } from './components/add-agent-driver/add-agent
 import { AddAgentSubscriptionComponent } from './components/add-agent-subscription/add-agent-subscription.component';
 import { AgentTransactionComponent } from './components/agent-transaction/agent-transaction.component';
 import { ConnectDriverComponent } from './components/connect-driver/connect-driver.component';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
-
 @Component({
   selector: 'app-agent-module',
   templateUrl: './agent-module.component.html',
@@ -31,12 +29,19 @@ import { AuthService } from 'app/core/auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class AgentModuleComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
+  pageParams = {
+    agentId: 0,
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
@@ -45,12 +50,19 @@ export class AgentModuleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllDrivers(this.id);
+    this.pageParams.agentId = this.id;
+    this.getAllDrivers(this.pageParams);
     this.getBalance(this.id)
   }
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllDrivers(this.pageParams);
+  }
 
-  getAllDrivers(id: number) {
-    this._agentService.getAllByAgent(id).subscribe((response) => {
+  getAllDrivers( params) {
+    this._agentService.getAllByAgent( params).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }

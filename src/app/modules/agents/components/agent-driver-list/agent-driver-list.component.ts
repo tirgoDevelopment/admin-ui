@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -36,24 +36,40 @@ export class AgentDriverListComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
+  pageParams = {
+    agentId: 0,
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
       this.id = params.id;
+      this.pageParams.agentId = params.id;
     })
   }
 
   ngOnInit() {
-    this.getAllDrivers(this.id);
+    this.getAllAgentsDrivers(this.pageParams);
     this.getBalance(this.id)
   }
 
-  getAllDrivers(id: number) {
-    this._agentService.getAllByAgent(id).subscribe((response) => {
+  getAllAgentsDrivers(params) {
+    this._agentService.getAllByAgent(params).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllAgentsDrivers(this.pageParams);
   }
 
   getBalance(id: number) {
@@ -97,7 +113,7 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllAgentsDrivers(this.id)
       })
   }
 
@@ -112,7 +128,7 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllAgentsDrivers(this.id)
       })
   }
 
@@ -127,7 +143,7 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllAgentsDrivers(this.id)
       })
   }
 
@@ -143,13 +159,13 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllAgentsDrivers(this.id)
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllDrivers(this.id)
+      this.getAllAgentsDrivers(this.id)
     })
   }
 }

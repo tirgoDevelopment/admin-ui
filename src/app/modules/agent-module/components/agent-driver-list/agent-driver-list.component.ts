@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +33,14 @@ import { ConnectDriverComponent } from '../connect-driver/connect-driver.compone
 
 })
 export class AgentDriverListComponent implements OnInit {
+  pageParams = {
+    agentId: 0,
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   balances: [];
   cities: any[] = [];
   id: number;
@@ -51,8 +59,15 @@ export class AgentDriverListComponent implements OnInit {
     this.getBalance(this.id)
   }
 
-  getAllDrivers(id: number) {
-    this._agentService.getAllByAgent(id).subscribe((response) => {
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllDrivers(this.pageParams);
+  }
+
+  getAllDrivers(params) {
+    this._agentService.getAllByAgent(params).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }

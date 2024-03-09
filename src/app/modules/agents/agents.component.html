@@ -13,29 +13,31 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-              <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
+                <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
             </mat-form-field>
-      
+
             <mat-form-field color="accent" class="w-50 px-1">
-              <input matInput placeholder="{{ 'company_name' | transloco }}"   name="company_name" [(ngModel)]="filters.companyName">
+                <input matInput placeholder="{{ 'company_name' | transloco }}" name="company_name"
+                    [(ngModel)]="filters.companyName">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-100 px-1">
-              <mat-date-range-input   [rangePicker]="picker">
-                  <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}" [(ngModel)]="filters.createdFrom">
-                  <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAtTo">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-      
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}"
+                        [(ngModel)]="filters.createdFrom">
+                    <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAtTo">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+
             <div class="px-1">
-              <button mat-flat-button color="warn" class="" (click)="clearFilters()">
-                {{ 'clear' | transloco }}</button>
+                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+                    {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-              <button mat-flat-button color="warn" (click)="getAllagents()">
-                {{ 'filter' | transloco }}</button>
+                <button mat-flat-button color="warn" (click)="getAllAgents()">
+                    {{ 'filter' | transloco }}</button>
             </div>
         </div>
         <div class="mt-4 h-100 ">
@@ -110,8 +112,8 @@
                                 </button>
                                 <button mat-menu-item color="warn" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
-                                   {{"delete"|transloco}}
-                               </button>
+                                    {{"delete"|transloco}}
+                                </button>
                             </mat-menu>
                         </div>
                     </mat-cell>
@@ -122,10 +124,10 @@
                 </mat-row>
             </mat-table>
 
-                 <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
+            <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
-            <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
-                [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+            <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="dataSource.data.length"
+                [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
             </mat-paginator>
         </div>
     </div>
