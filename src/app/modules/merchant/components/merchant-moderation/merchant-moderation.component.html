@@ -104,7 +104,7 @@
         </div>
         <div class="grid grid-cols-3 gap-3 w-full">
             <div class="w-32">
-                <mat-label class="text-xl">{{ 'logo' | transloco }} </mat-label>
+                <mat-label >{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <!-- <mat-form-field class="flex items-center">
-                <mat-label class="text-xl">{{ 'logo' | transloco }} </mat-label>
+                <mat-label >{{ 'logo' | transloco }} </mat-label>
                 <input matInput placeholder="Upload" class="mr-2" [value]="form.get('logoFilePath')?.value?.name || ''"
                     formControlName="logoFilePath" [ngClass]="{'is-invalid': f.logoFilePath.errors}">
                 <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
@@ -143,7 +143,7 @@
             </mat-form-field> -->
 
             <div class="w-32">
-                <mat-label class="text-xl">{{ 'passport' | transloco }} </mat-label>
+                <mat-label >{{ 'passport' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -166,7 +166,7 @@
                 </div>
             </div>
             <!-- <mat-form-field class="flex items-center">
-                <mat-label class="text-xl">{{ 'passport' | transloco }} </mat-label>
+                <mat-label >{{ 'passport' | transloco }} </mat-label>
                 <input matInput placeholder="Upload" class="mr-2"
                     [value]="form.get('passportFilePath')?.value?.name || ''" formControlName="passportFilePath"
                     [ngClass]="{'is-invalid': f.passportFilePath.errors}">
@@ -183,7 +183,7 @@
             </mat-form-field> -->
 
             <div class="w-32">
-                <mat-label class="text-xl">{{ 'registration_certificate' | transloco }} </mat-label>
+                <mat-label >{{ 'registration_certificate' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -206,7 +206,7 @@
                 </div>
             </div>
             <!-- <mat-form-field class="flex items-center">
-                <mat-label class="text-xl">{{ 'registration_certificate' | transloco }} </mat-label>
+                <mat-label >{{ 'registration_certificate' | transloco }} </mat-label>
                 <input matInput placeholder="Upload" class="mr-2"
                     [value]="form.get('registrationCertificateFilePath')?.value?.name || ''"
                     formControlName="registrationCertificateFilePath"
@@ -244,30 +244,30 @@
    <div class="mt-4 h-100">
         <mat-table matSort [dataSource]="dataSource">
             <ng-container matColumnDef="full_name">
-                <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row?.createdBy}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="currencyName">
-                <mat-header-cell *matHeaderCellDef> {{"currency_name"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"currency_name"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row?.currencyName}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="sum">
-                <mat-header-cell *matHeaderCellDef> {{"sum"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"sum"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row?.amount}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef> {{"date"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"date"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row?.createdAt}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="type">
-                <mat-header-cell *matHeaderCellDef> {{"type"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"type"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <span *ngIf="row.transctionType == 'topupAccount'">Пополнение счета</span>
@@ -276,7 +276,7 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"status"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <span class="bg-red-500 text-white p-2" *ngIf="row.rejected">{{"rejected"|transloco}}</span>

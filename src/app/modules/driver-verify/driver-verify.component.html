@@ -14,18 +14,18 @@
        <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"id"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
-                    <mat-header-cell *matHeaderCellDef> 
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.action}} </mat-cell>
                 </ng-container>

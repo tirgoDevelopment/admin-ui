@@ -1,5 +1,5 @@
-<div class="flex flex-col flex-auto ">
-    <div class="flex-auto border-t ">
+<div class="flex flex-col flex-auto">
+    <div class="flex-auto border-t">
         <div class="flex items-center justify-between w-full">
             <div>
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"merchant"|transloco}}</div>
@@ -10,7 +10,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex items-baseline  flex-wrap">
+        <div class="flex items-baseline flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
             </mat-form-field>
@@ -41,46 +41,46 @@
         <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> {{"id"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"id"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.supervisorFirstName}} {{
                         row?.supervisorLastName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="companyName">
-                    <mat-header-cell *matHeaderCellDef> {{"company_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"company_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="entity">
-                    <mat-header-cell *matHeaderCellDef> {{"entity"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"entity"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.taxPayerCode}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="balance">
-                    <mat-header-cell *matHeaderCellDef> {{"balance"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"balance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.balance}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="loads">
-                    <mat-header-cell *matHeaderCellDef> {{"loads"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"loads"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.loads}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell *matHeaderCellDef> {{"last_enter"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <button *ngIf="row?.active"

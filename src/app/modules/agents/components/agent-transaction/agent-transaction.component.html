@@ -7,7 +7,7 @@
 <mat-dialog-content>
    <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="index">
-         <mat-header-cell *matHeaderCellDef> № </mat-header-cell>
+         <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>№ </mat-header-cell>
          <mat-cell *matCellDef="let element; let i = index;">{{i+1}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="admin">
@@ -39,7 +39,7 @@
          </mat-cell>
       </ng-container>
       <ng-container matColumnDef="driverId">
-         <mat-header-cell *matHeaderCellDef> {{'driver'| transloco}}</mat-header-cell>
+         <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{'driver'| transloco}}</mat-header-cell>
          <mat-cell *matCellDef="let row">
             {{row?.user_name}}
             <span *ngIf="row.userid" class="tw-mx-2"> ID: </span>
@@ -47,7 +47,7 @@
          </mat-cell>
       </ng-container>
       <ng-container matColumnDef="date">
-         <mat-header-cell *matHeaderCellDef> {{'date_time'|transloco}} </mat-header-cell>
+         <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{'date_time'|transloco}} </mat-header-cell>
          <mat-cell *matCellDef="let row"> {{row?.createdAt | date : "YYYY/MM/dd HH:mm"}} </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

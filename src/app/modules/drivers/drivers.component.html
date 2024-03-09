@@ -78,17 +78,17 @@
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"ID"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.firstName }} {{ row?.lastName }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">
@@ -98,24 +98,24 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type_transport">
-                    <mat-header-cell *matHeaderCellDef> {{"type_transport"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell *matHeaderCellDef> {{"last_enter"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell *matHeaderCellDef> {{"status"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
 
@@ -129,7 +129,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="subscription">
-                    <mat-header-cell *matHeaderCellDef> {{"subscription"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"subscription"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.subscription?.name}} </mat-cell>
                 </ng-container>

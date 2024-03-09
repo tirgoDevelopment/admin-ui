@@ -8,7 +8,7 @@
     <form [formGroup]="form">
         <div class="p-3">
             <mat-form-field color="accent" class="w-full">
-                <mat-label class="text-xl">{{ 'block_reason' | transloco }} </mat-label>
+                <mat-label >{{ 'block_reason' | transloco }} </mat-label>
                 <textarea matInput  formControlName="block_reason"
                     [ngClass]="{'is-invalid': f.block_reason?.errors}" rows="4"></textarea>
                 <mat-error *ngIf="f.block_reason.errors?.required">

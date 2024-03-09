@@ -8,12 +8,12 @@
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> {{"ID"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"ID"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -26,12 +26,12 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="ISO">
-                    <mat-header-cell *matHeaderCellDef> {{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell *matHeaderCellDef> {{"phone"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -59,19 +59,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type">
-                    <mat-header-cell *matHeaderCellDef> {{"type"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"type"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.userType}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="moderation">
-                    <mat-header-cell *matHeaderCellDef> {{"moderation"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"moderation"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.moderation}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell *matHeaderCellDef> {{"register_date"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -85,19 +85,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell *matHeaderCellDef> {{"last_enter"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="geolocation">
-                    <mat-header-cell *matHeaderCellDef> {{"geolocation"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"geolocation"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.geolocation}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="order">
-                    <mat-header-cell *matHeaderCellDef> {{"orders"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"orders"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.order}} </mat-cell>
                 </ng-container>

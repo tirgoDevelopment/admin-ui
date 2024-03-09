@@ -26,7 +26,7 @@
                 </mat-form-field>
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'passport' | transloco }}</mat-label>
+                    <mat-label >{{ 'passport' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'passport' | transloco }}</mat-label>
+                    <mat-label >{{ 'passport' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('passportFilePath')?.value?.name || ''" formControlName="passportFilePath"
                         [ngClass]="{'is-invalid': f.passportFilePath.errors}">
@@ -86,7 +86,7 @@
 
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'driver_license' | transloco }} </mat-label>
+                    <mat-label >{{ 'driver_license' | transloco }} </mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'driver_license' | transloco }} </mat-label>
+                    <mat-label >{{ 'driver_license' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('driverLisenseFilePath')?.value?.name || ''"
                         formControlName="driverLisenseFilePath"

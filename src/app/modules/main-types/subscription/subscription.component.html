@@ -15,19 +15,19 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef> {{"name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="duration">
-                    <mat-header-cell *matHeaderCellDef> {{"duration"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"duration"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.duration}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="price">
-                    <mat-header-cell *matHeaderCellDef> {{"price"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"price"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.price}} </mat-cell>
                 </ng-container>

@@ -10,7 +10,7 @@
         <div class="grid grid-cols-3 gap-4">
             <div class="px-4">
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'name' | transloco }}</mat-label>
+                    <mat-label >{{ 'name' | transloco }}</mat-label>
                     <input type="text" matInput formControlName="name" [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -18,7 +18,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl"> {{ 'transport_cargo' | transloco }}</mat-label>
+                    <mat-label > {{ 'transport_cargo' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
                         <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
                             [value]="item.id">{{item.name}}</mat-option>
@@ -26,30 +26,30 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'volume_m' | transloco }}</mat-label>
+                    <mat-label >{{ 'volume_m' | transloco }}</mat-label>
                     <input type="number" matInput formControlName="cubicCapacity">
                 </mat-form-field>
 
                 <div class="flex items-center" *ngIf="isAutotransport">
                     <mat-form-field class="flex items-center">
-                        <mat-label class="text-xl"> {{ 'number_of_transporter' | transloco }}</mat-label>
+                        <mat-label > {{ 'number_of_transporter' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorCount">
                     </mat-form-field>
                 </div>
 
                 <div class="flex items-center" *ngIf="isRefrigeratorMode">
                     <mat-form-field class="flex items-center">
-                        <mat-label class="text-xl">{{ 'mode_from' | transloco }}</mat-label>
+                        <mat-label >{{ 'mode_from' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorFrom">
                     </mat-form-field>
                     <mat-form-field class="flex items-center">
-                        <mat-label class="text-xl">{{ 'mode_to' | transloco }}</mat-label>
+                        <mat-label >{{ 'mode_to' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorTo">
                     </mat-form-field>
                 </div>
                 <div class="flex items-center" *ngIf="isContainer">
                     <mat-form-field class="flex items-center">
-                        <mat-label class="text-xl"> {{ 'volume_f' | transloco }}</mat-label>
+                        <mat-label > {{ 'volume_f' | transloco }}</mat-label>
                         <mat-select [value]="'EU'" formControlName="containerVolume">
                             <mat-option [value]="'20'">20(ф.)</mat-option>
                             <mat-option [value]="'40'">40(ф.)</mat-option>
@@ -61,7 +61,7 @@
             </div>
             <div class="px-2">
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'state_number' | transloco }} </mat-label>
+                    <mat-label >{{ 'state_number' | transloco }} </mat-label>
                     <input type="text" matInput formControlName="stateNumber"
                         [ngClass]="{'is-invalid': f.stateNumber.errors}">
                     <mat-error *ngIf="f.stateNumber.errors?.required">
@@ -70,7 +70,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl"> {{ 'loading_method' | transloco }}</mat-label>
+                    <mat-label > {{ 'loading_method' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="loadingMethodIds" multiple>
                         <mat-option *ngFor="let item of cargoLoadingMethods ; trackBy: trackByFn"
                             [value]="item.id">{{item.name}}</mat-option>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="flex items-center" *ngIf="isCistern">
                     <mat-form-field class="flex items-center">
-                        <mat-label class="text-xl"> {{ 'volume_l' | transloco }}</mat-label>
+                        <mat-label > {{ 'volume_l' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="cisternVolume">
                     </mat-form-field>
                 </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="px-4">
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl"> {{ 'type_transport' | transloco }}</mat-label>
+                    <mat-label > {{ 'type_transport' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportTypeIds" multiple
                         [ngClass]="{'is-invalid': f.transportTypeIds.errors}">
                         <mat-option *ngFor="let item of transportTypes; trackBy: trackByFn"
@@ -108,7 +108,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl"> {{ 'cargo_type' | transloco }}</mat-label>
+                    <mat-label > {{ 'cargo_type' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="cargoTypeIds" multiple>
                         <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn" [label]="group.name">
                             <mat-option *ngFor="let item of group.cargoTypes ;trackBy:trackByFn"
@@ -123,7 +123,7 @@
             <div class="px-4">
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'tech_passport_front' | transloco }} </mat-label>
+                    <mat-label >{{ 'tech_passport_front' | transloco }} </mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'tech_passport_front' | transloco }} </mat-label>
+                    <mat-label >{{ 'tech_passport_front' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2" formControlName="techPassportFrontFilePath"
                         [value]="f.techPassportFrontFilePath.value?.name || ''"
                         [ngClass]="{'is-invalid': f.techPassportFrontFilePath.errors}">
@@ -162,7 +162,7 @@
                 </mat-form-field> -->
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'tech_passport_back' | transloco }}</mat-label>
+                    <mat-label >{{ 'tech_passport_back' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'tech_passport_back' | transloco }}</mat-label>
+                    <mat-label >{{ 'tech_passport_back' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('techPassportBackFilePath')?.value?.name || ''"
                         formControlName="techPassportBackFilePath"
@@ -205,7 +205,7 @@
             <div class="px-4">
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'good_transportation_lisense' | transloco }}</mat-label>
+                    <mat-label >{{ 'good_transportation_lisense' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -227,7 +227,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'good_transportation_lisense' | transloco }}</mat-label>
+                    <mat-label >{{ 'good_transportation_lisense' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('goodsTransportationLicenseCardFilePath').value?.name || ''"
                         formControlName="goodsTransportationLicenseCardFilePath"
@@ -246,7 +246,7 @@
                 </mat-form-field> -->
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'driver_lisense_card' | transloco }} </mat-label>
+                    <mat-label >{{ 'driver_lisense_card' | transloco }} </mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -268,7 +268,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'driver_lisense_card' | transloco }} </mat-label>
+                    <mat-label >{{ 'driver_lisense_card' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('driverLicenseFilePath')?.value?.name || ''"
                         formControlName="driverLicenseFilePath"
@@ -289,7 +289,7 @@
 
             <div class="px-4">
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'transport_photo' | transloco }} </mat-label>
+                    <mat-label >{{ 'transport_photo' | transloco }} </mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -311,7 +311,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'transport_photo' | transloco }} </mat-label>
+                    <mat-label >{{ 'transport_photo' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('transportFrontFilePath')?.value?.name || ''"
                         formControlName="transportFrontFilePath"
@@ -329,7 +329,7 @@
                 </mat-form-field> -->
 
                 <div class="w-32">
-                    <mat-label class="text-xl">{{ 'passport' | transloco }}</mat-label>
+                    <mat-label >{{ 'passport' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -351,7 +351,7 @@
                     </div>
                 </div>
                 <!-- <mat-form-field class="flex items-center">
-                    <mat-label class="text-xl">{{ 'passport' | transloco }}</mat-label>
+                    <mat-label >{{ 'passport' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('passportFilePath').value.name || ''" formControlName="passportFilePath"
                         [ngClass]="{'is-invalid': f.passportFilePath.errors}">

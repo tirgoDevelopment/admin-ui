@@ -5,10 +5,10 @@
         <div class="text-3xl font-semibold tracking-tight leading-8">Грузы</div>
       </div>
       <div class="flex items-center ml-6">
-        <button (click)="detail()" class="fuse-mat-button-large  mx-2" mat-flat-button [color]="'primary'">
+        <!-- <button (click)="detail()" class="hidden sm:inline-flex mr-3 "  mat-flat-button [color]="'primary'">
           detail
-        </button>
-        <button (click)="createOrderModal()" class="fuse-mat-button-large " mat-flat-button [color]="'primary'">
+        </button> -->
+        <button (click)="createOrderModal()" mat-flat-button [color]="'primary'">
           <mat-icon>add</mat-icon>
           Разместить груз
         </button>
@@ -33,13 +33,15 @@
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-select placeholder="{{ 'transport_type' | transloco }}" [(ngModel)]="filters.transportTypeId" name="transportTypeId">
+        <mat-select placeholder="{{ 'transport_type' | transloco }}" [(ngModel)]="filters.transportTypeId"
+          name="transportTypeId">
           <mat-option *ngFor="let item of transportTypes ; " [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId" name="transportKindId">
+        <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId"
+          name="transportKindId">
           <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -60,7 +62,7 @@
           {{ 'filter' | transloco }}</button>
       </div>
     </div>
-   <div class="mt-4 h-100">
+    <div class="mt-4 h-100">
       <mat-table matSort [dataSource]="dataSource" class="table">
         <ng-container matColumnDef="index">
           <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef> No </mat-header-cell>
@@ -73,12 +75,12 @@
         </ng-container>
 
         <ng-container matColumnDef="sendLocation">
-          <mat-header-cell *matHeaderCellDef> {{ 'from' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.loadingLocation}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
-          <mat-header-cell *matHeaderCellDef> {{ 'where' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
         </ng-container>
 
@@ -100,7 +102,7 @@
         </ng-container>
 
         <ng-container matColumnDef="transport_type">
-          <mat-header-cell *matHeaderCellDef> {{ 'cargo_type' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <span *ngIf="row.transportTypes">
               <span *ngFor="let type of row.transportTypes;let i=index">
@@ -131,7 +133,7 @@
         </ng-container>
 
         <ng-container matColumnDef="client">
-          <mat-header-cell *matHeaderCellDef> {{ 'client' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
         </ng-container>
 

@@ -15,13 +15,13 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef> {{"name"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="code">
-                    <mat-header-cell *matHeaderCellDef> {{"code"|transloco}}
+                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"code"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.code}} </mat-cell>
                 </ng-container>
