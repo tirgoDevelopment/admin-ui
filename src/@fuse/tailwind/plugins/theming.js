@@ -64,64 +64,64 @@ const theming = plugin.withOptions((options) => ({
          * Go through the themes to generate the contrasts and filter the
          * palettes to only have "primary", "accent" and "warn" objects.
          */
-        themes = _.fromPairs(_.map(themes, (theme, themeName) => [
-            themeName,
-            _.pick(
-                _.fromPairs(_.map(theme, (palette, paletteName) => [
-                    paletteName,
-                    {
-                        ...palette,
-                        contrast: _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [
-                            hue,
-                            _.get(userThemes[themeName], [`on-${paletteName}`, hue]) || color,
-                        ])),
-                    },
-                ])),
-                ['primary', 'accent', 'warn'],
-            ),
-        ]));
+        // themes = _.fromPairs(_.map(themes, (theme, themeName) => [
+        //     themeName,
+        //     _.pick(
+        //         _.fromPairs(_.map(theme, (palette, paletteName) => [
+        //             paletteName,
+        //             {
+        //                 ...palette,
+        //                 contrast: _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [
+        //                     hue,
+        //                     _.get(userThemes[themeName], [`on-${paletteName}`, hue]) || color,
+        //                 ])),
+        //             },
+        //         ])),
+        //         ['primary', 'accent', 'warn'],
+        //     ),
+        // ]));
 
-        /**
-         * Go through the themes and attach appropriate class selectors so,
-         * we can use them to encapsulate each theme.
-         */
-        themes = _.fromPairs(_.map(themes, (theme, themeName) => [
-            themeName,
-            {
-                selector: `".theme-${themeName}"`,
-                ...theme,
-            },
-        ]));
+        // /**
+        //  * Go through the themes and attach appropriate class selectors so,
+        //  * we can use them to encapsulate each theme.
+        //  */
+        // themes = _.fromPairs(_.map(themes, (theme, themeName) => [
+        //     themeName,
+        //     {
+        //         selector: `".theme-${themeName}"`,
+        //         ...theme,
+        //     },
+        // ]));
 
-        /* Generate the SASS map using the themes object */
-        const sassMap = jsonToSassMap(JSON.stringify({'user-themes': themes}));
+        // /* Generate the SASS map using the themes object */
+        // const sassMap = jsonToSassMap(JSON.stringify({'user-themes': themes}));
 
-        /* Get the file path */
-        const filename = path.resolve(__dirname, ('../../styles/user-themes.scss'));
+        // /* Get the file path */
+        // const filename = path.resolve(__dirname, ('../../styles/user-themes.scss'));
 
-        /* Read the file and get its data */
-        let data;
-        try
-        {
-            data = fs.readFileSync(filename, {encoding: 'utf8'});
-        }
-        catch ( err )
-        {
-            console.error(err);
-        }
+        // /* Read the file and get its data */
+        // let data;
+        // try
+        // {
+        //     data = fs.readFileSync(filename, {encoding: 'utf8'});
+        // }
+        // catch ( err )
+        // {
+        //     console.error(err);
+        // }
 
-        /* Write the file if the map has been changed */
-        if ( data !== sassMap )
-        {
-            try
-            {
-                fs.writeFileSync(filename, sassMap, {encoding: 'utf8'});
-            }
-            catch ( err )
-            {
-                console.error(err);
-            }
-        }
+        // /* Write the file if the map has been changed */
+        // if ( data !== sassMap )
+        // {
+        //     try
+        //     {
+        //         fs.writeFileSync(filename, sassMap, {encoding: 'utf8'});
+        //     }
+        //     catch ( err )
+        //     {
+        //         console.error(err);
+        //     }
+        // }
 
         /**
          * Iterate through the user's themes and build Tailwind components containing
