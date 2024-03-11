@@ -43,37 +43,37 @@
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"ID"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"ID"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.managerFirstName}} {{ row?.managerLastName}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="login">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"login"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"login"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.username}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"register_date"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"status"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <button *ngIf="row?.active"

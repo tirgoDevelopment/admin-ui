@@ -27,24 +27,24 @@
        <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"id"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"id"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"action"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"action"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.action}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="date">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"date"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.date}} </mat-cell>
                 </ng-container>

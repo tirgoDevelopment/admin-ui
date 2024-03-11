@@ -226,5 +226,9 @@
      "notVerified":"Не верифицированный",
      "merchant_order":"Merchant Order",
      "no_merchant_order":"No Merchant Order",
-     "unblock":"Разблокировать"
+     "unblock":"Разблокировать",
+     "start_date_reg":"Дата начала регистрации",
+     "end_date_reg":"Дата окончания регистрации",
+     "start_date_log":"Дата начала входа в систему",
+     "end_date_log":"Дата окончания входа в систему"
 }

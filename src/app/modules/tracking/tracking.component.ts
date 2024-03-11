@@ -32,7 +32,7 @@ export class TrackingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllTracking();
+    // this.getAllTracking();
   }
 
   getAllTracking() {

@@ -12,7 +12,6 @@ import { provideTransloco } from 'app/core/transloco/transloco.provider';
 import { mockApiServices } from './core/mock-api';
 import { provideToastr } from 'ngx-toastr';
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
-import { authInterceptor } from './core/auth/auth.interceptor';
 import { ErrorInterceptorService } from './core/interceptors/error-interceptor';
 
 const mapConfig: YaConfig = {

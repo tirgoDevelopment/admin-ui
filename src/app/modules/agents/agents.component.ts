@@ -72,10 +72,9 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
 
   getAllAgents(params?) {
     this._agentService.getAll(params).subscribe((response) => {
-      this.dataSource.data = response.data;
+      this.dataSource.data = response?.data;
     });
   }
-
   
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;

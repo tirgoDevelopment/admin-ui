@@ -15,25 +15,25 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="name">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"name"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="is_mode">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"is_mode"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"is_mode"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.isMode}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="count">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"count"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"count"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.count}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="description">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"description"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"description"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.description}} </mat-cell>
                 </ng-container>

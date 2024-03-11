@@ -70,7 +70,7 @@ export class DriversComponent implements OnInit {
     this._typeService.getTransportKinds().subscribe((response:any) => {
       this.transportKinds = response.data;
     })
-    this.cdr.checkNoChanges()
+    this.cdr.detectChanges()
   }
 
   clearFilters() {

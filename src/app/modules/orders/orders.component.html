@@ -65,27 +65,27 @@
     <div class="mt-4 h-100">
       <mat-table matSort [dataSource]="dataSource" class="table">
         <ng-container matColumnDef="index">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef> No </mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
           <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="id">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef> ID </mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
           <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="sendLocation">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.loadingLocation}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef class="font-extrabold " mat-sort-header sortActionDescription="Sort by status"> {{ 'status' |
+          <mat-header-cell *matHeaderCellDef class="font-bold" mat-sort-header sortActionDescription="Sort by status"> {{ 'status' |
             transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div class="status-badge" [class]="returnClassStatusOrder(row.cargoStatus.name)">
@@ -95,14 +95,14 @@
         </ng-container>
 
         <ng-container matColumnDef="type_cargo">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div class="truncate">{{ row.cargoType.name }}</div>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="transport_type">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <span *ngIf="row.transportTypes">
               <span *ngFor="let type of row.transportTypes;let i=index">
@@ -115,25 +115,25 @@
 
 
         <ng-container matColumnDef="secure_transaction">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'secure_transaction' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'secure_transaction' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.isSafe ? 'Да':'Нет'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'price' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'price' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.offeredPrice }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="date_send">
-           <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'shipment_date' | transloco }}</mat-header-cell>
+           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'shipment_date' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             {{ (row.isUrgent ? addTwoDays(row.createdAt) : row.createdAt) | date: 'dd.MM.YYYY' }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="client">
-          <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
         </ng-container>
 

@@ -52,7 +52,7 @@ export class UserActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllUsersActivity();
+    // this.getAllUsersActivity();
   }
 
   getAllUsersActivity() {

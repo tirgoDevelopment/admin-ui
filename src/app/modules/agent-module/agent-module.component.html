@@ -60,35 +60,35 @@
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.phone}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="city">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"city"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"city"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"register_date"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="rating">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"rating"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"rating"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.rating}} </mat-cell>
                 </ng-container>

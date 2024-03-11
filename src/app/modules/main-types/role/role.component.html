@@ -15,13 +15,13 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="role">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"role"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"role"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="add_driver">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"add_driver"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_driver"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addDriver">{{"yes"|transloco}}</span>
@@ -30,7 +30,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="add_client">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"add_client"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_client"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addClient">{{"yes"|transloco}}</span>
@@ -39,7 +39,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="add_order">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"add_order"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_order"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addOrder">{{"yes"|transloco}}</span>
@@ -47,7 +47,7 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="cancel_order">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"cancel_order"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"cancel_order"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.cancelOrder">{{"yes"|transloco}}</span>
@@ -56,7 +56,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="watch_driver">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"watch_driver"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"watch_driver"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.seeDriversInfo">{{"yes"|transloco}}</span>
@@ -65,7 +65,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="watch_client">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"watch_client"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"watch_client"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.seeClientsInfo">{{"yes"|transloco}}</span>
@@ -75,7 +75,7 @@
 
 
                 <ng-container matColumnDef="send_push">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"send_push"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"send_push"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.sendPush">{{"yes"|transloco}}</span>
@@ -84,7 +84,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="chat">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"chat"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"chat"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.chat">{{"yes"|transloco}}</span>
@@ -93,7 +93,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="tracking">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"tracking"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"tracking"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.tracking">{{"yes"|transloco}}</span>
@@ -102,7 +102,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="driver_finance">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"driver_finance"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"driver_finance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.driverFinance">{{"yes"|transloco}}</span>
@@ -111,7 +111,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="merchant_finance">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"merchant_finance"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"merchant_finance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.merchantFinance">{{"yes"|transloco}}</span>
@@ -120,7 +120,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="registr_merchant">
-                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"registr_merchant"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"registr_merchant"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.registrMerchant">{{"yes"|transloco}}</span>
