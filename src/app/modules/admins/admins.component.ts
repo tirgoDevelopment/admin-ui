@@ -56,11 +56,11 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllAdmin();
+    this.getAllAdmin(this.pageParams);
   }
 
-  getAllAdmin(patams?) {
-    this._admninService.getAll(patams).subscribe((response) => {
+  getAllAdmin(params?) {
+    this._admninService.getAll(params).subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
@@ -75,7 +75,7 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllAdmin(this.pageParams);
       })
   }
 
@@ -91,7 +91,7 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllAdmin(this.pageParams);
       })
   }
 
@@ -106,13 +106,13 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllAdmin()
+        this.getAllAdmin(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._admninService.delete(id).subscribe(() => {
-      this.getAllAdmin()
+      this.getAllAdmin(this.pageParams);
     })
   }
 }
