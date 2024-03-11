@@ -234,5 +234,7 @@
     "start_date_reg":"Ro'yxatdan o'tishning boshlanish sanasi",
     "end_date_reg":"Ro'yxatdan o'tishning tugash sanasi",
     "start_date_log":"Kirish Boshlanish sanasi ",
-    "end_date_log":"kirish Tugash sanasi "
+    "end_date_log":"kirish Tugash sanasi ",
+    "merchant_client":"Savdogar mijozi",
+    "merchant_driver":"Savdogar haydovchi"
 }

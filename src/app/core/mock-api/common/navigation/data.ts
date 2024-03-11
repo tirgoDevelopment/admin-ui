@@ -58,10 +58,30 @@ export const defaultNavigation: FuseNavigationItem[] = [
             {
                 id: 'merchant',
                 title: 'merchant',
-                type: 'basic',
+                type: 'collapsable',
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
-                link: '/merchants',
+                link: '/client-merchants',
+                children: [
+                    {
+                        id: 'merchant.client',
+                        title: 'merchant_client',
+                        type: 'basic',
+                        icon_w: 'client-w.svg',
+                        icon: 'clients.svg',
+                        link: '/client-merchants',
+                        exactMatch: true,
+                    },
+                    {
+                        id: 'merchant.driver',
+                        title: 'merchant_driver',
+                        type: 'basic',
+                        icon_w: 'client-w.svg',
+                        icon: 'clients.svg',
+                        link: '/driver-merchants',
+                        exactMatch: true,
+                    },
+                ],
             },
             {
                 id: 'orders',

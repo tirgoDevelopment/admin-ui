@@ -19,25 +19,26 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
-import { MerchantService } from '../../services/merchant.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MerchantModel } from '../../models/merchanr.model';
+import { MerchantModel } from 'app/modules/merchant/models/merchanr.model';
+import { DriverMerchantService } from '../../services/driver-merchant.service';
 
 @Component({
-  selector: 'app-merchant-confirm',
-  templateUrl: './merchant-confirm.component.html',
-  styleUrls: ['./merchant-confirm.component.scss'],
+  selector: 'app-driver-merchant-confirm',
+  templateUrl: './driver-merchant-confirm.component.html',
+  styleUrls: ['./driver-merchant-confirm.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+
 })
-export class MerchantConfirmComponent implements OnInit {
+export class DriverMerchantConfirmComponent {
   merchant: MerchantModel;
   id: number;
   constructor(
     public dialog: MatDialog,
-    private merchantService: MerchantService,
+    private driverMerchantService: DriverMerchantService,
     private router: Router,
     private route: ActivatedRoute) {
   }
@@ -51,7 +52,7 @@ export class MerchantConfirmComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-    this.merchantService.get(id).subscribe(responce => {
+    this.driverMerchantService.get(id).subscribe(responce => {
       this.merchant = responce.data;
     })
   }
@@ -67,19 +68,19 @@ export class MerchantConfirmComponent implements OnInit {
   }
 
   approve() {
-    this.merchantService.verify(this.id).subscribe(responce => {
+    this.driverMerchantService.verify(this.id).subscribe(responce => {
       this.merchant = responce.data;
       if (responce.success) {
-        this.router.navigate(['/merchants'])
+        this.router.navigate(['/driver-merchants'])
       }
     })
   }
 
   reject() {
-    this.merchantService.reject(this.id).subscribe(responce => {
+    this.driverMerchantService.reject(this.id).subscribe(responce => {
       this.merchant = responce.data;
       if (responce.success) {
-        this.router.navigate(['/merchants'])
+        this.router.navigate(['/driver-merchants'])
       }
     })
   }
