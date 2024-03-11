@@ -42,46 +42,46 @@
         <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"id"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"ID"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.supervisorFirstName}} {{
                         row?.supervisorLastName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="companyName">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"company_name"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"company_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="entity">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"entity"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"entity"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.taxPayerCode}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="balance">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"balance"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"balance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.balance}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="loads">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"loads"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"loads"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.loads}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"status"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <button *ngIf="row?.active"

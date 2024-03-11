@@ -15,25 +15,25 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fullName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="login">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"login"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"login"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.username}} </mat-cell>
                 </ng-container>
 
 
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"register_date"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-extrabold index-column" *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-extrabold " *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
