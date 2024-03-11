@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { OrdersService } from './services/orders.service';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from 'app/core/auth/auth.service';
@@ -50,6 +50,15 @@ export class OrdersComponent implements OnInit {
     sendDate: '',
     merchantOrder: ''
   };
+
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<OrderModel>([]);
@@ -83,7 +92,7 @@ export class OrdersComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getOrders()
+        this.getOrders(this.pageParams);
       })
   }
 
@@ -107,9 +116,15 @@ export class OrdersComponent implements OnInit {
 
   }
 
-  getOrders() {
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getOrders(this.pageParams);
+  }
+  getOrders(params?) {
     this.isLoading = true;
-    this.orderService.getOrders(this.filters).subscribe((res: any) => {
+    this.orderService.getOrders(Object.assign(this.filters, this.pageParams)).subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data;
@@ -161,7 +176,7 @@ export class OrdersComponent implements OnInit {
   cancel(row) {
     this.orderService.cancelOrder(row.id).subscribe((res: any) => {
       if (res && res.success) {
-        this.getOrders();
+        this.getOrders(this.pageParams);
       }
     })
   }
@@ -175,7 +190,7 @@ export class OrdersComponent implements OnInit {
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getOrders();
+      this.getOrders(this.pageParams);
     });
   }
 
@@ -187,7 +202,7 @@ export class OrdersComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getOrders();
+      this.getOrders(this.pageParams);
     });
   }
 

@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -43,6 +43,14 @@ export class ClientsComponent {
     lastLogin_from: '',
     lastLogin_to: '',
   };
+
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
   displayedColumns: string[] = ['id', 'full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -50,12 +58,11 @@ export class ClientsComponent {
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
     private _clientService: ClientService, protected _dialog?: MatDialog) {
-    this.getAllClient();
+    this.getAllClient(this.pageParams);
   }
 
-  getAllClient() {
-    this._clientService.getAll(this.filters).subscribe((response) => {
-      console.log(response);
+  getAllClient(params?) {
+    this._clientService.getAll(Object.assign(this.filters, this.pageParams)).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
@@ -75,6 +82,13 @@ export class ClientsComponent {
 
   filterClients() {
 
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllClient(this.pageParams);
   }
 
   send() {
@@ -120,13 +134,13 @@ export class ClientsComponent {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllClient()
+        this.getAllClient(this.pageParams);
       })
   }
 
   active(id:number){
     this._clientService.active(id).subscribe(() => {
-      this.getAllClient()
+      this.getAllClient(this.pageParams);
     })
   }
 
@@ -140,7 +154,7 @@ export class ClientsComponent {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllClient()
+        this.getAllClient(this.pageParams);
       })
   }
 
@@ -155,13 +169,13 @@ export class ClientsComponent {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllClient()
+        this.getAllClient(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._clientService.delete(id).subscribe(() => {
-      this.getAllClient()
+      this.getAllClient(this.pageParams);
     })
   }
 }

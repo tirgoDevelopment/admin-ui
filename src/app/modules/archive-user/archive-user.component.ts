@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -31,13 +31,27 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['id', 'full_name', 'phone', 'type', 'register_date', 'actions'];;
+  displayedColumns: string[] = ['id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ArchiveUserModel>([]);
   constructor(private _archiveUserService: ArchiveUserService, protected _dialog?: MatDialog) {
   }
 
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllArchiveUsers(this.pageParams);
+  }
+  
   detail(id: number) {
     this._dialog.open(DetailArchiveUserComponent, {
       width: '500px',
@@ -53,11 +67,11 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllDeleted();
+    this.getAllArchiveUsers(this.pageParams);
   }
 
-  getAllDeleted() {
-    this._archiveUserService.getAll().subscribe((response) => {
+  getAllArchiveUsers(params) {
+    this._archiveUserService.getAll(params).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }

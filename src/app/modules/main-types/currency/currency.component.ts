@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -30,22 +30,37 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 export class CurrencyComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = [ 'name','code', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   dataSource = new MatTableDataSource<CurrencyModel>([]);
   constructor(private _currencyService: CurrencyService, protected _dialog?: MatDialog) {
     super();
   }
 
   ngOnInit() {
-    this.getAllTruck();
+    this.getAllCurrency(this.pageParams);
   }
 
-  getAllTruck() {
-    this._currencyService.getAll().subscribe((response) => {
+  getAllCurrency(params?) {
+    this._currencyService.getAll(params).subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
 
+  
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllCurrency(this.pageParams);
+  }
+  
+  
   add() {
     const dialog = this._dialog.open(AddCurrencyComponent, {
       minWidth: '25vw',
@@ -56,7 +71,7 @@ export class CurrencyComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllTruck()
+        this.getAllCurrency(this.pageParams);
       })
   }
 
@@ -71,13 +86,13 @@ export class CurrencyComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllTruck()
+        this.getAllCurrency(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._currencyService.delete(id).subscribe(() => {
-      this.getAllTruck()
+      this.getAllCurrency(this.pageParams);
     })
   }
 }

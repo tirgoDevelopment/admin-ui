@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -54,17 +54,30 @@ export class MerchantComponent implements OnInit {
     };
   }
 
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   filterDrivers() {
 
   }
 
-
-  ngOnInit() {
-    this.getAllMerchants();
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllMerchants(this.pageParams);
   }
 
-  getAllMerchants() {
-    this._merchantService.Verified(this.filters).subscribe((response) => {
+  ngOnInit() {
+    this.getAllMerchants(this.pageParams);
+  }
+
+  getAllMerchants(params?) {
+    this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
@@ -82,12 +95,12 @@ export class MerchantComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllMerchants()
+        this.getAllMerchants(this.pageParams);
       })
   }
   active(id: number) {
     this._merchantService.active(id).subscribe(() => {
-      this.getAllMerchants()
+      this.getAllMerchants(this.pageParams);
     })
   }
   requests() {
@@ -100,14 +113,14 @@ export class MerchantComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllMerchants()
+        this.getAllMerchants(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._merchantService.delete(id).subscribe((response) => {
       if (response.status) {
-        this.getAllMerchants()
+        this.getAllMerchants(this.pageParams);
       }
     })
   }

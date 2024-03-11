@@ -114,7 +114,7 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllDrivers(this.pageParams);
       })
   }
 
@@ -129,7 +129,7 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllDrivers(this.pageParams);
       })
   }
 
@@ -144,13 +144,13 @@ export class AgentDriverListComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers(this.id)
+        this.getAllDrivers(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllDrivers(this.id)
+      this.getAllDrivers(this.pageParams);
     })
   }
 }

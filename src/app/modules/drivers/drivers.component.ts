@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -49,6 +49,13 @@ export class DriversComponent implements OnInit {
     lastLoginFrom: '',
     lastLoginTo: '',
   };
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   displayedColumns: string[] = ['id','full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -59,7 +66,7 @@ export class DriversComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllDrivers();
+    this.getAllDrivers(this.pageParams);
     this._typeService.getTransportKinds().subscribe((response:any) => {
       this.transportKinds = response.data;
     })
@@ -97,16 +104,23 @@ export class DriversComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.pageParams);
       })
   }
 
-  getAllDrivers() {
-    this._driversService.getAll(this.filters).subscribe((response) => {
+  getAllDrivers(params?) {
+    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }
 
+
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllDrivers(this.pageParams);
+  }
 
   send() {
     this._dialog.open(SendPushComponent, {
@@ -142,7 +156,7 @@ export class DriversComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.pageParams);
       })
   }
 
@@ -157,12 +171,12 @@ export class DriversComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.pageParams);
       })
   }
   active(id:number){
     this._driversService.active(id).subscribe(() => {
-      this.getAllDrivers()
+      this.getAllDrivers(this.pageParams);
     })
   }
 
@@ -177,7 +191,7 @@ export class DriversComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.pageParams);
       })
   }
 
@@ -193,13 +207,13 @@ export class DriversComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllDrivers()
+        this.getAllDrivers(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._driversService.delete(id).subscribe(() => {
-      this.getAllDrivers()
+      this.getAllDrivers(this.pageParams);
     })
   }
 }

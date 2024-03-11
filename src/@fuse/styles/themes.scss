@@ -84,81 +84,77 @@ $dark-base: (
 @include mat.core();
 
 /* Create a base theme without any color to set the density and typography */
-// @include mat.all-component-themes((
-//     color: null,
-//     density: 0,
-//     typography: mat.define-typography-config(
-//         $font-family: theme('fontFamily.sans'),
-//         $headline-1: mat.define-typography-level(1.875rem, 2.25rem, 800, theme('fontFamily.sans')),
-//         $headline-2: mat.define-typography-level(1.25rem, 1.75rem, 700, theme('fontFamily.sans')),
-//         $headline-3: mat.define-typography-level(1.125rem, 1.75rem, 600, theme('fontFamily.sans')),
-//         $headline-4: mat.define-typography-level(0.875rem, 1.25rem, 600, theme('fontFamily.sans')),
-//         $headline-5: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
-//         $headline-6: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
-//         $subtitle-1: mat.define-typography-level(1rem, 1.75rem, 400, theme('fontFamily.sans')),
-//         $subtitle-2: mat.define-typography-level(0.875rem, 1.25rem, 600, theme('fontFamily.sans')),
-//         $body-1: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
-//         $body-2: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
-//         $caption: mat.define-typography-level(0.75rem, 1rem, 400, theme('fontFamily.sans')),
-//         $button: mat.define-typography-level(0.875rem, 0.875rem, 500, theme('fontFamily.sans')),
-//         $overline: mat.define-typography-level(0.75rem, 2rem, 500, theme('fontFamily.sans'))
-//     )
-// ));
+@include mat.all-component-themes((
+    color: null,
+    density: 0,
+    typography: mat.define-typography-config(
+        $font-family: theme('fontFamily.sans'),
+        $headline-1: mat.define-typography-level(1.875rem, 2.25rem, 800, theme('fontFamily.sans')),
+        $headline-2: mat.define-typography-level(1.25rem, 1.75rem, 700, theme('fontFamily.sans')),
+        $headline-3: mat.define-typography-level(1.125rem, 1.75rem, 600, theme('fontFamily.sans')),
+        $headline-4: mat.define-typography-level(0.875rem, 1.25rem, 600, theme('fontFamily.sans')),
+        $headline-5: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
+        $headline-6: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
+        $subtitle-1: mat.define-typography-level(1rem, 1.75rem, 400, theme('fontFamily.sans')),
+        $subtitle-2: mat.define-typography-level(0.875rem, 1.25rem, 600, theme('fontFamily.sans')),
+        $body-1: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
+        $body-2: mat.define-typography-level(0.875rem, 1.5rem, 400, theme('fontFamily.sans')),
+        $caption: mat.define-typography-level(0.75rem, 1rem, 400, theme('fontFamily.sans')),
+        $button: mat.define-typography-level(0.875rem, 0.875rem, 500, theme('fontFamily.sans')),
+        $overline: mat.define-typography-level(0.75rem, 2rem, 500, theme('fontFamily.sans'))
+    )
+));
 
 /* Loop through user themes and generate Angular Material themes */
-// @each $name, $theme in userThemes.$user-themes {
+@each $name, $theme in userThemes.$user-themes {
+    /* Generate the palettes */
+    $palettes: ();
+    @each $name in (primary, accent, warn) {
+        /* Define the Angular Material theme */
+        $palette: mat.define-palette(map.get($theme, $name));
+        /* Replace the default colors on the defined Material palette */
+        $palette: map.merge($palette, (
+            default: map.get(map.get($theme, $name), DEFAULT),
+            lighter: map.get(map.get($theme, $name), 100),
+            darker: map.get(map.get($theme, $name), 700),
+            text: map.get(map.get($theme, $name), DEFAULT),
+            default-contrast: map.get(map.get(map.get($theme, $name), contrast), DEFAULT),
+            lighter-contrast: map.get(map.get(map.get($theme, $name), contrast), 100),
+            darker-contrast: map.get(map.get(map.get($theme, $name), contrast), 700)
+        ));
+        $palettes: map.merge($palettes, (#{$name}: $palette));
+    }
 
-//     /* Generate the palettes */
-//     $palettes: ();
-//     @each $name in (primary, accent, warn) {
+    /* Define a light & dark Angular Material theme with the generated palettes */
+    $light-theme: mat.define-light-theme((
+        color: $palettes
+    ));
 
-//         /* Define the Angular Material theme */
-//         $palette: mat.define-palette(map.get($theme, $name));
+    $dark-theme: mat.define-dark-theme((
+        color: $palettes
+    ));
 
-//         /* Replace the default colors on the defined Material palette */
-//         $palette: map.merge($palette, (
-//             default: map.get(map.get($theme, $name), DEFAULT),
-//             lighter: map.get(map.get($theme, $name), 100),
-//             darker: map.get(map.get($theme, $name), 700),
-//             text: map.get(map.get($theme, $name), DEFAULT),
-//             default-contrast: map.get(map.get(map.get($theme, $name), contrast), DEFAULT),
-//             lighter-contrast: map.get(map.get(map.get($theme, $name), contrast), 100),
-//             darker-contrast: map.get(map.get(map.get($theme, $name), contrast), 700)
-//         ));
+    /* Merge the custom base colors with the generated themes */
+    $light-theme-colors: map.merge(map.get($light-theme, color), $light-base);
+    $light-theme: map.merge(
+            (color: $light-theme-colors),
+            $light-theme-colors
+    );
 
-//         $palettes: map.merge($palettes, (#{$name}: $palette));
-//     }
+    $dark-theme-colors: map.merge(map.get($dark-theme, color), $dark-base);
+    $dark-theme: map.merge(
+            (color: $dark-theme-colors),
+            $dark-theme-colors
+    );
 
-//     /* Define a light & dark Angular Material theme with the generated palettes */
-//     $light-theme: mat.define-light-theme((
-//         color: $palettes
-//     ));
+    /* Generate and encapsulate Angular Material themes */
+    #{map.get($theme, selector)} .light,
+    #{map.get($theme, selector)}.light {
+        @include mat.all-component-colors($light-theme);
+    }
 
-//     $dark-theme: mat.define-dark-theme((
-//         color: $palettes
-//     ));
-
-//     /* Merge the custom base colors with the generated themes */
-//     $light-theme-colors: map.merge(map.get($light-theme, color), $light-base);
-//     $light-theme: map.merge(
-//             (color: $light-theme-colors),
-//             $light-theme-colors
-//     );
-
-//     $dark-theme-colors: map.merge(map.get($dark-theme, color), $dark-base);
-//     $dark-theme: map.merge(
-//             (color: $dark-theme-colors),
-//             $dark-theme-colors
-//     );
-
-//     /* Generate and encapsulate Angular Material themes */
-//     #{map.get($theme, selector)} .light,
-//     #{map.get($theme, selector)}.light {
-//         @include mat.all-component-colors($light-theme);
-//     }
-
-//     #{map.get($theme, selector)} .dark,
-//     #{map.get($theme, selector)}.dark {
-//         @include mat.all-component-colors($dark-theme);
-//     }
-// }
+    #{map.get($theme, selector)} .dark,
+    #{map.get($theme, selector)}.dark {
+        @include mat.all-component-colors($dark-theme);
+    }
+}

@@ -71,7 +71,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   }
 
   getAllAgents(params?) {
-    this._agentService.getAll().subscribe((response) => {
+    this._agentService.getAll(params).subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
@@ -94,7 +94,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAgents()
+        this.getAllAgents(this.pageParams);
       })
   }
 
@@ -109,14 +109,14 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllAgents()
+        this.getAllAgents(this.pageParams);
       })
   }
 
 
   active(id: number) {
     this._agentService.active(id).subscribe(() => {
-      this.getAllAgents()
+      this.getAllAgents(this.pageParams);
     })
   }
 
@@ -131,13 +131,13 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllAgents()
+        this.getAllAgents(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._agentService.delete(id).subscribe(() => {
-      this.getAllAgents()
+      this.getAllAgents(this.pageParams);
     })
   }
 }

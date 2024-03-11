@@ -54,6 +54,7 @@ export class AgentModuleComponent implements OnInit {
     this.getAllDrivers(this.pageParams);
     this.getBalance(this.id)
   }
+  
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
     this.pageParams.perPage = event.pageSize;
@@ -62,7 +63,7 @@ export class AgentModuleComponent implements OnInit {
   }
 
   getAllDrivers( params) {
-    this._agentService.getAllByAgent( params).subscribe((response) => {
+    this._agentService.getAllByAgent(params).subscribe((response) => {
       this.dataSource.data = response?.data;
     });
   }

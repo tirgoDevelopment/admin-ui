@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +29,13 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 })
 export class TransportComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'actions'];
+  pageParams = {
+    page: 1,
+    limit: 10,
+    perPage: 10,
+    sortBy: 'id',
+    sortType: 'asc'
+  };
   // displayedColumns: string[] = ['name', 'load_side', 'volume', 'capacity','actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -38,14 +45,23 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllTransport();
+    this.getAllTransport(this.pageParams);
   }
 
-  getAllTransport() {
-    this._transportService.getAll().subscribe((response) => {
+  getAllTransport(params?) {
+    this._transportService.getAll(params).subscribe((response) => {
       this.dataSource.data = response.data;
     });
   }
+
+
+  onPageChange(event: PageEvent): void {
+    this.pageParams.limit = event.pageSize;
+    this.pageParams.perPage = event.pageSize;
+    this.pageParams.page = event.pageIndex;
+    this.getAllTransport(this.pageParams);
+  }
+
 
   add() {
     const dialog = this._dialog.open(AddTransportComponent, {
@@ -57,7 +73,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this.getAllTransport()
+        this.getAllTransport(this.pageParams);
       })
   }
 
@@ -72,13 +88,13 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe(() => {
-        this.getAllTransport()
+        this.getAllTransport(this.pageParams);
       })
   }
 
   delete(id: number) {
     this._transportService.delete(id).subscribe(() => {
-      this.getAllTransport()
+      this.getAllTransport(this.pageParams);
     })
   }
 }
