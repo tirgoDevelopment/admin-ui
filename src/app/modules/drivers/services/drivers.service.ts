@@ -23,7 +23,7 @@ export class DriversService {
   }
 
   getAll(params?): Observable<Response<DriverModel[]>> {
-    return this._apiService.get<DriverModel[]>('/users/drivers/all', createHttpParams(params));
+    return this._apiService.get<DriverModel[]>('/users/drivers/all-drivers', createHttpParams(params));
   }
 
   create(body): Observable<Response<DriverModel>> {
@@ -58,13 +58,13 @@ export class DriversService {
   block(id: number,body): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<DriverModel>(`/users/drivers/block`, body, queryParams);
+    return this._apiService.patch<DriverModel>(`/users/drivers/block-driver`, body, queryParams);
   }
 
   active(id:number): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<DriverModel>(`/users/drivers/activate`, {}, queryParams);
+    return this._apiService.patch<DriverModel>(`/users/drivers/unblock-driver`, {}, queryParams);
   }
 
   delete(id: number): Observable<Response<DriverModel>> {
