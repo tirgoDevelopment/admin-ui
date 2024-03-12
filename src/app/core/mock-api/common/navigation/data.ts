@@ -179,6 +179,25 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         link: '/types/cargo-group',
                         exactMatch: true,
                     },
+                    {
+                        id: 'types.package',
+                        title: 'package',
+                        type: 'basic',
+                        icon: 'file.svg',
+                        icon_w: 'file-w.svg',
+                        link: '/types/cargo-package',
+                        exactMatch: true,
+                    },
+
+                    {
+                        id: 'types.loading_method',
+                        title: 'loading_method',
+                        type: 'basic',
+                        icon: 'file.svg',
+                        icon_w: 'file-w.svg',
+                        link: '/types/cargo-loading-method',
+                        exactMatch: true,
+                    },
                 ],
             },
             {

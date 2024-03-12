@@ -237,5 +237,10 @@
     "end_date_log":"kirish Tugash sanasi ",
     "merchant_client":"Savdogar mijozi",
     "merchant_driver":"Savdogar haydovchi",
-    "color":"Rang"
+    "color":"Rang",
+    "package":"Paket",
+    "add_cargo_loading":"Yukni yuklash usulini qo'shing",
+    "edit_cargo_loading":"Yukni yuklash usulini tahrirlash",
+    "add_cargo_package":"Yuk paketini qo'shish",
+    "edit_cargo_package":"Yuk paketini tahrirlash"
 }

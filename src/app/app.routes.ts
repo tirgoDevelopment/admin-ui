@@ -86,6 +86,12 @@ export const appRoutes: Route[] = [
                     {
                         path: 'cargo-group', loadChildren: () => import('app/modules/main-types/cargo-group/cargo-group.resolver')
                     },
+                    {
+                        path: 'cargo-package', loadChildren: () => import('app/modules/main-types/cargo-packages/cargo-packages.resolver')
+                    },
+                    {
+                        path: 'cargo-loading-method', loadChildren: () => import('app/modules/main-types/cargo-loading-method/cargo-loading-method.resolver')
+                    }
                 ]
             },
             {
