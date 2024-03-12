@@ -62,7 +62,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     companyName: new FormControl('', [Validators.required]),
     supervisorFirstName: new FormControl('', [Validators.required]),
     supervisorLastName: new FormControl('', [Validators.required]),
-    responsiblePersonFistName: new FormControl('', [Validators.required]),
+    responsiblePersonFullName: new FormControl('', [Validators.required]),
     responsiblePersonLastName: new FormControl('', [Validators.required]),
     responsbilePersonPhoneNumber: new FormControl('', [Validators.required]),
     legalAddress: new FormControl('', [Validators.required]),

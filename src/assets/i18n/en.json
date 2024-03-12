@@ -82,7 +82,7 @@
     "geolocation":"Geolocation",
     "date_birth":"Date of birth",
     "curency":"Currency",
-    "transport_cargo":" Transport cargo",
+    "transport_cargo":" Transport kind",
     "cargo_type_status":"Cargo type status",
     "code":"Code",
     "add_currency":"Add currency",
@@ -236,5 +236,6 @@
      "start_date_log":"Start date login",
      "end_date_log":"End date login",
      "merchant_client":"Merchant client",
-     "merchant_driver":"Merchant driver"
+     "merchant_driver":"Merchant driver",
+     "color":"Color"
 }

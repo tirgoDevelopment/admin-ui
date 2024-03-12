@@ -27,8 +27,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   imports: [TranslocoModule, RouterLink, MatIconModule, MatDialogModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantListComponent {
-  merchants:any;
-  link: 'SDsadsad'
+  merchants: any;
   constructor(private _merchantService: MerchantService,
     public dialogref: DialogRef) {
     this.unverifiedMerchants()

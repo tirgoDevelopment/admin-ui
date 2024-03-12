@@ -57,21 +57,10 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="entity">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"entity"|transloco}}
+                <ng-container matColumnDef="register_date">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.taxPayerCode}} </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="balance">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"balance"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.balance}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="loads">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"loads"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.loads}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">

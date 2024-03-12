@@ -83,7 +83,7 @@
     "geolocation":"Geolocation",
     "date_birth":"Tug'ilgan kuni",
     "curency":"Valyuta",
-    "transport_cargo":"Yuk tashish",
+    "transport_cargo":"Transport turi",
     "cargo_type_status":"Yuk turi holati",
     "code":"Kod",
     "add_currency":"Valyuta qo'shing",
@@ -236,5 +236,6 @@
     "start_date_log":"Kirish Boshlanish sanasi ",
     "end_date_log":"kirish Tugash sanasi ",
     "merchant_client":"Savdogar mijozi",
-    "merchant_driver":"Savdogar haydovchi"
+    "merchant_driver":"Savdogar haydovchi",
+    "color":"Rang"
 }

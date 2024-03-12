@@ -82,7 +82,7 @@
     "geolocation":"Геолокация",
     "date_birth":"Дата рождения",
     "curency":"Валюта",
-    "transport_cargo":" Transport cargo",
+    "transport_cargo":" Вид транспорта",
     "cargo_type_status":"Статус",
     "code":"Код",
     "add_currency":"Добавить",
@@ -232,5 +232,6 @@
      "start_date_log":"Дата начала входа в систему",
      "end_date_log":"Дата окончания входа в систему",
      "merchant_client":"Торговый клиент",
-     "merchant_driver":"Водитель-торговец"
+     "merchant_driver":"Водитель-торговец",
+     "color":"Цвет"
 }

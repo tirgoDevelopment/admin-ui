@@ -11,8 +11,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'first_name' | transloco }}</mat-label>
-                    <input matInput  formControlName="firstName"
-                        [ngClass]="{'is-invalid': f.firstName.errors}">
+                    <input matInput formControlName="firstName" [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -28,8 +27,7 @@
 
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'citizenship' | transloco }}</mat-label>
-                    <input matInput  formControlName="citizenship"
-                        [ngClass]="{'is-invalid': f.citizenship.errors}">
+                    <input matInput formControlName="citizenship" [ngClass]="{'is-invalid': f.citizenship.errors}">
                     <mat-error *ngIf="f.citizenship.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -37,8 +35,7 @@
                 <div class="w-full flex" *ngIf="!edit">
                     <mat-form-field color="accent" class="w-full">
                         <mat-label>{{ 'password' | transloco }}</mat-label>
-                        <input matInput  formControlName="password"
-                            [ngClass]="{'is-invalid': f.password.errors}">
+                        <input matInput formControlName="password" [ngClass]="{'is-invalid': f.password.errors}">
                         <mat-error *ngIf="f.password.errors?.required">
                             {{ 'is_empty' | transloco }}
                         </mat-error>
@@ -74,16 +71,14 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'last_name' | transloco }}</mat-label>
-                    <input matInput  formControlName="lastName"
-                        [ngClass]="{'is-invalid': f.lastName.errors}">
+                    <input matInput formControlName="lastName" [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'email' | transloco }}</mat-label>
-                    <input matInput  formControlName="email"
-                        [ngClass]="{'is-invalid': f.email.errors}">
+                    <input matInput formControlName="email" [ngClass]="{'is-invalid': f.email.errors}">
                     <mat-error *ngIf="f.email.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -114,7 +109,7 @@
                     </mat-error>    
                 </mat-form-field> -->
                 <div class="w-32">
-                    <mat-label class="font-bold">{{ 'driver_lisense' | transloco }}</mat-label>
+                    <mat-label class="font-bold">{{ 'passport' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -154,8 +149,8 @@
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
         <button
-            [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button dark': !form.invalid && !form.pristine}"
-            mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+            [ngClass]="{'fuse-mat-button text-white': form.invalid , 'fuse-mat-button dark': !form.invalid }"
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid " (click)="submit()">
             {{ 'save' | transloco }}
         </button>
     </div>

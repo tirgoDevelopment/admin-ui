@@ -24,7 +24,7 @@ import { CountryService } from 'app/shared/services/country.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
+import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 
 @Component({
   selector: 'app-add-client',
@@ -108,12 +108,9 @@ export class AddClientComponent {
       if (files) {
         this.file = files;
       }
-      // const formData = new FormData();
       this.fileName = passportFile.name;
       const file = new File([passportFile], passportFile.name, { type: passportFile.type });
-      // formData.append('file',file, String(new Date().getTime()));
       this.form.get('passport').setValue(file);
-      console.log(this.form.get('passport').value);
     }
   }
 
@@ -136,6 +133,9 @@ export class AddClientComponent {
 
   submit() {
     if (this.form.value.id) {
+      this.form.patchValue({
+        phoneNumbers: [this.form.get('phoneNumber').value]
+      })
       this._clientService.update(this.form.value)
         .pipe(res => {
           if (isObservable(res)) {
@@ -144,7 +144,7 @@ export class AddClientComponent {
             //     ...this.form.get('phoneNumbers').value
             //   ]
             // })
-            this.formData = new FormData();
+            // this.formData = new FormData();
             return res
           } else {
             return res
@@ -168,12 +168,13 @@ export class AddClientComponent {
       this.formData.append('id', this.form.get('id').value);
       this.formData.append('firstName', this.form.get('firstName').value);
       this.formData.append('lastName', this.form.get('lastName').value);
-      this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
+      this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
       this.formData.append('email', this.form.get('email').value);
       this.formData.append('citizenship', this.form.get('citizenship').value);
-      this._clientService.create(this.formData).pipe(res => {
+      const uniqueFormData = removeDuplicateKeys(this.formData);
+      this._clientService.create(uniqueFormData).pipe(res => {
         if (isObservable(res)) {
-          this.formData = removeUnselected(this.formData,['passport']);
+          // this.formData = removeUnselected(this.formData,['passport']);
           // this.form.patchValue({
           //   phoneNumbers: [
           //     ...this.form.get('phoneNumbers').value
@@ -184,7 +185,6 @@ export class AddClientComponent {
           return res
         }
       }).subscribe(res => {
-        console.log(res)
         if (res.success) {
           this._dialog.closeAll()
           this.form.reset()

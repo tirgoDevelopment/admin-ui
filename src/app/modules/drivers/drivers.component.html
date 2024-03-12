@@ -23,6 +23,7 @@
                 <input matInput placeholder="{{ 'first_name' | transloco }}" name="name"
                     [(ngModel)]="filters.firstName">
             </mat-form-field>
+            
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
@@ -50,7 +51,8 @@
             </mat-form-field>
             <mat-form-field color="accent" class="w-100 px-1">
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}" [(ngModel)]="filters.createdFrom">
+                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}"
+                        [(ngModel)]="filters.createdFrom">
                     <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAtTo">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -119,10 +121,10 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
 
-                        <button *ngIf="row?.active"
+                        <button *ngIf="!row?.blocked"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
                         </button>
-                        <button *ngIf="!row?.active"
+                        <button *ngIf="row?.blocked"
                             class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                         </button>
                     </mat-cell>
@@ -143,7 +145,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item color="accent" (click)="edit(row.id)">
+                                <button [disabled]="row.blocked" mat-menu-item color="accent" (click)="edit(row.id)">
                                     <mat-icon>edit</mat-icon>
                                     {{"edit"|transloco}}
                                 </button>
@@ -160,12 +162,14 @@
                                 </ng-container>
 
                                 <ng-container>
-                                    <button mat-menu-item color="accent" (click)="addTransport(row, null)">
+                                    <button mat-menu-item color="accent" [disabled]="row.blocked"
+                                        (click)="addTransport(row, null)">
                                         <mat-icon>directions_car</mat-icon>
                                         {{"transport"|transloco}}
                                     </button>
                                 </ng-container>
-                                <button mat-menu-item color="accent" (click)="verification(row)">
+                                <button mat-menu-item color="accent" [disabled]="row.blocked"
+                                    (click)="verification(row)">
                                     <mat-icon>directions_car</mat-icon>
                                     {{"verification"|transloco}}
                                 </button>
@@ -173,15 +177,15 @@
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" *ngIf="row.active" (click)="block(row.id)">
+                                <button mat-menu-item color="accent" *ngIf="!row.blocked" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>
                                     {{"block"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" *ngIf="!row.active" (click)="active(row.id)">
+                                <button mat-menu-item color="accent" *ngIf="row.blocked" (click)="active(row.id)">
                                     <mat-icon>lock_open</mat-icon>
                                     {{"unblock"|transloco}}
                                 </button>
-                                <button mat-menu-item color="warn" (click)="delete(row.id)">
+                                <button mat-menu-item color="warn" [disabled]="row.blocked" (click)="delete(row.id)">
                                     <mat-icon>remove</mat-icon>
                                     {{"delete"|transloco}}
                                 </button>
@@ -190,14 +194,14 @@
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns">
+                <mat-row *matRowDef="let row; columns: displayedColumns" (click)="detail(row.id)">
                 </mat-row>
             </mat-table>
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="dataSource.data.length"
-            [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
-        </mat-paginator>
+                [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
+            </mat-paginator>
         </div>
     </div>
 </div>

@@ -49,7 +49,7 @@ export class DriverMerchantComponent {
     createdFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['id', 'full_name', 'companyName' ,'entity', 'balance', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['id',  'companyName' , 'register_date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {

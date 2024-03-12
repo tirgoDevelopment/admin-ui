@@ -26,6 +26,7 @@ import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
 import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
+import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 
 @Component({
   selector: 'app-add-transport',
@@ -315,12 +316,12 @@ export class AddTransportComponent implements OnInit {
     // goodsTransportationLicenseCardFilePath: string;
     // driverLicenseFilePath: string;
     // passportFilePath: string;
-
+    const uniqueFormData = removeDuplicateKeys(this.formData);
     if (this.form.value.id) {
-      this._driverService.updateTransport(formData)   
+      this._driverService.updateTransport(uniqueFormData)   
       .pipe(res => {
         if (isObservable(res)) {
-          this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
+          // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
           return res
         } else {
           return res
@@ -334,10 +335,10 @@ export class AddTransportComponent implements OnInit {
         }
       })
     } else {
-      this._driverService.createTransport(formData)  
+      this._driverService.createTransport(uniqueFormData)  
        .pipe(res => {
         if (isObservable(res)) {
-          this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
+          // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
           return res
         } else {
           return res

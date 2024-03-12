@@ -10,7 +10,7 @@
         <div class="grid grid-cols-3 gap-4">
             <div class="px-4">
                 <mat-form-field class="flex items-center">
-                    <mat-label >{{ 'name' | transloco }}</mat-label>
+                    <mat-label>{{ 'name' | transloco }}</mat-label>
                     <input type="text" matInput formControlName="name" [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -18,30 +18,30 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label >{{ 'volume_m' | transloco }}</mat-label>
+                    <mat-label>{{ 'volume_m' | transloco }}</mat-label>
                     <input type="number" matInput formControlName="cubicCapacity">
                 </mat-form-field>
 
                 <div class="flex items-center" *ngIf="isAutotransport">
                     <mat-form-field class="flex items-center">
-                        <mat-label > {{ 'number_of_transporter' | transloco }}</mat-label>
+                        <mat-label> {{ 'number_of_transporter' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorCount">
                     </mat-form-field>
                 </div>
 
                 <div class="flex items-center" *ngIf="isRefrigeratorMode">
                     <mat-form-field class="flex items-center">
-                        <mat-label >{{ 'mode_from' | transloco }}</mat-label>
+                        <mat-label>{{ 'mode_from' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorFrom">
                     </mat-form-field>
                     <mat-form-field class="flex items-center">
-                        <mat-label >{{ 'mode_to' | transloco }}</mat-label>
+                        <mat-label>{{ 'mode_to' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorTo">
                     </mat-form-field>
                 </div>
                 <div class="flex items-center" *ngIf="isContainer">
                     <mat-form-field class="flex items-center">
-                        <mat-label > {{ 'volume_f' | transloco }}</mat-label>
+                        <mat-label> {{ 'volume_f' | transloco }}</mat-label>
                         <mat-select [value]="'EU'" formControlName="containerVolume">
                             <mat-option [value]="'20'">20(ф.)</mat-option>
                             <mat-option [value]="'40'">40(ф.)</mat-option>
@@ -54,7 +54,7 @@
             </div>
             <div class="px-4">
                 <mat-form-field class="flex items-center">
-                    <mat-label >{{ 'state_number' | transloco }} </mat-label>
+                    <mat-label>{{ 'state_number' | transloco }} </mat-label>
                     <input type="text" matInput formControlName="stateNumber"
                         [ngClass]="{'is-invalid': f.stateNumber.errors}">
                     <mat-error *ngIf="f.stateNumber.errors?.required">
@@ -63,7 +63,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label > {{ 'type_transport' | transloco }}</mat-label>
+                    <mat-label> {{ 'type_transport' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportTypeIds" multiple
                         [ngClass]="{'is-invalid': f.transportTypeIds.errors}">
                         <mat-option *ngFor="let item of transportTypes; trackBy: trackByFn"
@@ -75,7 +75,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label > {{ 'transport_cargo' | transloco }}</mat-label>
+                    <mat-label> {{ 'transport_cargo' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
                         <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
                             [value]="item.id">{{item.name}}</mat-option>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="flex items-center" *ngIf="isCistern">
                     <mat-form-field class="flex items-center">
-                        <mat-label > {{ 'volume_l' | transloco }}</mat-label>
+                        <mat-label> {{ 'volume_l' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="cisternVolume">
                     </mat-form-field>
                 </div>
@@ -98,7 +98,7 @@
             <div class="px-4">
 
                 <mat-form-field class="flex items-center">
-                    <mat-label > {{ 'loading_method' | transloco }}</mat-label>
+                    <mat-label> {{ 'loading_method' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="loadingMethodIds" multiple>
                         <mat-option *ngFor="let item of cargoLoadingMethods ; trackBy: trackByFn"
                             [value]="item.id">{{item.name}}</mat-option>
@@ -106,7 +106,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="flex items-center">
-                    <mat-label > {{ 'cargo_type' | transloco }}</mat-label>
+                    <mat-label> {{ 'cargo_type' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="cargoTypeIds" multiple>
                         <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn" [label]="group.name">
                             <mat-option *ngFor="let item of group.cargoTypes ;trackBy:trackByFn"
@@ -120,34 +120,31 @@
                 </mat-slide-toggle>
             </div>
         </div>
-
-
-        <div class="grid grid-cols-3 gap-4">
-            <div class="px-4">
-                <div class="w-32">
-                    <mat-label >{{ 'tech_passport_front' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="techPassportFrontFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'techPassportFrontFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+        <div class="flex flex-wrap gap-4  items-end justify-between">
+            <div class="w-40">
+                <mat-label>{{ 'tech_passport_front' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="techPassportFrontFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'techPassportFrontFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="techPassportFrontFilePath&&!edit"
-                            [src]="techPassportFrontFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="techPassportFrontFilePath&&edit"
-                            [src]="techPassportFrontFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="techPassportFrontFilePath&&!edit"
+                        [src]="techPassportFrontFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="techPassportFrontFilePath&&edit"
+                        [src]="techPassportFrontFilePath | fileFetch: 'driver'|async">
                 </div>
-                <!-- <mat-form-field class="flex items-center">
+            </div>
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'tech_passport_front' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2" formControlName="techPassportFrontFilePath"
                         [value]="f.techPassportFrontFilePath.value?.name || ''"
@@ -165,30 +162,30 @@
                 </mat-form-field> -->
 
 
-                <div class="w-32">
-                    <mat-label >{{ 'tech_passport_back' | transloco }}</mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="techPassportBackFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'techPassportBackFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'tech_passport_back' | transloco }}</mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="techPassportBackFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'techPassportBackFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="techPassportBackFilePath&&!edit"
-                            [src]="techPassportBackFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="techPassportBackFilePath&&edit"
-                            [src]="techPassportBackFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="techPassportBackFilePath&&!edit"
+                        [src]="techPassportBackFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="techPassportBackFilePath&&edit"
+                        [src]="techPassportBackFilePath | fileFetch: 'driver'|async">
                 </div>
-                <!-- <mat-form-field class="flex items-center">
+            </div>
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'tech_passport_back' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('techPassportBackFilePath')?.value?.name || ''"
@@ -207,31 +204,31 @@
                 </mat-form-field> -->
 
 
-                <div class="w-32">
-                    <mat-label >{{ 'transport_front_photo' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="transportFrontFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'transportFrontFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'transport_front_photo' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="transportFrontFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'transportFrontFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="transportFrontFilePath&&!edit"
-                            [src]="transportFrontFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="transportFrontFilePath&&edit"
-                            [src]="transportFrontFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="transportFrontFilePath&&!edit"
+                        [src]="transportFrontFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="transportFrontFilePath&&edit"
+                        [src]="transportFrontFilePath | fileFetch: 'driver'|async">
                 </div>
+            </div>
 
-                <!-- <mat-form-field class="flex items-center">
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'transport_front_photo' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('transportFrontFilePath')?.value?.name || ''"
@@ -250,7 +247,7 @@
                 </mat-form-field> -->
 
 
-                <!-- <mat-form-field class="flex items-center">
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'transport_back_photo' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('transportBackFilePath')?.value?.name || ''"
@@ -267,32 +264,30 @@
                     <img *ngIf="form.get('transportBackFilePath').value&&!edit"
                         [src]="getImageUrl('transportBackFilePath')" class="max-h-12 max-w-12" />
                 </mat-form-field> -->
-            </div>
-            <div class="px-4">
-                <div class="w-32">
-                    <mat-label >{{ 'good_transportation_lisense' | transloco }}</mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="goodsTransportationLicenseCardFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'goodsTransportationLicenseCardFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'good_transportation_lisense' | transloco }}</mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="goodsTransportationLicenseCardFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'goodsTransportationLicenseCardFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="goodsTransportationLicenseCardFilePath&&!edit"
-                            [src]="goodsTransportationLicenseCardFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="goodsTransportationLicenseCardFilePath&&edit"
-                            [src]="goodsTransportationLicenseCardFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="goodsTransportationLicenseCardFilePath&&!edit"
+                        [src]="goodsTransportationLicenseCardFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="goodsTransportationLicenseCardFilePath&&edit"
+                        [src]="goodsTransportationLicenseCardFilePath | fileFetch: 'driver'|async">
                 </div>
-                <!-- <mat-form-field class="flex items-center">
+            </div>
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'good_transportation_lisense' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('goodsTransportationLicenseCardFilePath').value?.name || ''"
@@ -312,30 +307,30 @@
                 </mat-form-field> -->
 
 
-                <div class="w-32">
-                    <mat-label >{{ 'driver_lisense_card' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="driverLicenseFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'driverLicenseFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'driver_lisense_card' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="driverLicenseFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'driverLicenseFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="driverLicenseFilePath&&!edit"
-                            [src]="driverLicenseFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="driverLicenseFilePath&&edit"
-                            [src]="driverLicenseFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="driverLicenseFilePath&&!edit"
+                        [src]="driverLicenseFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="driverLicenseFilePath&&edit"
+                        [src]="driverLicenseFilePath | fileFetch: 'driver'|async">
                 </div>
-                <!-- <mat-form-field class="flex items-center">
+            </div>
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'driver_lisense_card' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('driverLicenseFilePath')?.value?.name || ''"
@@ -353,29 +348,29 @@
                         class="max-h-12 max-w-12" />
                 </mat-form-field> -->
 
-                <div class="w-32">
-                    <mat-label >{{ 'driver_lisense_card' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="passportFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'passportFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'driver_lisense_card' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="passportFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'passportFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
-                            [src]="passportFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
+                        [src]="passportFilePath | fileFetch: 'driver'|async">
                 </div>
-                <!-- <mat-form-field class="flex items-center">
+            </div>
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'passport' | transloco }}</mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('passportFilePath').value.name || ''" formControlName="passportFilePath"
@@ -395,7 +390,7 @@
                 </mat-form-field> -->
 
 
-                <!-- <mat-form-field class="flex items-center">
+            <!-- <mat-form-field class="flex items-center">
                     <mat-label >{{ 'transport_side_photo' | transloco }} </mat-label>
                     <input matInput placeholder="Upload" class="mr-2"
                         [value]="form.get('transportSideFilePath')?.value?.name || ''"
@@ -412,54 +407,51 @@
                     <img *ngIf="form.get('transportSideFilePath').value&&!edit"
                         [src]="getImageUrl('transportSideFilePath')" class="max-h-12 max-w-12" />
                 </mat-form-field> -->
-            </div>
-            <div class="px-4">
-                <div class="w-32">
-                    <mat-label >{{ 'transport_back_photo' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="transportBackFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'transportBackFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'transport_back_photo' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="transportBackFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'transportBackFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="transportBackFilePath&&!edit"
-                            [src]="transportBackFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="transportBackFilePath&&edit"
-                            [src]="transportBackFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="transportBackFilePath&&!edit"
+                        [src]="transportBackFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="transportBackFilePath&&edit"
+                        [src]="transportBackFilePath | fileFetch: 'driver'|async">
                 </div>
+            </div>
 
-                <div class="w-32">
-                    <mat-label >{{ 'transport_side_photo' | transloco }} </mat-label>
-                    <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div>
-                                <input formControlName="transportSideFilePath" id="avatar-file-input1"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                    [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'transportSideFilePath')">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                            </div>
+            <div class="w-40">
+                <mat-label>{{ 'transport_side_photo' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="transportSideFilePath" id="avatar-file-input1"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'transportSideFilePath')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input1" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="transportSideFilePath&&!edit"
-                            [src]="transportSideFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="transportSideFilePath&&edit"
-                            [src]="transportSideFilePath | fileFetch: 'driver'|async">
                     </div>
+                    <img class="object-fill w-full h-full" *ngIf="transportSideFilePath&&!edit"
+                        [src]="transportSideFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="transportSideFilePath&&edit"
+                        [src]="transportSideFilePath | fileFetch: 'driver'|async">
                 </div>
             </div>
         </div>

@@ -43,6 +43,7 @@ export class AddCurrencyComponent {
       this.form.patchValue({
         id: this.data?.id,
         name: this.data?.name,
+        code: this.data?.code,
       });
     }
   }

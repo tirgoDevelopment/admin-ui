@@ -13,25 +13,22 @@
 
             <mat-form-field>
                 <mat-label>{{ 'email' | transloco }}</mat-label>
-                <input matInput name="email"  formControlName="email" required />
+                <input matInput name="email" formControlName="email" required />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>{{ 'company_name' | transloco }}</mat-label>
-                <input required matInput name="companyName" formControlName="companyName"
-                     />
+                <input required matInput name="companyName" formControlName="companyName" />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'director_first_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName"
-                     />
+                <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName" />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'director_last_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorLastName" formControlName="supervisorLastName"
-                     />
+                <input required matInput name="supervisorLastName" formControlName="supervisorLastName" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label> {{ 'responce_person_first_name' | transloco }}</mat-label>
@@ -50,39 +47,34 @@
 
             <mat-form-field>
                 <mat-label> {{ 'bank_name' | transloco }}</mat-label>
-                <input matInput name="bankName"  formControlName="bankName"
-                    required />
+                <input matInput name="bankName" formControlName="bankName" required />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>{{ 'inn' | transloco }}</mat-label>
-                <input type="text" mask="999999999" matInput name="inn" formControlName="inn"
-                     maxlength="9" required />
+                <input type="text" mask="999999999" matInput name="inn" formControlName="inn" maxlength="9" required />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>{{ 'oked' | transloco }}</mat-label>
-                <input type="text" mask="99999" matInput name="oked" formControlName="oked"
-                     maxlength="5" required />
+                <input type="text" mask="99999" matInput name="oked" formControlName="oked" maxlength="5" required />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>{{ 'mfo' | transloco }}</mat-label>
-                <input type="text" matInput name="mfo" formControlName="mfo" 
-                    mask="99999" maxlength="5" required />
+                <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ 'phone' | transloco }}</mat-label>
-                <input matInput type="text" name="phoneNumber" mask="+999999999999"
-                    placeholder="{{ 'phone' | transloco }}" formControlName="phoneNumber" required />
+                <ngx-mat-intl-tel-input  placeholder="{{ 'phone' | transloco }}" [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
+                [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
+            </ngx-mat-intl-tel-input>
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ 'responce_phone' | transloco }}</mat-label>
-                <input matInput type="text" name="phoneNumber" mask="+999999999999"
-                    placeholder="{{ 'responce_phone' | transloco }}" formControlName="responsbilePersonPhoneNumber"
-                    required />
+                <ngx-mat-intl-tel-input  placeholder="{{ 'responce_phone' | transloco }}" [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber" [preferredCountries]="['uz']"
+                [enablePlaceholder]="true" [enableSearch]="true" name="phones" #phones>
+            </ngx-mat-intl-tel-input>
             </mat-form-field>
 
             <mat-form-field>
@@ -93,8 +85,7 @@
 
             <mat-form-field>
                 <mat-label>{{ 'legal_address' | transloco }}</mat-label>
-                <input type="text" matInput name="dunsNumber" formControlName="legalAddress"
-                     />
+                <input type="text" matInput name="dunsNumber" formControlName="legalAddress" />
             </mat-form-field>
 
             <mat-form-field>
@@ -104,7 +95,7 @@
         </div>
         <div class="grid grid-cols-3 gap-3 w-full">
             <div class="w-32">
-                <mat-label >{{ 'logo' | transloco }} </mat-label>
+                <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -120,15 +111,14 @@
                             </label>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit"
-                        [src]="logoFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
                         [src]="logoFilePath | fileFetch: 'merchant'|async">
                 </div>
             </div>
 
             <div class="w-32">
-                <mat-label >{{ 'passport' | transloco }} </mat-label>
+                <mat-label>{{ 'passport' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -144,15 +134,14 @@
                             </label>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit"
-                        [src]="passportFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
                         [src]="passportFilePath | fileFetch: 'merchant'|async">
                 </div>
             </div>
 
             <div class="w-32">
-                <mat-label >{{ 'registration_certificate' | transloco }} </mat-label>
+                <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -183,17 +172,19 @@
             <div class="mx-3 text-center">
                 <div class="text-sm font-semibold">Активный баланс</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                    <span>{{balance?.activebalance}}</span> </div>
+                    <span>{{balance?.activebalance}}</span>
+                </div>
             </div>
             <div class="mx-3 text-center">
                 <div class="text-sm font-semibold">Замороженный баланс</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                    <span>{{balance?.frozenbalance}}</span></div>
+                    <span>{{balance?.frozenbalance}}</span>
+                </div>
             </div>
         </div>
     </div>
 
-   <div class="mt-4 h-100">
+    <div class="mt-4 h-100">
         <mat-table matSort [dataSource]="dataSource">
             <ng-container matColumnDef="full_name">
                 <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}

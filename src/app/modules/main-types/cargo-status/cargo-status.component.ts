@@ -28,7 +28,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 
 })
 export class CargoStatusComponent extends UnsubscribeAble implements OnInit {
-  displayedColumns: string[] = ['name', 'code', 'actions'];
+  displayedColumns: string[] = ['name', 'code', 'color', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageParams = {
     page: 1,

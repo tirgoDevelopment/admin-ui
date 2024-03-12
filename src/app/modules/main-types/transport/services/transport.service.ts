@@ -22,11 +22,11 @@ export class TransportService {
   }
 
   create(body): Observable<Response<TransportModel>> {
-		return this._apiService.post<TransportModel>('/transport-types', body);
+		return this._apiService.post<TransportModel>('/references/transport-types', body);
 	}
 
   update(body): Observable<Response<TransportModel>> {
-    return this._apiService.put<TransportModel>('/transport-types', body);
+    return this._apiService.put<TransportModel>('/references/transport-types', body);
   }
 
   delete(id: number): Observable<Response<TransportModel>> {

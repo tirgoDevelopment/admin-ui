@@ -209,6 +209,10 @@ mat-form-field:not(.mat-focused) mat-placeholder {
   border-color: #141723DB !important;
 }
 
-.mat-row:nth-child(even) {
+:host ::ng-deep .mat-row:nth-child(even) {
   background-color: #E2E2E2DB;
+}
+
+:host ::ng-deep .mat-table .mat-row:hover {
+  cursor: pointer;
 }

@@ -16,8 +16,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { SubscriptionService } from '../../services/subscription.service';
-import { CurrencyService } from 'app/shared/services/currency.service';
 import { MatSelectModule } from '@angular/material/select';
+import { CurrencyService } from 'app/modules/main-types/currency/services/currency.service';
 
 @Component({
   selector: 'app-add-subscription',
@@ -42,10 +42,11 @@ export class AddSubscriptionComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _subscripionService: SubscriptionService,
-    private _typeService:CurrencyService,
+    private _currencyStatusService: CurrencyService,
     private _dialog: MatDialog) {
-      this._typeService.getCurrencies().subscribe((response: any) => {
+      this._currencyStatusService.getAll().subscribe((response: any) => {
         this.currencies = response.data;
+        console.log(this.currencies)
       })
     if (this.data) {
       this.edit = true;

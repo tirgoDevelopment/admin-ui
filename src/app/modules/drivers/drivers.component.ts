@@ -109,8 +109,8 @@ export class DriversComponent implements OnInit {
   }
 
   getAllDrivers(params?) {
-    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response) => {
-      this.dataSource.data = response?.data;
+    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response:any) => {
+      this.dataSource.data = response?.data?.content;
     });
   }
 
