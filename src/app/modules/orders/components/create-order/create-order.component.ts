@@ -240,7 +240,7 @@ export class CreateOrderComponent implements OnInit {
         loadingMethodId: this.setId(this.form.get('loadingMethodId').value),
       })
     }
-    console.log(this.form.value);
+
     if (this.form.value.id) {
       this._orderService.updateOrder(this.form.value).subscribe((res: any) => {
         if (res.success) {

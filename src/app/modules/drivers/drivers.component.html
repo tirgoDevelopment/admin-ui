@@ -160,19 +160,28 @@
                                         </button>
                                     </div>
                                 </ng-container>
-
+                                <ng-container *ngIf="row.driverTransports.length>0" >
+                                    <div *ngFor="let transport of row.driverTransports">
+                                        <button mat-menu-item color="accent"  [disabled]="row.blocked"
+                                            (click)="verification(row.id, transport.id)">
+                                            <mat-icon>directions_car</mat-icon>
+                                            {{transport.name}}
+                                            {{"verification"|transloco}}
+                                        </button>
+                                    </div>
+                                </ng-container>
                                 <ng-container>
                                     <button mat-menu-item color="accent" [disabled]="row.blocked"
-                                        (click)="addTransport(row, null)">
+                                        (click)="addTransport(row.id, null)">
                                         <mat-icon>directions_car</mat-icon>
                                         {{"transport"|transloco}}
                                     </button>
                                 </ng-container>
-                                <button mat-menu-item color="accent" [disabled]="row.blocked"
+                                <!-- <button mat-menu-item color="accent" [disabled]="row.blocked"
                                     (click)="verification(row)">
                                     <mat-icon>directions_car</mat-icon>
                                     {{"verification"|transloco}}
-                                </button>
+                                </button> -->
                                 <button mat-menu-item color="accent" (click)="detail(row.id)">
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}

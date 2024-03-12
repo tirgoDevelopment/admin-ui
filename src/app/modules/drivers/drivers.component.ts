@@ -92,7 +92,7 @@ export class DriversComponent implements OnInit {
 
   }
 
-  verification(row) {
+  verification(driverId?: number, transportId?: number) {
     const dialog = this._dialog.open(AddVerificationComponent, {
       minWidth: '60vw',
       maxWidth: '80vw',
@@ -100,7 +100,7 @@ export class DriversComponent implements OnInit {
       maxHeight: '100vh',
       disableClose: true,
       autoFocus: false,
-      data: row
+      data: { driverId, transportId },
     })
     dialog.afterClosed()
       .subscribe(() => {

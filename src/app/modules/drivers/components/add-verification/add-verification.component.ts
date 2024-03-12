@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,8 +25,8 @@ import { SubscriptionService } from 'app/modules/main-types/subscription/service
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
-
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 @Component({
   selector: 'app-add-verification',
   templateUrl: './add-verification.component.html',
@@ -34,11 +34,12 @@ import { removeUnselected } from 'app/shared/functions/remove-unselected-formDat
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, AsyncPipe, PipeModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
 export class AddVerificationComponent implements OnInit {
   findList: any[] | undefined = [];
+  form: FormGroup;
   selectedFileName: string = '';
   passwordGenerator = new PasswordGenerator();
   viewText = false;
@@ -68,31 +69,7 @@ export class AddVerificationComponent implements OnInit {
   driverLicenseFilePath: string;
   passportFilePath: string;
 
-  form: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    driverId: new FormControl(''),
-    transportId: new FormControl(''),
-    name: new FormControl('', [Validators.required]),
-    cubicCapacity: new FormControl('', [Validators.required]),
-    stateNumber: new FormControl('', [Validators.required]),
-    transportKindIds: new FormControl([]),
-    transportTypeIds: new FormControl([]),
-    loadingMethodIds: new FormControl([]),
-    cargoTypeIds: new FormControl([]),
-    refrigeratorFrom: new FormControl(''),
-    refrigeratorTo: new FormControl(''),
-    refrigeratorCount: new FormControl(''),
-    isHook: new FormControl(''),
-    isAdr: new FormControl(false),
-    techPassportFrontFilePath: new FormControl('', [Validators.required]),
-    techPassportBackFilePath: new FormControl('', [Validators.required]),
-    transportFrontFilePath: new FormControl('', [Validators.required]),
-    transportBackFilePath: new FormControl('', [Validators.required]),
-    transportSideFilePath: new FormControl('', [Validators.required]),
-    goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
-    driverLicenseFilePath: new FormControl('', [Validators.required]),
-    passportFilePath: new FormControl('', [Validators.required]),
-  })
+
   constructor(
     public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -102,14 +79,39 @@ export class AddVerificationComponent implements OnInit {
     private _subscriptionService: SubscriptionService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
-    // this.form.patchValue({
-    //   driverId: data.driverId,
-    //   id: data.transportId
-    // })
+      this.form = this.fb.group({
+        id: new FormControl(''),
+        driverId: new FormControl(''),
+        transportId: new FormControl(''),
+        name: new FormControl('', [Validators.required]),
+        cubicCapacity: new FormControl('', [Validators.required]),
+        stateNumber: new FormControl('', [Validators.required]),
+        transportKindIds: new FormControl([]),
+        transportTypeIds: new FormControl([]),
+        loadingMethodIds: new FormControl([]),
+        cargoTypeIds: new FormControl([]),
+        refrigeratorFrom: new FormControl(''),
+        refrigeratorTo: new FormControl(''),
+        refrigeratorCount: new FormControl(''),
+        isHook: new FormControl(''),
+        isAdr: new FormControl(false),
+        techPassportFrontFilePath: new FormControl('', [Validators.required]),
+        techPassportBackFilePath: new FormControl('', [Validators.required]),
+        transportFrontFilePath: new FormControl('', [Validators.required]),
+        transportBackFilePath: new FormControl('', [Validators.required]),
+        transportSideFilePath: new FormControl('', [Validators.required]),
+        goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
+        driverLicenseFilePath: new FormControl('', [Validators.required]),
+        passportFilePath: new FormControl('', [Validators.required]),
+      })
     this.form.patchValue({
-      driverId: 1,
-      transportId: 2
+      driverId: data.driverId,
+      transportId: data.transportId
     })
+    // this.form.patchValue({
+    //   driverId: 1,
+    //   transportId: 2
+    // })
     // if (data.transportId) {
     //   this.edit = true;
     // }
@@ -137,34 +139,38 @@ export class AddVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this.f.id.value) {
-    //   this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
-    //     console.log(res.data[0]);
-    //     this.edit = true;
-    //     this.form.patchValue({
-    //       name: res.data[0]?.name,
-    //       isHook: res.data[0]?.isHook,
-    //       isAdr: res.data[0]?.isAdr,
-    //       cubicCapacity: res.data[0]?.cubicCapacity,
-    //       stateNumber: res.data[0]?.stateNumber,
-    //       techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
-    //       techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
-    //       transportFrontFilePath: res.data[0]?.transportFrontFilePath,
-    //       transportBackFilePath: res.data[0]?.transportBackFilePath,
-    //       transportSideFilePath: res.data[0]?.transportSideFilePath,
-    //       goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
-    //       driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
-    //       passportFilePath: res.data[0]?.passportFilePath,
-    //       transportKindIds: res.data[0]?.transportKinds,
-    //       transportTypeIds: res.data[0]?.transportTypes,
-    //       loadingMethodIds: res.data[0]?.cargoLoadMethods,
-    //       cargoTypeIds: res.data[0]?.cargoTypes,
-    //       refrigeratorFrom: res.data[0]?.refrigeratorFrom,
-    //       refrigeratorTo: res.data[0]?.refrigeratorTo,
-    //       refrigeratorCount: res.data[0]?.refrigeratorCount,
-    //     })
-    //   })
-    // }
+    if (this.f.transportId.value) {
+      this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.transportId.value).subscribe(res => {
+        console.log(res)
+        this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
+        this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
+        this.transportFrontFilePath = res.data[0].transportFrontFilePath;
+        this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
+        this.driverLicenseFilePath = res.data[0].driverLicenseFilePath;
+        this.passportFilePath = res.data[0].passportFilePath;
+        this.edit = true;
+        this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
+        this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
+        this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
+        this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
+        this.form.patchValue({
+          name: res.data[0]?.name,
+          isHook: res.data[0]?.isHook,
+          isAdr: res.data[0]?.isAdr,
+          cubicCapacity: res.data[0]?.cubicCapacity,
+          stateNumber: res.data[0]?.stateNumber,
+          techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
+          techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
+          transportFrontFilePath: res.data[0]?.transportFrontFilePath,
+          goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
+          driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
+          passportFilePath: res.data[0]?.passportFilePath,
+          refrigeratorFrom: res.data[0]?.refrigeratorFrom,
+          refrigeratorTo: res.data[0]?.refrigeratorTo,
+          refrigeratorCount: res.data[0]?.refrigeratorCount,
+        })
+      })
+    }
   }
 
 
@@ -264,96 +270,97 @@ export class AddVerificationComponent implements OnInit {
   }
 
   submit() {
-    const formData = new FormData();
-    formData.append('id', this.form.get('id').value);
-    formData.append('driverId', this.form.get('driverId').value);
-    formData.append('transportId', this.form.get('transportId').value);
-    formData.append('name', this.form.get('name').value);
-    formData.append('cubicCapacity', this.form.get('cubicCapacity').value);
-    formData.append('stateNumber', this.form.get('stateNumber').value);
-    this.form.get('refrigeratorFrom').value ? formData.append('refrigeratorFrom', this.form.get('refrigeratorFrom').value) : ''
-    this.form.get('refrigeratorTo').value ? formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value) : ''
-    this.form.get('refrigeratorCount').value ? formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
-    this.form.get('isHook').value ? formData.append('isHook', this.form.get('isHook').value) : ''
-    formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
-    formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
-    formData.append('isHook', this.form.get('isHook').value);
-    formData.append('isAdr', this.form.get('isAdr').value);
+    // const formData = new FormData();
+    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('driverId', this.form.get('driverId').value);
+    this.formData.append('transportId', this.form.get('transportId').value);
+    this.formData.append('name', this.form.get('name').value);
+    this.formData.append('cubicCapacity', this.form.get('cubicCapacity').value);
+    this.formData.append('stateNumber', this.form.get('stateNumber').value);
+    this.form.get('refrigeratorFrom').value ? this.formData.append('refrigeratorFrom', this.form.get('refrigeratorFrom').value) : ''
+    this.form.get('refrigeratorTo').value ? this.formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value) : ''
+    this.form.get('refrigeratorCount').value ? this.formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
+    this.form.get('isHook').value ? this.formData.append('isHook', this.form.get('isHook').value) : ''
+    this.formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value);
+    this.formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value);
+    this.formData.append('isHook', this.form.get('isHook').value);
+    this.formData.append('isAdr', this.form.get('isAdr').value);
     if (this.form.get('id').value) {
-      formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
-      formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
-      formData.append('loadingMethodIds', JSON.stringify(this.setIds(this.form.get('loadingMethodIds').value)));
-      formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
+      this.formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
+      this.formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
+      this.formData.append('loadingMethodIds', JSON.stringify(this.setIds(this.form.get('loadingMethodIds').value)));
+      this.formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
     } else {
-      formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
-      formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
-      formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
-      formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
+      this.formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
+      this.formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
+      this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
+      this.formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
     }
 
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {
-      formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value);
+      this.formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value);
     } else {
       // formData.append('techPassportFrontFilePath', this.form.get('techPassportFrontFilePath')?.value, String(new Date().getTime()));
     }
     if (typeof this.form.get('techPassportBackFilePath')?.value === "string") {
-      formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value);
+      this.formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value);
     } else {
       // formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportFrontFilePath')?.value === "string") {
-      formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value);
+      this.formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value);
     } else {
       // formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportBackFilePath')?.value === "string") {
-      formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value);
+      this.formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value);
     } else {
       // formData.append('transportBackFilePath', this.form.get('transportBackFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('transportSideFilePath')?.value === "string") {
-      formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value);
+      this.formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value);
     } else {
       // formData.append('transportSideFilePath', this.form.get('transportSideFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('goodsTransportationLicenseCardFilePath')?.value === "string") {
-      formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
+      this.formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
     } else {
       // formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('driverLicenseFilePath')?.value === "string") {
-      formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value);
+      this.formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value);
     } else {
       // formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
     }
 
     if (typeof this.form.get('passportFilePath')?.value === "string") {
-      formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
+      this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
     } else {
       // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    this._driverService.updateTransportDriver(formData)  
-    .pipe(res => {
-      if (isObservable(res)) {
-        this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath','transportBackFilePath','transportSideFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
-        return res
-      } else {
-        return res
-      }
-    }).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Добавление транспорта  успешно')
-      } else {
-        this._toaster.error('Невозможно сохранить водитель')
-      }
-    })
+    const uniqueFormData = removeDuplicateKeys(this.formData);
+    this._driverService.updateTransportDriver(uniqueFormData)
+      .pipe(res => {
+        if (isObservable(res)) {
+          // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath','transportBackFilePath','transportSideFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Добавление транспорта  успешно')
+        } else {
+          this._toaster.error('Невозможно сохранить водитель')
+        }
+      })
   }
 
   trackByFn(item: any): number {

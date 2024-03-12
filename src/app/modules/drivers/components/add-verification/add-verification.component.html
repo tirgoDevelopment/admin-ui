@@ -29,6 +29,14 @@
                     </mat-form-field>
                 </div>
 
+                <mat-form-field class="flex items-center">
+                    <mat-label> {{ 'transport_cargo' | transloco }}</mat-label>
+                    <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
+                        <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
+                            [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
                 <div class="flex items-center" *ngIf="isRefrigeratorMode">
                     <mat-form-field class="flex items-center">
                         <mat-label>{{ 'mode_from' | transloco }}</mat-label>
@@ -39,6 +47,7 @@
                         <input type="number" matInput formControlName="refrigeratorTo">
                     </mat-form-field>
                 </div>
+
                 <div class="flex items-center" *ngIf="isContainer">
                     <mat-form-field class="flex items-center">
                         <mat-label> {{ 'volume_f' | transloco }}</mat-label>
@@ -50,7 +59,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-
+      
             </div>
             <div class="px-4">
                 <mat-form-field class="flex items-center">
@@ -74,13 +83,9 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="flex items-center">
-                    <mat-label> {{ 'transport_cargo' | transloco }}</mat-label>
-                    <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
-                        <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
-                            [value]="item.id">{{item.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <mat-slide-toggle class="py-2" formControlName="isAdr">
+                    {{"isAdr"|transloco}}
+                </mat-slide-toggle>
 
                 <div *ngIf="isRefrigerator">
                     <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">{{ 'mode' |
@@ -115,25 +120,23 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-slide-toggle class="py-2" formControlName="isAdr">
-                    {{"isAdr"|transloco}}
-                </mat-slide-toggle>
+          
             </div>
         </div>
-        <div class="flex flex-wrap gap-4  items-end justify-between">
+        <div class="flex flex-wrap gap-4 items-end justify-between px-3">
             <div class="w-40">
                 <mat-label>{{ 'tech_passport_front' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="techPassportFrontFilePath" id="avatar-file-input1"
+                            <input formControlName="techPassportFrontFilePath" id="avatar-file-input"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'techPassportFrontFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -168,13 +171,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="techPassportBackFilePath" id="avatar-file-input1"
+                            <input formControlName="techPassportBackFilePath" id="avatar-file-input8"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'techPassportBackFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input8" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -210,13 +213,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="transportFrontFilePath" id="avatar-file-input1"
+                            <input formControlName="transportFrontFilePath" id="avatar-file-input2"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'transportFrontFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input2" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -270,13 +273,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="goodsTransportationLicenseCardFilePath" id="avatar-file-input1"
+                            <input formControlName="goodsTransportationLicenseCardFilePath" id="avatar-file-input3"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'goodsTransportationLicenseCardFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input3" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -313,13 +316,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="driverLicenseFilePath" id="avatar-file-input1"
+                            <input formControlName="driverLicenseFilePath" id="avatar-file-input4"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'driverLicenseFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input4" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -354,13 +357,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="passportFilePath" id="avatar-file-input1"
+                            <input formControlName="passportFilePath" id="avatar-file-input5"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'passportFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input5" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -413,13 +416,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="transportBackFilePath" id="avatar-file-input1"
+                            <input formControlName="transportBackFilePath" id="avatar-file-input6"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'transportBackFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input6" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -437,13 +440,13 @@
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="transportSideFilePath" id="avatar-file-input1"
+                            <input formControlName="transportSideFilePath" id="avatar-file-input7"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'transportSideFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input7" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
