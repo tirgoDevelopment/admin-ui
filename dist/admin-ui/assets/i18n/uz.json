@@ -83,7 +83,7 @@
     "geolocation":"Geolocation",
     "date_birth":"Tug'ilgan kuni",
     "curency":"Valyuta",
-    "transport_cargo":"Yuk tashish",
+    "transport_cargo":"Transport turi",
     "cargo_type_status":"Yuk turi holati",
     "code":"Kod",
     "add_currency":"Valyuta qo'shing",
@@ -234,5 +234,13 @@
     "start_date_reg":"Ro'yxatdan o'tishning boshlanish sanasi",
     "end_date_reg":"Ro'yxatdan o'tishning tugash sanasi",
     "start_date_log":"Kirish Boshlanish sanasi ",
-    "end_date_log":"kirish Tugash sanasi "
+    "end_date_log":"kirish Tugash sanasi ",
+    "merchant_client":"Savdogar mijozi",
+    "merchant_driver":"Savdogar haydovchi",
+    "color":"Rang",
+    "package":"Paket",
+    "add_cargo_loading":"Yukni yuklash usulini qo'shing",
+    "edit_cargo_loading":"Yukni yuklash usulini tahrirlash",
+    "add_cargo_package":"Yuk paketini qo'shish",
+    "edit_cargo_package":"Yuk paketini tahrirlash"
 }

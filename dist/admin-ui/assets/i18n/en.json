@@ -82,7 +82,7 @@
     "geolocation":"Geolocation",
     "date_birth":"Date of birth",
     "curency":"Currency",
-    "transport_cargo":" Transport cargo",
+    "transport_cargo":" Transport kind",
     "cargo_type_status":"Cargo type status",
     "code":"Code",
     "add_currency":"Add currency",
@@ -234,5 +234,13 @@
      "start_date_reg":"Start date registration",
      "end_date_reg":"End date registration",
      "start_date_log":"Start date login",
-     "end_date_log":"End date login"
+     "end_date_log":"End date login",
+     "merchant_client":"Merchant client",
+     "merchant_driver":"Merchant driver",
+     "color":"Color",
+     "package":"Package",
+     "add_cargo_loading":"Add cargo loading method",
+     "edit_cargo_loading":"Edit cargo loading method",
+     "add_cargo_package":"Add cargo package",
+     "edit_cargo_package":"Edit cargo package"
 }
