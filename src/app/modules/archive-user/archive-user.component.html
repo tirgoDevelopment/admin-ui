@@ -126,7 +126,6 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
-
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="dataSource.data.length"

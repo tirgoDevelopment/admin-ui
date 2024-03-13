@@ -34,14 +34,12 @@ export class DetailArchiveUserComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private _archiveService: ArchiveUserService,
     private _dialog: MatDialog,
-    private _clientService: ClientService,
     private _driverService: DriversService
   ) {
     this.getClient(data);
   }
   getClient(id: any) {
     this._archiveService.get(id).subscribe((response) => {
-      console.log(response);
       this.archiveUser = response.data
     });
   }

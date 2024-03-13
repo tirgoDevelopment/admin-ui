@@ -26,7 +26,6 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, DatePipe,NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
