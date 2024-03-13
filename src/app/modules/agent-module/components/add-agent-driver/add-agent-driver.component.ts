@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,7 +35,7 @@ import { removeUnselected } from 'app/shared/functions/remove-unselected-formDat
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
-export class AddAgentDriverComponent {
+export class AddAgentDriverComponent implements OnInit {
   subscription = [];
   edit: boolean = false;
   formData = new FormData();
@@ -60,12 +60,13 @@ export class AddAgentDriverComponent {
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
-      console.log(this.data)
-      this.edit = true;
       this.form.patchValue({
         agentId: data
       })
     }
+  }
+
+  ngOnInit(): void {
     this.getSubscription();
   }
 

@@ -93,7 +93,7 @@
                 <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
             </mat-form-field>
         </div>
-        <div class="grid grid-cols-3 gap-3 w-full">
+        <div class="flex flex-wrap gap-4 items-end justify-around">
             <div class="w-32">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
@@ -170,13 +170,13 @@
         <span class="ml-auto"></span>
         <div class="flex flex-row " *ngFor="let balance of balances">
             <div class="mx-3 text-center">
-                <div class="text-sm font-semibold">Активный баланс</div>
+                <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                     <span>{{balance?.activebalance}}</span>
                 </div>
             </div>
             <div class="mx-3 text-center">
-                <div class="text-sm font-semibold">Замороженный баланс</div>
+               <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                     <span>{{balance?.frozenbalance}}</span>
                 </div>

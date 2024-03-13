@@ -242,5 +242,17 @@
     "add_cargo_loading":"Yukni yuklash usulini qo'shing",
     "edit_cargo_loading":"Yukni yuklash usulini tahrirlash",
     "add_cargo_package":"Yuk paketini qo'shish",
-    "edit_cargo_package":"Yuk paketini tahrirlash"
+    "edit_cargo_package":"Yuk paketini tahrirlash",
+    "iban_number":"IBAN raqami",
+    "bank_branch_name":"Bank filialining nomi",
+    "fact_address":"Fakt manzili",
+    "tax_payer_code":"Soliq to'lovchi kodi",
+    "garage_address":"Garaj manzili",
+    "lisense_international_cargo_tranportation":"Xalqaro yuk tashish uchun litsenziya",
+    "postal_code":"Pochta kodi",
+    "transaction":"Tranzaksiya",
+    "send":"Bildirishnoma yuborish",
+    "connect_driver":"Ulanish haydovchi",
+    "frozen_balance":"Muzlatilgan balans",
+    "active_balance":"Faol balans"
 }

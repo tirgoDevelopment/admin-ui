@@ -242,5 +242,17 @@
      "add_cargo_loading":"Add cargo loading method",
      "edit_cargo_loading":"Edit cargo loading method",
      "add_cargo_package":"Add cargo package",
-     "edit_cargo_package":"Edit cargo package"
+     "edit_cargo_package":"Edit cargo package",
+     "iban_number":"IBAN Number",
+     "bank_branch_name":"Bank branch name",
+     "fact_address":"Fact Address",
+     "tax_payer_code":"Tax Payer Code",
+     "garage_address":"garage Address",
+     "lisense_international_cargo_tranportation":"License for international cargo transportation",
+     "postal_code":"Postal code",
+     "transaction":"Transaction",
+     "send":"Send notification",
+     "connect_driver":"Connect Driver",
+     "frozen_balance":"Frozen Balance",
+     "active_balance":"Active Balance"
 }

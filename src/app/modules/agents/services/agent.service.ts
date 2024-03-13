@@ -25,25 +25,23 @@ export class AgentService {
   }
 
 
-  getAllByAgent(id?): Observable<Response<AgentModel[]>> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("agentId", id);
-    const options = { params: queryParams };
-    return this._apiService.get<AgentModel[]>('/users/drivers/by-agent', queryParams);
+  getAllByAgent(params): Observable<Response<AgentModel[]>> {
+    return this._apiService.get<AgentModel[]>('/users/drivers/by-agent', createHttpParams(params));
   }
 
   getAgentTransactions(id?): Observable<any> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("agentId", id);
     const options = { params: queryParams };
-    return this._http.get(env.merchantUrl + '/finance/transaction/agent-transactions', { params: queryParams });
+    return this._http.get(env.merchantUrl + '/finance/transaction/agent-transactions', options);
   }
 
   getAgentbalance(id): Observable<any> {
+    console.log(id)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("agentId", id);
     const options = { params: queryParams };
-    return this._http.get(env.merchantUrl + '/finance/transaction/agent-balance', { params: queryParams });
+    return this._http.get(env.merchantUrl + '/finance/transaction/agent-balance', options);
   }
 
   block(id: number, body): Observable<Response<AgentModel>> {
@@ -75,7 +73,7 @@ export class AgentService {
   }
 
   connectToAgent(body): Observable<Response<AgentModel>> {
-    return this._apiService.post<AgentModel>('/users/drivers/append-to-agent', body);
+    return this._apiService.post<AgentModel>('/users/drivers/append-driver-to-agent', body);
   }
 
   update(body): Observable<Response<AgentModel>> {

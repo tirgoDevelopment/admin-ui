@@ -78,18 +78,21 @@ export class AgentDriverListComponent implements OnInit {
     });
   }
 
-  detail(id:number) {
+  detail(id: number) {
     this._dialog.open(DetailAgentDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
-      data:id,
+      data: id,
       position: {
         top: '0',
         right: '0',
       },
       maxHeight: '100%'
-    })
+    }).afterClosed()
+      .subscribe(() => {
+        this.getAllAgentsDrivers(this.id)
+      })
   }
 
   connect() {
@@ -99,7 +102,10 @@ export class AgentDriverListComponent implements OnInit {
       minHeight: '30vh',
       maxHeight: '60vh',
       data: { agentId: this.id },
-    })
+    }).afterClosed()
+      .subscribe(() => {
+        this.getAllAgentsDrivers(this.id)
+      })
   }
 
   transaction() {
@@ -134,10 +140,10 @@ export class AgentDriverListComponent implements OnInit {
 
   addBalanse() {
     const dialog = this._dialog.open(AddBalanceAgentComponent, {
-      minWidth: '25vw',
-      maxWidth: '40vw',
-      minHeight: '20vh',
-      maxHeight: '50vh',
+      minWidth: '35vw',
+      maxWidth: '50vw',
+      minHeight: '50vh',
+      maxHeight: '80vh',
       autoFocus: false,
       data: { id: this.id },
     })

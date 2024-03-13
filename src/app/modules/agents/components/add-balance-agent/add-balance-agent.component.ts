@@ -48,7 +48,7 @@ export class AddBalanceAgentComponent {
     private _dialog: MatDialog) {
     console.log(this.transactionTypes)
     this.form.patchValue({
-      agentId: data.id
+      agentId: Number(data.id)
     })
     this._typeService.getCurrencies().subscribe((response: any) => {
       this.currencies = response.data;

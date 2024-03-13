@@ -7,13 +7,13 @@
             <div class="flex items-center ml-6">
                 <div class="flex flex-row " *ngFor="let balance of balances">
                     <div class="mx-3 text-center">
-                        <div class="text-sm font-semibold">Активный баланс</div>
+                        <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
                         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                             <span>{{balance?.activebalance}}</span>
                         </div>
                     </div>
                     <div class="mx-3 text-center">
-                        <div class="text-sm font-semibold">Замороженный баланс</div>
+                       <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                             <span>{{balance?.frozenbalance}}</span>
                         </div>
@@ -21,14 +21,14 @@
                 </div>
 
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
-                    <span class="ml-2">connect Driver</span>
+                    <span class="ml-2">{{ 'connect_driver' | transloco }}</span>
                 </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
-                    <span class="ml-2">Transaction</span>
+                   <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-                    <span class="ml-2">Add</span>
+                   <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
             </div>
         </div>

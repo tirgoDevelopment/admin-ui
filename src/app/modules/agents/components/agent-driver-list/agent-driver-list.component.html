@@ -7,26 +7,26 @@
             <div class="flex items-center ml-6">
                 <div class="flex flex-row " *ngFor="let balance of balances">
                     <div class="mx-3 text-center">
-                        <div class="text-sm font-semibold">Активный баланс</div>
+                        <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
                         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                             <span>{{balance?.activebalance}}</span>
                         </div>
                     </div>
                     <div class="mx-3 text-center">
-                        <div class="text-sm font-semibold">Замороженный баланс</div>
+                       <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                             <span>{{balance?.frozenbalance}}</span>
                         </div>
                     </div>
                 </div>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
-                    <span class="ml-2">connect Driver</span>
+                    <span class="ml-2">{{ 'connect_driver' | transloco }}</span>
                 </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
-                    <span class="ml-2">Transaction</span>
+                   <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="addBalanse()">
-                    <span class="ml-2">Balanse</span>
+                    <span class="ml-2">{{ 'balance' | transloco }}</span>
                 </button>
             </div>
         </div>
@@ -56,7 +56,7 @@
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
-       <div class="mt-4 h-100">
+        <div class="mt-4 h-100">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
@@ -112,11 +112,11 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns">
                 </mat-row>
             </mat-table>
-                 <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
+            <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
             <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="dataSource.data.length"
-            [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
-        </mat-paginator>
+                [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
+            </mat-paginator>
         </div>
     </div>
 </div>

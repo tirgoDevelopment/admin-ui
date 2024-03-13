@@ -23,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
 import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 import { DriverMerchantService } from '../../services/driver-merchant.service';
+import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 
 @Component({
   selector: 'app-driver-merchant-moderation',
@@ -55,9 +56,10 @@ export class DriverMerchantModerationComponent implements OnInit {
   logoFilePath: string;
   registrationCertificateFilePath: string;
   passportFilePath: string;
+  internationalCargoLisensePath:string;
   edit: boolean = false;
   form: FormGroup = new FormGroup({
-    id: new FormControl('', [Validators.required]),
+    merchantId: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
     supervisorFirstName: new FormControl('', [Validators.required]),
@@ -66,13 +68,19 @@ export class DriverMerchantModerationComponent implements OnInit {
     responsiblePersonLastName: new FormControl('', [Validators.required]),
     responsbilePersonPhoneNumber: new FormControl('', [Validators.required]),
     legalAddress: new FormControl('', [Validators.required]),
+    factAddress: new FormControl('', [Validators.required]),
+    postalCode: new FormControl('', [Validators.required]),
+    garageAddress: new FormControl('', [Validators.required]),
     bankName: new FormControl('', [Validators.required]),
+    bankBranchName: new FormControl('', [Validators.required]),
     inn: new FormControl('', [Validators.required]),
     oked: new FormControl('', [Validators.required]),
     mfo: new FormControl('', [Validators.required]),
+    taxPayerCode: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    dunsNumber: new FormControl('', [Validators.required]),
-    notes: new FormControl('', [Validators.required]),
+    dunsNumber: new FormControl(''),
+    ibanNumber: new FormControl(''),
+    internationalCargoLisensePath: new FormControl('', [Validators.required]),
     logoFilePath: new FormControl('', [Validators.required]),
     registrationCertificateFilePath: new FormControl('', [Validators.required]),
     passportFilePath: new FormControl('', [Validators.required]),
@@ -82,7 +90,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
-    private driverMerchantService:DriverMerchantService) {
+    private driverMerchantService: DriverMerchantService) {
     this.route.params.subscribe(params => {
       const param = params.id;
       this.id = param;
@@ -92,13 +100,16 @@ export class DriverMerchantModerationComponent implements OnInit {
 
   getMerchant(id: number) {
     this.edit = true
-    this.driverMerchantService.get(id).subscribe(responce => {
+    this.driverMerchantService.get(id).subscribe((responce: any) => {
       this.form.patchValue({
-        id: responce.data.id,
+        merchantId: responce.data.id,
         bankName: responce.data.bankName,
+        bankBranchName: responce.data.bankBranchName,
         companyName: responce.data.companyName,
         phoneNumber: responce.data.phoneNumber,
         dunsNumber: responce.data.dunsNumber,
+        ibanNumber: responce.data.ibanNumber,
+        taxPayerCode: responce.data.taxPayerCode,
         email: responce.data.email,
         supervisorFirstName: responce.data.supervisorFirstName,
         supervisorLastName: responce.data.supervisorLastName,
@@ -106,10 +117,13 @@ export class DriverMerchantModerationComponent implements OnInit {
         responsiblePersonLastName: responce.data.responsiblePersonLastName,
         responsbilePersonPhoneNumber: responce.data.responsbilePersonPhoneNumber,
         legalAddress: responce.data.legalAddress,
+        factAddress: responce.data.factAddress,
+        postalCode: responce.data.postalCode,
+        garageAddress: responce.data.garageAddress,
         inn: responce.data.inn,
         oked: responce.data.oked,
         mfo: responce.data.mfo,
-        notes: responce.data.notes,
+        internationalCargoLisensePath: responce.data?.internationalCargoLisensePath,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
         passportFilePath: responce.data?.passportFilePath
@@ -177,11 +191,14 @@ export class DriverMerchantModerationComponent implements OnInit {
   }
 
   editMerchant() {
-    this.formData.append('id', this.form.get('id').value);
+    this.formData.append('merchantId', this.form.get('merchantId').value);
     this.formData.append('bankName', this.form.get('bankName').value);
+    this.formData.append('bankBranchName', this.form.get('bankBranchName').value);
     this.formData.append('companyName', this.form.get('companyName').value);
     this.formData.append('phoneNumber', this.form.get('phoneNumber').value);
     this.formData.append('dunsNumber', this.form.get('dunsNumber').value);
+    this.formData.append('ibanNumber', this.form.get('ibanNumber').value);
+    this.formData.append('taxPayerCode', this.form.get('taxPayerCode').value);
     this.formData.append('email', this.form.get('email').value);
     this.formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
     this.formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
@@ -189,10 +206,12 @@ export class DriverMerchantModerationComponent implements OnInit {
     this.formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName').value);
     this.formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber').value);
     this.formData.append('legalAddress', this.form.get('legalAddress').value);
+    this.formData.append('factAddress', this.form.get('factAddress').value);
+    this.formData.append('postalCode', this.form.get('postalCode').value);
+    this.formData.append('garageAddress', this.form.get('garageAddress').value);
     this.formData.append('inn', this.form.get('inn').value);
     this.formData.append('oked', this.form.get('oked').value);
     this.formData.append('mfo', this.form.get('mfo').value);
-    this.formData.append('notes', this.form.get('notes').value);
     if (typeof this.form.get('logoFilePath')?.value === "string") {
       this.formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
     } else {
@@ -208,9 +227,17 @@ export class DriverMerchantModerationComponent implements OnInit {
     } else {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    this.driverMerchantService.updateMerchant(this.formData).pipe(res => {
+
+    if (typeof this.form.get('internationalCargoLisensePath')?.value === "string") {
+      this.formData.append('internationalCargoLisensePath', this.form.get('internationalCargoLisensePath')?.value);
+    } else {
+      // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+    }
+
+    const uniqueFormData = removeDuplicateKeys(this.formData);
+    this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
       if (isObservable(res)) {
-        this.formData = removeUnselected(this.formData,['logoFilePath', 'registrationCertificateFilePath','passportFilePath']);
+        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
         return res
       } else {
         return res
@@ -224,7 +251,6 @@ export class DriverMerchantModerationComponent implements OnInit {
   }
 
   verifyTransaction(transaction) {
-    console.log(transaction)
     // if (transaction.transactionType=='withdrawAccount' ) {
     this.driverMerchantService.verifyTransaction(transaction).subscribe((res: any) => {
       if (res.success) {
