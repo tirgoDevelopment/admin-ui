@@ -58,7 +58,7 @@
     "add_transport":"Добавить транспорта",
     "edit_transport":"Редактировать транспорта",
     "full_name":"Полное Имя",
-    "login":"Лоигн",
+    "login":"Авторизоваться",
     "register_date":"Дата регистрации",
     "last_enter":"Последний вход",
     "administrators":"Администраторы",
@@ -238,6 +238,17 @@
      "add_cargo_loading":"Добавить способ погрузки груза",
      "edit_cargo_loading":"Изменить способ погрузки груза",
      "add_cargo_package":"Добавить грузовую упаковку",
-     "edit_cargo_package":"Редактировать грузовой пакет"
-
+     "edit_cargo_package":"Редактировать грузовой пакет",
+     "iban_number":"Номер IBAN",
+     "bank_branch_name":"Название отделения банка",
+     "fact_address":"Факт Адрес",
+     "tax_payer_code":"Код налогоплательщика",
+     "garage_address":"Адрес гаража",
+     "lisense_international_cargo_tranportation":"Лицензия на международную перевозку грузов",
+     "postal_code":"Почтовый индекс",
+     "transaction":"Сделка",
+     "send":"Отправить уведомление",
+     "connect_driver":"Подключить драйвер",
+     "frozen_balance":"Замороженный баланс",
+     "active_balance":"Активный баланс"
 }
