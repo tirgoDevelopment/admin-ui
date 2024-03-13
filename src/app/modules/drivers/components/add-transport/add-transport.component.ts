@@ -28,6 +28,7 @@ import { forkJoin, isObservable } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MatOptionModule } from '@angular/material/core';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-add-transport',
@@ -36,7 +37,7 @@ import { MatOptionModule } from '@angular/material/core';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, AsyncPipe,PipeModule, MatOptionModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, AsyncPipe, PipeModule, MatCheckboxModule,  MatOptionModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddTransportComponent implements OnInit {
   form: FormGroup;
@@ -77,28 +78,30 @@ export class AddTransportComponent implements OnInit {
     private _subscriptionService: SubscriptionService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
-      this.form = this.fb.group({
-        id: new FormControl(''),
-        driverId: new FormControl(''),
-        name: new FormControl('', [Validators.required]),
-        cubicCapacity: new FormControl('', [Validators.required]),
-        stateNumber: new FormControl('', [Validators.required]),
-        transportKindIds: new FormControl([]),
-        transportTypeIds: new FormControl([]),
-        loadingMethodIds: new FormControl([]),
-        cargoTypeIds: new FormControl([]),
-        refrigeratorFrom: new FormControl(''),
-        refrigeratorTo: new FormControl(''),
-        refrigeratorCount: new FormControl(''),
-        isHook: new FormControl(''),
-        isAdr: new FormControl(false),
-        techPassportFrontFilePath: new FormControl('', [Validators.required]),
-        techPassportBackFilePath: new FormControl('', [Validators.required]),
-        transportFrontFilePath: new FormControl('', [Validators.required]),
-        goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
-        driverLicenseFilePath: new FormControl('', [Validators.required]),
-        passportFilePath: new FormControl('', [Validators.required]),
-      })
+    this.form = this.fb.group({
+      id: new FormControl(''),
+      driverId: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      cubicCapacity: new FormControl('', [Validators.required]),
+      stateNumber: new FormControl('', [Validators.required]),
+      transportKindIds: new FormControl([]),
+      transportTypeIds: new FormControl([]),
+      loadingMethodIds: new FormControl([]),
+      cargoTypeIds: new FormControl([]),
+      refrigeratorFrom: new FormControl(''),
+      refrigeratorTo: new FormControl(''),
+      refrigeratorCount: new FormControl(''),
+      isHook: new FormControl(false),
+      isAdr: new FormControl(false),
+      cisternVolume: new FormControl(''),
+      containerVolume: new FormControl(''),
+      techPassportFrontFilePath: new FormControl('', [Validators.required]),
+      techPassportBackFilePath: new FormControl('', [Validators.required]),
+      transportFrontFilePath: new FormControl('', [Validators.required]),
+      goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
+      driverLicenseFilePath: new FormControl('', [Validators.required]),
+      passportFilePath: new FormControl('', [Validators.required]),
+    })
     this.form.patchValue({
       driverId: data?.driverId,
       id: data.transportId
@@ -160,11 +163,34 @@ export class AddTransportComponent implements OnInit {
           refrigeratorCount: res.data[0]?.refrigeratorCount,
         })
       })
-      
       this._cdr.detectChanges()
     }
+
+    this.form.get('transportKindIds').valueChanges.subscribe((values) => {
+      console.log(values)
+      if (values.length == 1) {
+        let tranportKind = this.transportKinds.find(x => x.id == values);
+        this.isAutotransport = tranportKind?.name?.includes('Автовоз');
+        this.isRefrigerator = tranportKind?.name?.includes('Рефрежератор');
+        this.isCistern = tranportKind?.name?.includes('Цистерна');
+        this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
+        console.log(this.isAutotransport, this.isRefrigerator, this.isCistern, this.isContainer);
+      } else {
+        values.forEach(x => {
+          let tranportKind = this.transportKinds.find(y => y.id == x);
+          this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
+          this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрежератор');
+          this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
+          this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
+          console.log(this.isAutotransport, this.isRefrigerator, this.isCistern, this.isContainer);
+        });
+      }
+    })
   }
 
+  onCheckboxChange(event: any) {
+    this.isRefrigeratorMode = event.checked;
+  }
 
   selectFile(event: any, name: string) {
     const file: File = event.target.files[0];
@@ -270,10 +296,10 @@ export class AddTransportComponent implements OnInit {
     //   // formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
     //   this.formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
     // } else {
-      this.formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
-      this.formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
-      this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
-      this.formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
+    this.formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
+    this.formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
+    this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
+    this.formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
     // }
 
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {

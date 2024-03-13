@@ -31,9 +31,9 @@ export class AddTransportCargoComponent {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
-    isMode: new FormControl('', [Validators.required]),
-    count: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    isMode: new FormControl(''),
+    count: new FormControl(''),
+    description: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

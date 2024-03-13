@@ -10,7 +10,7 @@
                 </button>
                 <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-                   <span class="ml-2">{{ 'add' | transloco }}</span>
+                    <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <input matInput placeholder="{{ 'first_name' | transloco }}" name="name"
                     [(ngModel)]="filters.firstName">
             </mat-form-field>
-            
+
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
@@ -102,7 +102,13 @@
                 <ng-container matColumnDef="type_transport">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.city}} </mat-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngFor="let driver of row.driverTransports">
+                            <div *ngFor="let driver of driver.transportTypes">
+                                {{driver?.name}}
+                            </div>
+                        </span>
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
@@ -160,9 +166,9 @@
                                         </button>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngIf="row.driverTransports.length>0" >
+                                <ng-container *ngIf="row.driverTransports.length>0">
                                     <div *ngFor="let transport of row.driverTransports">
-                                        <button mat-menu-item color="accent"  [disabled]="row.blocked"
+                                        <button mat-menu-item color="accent" [disabled]="row.blocked"
                                             (click)="verification(row.id, transport.id)">
                                             <mat-icon>directions_car</mat-icon>
                                             {{transport.name}}

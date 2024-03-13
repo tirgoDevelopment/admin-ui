@@ -20,7 +20,7 @@
                 <mat-form-field class="flex items-center">
                     <mat-label> {{ 'transport_cargo' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="transportKindIds" multiple>
-                        <mat-option *ngFor="let item of transportKinds ; trackBy: trackByFn"
+                        <mat-option *ngFor="let item of transportKinds; trackBy:trackByFn"
                             [value]="item.id">{{item.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -31,24 +31,24 @@
                 </mat-form-field>
 
                 <div class="flex items-center" *ngIf="isAutotransport">
-                    <mat-form-field class="flex items-center">
+                    <mat-form-field class="flex items-center w-full">
                         <mat-label> {{ 'number_of_transporter' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="refrigeratorCount">
                     </mat-form-field>
                 </div>
 
                 <div class="flex items-center" *ngIf="isRefrigeratorMode">
-                    <mat-form-field class="flex items-center">
+                    <mat-form-field class="flex items-center w-full">
                         <mat-label>{{ 'mode_from' | transloco }}</mat-label>
-                        <input type="number" matInput formControlName="refrigeratorFrom">
+                        <input type="number" min="0"  matInput formControlName="refrigeratorFrom">
                     </mat-form-field>
-                    <mat-form-field class="flex items-center">
+                    <mat-form-field class="flex items-center w-full">
                         <mat-label>{{ 'mode_to' | transloco }}</mat-label>
-                        <input type="number" matInput formControlName="refrigeratorTo">
+                        <input type="number" min="0" matInput formControlName="refrigeratorTo">
                     </mat-form-field>
                 </div>
                 <div class="flex items-center" *ngIf="isContainer">
-                    <mat-form-field class="flex items-center">
+                    <mat-form-field class="flex items-center w-full">
                         <mat-label> {{ 'volume_f' | transloco }}</mat-label>
                         <mat-select [value]="'EU'" formControlName="containerVolume">
                             <mat-option [value]="'20'">20(ф.)</mat-option>
@@ -58,7 +58,19 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <div class="flex items-center" *ngIf="isRefrigerator">
+                    <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">
+                    {{ 'mode' | transloco }}</mat-checkbox>
+                    <mat-checkbox formControlName="isHook"> {{ 'hook' | transloco }}</mat-checkbox>
+                </div>
+                <div class="flex items-center " *ngIf="isCistern">
+                    <mat-form-field class="flex items-center w-full">
+                        <mat-label> {{ 'volume_l' | transloco }}</mat-label>
+                        <input type="number" matInput formControlName="cisternVolume">
+                    </mat-form-field>
+                </div>
             </div>
+            
             <div class="px-2">
                 <mat-form-field class="flex items-center">
                     <mat-label>{{ 'state_number' | transloco }} </mat-label>
@@ -80,18 +92,6 @@
                 <mat-slide-toggle class="py-2" formControlName="isAdr">
                     {{"isAdr"|transloco}}
                 </mat-slide-toggle>
-
-                <div *ngIf="isRefrigerator">
-                    <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">{{ 'mode' |
-                        transloco }}</mat-checkbox>
-                    <mat-checkbox formControlName="isHook"> {{ 'hook' | transloco }}</mat-checkbox>
-                </div>
-                <div class="flex items-center" *ngIf="isCistern">
-                    <mat-form-field class="flex items-center">
-                        <mat-label> {{ 'volume_l' | transloco }}</mat-label>
-                        <input type="number" matInput formControlName="cisternVolume">
-                    </mat-form-field>
-                </div>
 
             </div>
             <div class="px-4">

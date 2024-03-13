@@ -32,7 +32,7 @@ import { ClientModel } from 'app/modules/clients/models/client.model';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, TranslocoModule, MatSelectModule, MatInputModule,   MatFormFieldModule,
+  imports: [RouterLink, NgIf, NgFor, MatCheckboxModule, TranslocoModule, MatSelectModule, MatInputModule, MatFormFieldModule,
     MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class CreateOrderComponent implements OnInit {
@@ -197,7 +197,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.form.get('clientId').valueChanges.pipe(
       debounceTime(300),
-      switchMap(clientId => this._clientService.get(clientId)) 
+      switchMap(clientId => this._clientService.get(clientId))
     ).subscribe(response => {
       if (response.success) {
         this.clientInfo = response.data;
@@ -229,7 +229,7 @@ export class CreateOrderComponent implements OnInit {
   setId(item: any) {
     return item.id;
   }
-  
+
   createOrder() {
     if (this.form.get('id').value) {
       this.form.patchValue({
@@ -287,11 +287,22 @@ export class CreateOrderComponent implements OnInit {
     });
 
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
-      this.isAutotransport = values.includes('Автовоз');
-      this.isRefrigerator = values.includes('Рефрежатор');
-      this.isCistern = values.includes('Цистерна');
-      this.isContainer = values.includes('Контейнеровоз');
-    });
+      if (values.length == 1) {
+        let tranportKind = this.transportKinds.find(x => x.id == values);
+        this.isAutotransport = tranportKind?.name?.includes('Автовоз');
+        this.isRefrigerator = tranportKind?.name?.includes('Рефрежератор');
+        this.isCistern = tranportKind?.name?.includes('Цистерна');
+        this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
+      } else {
+        values.forEach(x => {
+          let tranportKind = this.transportKinds.find(y => y.id == x);
+          this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
+          this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрежератор');
+          this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
+          this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
+        });
+      }
+    })
   }
   findCity(ev: any) {
     try {

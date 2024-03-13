@@ -183,8 +183,10 @@ export class OrdersComponent implements OnInit {
 
   edit(row) {
     const dialogRef = this.dialog.open(CreateOrderComponent, {
-      minWidth: '40vw',
-      maxWidth: '60vw',
+      minWidth: '50vw',
+      maxWidth: '70vw',
+      minHeight: '50vh',
+      maxHeight: '95vh',
       autoFocus: false,
       disableClose: true,
       data: row
@@ -196,8 +198,10 @@ export class OrdersComponent implements OnInit {
 
   createOrderModal() {
     const dialogRef = this.dialog.open(CreateOrderComponent, {
-      minWidth: '40vw',
-      maxWidth: '60vw',
+      minWidth: '50vw',
+      maxWidth: '70vw',
+      minHeight: '50vh',
+      maxHeight: '95vh',
       autoFocus: false,
       disableClose: true,
     });
