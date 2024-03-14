@@ -254,5 +254,6 @@
      "send":"Send notification",
      "connect_driver":"Connect Driver",
      "frozen_balance":"Frozen Balance",
-     "active_balance":"Active Balance"
+     "active_balance":"Active Balance",
+     "subscription":"Subscription"
 }

@@ -250,5 +250,6 @@
      "send":"Отправить уведомление",
      "connect_driver":"Подключить драйвер",
      "frozen_balance":"Замороженный баланс",
-     "active_balance":"Активный баланс"
+     "active_balance":"Активный баланс",
+     "subscription":"Подписка"
 }
