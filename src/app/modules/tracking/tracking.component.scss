@@ -1,13 +1,11 @@
-.yandex {
-    height: calc(100% - 135px);
+.ya-map {
     width: 100%;
+    height: 100%;
 }
 
-// .map-container {
-//     width: 100%;
-//     height: 100vh;
-// }
-// ya-map {
-//     width: 100%;
-//     height: 100%;
-// }
+.h-screen-minus-200 {
+    height: calc(100vh - 200px); /* Make the container 200px less than the full height of the screen */
+    width: min-content; /* Ensure the container width adapts to the content */
+    max-width: 100%; /* Ensure the container does not exceed the width of the screen */
+}
+

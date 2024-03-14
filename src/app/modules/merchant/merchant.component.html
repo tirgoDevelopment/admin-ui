@@ -58,7 +58,7 @@
                     <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="entity">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"entity"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"tax_payer_code"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.taxPayerCode}} </mat-cell>
                 </ng-container>
@@ -124,7 +124,7 @@
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns">
+                <mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="['edit', row.id]" class="user-row darken-on-hover">
                 </mat-row>
             </mat-table>
 

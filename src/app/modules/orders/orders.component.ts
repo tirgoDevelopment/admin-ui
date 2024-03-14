@@ -30,7 +30,6 @@ import { OrderModel } from './models/order.model';
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
@@ -58,7 +57,7 @@ export class OrdersComponent implements OnInit {
     sortBy: 'id',
     sortType: 'asc'
   };
-  
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<OrderModel>([]);
@@ -66,8 +65,7 @@ export class OrdersComponent implements OnInit {
     private orderService: OrdersService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private _typeService: TypesService
-  ) { }
+    private _typeService: TypesService) { }
   ngOnInit(): void {
     this.currentUser = jwtDecode(this.authService.accessToken);
     this.getOrders();
@@ -79,7 +77,7 @@ export class OrdersComponent implements OnInit {
     })
   }
 
-  detail() {
+  detail(id: number): void {
     const dialog = this.dialog.open(OrderDetailComponent, {
       width: '500px',
       height: '100vh',
@@ -88,14 +86,14 @@ export class OrdersComponent implements OnInit {
         top: '0',
         right: '0',
       },
-      maxHeight: '100%'
+      maxHeight: '100%',
+      data: id
     })
     dialog.afterClosed()
       .subscribe(() => {
         this.getOrders(this.pageParams);
       })
   }
-
 
   clearFilters() {
     this.filters = {
@@ -113,7 +111,6 @@ export class OrdersComponent implements OnInit {
   }
 
   filterDrivers() {
-
   }
 
   onPageChange(event: PageEvent): void {
@@ -124,7 +121,7 @@ export class OrdersComponent implements OnInit {
   }
   getOrders(params?) {
     this.isLoading = true;
-    this.orderService.getOrders(Object.assign(this.filters, this.pageParams)).subscribe((res: any) => {
+    this.orderService.getOrders(Object.assign(this.filters,params)).subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data;

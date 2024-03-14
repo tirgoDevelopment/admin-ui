@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AgreementComponent } from '../agreement/agreement.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { OrdersService } from '../../services/orders.service';
-import { debounceTime, forkJoin, switchMap } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, of, switchMap, tap } from 'rxjs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
 import { ClientModel } from 'app/modules/clients/models/client.model';
@@ -59,16 +59,31 @@ export class CreateOrderComponent implements OnInit {
   isCistern: any;
   isContainer: any;
   clientInfo: ClientModel;
+  private searchSubject = new Subject<string>();
   constructor(
     private dialogRef: MatDialogRef<CreateOrderComponent>,
     private formBuilder: FormBuilder,
     private _orderService: OrdersService,
     private _typesService: TypesService,
     private _clientService: ClientService,
-    private _countryService: CountryService,
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        tap(() => this.loading = true),
+        switchMap((findText: string) => {
+          return this.findCities(findText.trim().toLowerCase()).pipe(
+            catchError(() => of([])),
+            tap(() => this.loading = false)
+          );
+        })
+      )
+      .subscribe((res: any) => {
+        this.findList = res.data;
+      });
     if (this.data) {
       this.getOrderById(this.data.id);
     }
@@ -83,7 +98,7 @@ export class CreateOrderComponent implements OnInit {
       if (res.success) {
         this.form.patchValue({
           id: res.data?.id,
-          clientId: res.data?.client?.id,
+          clientId: res.data?.clientMerchant?.id,
           sendDate: res.data?.sendDate,
           loadingLocation: res.data?.loadingLocation,
           deliveryLocation: res.data?.deliveryLocation,
@@ -231,6 +246,30 @@ export class CreateOrderComponent implements OnInit {
   }
 
   createOrder() {
+    const optionalFields = ['customsPlaceLocation', 'customsClearancePlaceLocation', 'additionalLoadingLocation', 'additionalDeliveryLocation'];
+    for (const field of optionalFields) {
+      if (this.form.value[field]) {
+        this.form.patchValue({
+          [field]: {
+            name: this.form.value[field].displayName,
+            latitude: this.form.value[field].latitude,
+            longitude: this.form.value[field].longitude,
+          },
+        });
+      }
+    }
+    this.form.patchValue({
+      loadingLocation: {
+        name: this.form.value.loadingLocation.displayName,
+        latitude: this.form.value.loadingLocation.latitude,
+        longitude: this.form.value.loadingLocation.longitude,
+      },
+      deliveryLocation: {
+        name: this.form.value.deliveryLocation.displayName,
+        latitude: this.form.value.deliveryLocation.latitude,
+        longitude: this.form.value.deliveryLocation.longitude,
+      }
+    });
     if (this.form.get('id').value) {
       this.form.patchValue({
         transportKindIds: this.setIds(this.form.get('transportKindIds').value),
@@ -304,22 +343,23 @@ export class CreateOrderComponent implements OnInit {
       }
     })
   }
-  findCity(ev: any) {
-    try {
-      const findText = ev.target.value.toString().trim().toLowerCase();
-      if (findText.length >= 2) {
-        this.viewText = true;
-        this._countryService.findCity(findText).subscribe((res: any) => {
-          this.findList = res;
-        })
-        // } else {
-        //   this.viewText = false;
-        //   this.findList = [];
-      }
-    } catch (error) {
-      console.error("Error fetching city data:", error);
+
+  findCity(ev: any): void {
+    const findText = ev.target.value.toString().trim().toLowerCase();
+    this.searchSubject.next(findText);
+  }
+
+  displayFn(city: any): string {
+    return city ? city.displayName : '';
+  }
+  findCities(findText: string): Observable<any> {
+    if (!findText) {
+      return of({ data: [] });
+    } else {
+      return this._typesService.getCities(findText, 'en');
     }
   }
+
   closeModal() {
     this.dialogRef.close();
   }

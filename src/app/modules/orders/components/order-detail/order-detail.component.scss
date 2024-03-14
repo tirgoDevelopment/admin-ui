@@ -1,32 +1,38 @@
-.mat-mdc-dialog-container .mdc-dialog__surface {
-    border-radius: 6px 0px 0px 6px !important;
-    padding: 6px !important;
-  }
-  
-  .mat-mdc-dialog-content {
-    max-height: 83vh;
-    scrollbar-color: #888 #eee;
-    scrollbar-width: thin;
-    padding: 0 !important;
-  }
-  
-  .mdc-dialog__title {
-    padding: 0 11px 9px !important;
-  }
-  
-  .mat-dialog-content::-webkit-scrollbar {
-    width: 2px;
-  }
-  
-  .mat-dialog-content::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 5px;
-  }
-  
-  .mat-dialog-content::-webkit-scrollbar-track {
-    background-color: #eee;
-  }
+:host ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 2px !important;
+  padding: 15px 20px;
+}
 
-  .yandex {
-    height: calc(100% - 135px);
+:host ::ng-deep ::-webkit-scrollbar {
+  display: none;
+}
+
+:host ::ng-deep .mat-mdc-dialog-content {
+  max-height: 83vh;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .mdc-dialog__title {
+  padding: 0 0px 9px !important;
+}
+
+:host ::ng-deep .mat-dialog-content::-webkit-scrollbar {
+  width: 2px;
+}
+
+:host ::ng-deep .mat-dialog-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+:host ::ng-deep .mat-dialog-content::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+:host ::ng-deep .yandex {
+  height: calc(100% - 135px);
+}
+
+:host ::ng-deep .mat-mdc-tab-group .mat-mdc-tab-body-content {
+  padding: 0;
 }

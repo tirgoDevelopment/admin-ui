@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -31,14 +31,13 @@ import { removeUnselected } from 'app/shared/functions/remove-unselected-formDat
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 
 export class MerchantModerationComponent implements OnInit {
   displayedColumns: string[] = ['full_name', 'sum', 'currencyName', 'date', 'type', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>([]);
-  fileApi = 'https://merchant.tirgo.io/api/v1/file/download/';
   selectedFileNames: any;
   passportFile: FileList;
 
@@ -48,7 +47,6 @@ export class MerchantModerationComponent implements OnInit {
   transaction: any;
   balances: any;
   frozenBalance: any;
-  image: any;
   id: number;
   formData = new FormData();
   logoFilePath: string;
@@ -91,27 +89,28 @@ export class MerchantModerationComponent implements OnInit {
 
   getMerchant(id: number) {
     this.edit = true
-    this.merchantService.get(id).subscribe(responce => {
-        this.logoFilePath = responce.data?.logoFilePath,
-        this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath,
-        this.passportFilePath = responce.data?.passportFilePath
+    this.merchantService.get(id).subscribe((responce: any) => {
+      console.log(responce);
+      this.logoFilePath = responce.data?.logoFilePath;
+      this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
+      this.passportFilePath = responce.data?.passportFilePath;
       this.form.patchValue({
-        id: responce.data.id,
-        bankName: responce.data.bankName,
-        companyName: responce.data.companyName,
-        phoneNumber: responce.data.phoneNumber,
-        dunsNumber: responce.data.dunsNumber,
-        email: responce.data.email,
-        supervisorFirstName: responce.data.supervisorFirstName,
-        supervisorLastName: responce.data.supervisorLastName,
-        responsiblePersonFistName: responce.data.responsiblePersonFistName,
-        responsiblePersonLastName: responce.data.responsiblePersonLastName,
-        responsbilePersonPhoneNumber: responce.data.responsbilePersonPhoneNumber,
-        legalAddress: responce.data.legalAddress,
-        inn: responce.data.inn,
-        oked: responce.data.oked,
-        mfo: responce.data.mfo,
-        notes: responce.data.notes,
+        id: responce.data?.id,
+        bankName: responce.data?.bankName,
+        companyName: responce.data?.companyName,
+        phoneNumber: responce.data?.phoneNumber,
+        dunsNumber: responce.data?.dunsNumber,
+        email: responce.data?.email,
+        supervisorFirstName: responce.data?.supervisorFirstName,
+        supervisorLastName: responce.data?.supervisorLastName,
+        responsiblePersonFistName: responce.data?.responsiblePersonFistName,
+        responsiblePersonLastName: responce.data?.responsiblePersonLastName,
+        responsbilePersonPhoneNumber: responce.data?.responsbilePersonPhoneNumber,
+        legalAddress: responce.data?.legalAddress,
+        inn: responce.data?.inn,
+        oked: responce.data?.oked,
+        mfo: responce.data?.mfo,
+        notes: responce.data?.notes,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
         passportFilePath: responce.data?.passportFilePath
@@ -212,15 +211,16 @@ export class MerchantModerationComponent implements OnInit {
     }
     this.merchantService.updateMerchant(this.formData).pipe(res => {
       if (isObservable(res)) {
-        this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
+        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
         return res
       } else {
         return res
       }
     }).subscribe((res: any) => {
       console.log(res)
+      this.toastr.success('Обновить продавца')
       if (res.success) {
-        this.router.navigate(['/merchants'])
+        this.router.navigate(['/client-merchants'])
       }
     })
   }

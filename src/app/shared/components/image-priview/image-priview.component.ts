@@ -19,8 +19,8 @@ export class ImagePriviewComponent {
   file_url = ''
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _fileUrlService: FileUrlService,
     public dialog: MatDialog) {
+    console.log(this.data)
     this.keyName = this.data.keyName
     this.fileName = this.data.fileName
   }

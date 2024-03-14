@@ -76,16 +76,17 @@
 
         <ng-container matColumnDef="sendLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row?.loadingLocation}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row?.loadingLocation?.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation?.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef class="font-bold" mat-sort-header sortActionDescription="Sort by status"> {{ 'status' |
+          <mat-header-cell *matHeaderCellDef class="font-bold" mat-sort-header sortActionDescription="Sort by status">
+            {{ 'status' |
             transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div class="status-badge" [class]="returnClassStatusOrder(row.cargoStatus.name)">
@@ -112,8 +113,6 @@
           </mat-cell>
         </ng-container>
 
-
-
         <ng-container matColumnDef="secure_transaction">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'secure_transaction' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.isSafe ? 'Да':'Нет'}}</mat-cell>
@@ -126,7 +125,7 @@
         </ng-container>
 
         <ng-container matColumnDef="date_send">
-           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'shipment_date' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'shipment_date' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             {{ (row.isUrgent ? addTwoDays(row.createdAt) : row.createdAt) | date: 'dd.MM.YYYY' }}
           </mat-cell>
@@ -146,22 +145,20 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #moreMenu="matMenu">
-                <button mat-menu-item color="accent" (click)="edit(row)">
+                <!-- <button mat-menu-item color="accent" (click)="edit(row)">
                   <mat-icon>edit</mat-icon>
                   {{"edit"|transloco}}
-                </button>
+                </button> -->
                 <button mat-menu-item color="accent" (click)="cancel(row)">
                   <mat-icon>cancel</mat-icon>
                   {{"cancel"|transloco}}
                 </button>
-
               </mat-menu>
             </div>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns; let i=index"></mat-row>
-
+        <mat-row *matRowDef="let row; columns: displayedColumns; let i=index" (click)="detail(row.id)"></mat-row>
       </mat-table>
       <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
       </mat-paginator>

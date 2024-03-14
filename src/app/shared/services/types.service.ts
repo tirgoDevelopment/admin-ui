@@ -30,4 +30,9 @@ export class TypesService {
   getSubscription() {
     return this.http.get(env.references + '/references/subscriptions/all');
   }
+
+  getCities(city,lang) {
+    return this.http.get(env.apiUrl + '/references/cities?city='+city+'&lang='+lang);
+  }
+  
 }

@@ -22,4 +22,8 @@ export class CountryService {
           }
        }));
  }
+
+ getCities(city,lang) {
+   return this.http.get(env.apiUrl + '/references/cities?city='+city+'&lang='+lang);
+ }
 }

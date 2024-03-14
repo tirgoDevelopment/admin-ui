@@ -51,18 +51,19 @@ export class MerchantConfirmComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-    this.merchantService.get(id).subscribe(responce => {
+    this.merchantService.get(id).subscribe((responce:any) => {
       this.merchant = responce.data;
     })
   }
 
-  privew(image?: string): void {
+  privew(image: string): void {
+    console.log(image)
     this.dialog.open(ImagePriviewComponent, {
-      data: image,
       minHeight: '50vh',
       maxHeight: "90vh",
       minWidth: '50vw',
       maxWidth: "90vw",
+      data: { keyName: 'client_merchant', fileName: image },
     })
   }
 
@@ -70,7 +71,7 @@ export class MerchantConfirmComponent implements OnInit {
     this.merchantService.verify(this.id).subscribe(responce => {
       this.merchant = responce.data;
       if (responce.success) {
-        this.router.navigate(['/merchants'])
+        this.router.navigate(['/client-merchants'])
       }
     })
   }
@@ -79,7 +80,7 @@ export class MerchantConfirmComponent implements OnInit {
     this.merchantService.reject(this.id).subscribe(responce => {
       this.merchant = responce.data;
       if (responce.success) {
-        this.router.navigate(['/merchants'])
+        this.router.navigate(['/client-merchants'])
       }
     })
   }

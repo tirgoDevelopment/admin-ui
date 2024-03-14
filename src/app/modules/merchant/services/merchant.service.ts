@@ -17,7 +17,7 @@ export class MerchantService {
   get(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<MerchantModel>(`/users/client-merchants`, queryParams);
+    return this._apiService.get<MerchantModel>(`/users/client-merchants/client-merchant-by`, queryParams);
   }
 
   delete(id: number): Observable<Response<MerchantModel>> {
@@ -63,38 +63,38 @@ export class MerchantService {
   }
 
   updateMerchant(body): Observable<Response<MerchantModel>> {
-    return this._apiService.put<MerchantModel>('/users/client-merchant/register', body);
+    return this._apiService.put<MerchantModel>('/users/client-merchants/update-client-merchant', body);
   }
 
   getMerchantTransactions(id?): Observable<any> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("userId", id);
     const options = { params: queryParams };
-    return this._http.get(env.merchantUrl + '/finance/transaction/admin-merchant-transactions', { params: queryParams });
+    return this._http.get(env.apiUrl + '/finance/transaction/admin-merchant-transactions', { params: queryParams });
   }
 
   getMerchantBalanse(id?): Observable<any> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("merchantId", id);
-    return this._http.get(env.merchantUrl + '/finance/transaction/merchant-balance', { params: queryParams });
+    return this._http.get(env.apiUrl + '/finance/transaction/merchant-balance', { params: queryParams });
   }
 
   cancelTransaction(id: number): Observable<Response<any>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._http.patch<any>(env.merchantUrl + `/finance/transaction/cancel`, {}, { params: queryParams });
+    return this._http.patch<any>(env.apiUrl + `/finance/transaction/cancel`, {}, { params: queryParams });
   }
 
   rejectTransaction(id: number): Observable<Response<any>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._http.patch<any>(env.merchantUrl + `/finance/transaction/reject`, {}, { params: queryParams });
+    return this._http.patch<any>(env.apiUrl + `/finance/transaction/reject`, {}, { params: queryParams });
   }
 
   verifyTransaction(id: number): Observable<Response<any>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._http.patch<any>(env.merchantUrl + `/finance/transaction/verify`, {}, { params: queryParams });
+    return this._http.patch<any>(env.apiUrl + `/finance/transaction/verify`, {}, { params: queryParams });
   }
 
 }

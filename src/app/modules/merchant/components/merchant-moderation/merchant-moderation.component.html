@@ -64,9 +64,10 @@
                 <mat-label>{{ 'mfo' | transloco }}</mat-label>
                 <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
             </mat-form-field>
+
             <mat-form-field color="accent" class="w-full">
                 <mat-label>{{ 'phone' | transloco }}*</mat-label>
-                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumbers"
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
                     [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
                     name="phoneNumber" #phoneNumber>
                 </ngx-mat-intl-tel-input>
@@ -96,7 +97,8 @@
                 <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
             </mat-form-field>
         </div>
-        <div class="flex flex-wrap gap-4 items-end justify-between">
+        <div class="flex flex-wrap gap-4 items-end justify-start">
+        
             <div class="w-40">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
@@ -116,7 +118,7 @@
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
-                        [src]="logoFilePath | fileFetch: 'merchant'|async">
+                        [src]="logoFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
 
@@ -139,7 +141,7 @@
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
-                        [src]="passportFilePath | fileFetch: 'merchant'|async">
+                        [src]="passportFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
 
@@ -163,9 +165,10 @@
                     <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
                         [src]="registrationCertificateFilePath">
                     <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&edit"
-                        [src]="registrationCertificateFilePath | fileFetch: 'merchant'|async">
+                        [src]="registrationCertificateFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
+        
         </div>
     </form>
     <div class="mt-10 flex ">
@@ -243,8 +246,8 @@
                         <mat-menu #moreMenu="matMenu">
                             <button mat-menu-item color="accent" *ngIf="!row.verified "
                                 (click)="verifyTransaction(row.id)">
-                                <mat-icon>remove</mat-icon>
-                                {{"verify"|transloco}}
+                                <mat-icon>add</mat-icon>
+                                {{"approve"|transloco}}
                             </button>
                             <button mat-menu-item color="accent" *ngIf=" !row.rejected"
                                 (click)="rejectTransaction(row.id)">
