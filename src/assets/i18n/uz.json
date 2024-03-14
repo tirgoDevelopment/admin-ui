@@ -254,5 +254,6 @@
     "send":"Bildirishnoma yuborish",
     "connect_driver":"Ulanish haydovchi",
     "frozen_balance":"Muzlatilgan balans",
-    "active_balance":"Faol balans"
+    "active_balance":"Faol balans",
+    "subscription":"Obuna"
 }
