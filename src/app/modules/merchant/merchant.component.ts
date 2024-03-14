@@ -27,7 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule,MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];
@@ -39,11 +39,10 @@ export class MerchantComponent implements OnInit {
     createdFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['id', 'full_name', 'companyName' ,'entity', 'balance', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
-  constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
-  }
+  constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {}
 
   clearFilters() {
     this.filters = {
@@ -61,9 +60,7 @@ export class MerchantComponent implements OnInit {
     sortBy: 'id',
     sortType: 'asc'
   };
-  filterDrivers() {
-
-  }
+  filterDrivers() {}
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
@@ -77,19 +74,17 @@ export class MerchantComponent implements OnInit {
   }
 
   getAllMerchants(params?) {
-    this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response) => {
-      this.dataSource.data = response?.data;
+    this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response: any) => {
+      this.dataSource.data = response?.data?.content;
     });
   }
-
-
 
   block(id: number) {
     const dialog = this._dialog.open(BlockMerchantComponent, {
       minWidth: '20vw',
       maxWidth: '40vw',
-      minHeight: '42vh',
-      maxHeight: '85vh',
+      minHeight: '30vh',
+      maxHeight: '50vh',
       data: id,
       autoFocus: false,
     })

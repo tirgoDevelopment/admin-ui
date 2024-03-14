@@ -92,6 +92,9 @@ export class MerchantModerationComponent implements OnInit {
   getMerchant(id: number) {
     this.edit = true
     this.merchantService.get(id).subscribe(responce => {
+        this.logoFilePath = responce.data?.logoFilePath,
+        this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath,
+        this.passportFilePath = responce.data?.passportFilePath
       this.form.patchValue({
         id: responce.data.id,
         bankName: responce.data.bankName,
@@ -209,7 +212,7 @@ export class MerchantModerationComponent implements OnInit {
     }
     this.merchantService.updateMerchant(this.formData).pipe(res => {
       if (isObservable(res)) {
-        this.formData = removeUnselected(this.formData,['logoFilePath', 'registrationCertificateFilePath','passportFilePath']);
+        this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
         return res
       } else {
         return res

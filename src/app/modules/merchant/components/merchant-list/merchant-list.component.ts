@@ -34,9 +34,8 @@ export class MerchantListComponent {
   }
 
   unverifiedMerchants() {
-    this._merchantService.unVerified().subscribe(res => {
-      this.merchants = res.data
-      console.log(this.merchants)
+    this._merchantService.unVerified().subscribe((res:any) => {
+      this.merchants = res.data.content
     })
   }
 }

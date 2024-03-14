@@ -84,10 +84,10 @@
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <button *ngIf="row?.active"
+                        <button *ngIf="!row?.blocked"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">
                         </button>
-                        <button *ngIf="!row?.active"
+                        <button *ngIf="row?.blocked"
                             class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                         </button>
                     </mat-cell>
@@ -106,11 +106,11 @@
                                     <mat-icon>list</mat-icon>
                                     {{"list"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" *ngIf="row.active" (click)="block(row.id)">
+                                <button mat-menu-item color="accent" *ngIf="!row.blocked" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>
                                     {{"block"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" *ngIf="!row.active" (click)="active(row.id)">
+                                <button mat-menu-item color="accent" *ngIf="row.blocked" (click)="active(row.id)">
                                     <mat-icon>lock_open</mat-icon>
                                     {{"unblock"|transloco}}
                                 </button>

@@ -1,4 +1,4 @@
-<div class="container w-full bg-white dark:bg-transparent  dar p-6 rounded shadow-lg">
+<div class="w-full bg-white dark:bg-transparent  dar p-6 rounded shadow-lg">
     <div class="flex justify-between items-center">
         <h2 class="text-xl font-bold">Редактировать</h2>
         <div class="flex items-center">
@@ -64,17 +64,20 @@
                 <mat-label>{{ 'mfo' | transloco }}</mat-label>
                 <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
             </mat-form-field>
-
-            <mat-form-field>
-                <ngx-mat-intl-tel-input  placeholder="{{ 'phone' | transloco }}" [cssClass]="'custom'" formControlName="phone" [preferredCountries]="['uz']"
-                [enablePlaceholder]="true" [enableSearch]="true" name="phone" #phone>
-            </ngx-mat-intl-tel-input>
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'phone' | transloco }}*</mat-label>
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumbers"
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
+                    name="phoneNumber" #phoneNumber>
+                </ngx-mat-intl-tel-input>
             </mat-form-field>
 
-            <mat-form-field>
-                <ngx-mat-intl-tel-input  placeholder="{{ 'responce_phone' | transloco }}" [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber" [preferredCountries]="['uz']"
-                [enablePlaceholder]="true" [enableSearch]="true" name="phones" #phones>
-            </ngx-mat-intl-tel-input>
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'phone' | transloco }}*</mat-label>
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
+                    name="responsbilePersonPhoneNumber" #responsbilePersonPhoneNumber>
+                </ngx-mat-intl-tel-input>
             </mat-form-field>
 
             <mat-form-field>
@@ -93,10 +96,10 @@
                 <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
             </mat-form-field>
         </div>
-        <div class="flex flex-wrap gap-4 items-end justify-around">
-            <div class="w-32">
+        <div class="flex flex-wrap gap-4 items-end justify-between">
+            <div class="w-40">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
@@ -117,19 +120,19 @@
                 </div>
             </div>
 
-            <div class="w-32">
+            <div class="w-40">
                 <mat-label>{{ 'passport' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="passportFilePath" id="avatar-file-input1"
+                            <input formControlName="passportFilePath" id="avatar-file-input2"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'passportFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input2" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -140,19 +143,19 @@
                 </div>
             </div>
 
-            <div class="w-32">
+            <div class="w-40">
                 <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="registrationCertificateFilePath" id="avatar-file-input1"
+                            <input formControlName="registrationCertificateFilePath" id="avatar-file-input3"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'registrationCertificateFilePath')">
                             <label
                                 class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
+                                for="avatar-file-input3" matRipple>
                                 <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                             </label>
                         </div>
@@ -176,7 +179,7 @@
                 </div>
             </div>
             <div class="mx-3 text-center">
-               <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
+                <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                     <span>{{balance?.frozenbalance}}</span>
                 </div>
