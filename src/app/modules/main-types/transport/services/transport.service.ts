@@ -5,13 +5,14 @@ import { TransportModel } from '../models/transport.model';
 import { ApiService } from 'app/core/service/api.service';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { HttpParams } from '@angular/common/http';
+import { RefService } from 'app/core/service/ref.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransportService {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: RefService) { }
 
   get(id: number): Observable<Response<TransportModel>> {
     return this._apiService.get<TransportModel>(`/references/transport-types/${id}`);

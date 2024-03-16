@@ -19,6 +19,7 @@ import { DriversService } from '../../services/drivers.service';
 import { DriverModel } from '../../models/driver.model';
 import { BlockDriverComponent } from '../block-driver/block-driver.component';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
+import { AddTransportComponent } from '../add-transport/add-transport.component';
 
 @Component({
   selector: 'app-detail-driver',
@@ -30,8 +31,10 @@ import { ImagePriviewComponent } from 'app/shared/components/image-priview/image
 })
 export class DetailDriverComponent implements OnInit {
   driver: DriverModel;
+  driverId: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog) {
     this.getDriver(data);
+    this.driverId = data
   }
   getDriver(id: any) {
     this._driverService.get(id).subscribe((response) => {
@@ -67,6 +70,18 @@ export class DetailDriverComponent implements OnInit {
     dialog.afterClosed()
       .subscribe(() => {
       })
+  }
+
+  addTransport() {
+    const dialogRef = this._dialog.open(AddTransportComponent, {
+      minWidth: '70vw',
+      maxWidth: '90vw',
+      minHeight: '60vh',
+      maxHeight: '100vh',
+      disableClose: true,
+      autoFocus: false,
+      data: { driverId: this.driverId },
+    });
   }
 
   submit() {

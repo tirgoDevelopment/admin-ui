@@ -4,9 +4,11 @@ import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
+import { env } from 'app/environmens/environment';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public _baseUrl: string = 'https://test-api.tirgo.io/';
+  // public _baseUrl: string = 'https://test-api.tirgo.io/';
+  public _baseUrl: string = env.apiUrl;
   public _authenticated: boolean = false;
 
   constructor(
@@ -37,7 +39,7 @@ export class AuthService {
       return throwError('User is already logged in.');
     }
 
-    return this._httpClient.post(`${this._baseUrl}api/v2/users/login`, credentials).pipe(
+    return this._httpClient.post(`${this._baseUrl}/users/login`, credentials).pipe(
       switchMap((response: any) => {
         this.accessToken = response.data.token;
         this._authenticated = true;

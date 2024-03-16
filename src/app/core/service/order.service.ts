@@ -9,7 +9,7 @@ import { env } from 'app/environmens/environment';
 @Injectable({
 	providedIn: 'root'
 })
-export class ApiService {
+export class OrderService {
 
 	public apiUrl: string;
 	protected host: string;
@@ -17,7 +17,7 @@ export class ApiService {
 
 
 	constructor(public _toasterService:ToastrService, protected _http: HttpClient ) {
-		this.apiUrl = env.apiUrl;
+		this.apiUrl = env.orderApiUrl;
 		this.formatErrors = this.formatErrors.bind(this);
 		// 'http://192.168.1.218:3003/api/v2'
 		// this.apiUrl = `http://192.168.1.218:3000/api/v2`;

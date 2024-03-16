@@ -5,13 +5,14 @@ import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { SubscriptionModel } from '../models/subscription.model';
 import { HttpParams } from '@angular/common/http';
+import { RefService } from 'app/core/service/ref.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionService {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: RefService) { }
 
   get(id: number): Observable<Response<SubscriptionModel>> {
     return this._apiService.get<SubscriptionModel>(`/references/subscriptions/${id}`);

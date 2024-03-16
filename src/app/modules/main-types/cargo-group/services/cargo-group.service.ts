@@ -5,6 +5,7 @@ import { ApiService } from 'app/core/service/api.service';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { CargoGroupModel } from '../models/cargo-group.model';
 import { HttpParams } from '@angular/common/http';
+import { RefService } from 'app/core/service/ref.service';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class CargoGroupService {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: RefService) { }
 
   get(id: number): Observable<Response<CargoGroupModel>> {
     return this._apiService.get<CargoGroupModel>(`/references/cargo-type-groups/${id}`);

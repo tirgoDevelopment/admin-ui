@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { CargoStatusModel } from '../models/cargo-status.model';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { HttpParams } from '@angular/common/http';
+import { RefService } from 'app/core/service/ref.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CargoStatusService {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: RefService) { }
 
   get(id: number): Observable<Response<CargoStatusModel>> {
     return this._apiService.get<CargoStatusModel>(`/references/cargo-statuses/${id}`);

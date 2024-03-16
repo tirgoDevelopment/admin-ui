@@ -133,7 +133,7 @@
 
         <ng-container matColumnDef="client">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
@@ -150,7 +150,7 @@
                   {{"edit"|transloco}}
                 </button> -->
                 <button mat-menu-item color="accent" (click)="cancel(row)">
-                  <mat-icon>cancel</mat-icon>
+                  <mat-icon>remove</mat-icon>
                   {{"cancel"|transloco}}
                 </button>
               </mat-menu>

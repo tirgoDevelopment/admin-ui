@@ -122,9 +122,10 @@ export class OrdersComponent implements OnInit {
   getOrders(params?) {
     this.isLoading = true;
     this.orderService.getOrders(Object.assign(this.filters,params)).subscribe((res: any) => {
+      console.log(res)
       if (res && res.success) {
         this.isLoading = false;
-        this.dataSource = res.data;
+        this.dataSource = res.data.content;
       }
       else {
         this.isLoading = false;

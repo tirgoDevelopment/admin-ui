@@ -32,7 +32,7 @@ export class TypesService {
   }
 
   getCities(city,lang) {
-    return this.http.get(env.apiUrl + '/references/cities?city='+city+'&lang='+lang);
+    return this.http.get(env.references + '/references/cities?city='+city+'&lang='+lang);
   }
   
 }

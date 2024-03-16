@@ -22,6 +22,7 @@ import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ConfirmComponent } from 'app/shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-clients',
@@ -114,13 +115,7 @@ export class ClientsComponent {
       maxHeight: '100%'
     })
 
-    // this._dialog.open(ConfirmComponent, {
-    //   width: '500px',
-    //   height: '450px',
-    //   data: {
-    //     text: 'Вы действительно хотите удалить пользователя из списка?',
-    //   }
-    // })
+
   }
 
   block(id: number) {
@@ -174,6 +169,13 @@ export class ClientsComponent {
   }
 
   delete(id: number) {
+    // this._dialog.open(ConfirmComponent, {
+    //   width: '500px',
+    //   height: '450px',
+    //   data: {
+    //     text: 'Вы действительно хотите удалить пользователя из списка?',
+    //   }
+    // })
     this._clientService.delete(id).subscribe(() => {
       this.getAllClient(this.pageParams);
     })

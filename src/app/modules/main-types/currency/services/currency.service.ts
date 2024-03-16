@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { CurrencyModel } from '../models/currency.model';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { HttpParams } from '@angular/common/http';
+import { RefService } from 'app/core/service/ref.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyService {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: RefService) { }
 
   get(id: number): Observable<Response<CurrencyModel>> {
     return this._apiService.get<CurrencyModel>(`/references/currencies/${id}`);
