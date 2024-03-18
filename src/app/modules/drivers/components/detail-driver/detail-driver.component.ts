@@ -84,6 +84,18 @@ export class DetailDriverComponent implements OnInit {
     });
   }
 
+  addTransportEdit() {
+    const dialogRef = this._dialog.open(AddTransportComponent, {
+      minWidth: '70vw',
+      maxWidth: '90vw',
+      minHeight: '60vh',
+      maxHeight: '100vh',
+      disableClose: true,
+      autoFocus: false,
+      data: { driverId: this.driverId, edit: true },
+    });
+  }
+
   submit() {
   }
 }

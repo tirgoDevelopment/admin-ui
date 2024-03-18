@@ -30,7 +30,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'duration', 'price', 'actions'];
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

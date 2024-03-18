@@ -25,12 +25,11 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class TransportComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'actions'];
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

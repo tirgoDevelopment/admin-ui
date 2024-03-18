@@ -25,13 +25,12 @@ import { CargoLoadingModel } from './models/cargo-loading.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class CargoLoadingMethodComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

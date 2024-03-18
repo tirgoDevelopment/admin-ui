@@ -16,8 +16,6 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 import { AddCargoPackagesComponent } from './components/add-cargo-packages/add-cargo-packages.component';
 import { CargoPackagesService } from './services/cargo-packages.service';
 import { CargoPackagesModel } from './models/cargo-packages.model';
-
-
 @Component({
   selector: 'app-cargo-packages',
   templateUrl: './cargo-packages.component.html',
@@ -26,13 +24,12 @@ import { CargoPackagesModel } from './models/cargo-packages.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class CargoPackagesComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name',  'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

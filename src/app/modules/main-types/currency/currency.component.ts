@@ -31,7 +31,7 @@ export class CurrencyComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = [ 'name','code', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

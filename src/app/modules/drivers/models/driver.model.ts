@@ -20,5 +20,7 @@ export interface DriverModel extends BaseModel {
     order?: boolean;
     geolocation?: boolean;
     subscribedAt?:string;  
-    subscription?:any ;
+    subscription?:any;
+    driverLicense?:string;
+    passport?:string;
 }

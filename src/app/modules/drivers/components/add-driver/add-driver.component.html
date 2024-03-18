@@ -11,8 +11,7 @@
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'first_name' | transloco }}</mat-label>
-                    <input matInput  formControlName="firstName"
-                        [ngClass]="{'is-invalid': f.firstName.errors}">
+                    <input matInput formControlName="firstName" [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -24,51 +23,72 @@
                         name="phoneNumber" #phoneNumber>
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
-
-                <div class="w-full flex">
-                    <mat-form-field color="accent" class="w-full">
-                        <mat-label>{{ 'password' | transloco }}</mat-label>
-                        <input matInput  formControlName="password"
-                            [ngClass]="{'is-invalid': f.password.errors}">
-                        <mat-error *ngIf="f.password.errors?.required">
-                            {{ 'is_empty' | transloco }}
-                        </mat-error>
-                        <mat-error *ngIf="f.password.errors?.maxlength">
-                            Максимальная длина поля 6
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <!-- <mat-form-field color="accent" class="w-full">
-                    <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
-                       <mat-option>
-                          <ngx-mat-select-search (input)="findCity($event)" placeholderLabel="'Гражданство'"  [formControl]="selectTechnicalRoomFilterCtrl"></ngx-mat-select-search>
-                       </mat-option>
-                       <mat-option *ngFor="let city of findList" [value]="city.data">
-                          {{city.data.city + ', ' + city.data.country}}
-                       </mat-option>
-                    </mat-select>
-                 </mat-form-field> -->
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'last_name' | transloco }}</mat-label>
-                    <input matInput  formControlName="lastName"
-                        [ngClass]="{'is-invalid': f.lastName.errors}">
+                    <input matInput formControlName="lastName" [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <mat-label>{{ 'email' | transloco }}</mat-label>
-                    <input matInput  formControlName="email"
-                        [ngClass]="{'is-invalid': f.email.errors}">
-                    <mat-error *ngIf="f.email.errors?.required">
+                    <mat-label>{{ 'password' | transloco }}</mat-label>
+                    <input matInput formControlName="password" [ngClass]="{'is-invalid': f.password.errors}">
+                    <mat-error *ngIf="f.password.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
-                    <mat-error *ngIf="f.email.errors?.email">
-                        {{ 'is_email' | transloco }}
+                    <mat-error *ngIf="f.password.errors?.maxlength">
+                        Максимальная длина поля 6
                     </mat-error>
                 </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-wrap gap-4 items-end justify-start">
+            <div class="w-40">
+                <mat-label>{{ 'passport' | transloco }}</mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="passport" id="avatar-file-input6"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'passport')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input6" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
+                        </div>
+                    </div>
+                    <img class="object-fill w-full h-full" *ngIf="passport&&!edit" [src]="passport">
+                    <img class="object-fill w-full h-full" *ngIf="passport&&edit"
+                        [src]="passport | fileFetch: 'driver'|async">
+                </div>
+            </div>
+            <div class="w-40">
+                <mat-label>{{ 'driver_lisense_card' | transloco }} </mat-label>
+                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div>
+                            <input formControlName="driverLicense" id="avatar-file-input4"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
+                                [multiple]="false" [accept]="'image/jpeg, image/png'"
+                                (change)="selectFile($event, 'driverLicense')">
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                for="avatar-file-input4" matRipple>
+                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                            </label>
+                        </div>
+                    </div>
+                    <img class="object-fill w-full h-full" *ngIf="driverLicense&&!edit"
+                        [src]="driverLicense">
+                    <img class="object-fill w-full h-full" *ngIf="driverLicense&&edit"
+                        [src]="driverLicense | fileFetch: 'driver'|async">
+                </div>
             </div>
         </div>
     </form>
@@ -78,7 +98,7 @@
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
         <button [ngClass]="{'fuse-mat-button text-white': form.invalid, 'fuse-mat-button ': !form.invalid }"
-            mat-flat-button [color]="'primary'" [disabled]="form.invalid" (click)="submit()">
+            mat-flat-button [color]="'primary'"  (click)="submit()">
             {{ 'save' | transloco }}
         </button>
     </div>

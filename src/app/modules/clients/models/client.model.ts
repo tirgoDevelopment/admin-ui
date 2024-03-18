@@ -8,6 +8,7 @@ export interface ClientModel extends BaseModel {
     email?: string;
     citizenship?: string;
     active?: boolean;
+    blocked?: boolean;
     passport?: string;
     phoneNumbers:[];
 }

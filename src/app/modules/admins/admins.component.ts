@@ -33,7 +33,7 @@ import { AdminBlockComponent } from './components/admin-block/admin-block.compon
 })
 export class AdminsComponent extends UnsubscribeAble implements OnInit {
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',
@@ -60,8 +60,8 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
   }
 
   getAllAdmin(params?) {
-    this._admninService.getAll(params).subscribe((response) => {
-      this.dataSource.data = response.data;
+    this._admninService.getAll(params).subscribe((response:any) => {
+      this.dataSource.data = response.data.content;
     });
   }
 

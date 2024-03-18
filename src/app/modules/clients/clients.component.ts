@@ -46,14 +46,14 @@ export class ClientsComponent {
   };
 
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',
     sortType: 'asc'
   };
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['id', 'full_name', 'phone', 'city', 'register_date', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'full_name', 'phone',  'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ClientModel>([]);
@@ -63,8 +63,8 @@ export class ClientsComponent {
   }
 
   getAllClient(params?) {
-    this._clientService.getAll(Object.assign(this.filters, this.pageParams)).subscribe((response) => {
-      this.dataSource.data = response?.data;
+    this._clientService.getAll(Object.assign(this.filters, params)).subscribe((response:any) => {
+      this.dataSource.data = response?.data?.content;
     });
   }
 

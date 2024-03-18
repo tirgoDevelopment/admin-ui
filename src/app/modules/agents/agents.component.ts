@@ -40,7 +40,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     createdAtTo: '',
   };
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

@@ -16,7 +16,6 @@ import { TransportCargoService } from './services/transport-cargo.service';
 import { TransportCargoModel } from './models/transport-cargo.model';
 import { AddTransportCargoComponent } from './components/add-transport-cargo/add-transport-cargo.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-
 @Component({
   selector: 'app-transport-cargo',
   templateUrl: './transport-cargo.component.html',
@@ -30,7 +29,7 @@ export class TransportCargoComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name', 'is_mode', 'count', 'description','actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

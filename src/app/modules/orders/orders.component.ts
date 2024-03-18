@@ -51,7 +51,7 @@ export class OrdersComponent implements OnInit {
   };
 
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

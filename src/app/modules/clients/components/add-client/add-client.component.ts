@@ -52,7 +52,6 @@ export class AddClientComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
-    citizenship: new FormControl('', [Validators.required]),
     password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6)]),
     passport: new FormControl('', this.edit ? null : [Validators.required]),
   })
@@ -74,7 +73,6 @@ export class AddClientComponent {
           lastName: res.data?.lastName,
           phoneNumber: res.data?.phoneNumbers[0].phoneNumber,
           email: res.data?.email,
-          citizenship: res.data?.citizenship,
           passport: res.data?.passportFilePath,
         });
       })
@@ -170,7 +168,6 @@ export class AddClientComponent {
       this.formData.append('lastName', this.form.get('lastName').value);
       this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
       this.formData.append('email', this.form.get('email').value);
-      this.formData.append('citizenship', this.form.get('citizenship').value);
       const uniqueFormData = removeDuplicateKeys(this.formData);
       this._clientService.create(uniqueFormData).pipe(res => {
         if (isObservable(res)) {

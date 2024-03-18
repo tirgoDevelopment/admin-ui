@@ -36,7 +36,7 @@ export class AgentModuleComponent implements OnInit {
   id: number;
   pageParams = {
     agentId: 0,
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

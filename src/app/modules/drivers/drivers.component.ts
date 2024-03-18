@@ -50,7 +50,7 @@ export class DriversComponent implements OnInit {
     lastLoginTo: '',
   };
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',
@@ -111,6 +111,8 @@ export class DriversComponent implements OnInit {
   getAllDrivers(params?) {
     this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response:any) => {
       this.dataSource.data = response?.data?.content;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
     });
   }
 

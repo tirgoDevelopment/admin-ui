@@ -32,7 +32,7 @@ export class ArchiveUserComponent implements OnInit {
   @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
   displayedColumns: string[] = ['id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

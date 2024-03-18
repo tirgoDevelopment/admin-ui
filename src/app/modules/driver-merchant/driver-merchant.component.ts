@@ -10,18 +10,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
+import { RouterLink } from '@angular/router';
 import { MerchantService } from '../merchant/services/merchant.service';
 import { MerchantModel } from '../merchant/models/merchanr.model';
 import { DriverMerchantListComponent } from './components/driver-merchant-list/driver-merchant-list.component';
@@ -35,9 +28,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule,MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
-
+  imports: [TranslocoModule, RouterLink, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
@@ -49,7 +40,7 @@ export class DriverMerchantComponent {
     createdFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['id',  'companyName' , 'register_date', 'actions'];
+  displayedColumns: string[] = ['id', 'companyName', 'register_date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
@@ -65,7 +56,7 @@ export class DriverMerchantComponent {
   }
 
   pageParams = {
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',

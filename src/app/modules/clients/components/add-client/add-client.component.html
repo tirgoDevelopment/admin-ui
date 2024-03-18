@@ -25,13 +25,6 @@
                     </ngx-mat-intl-tel-input>
                 </mat-form-field>
 
-                <mat-form-field color="accent" class="w-full">
-                    <mat-label>{{ 'citizenship' | transloco }}</mat-label>
-                    <input matInput formControlName="citizenship" [ngClass]="{'is-invalid': f.citizenship.errors}">
-                    <mat-error *ngIf="f.citizenship.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>
-                </mat-form-field>
                 <div class="w-full flex" *ngIf="!edit">
                     <mat-form-field color="accent" class="w-full">
                         <mat-label>{{ 'password' | transloco }}</mat-label>
@@ -44,29 +37,6 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <!-- <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-                    <input type="text" matInput [matAutocomplete]="auto" placeholder="{{ 'city' | transloco }}"
-                        (input)="findCity($event)" formControlName="citizenship"> -->
-                <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <ng-container *ngFor="let city of findList">
-                            <mat-option
-                                [value]="city.data.city + ', ' + city.data.country + ':'+ city.data.geo_lat + ':'+ city.data.geo_lon">
-                                {{city.data.city}}
-                            </mat-option>
-                        </ng-container>
-                    </mat-autocomplete> -->
-                <!-- <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon> -->
-                <!-- <mat-form-field color="accent" class="w-full">
-                    <mat-select [formControl]="citiesSelected" placeholder="{{ 'city' | transloco }}"   #singleSelect  >
-                       <mat-option>
-                          <ngx-mat-select-search (input)="findCity($event)" placeholderLabel="'Гражданство'"  [formControl]="selectTechnicalRoomFilterCtrl"></ngx-mat-select-search>
-                       </mat-option>
-                       <mat-option *ngFor="let city of findList" [value]="city.data">
-                          {{city.data.city + ', ' + city.data.country}}
-                       </mat-option>
-                    </mat-select>
-                 </mat-form-field> -->
-                <!-- </mat-form-field> -->
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
@@ -86,28 +56,6 @@
                         {{ 'is_email' | transloco }}
                     </mat-error>
                 </mat-form-field>
-
-                <!-- <mat-form-field class="example-full-width">
-                    <mat-label>Upload File</mat-label>
-                    <input matInput [placeholder]="'No file chosen'" [value]="file?.name">
-                    <mat-icon matSuffix>attach_file</mat-icon>
-                    <input type="file" (change)="onPassportSelected($event)" hidden>
-                </mat-form-field> -->
-
-                <!-- <mat-form-field class="flex items-center" *ngIf="!edit">
-                    <mat-label>{{ 'driver_lisense' | transloco }}</mat-label>
-                    <input matInput placeholder="Upload" class="mr-2" [value]="form.get('passport').value?.name || ''">
-                    <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
-                        <mat-icon aria-label="Upload">cloud_upload</mat-icon>
-                        <input type="file" (change)="onPassportSelected($event)"
-                            [ngClass]="{'is-invalid': f.passport.errors}" formControlName="passport" id="fileInput"
-                            style="display: none;">
-                    </label>
-
-                    <mat-error *ngIf="f.passport.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>    
-                </mat-form-field> -->
                 <div class="w-32">
                     <mat-label class="font-bold">{{ 'passport' | transloco }}</mat-label>
                     <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
@@ -130,16 +78,6 @@
                             [src]="passport | fileFetch: 'client'|async">
                     </div>
                 </div>
-                <!-- <div *ngIf="!edit">
-                    <p class="text-xl mb-1">Фото паспорта </p>
-                    <div class="border-2 border-gray-800 p-2 rounded-lg flex-col items-center justify-center">
-                        <label for="passport" class="cursor-pointer flex justify-center">
-                            <img src="assets/images/icons/file.svg" alt="Upload Icon" class="mr-2 h-8 w-8">
-                        </label>
-                        <input type="file" class="hidden" id="passport" (change)="onPassportSelected($event)" />
-                        <span *ngIf="fileName" class="mt-2 m-2">Uploaded: {{ fileName }}</span>
-                    </div>
-                </div> -->
             </div>
         </div>
     </form>
