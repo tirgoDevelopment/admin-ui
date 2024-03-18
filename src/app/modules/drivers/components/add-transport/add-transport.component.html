@@ -58,6 +58,16 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <div class="flex items-center gap-4" *ngIf="isLoad">
+                    <mat-form-field class="flex items-center w-full">
+                        <mat-label>{{ 'mode_from' | transloco }}</mat-label>
+                        <input type="number" min="17" max="24" matInput formControlName="loadFrom">
+                    </mat-form-field>
+                    <mat-form-field class="flex items-center w-full">
+                        <mat-label>{{ 'mode_to' | transloco }}</mat-label>
+                        <input type="number" max="25" min=0 matInput formControlName="loadTo">
+                    </mat-form-field>
+                </div>
                 <div class="flex items-center" *ngIf="isRefrigerator">
                     <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">
                         {{ 'mode' | transloco }}</mat-checkbox>
@@ -107,7 +117,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="flex items-center">
+                <!-- <mat-form-field class="flex items-center">
                     <mat-label> {{ 'cargo_type' | transloco }}</mat-label>
                     <mat-select [compareWith]="compareFn" formControlName="cargoTypeIds" multiple>
                         <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn" [label]="group.name">
@@ -115,7 +125,7 @@
                                 [value]="item.id">{{item.name}}</mat-option>
                         </mat-optgroup>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
         </div>
         <div class="flex flex-wrap gap-4 items-end justify-around">
@@ -192,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="w-40">
+            <!-- <div class="w-40">
                 <mat-label>{{ 'driver_lisense_card' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
@@ -261,7 +271,7 @@
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
                         [src]="passportFilePath | fileFetch: 'driver'|async">
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </form>
@@ -374,7 +384,7 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <mat-form-field class="flex items-center">
+                            <!-- <mat-form-field class="flex items-center">
                                 <mat-label> {{ 'cargo_type' | transloco }}</mat-label>
                                 <mat-select [compareWith]="compareFn" formControlName="cargoTypeIds" multiple>
                                     <mat-optgroup *ngFor="let group of cargoTypes;trackBy:trackByFn"
@@ -383,10 +393,10 @@
                                             [value]="item.id">{{item.name}}</mat-option>
                                     </mat-optgroup>
                                 </mat-select>
-                            </mat-form-field>
+                            </mat-form-field> -->
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-4 items-end justify-around">
+                    <div class="flex flex-wrap gap-4 items-end justify-start">
 
                         <div class="w-40">
                             <mat-label>{{ 'tech_passport_front' | transloco }} </mat-label>
@@ -466,7 +476,7 @@
                             </div>
                         </div>
 
-                        <div class="w-40">
+                        <!-- <div class="w-40">
                             <mat-label>{{ 'driver_lisense_card' | transloco }} </mat-label>
                             <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                                 <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
@@ -539,7 +549,7 @@
                                 <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
                                     [src]="passportFilePath | fileFetch: 'driver'|async">
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </form>

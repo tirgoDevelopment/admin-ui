@@ -106,7 +106,8 @@
                 <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
             </div>
             <div class="w-1/4 flex items-center cursor-pointer justify-end">
-                <mat-icon (click)="preview(client.passport)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                <mat-icon (click)="preview(client.passport)"
+                    class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
             </div>
         </div>
     </div>
@@ -188,8 +189,11 @@
         </div>
     </div> -->
     <div class="flex justify-end mt-4 px-4">
-        <button mat-flat-button [color]="'primary'" [disabled]="!client?.blocked" (click)="block()">
+        <button mat-flat-button [color]="'primary'"  *ngIf="!client?.blocked" [disabled]="client?.blocked" (click)="block()">
             {{"block"|transloco}}
+        </button>
+        <button mat-flat-button [color]="'primary'"  *ngIf="client?.blocked" [disabled]="!client?.blocked" (click)="active()">
+            {{"unblock"|transloco}}
         </button>
     </div>
 </mat-dialog-content>

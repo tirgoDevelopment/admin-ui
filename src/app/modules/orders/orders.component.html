@@ -89,8 +89,8 @@
             {{ 'status' |
             transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <div class="status-badge" [class]="returnClassStatusOrder(row.cargoStatus.name)">
-              <span>{{statusOrderCheck(row.cargoStatus.name)}}</span>
+            <div class="status-badge" [class]="returnClassStatusOrder(row.cargoStatus?.name)">
+              <span>{{statusOrderCheck(row.cargoStatus?.name)}}</span>
             </div>
           </mat-cell>
         </ng-container>
@@ -98,7 +98,7 @@
         <ng-container matColumnDef="type_cargo">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <div class="truncate">{{ row.cargoType.name }}</div>
+            <div class="truncate">{{ row?.cargoType?.name }}</div>
           </mat-cell>
         </ng-container>
 
@@ -106,7 +106,7 @@
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <span *ngIf="row.transportTypes">
-              <span *ngFor="let type of row.transportTypes;let i=index">
+              <span *ngFor="let type of row?.transportTypes;let i=index">
                 {{type.name}} <br>
               </span>
             </span>
@@ -115,12 +115,12 @@
 
         <ng-container matColumnDef="secure_transaction">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'secure_transaction' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.isSafe ? 'Да':'Нет'}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{row?.isSafe ? 'Да':'Нет'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'price' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.offeredPrice }}
+          <mat-cell *matCellDef="let row"> {{row?.offeredPrice }}
           </mat-cell>
         </ng-container>
 
@@ -133,7 +133,7 @@
 
         <ng-container matColumnDef="client">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation.name}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row?.deliveryLocation?.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

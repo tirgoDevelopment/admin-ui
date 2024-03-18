@@ -59,6 +59,7 @@ export class AddTransportComponent implements OnInit {
   isRefrigeratorMode: boolean = false;
   isCistern: any;
   isContainer: any;
+  isLoad: any;
   roles = [];
   subscription = [];
   edit: boolean = false;
@@ -88,20 +89,22 @@ export class AddTransportComponent implements OnInit {
       transportKindIds: new FormControl([]),
       transportTypeIds: new FormControl([]),
       loadingMethodIds: new FormControl([]),
-      cargoTypeIds: new FormControl([]),
+      // cargoTypeIds: new FormControl([]),
       refrigeratorFrom: new FormControl(''),
       refrigeratorTo: new FormControl(''),
       refrigeratorCount: new FormControl(''),
+      loadFrom: new FormControl(''),
+      loadTo: new FormControl(''),
       isHook: new FormControl(false),
       isAdr: new FormControl(false),
       cisternVolume: new FormControl(''),
       containerVolume: new FormControl(''),
       techPassportFrontFilePath: new FormControl('', [Validators.required]),
       techPassportBackFilePath: new FormControl('', [Validators.required]),
-      transportFrontFilePath: new FormControl('', [Validators.required]),
+      // transportFrontFilePath: new FormControl('', [Validators.required]),
       goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
-      driverLicenseFilePath: new FormControl('', [Validators.required]),
-      passportFilePath: new FormControl('', [Validators.required]),
+      // driverLicenseFilePath: new FormControl('', [Validators.required]),
+      // passportFilePath: new FormControl('', [Validators.required]),
     })
     console.log(data)
     this.form.patchValue({
@@ -180,6 +183,7 @@ export class AddTransportComponent implements OnInit {
         this.isRefrigerator = tranportKind?.name?.includes('Рефрежератор');
         this.isCistern = tranportKind?.name?.includes('Цистерна');
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
+        this.isLoad = tranportKind?.name?.includes('Грузоподъемность');
       } else {
         values.forEach(x => {
           let tranportKind = this.transportKinds.find(y => y.id == x);
@@ -187,6 +191,7 @@ export class AddTransportComponent implements OnInit {
           this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрежератор');
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
+          this.isLoad = this.isLoad || tranportKind?.name?.includes('Грузоподъемность');
         });
       }
     })
@@ -209,7 +214,7 @@ export class AddTransportComponent implements OnInit {
       this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
       this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
       this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
-      this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
+      // this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
       this.form.patchValue({
         id: res.data[0]?.id,
         name: res.data[0]?.name,
@@ -244,7 +249,7 @@ export class AddTransportComponent implements OnInit {
       this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
       this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
       this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
-      this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
+      // this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
       this.form.patchValue({
         id: res.data[0]?.id,
         name: res.data[0]?.name,
@@ -287,9 +292,10 @@ export class AddTransportComponent implements OnInit {
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
       if (values) {
         this.isAutotransport = values?.includes('Автовоз');
-        this.isRefrigerator = values?.includes('Рефрежатор');
+        this.isRefrigerator = values?.includes('Рефрежератор');
         this.isCistern = values?.includes('Цистерна');
         this.isContainer = values?.includes('Контейнеровоз');
+        this.isLoad = values?.includes('Грузоподъемность');
       }
     });
   }
@@ -368,17 +374,19 @@ export class AddTransportComponent implements OnInit {
     this.form.get('refrigeratorCount').value ? this.formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
     this.form.get('isHook').value ? this.formData.append('isHook', this.form.get('isHook').value) : ''
     this.form.get('isAdr').value ? this.formData.append('isAdr', this.form.get('isAdr').value) : ''
+    this.form.get('loadFrom').value ? this.formData.append('loadFrom', this.form.get('loadFrom').value) : ''
+    this.form.get('loadTo').value ? this.formData.append('loadTo', this.form.get('loadTo').value) : ''
     if (this.form.get('id').value) {
       this.formData.append('transportKindIds', JSON.stringify(this.setIds(this.form.get('transportKindIds').value)));
       this.formData.append('transportTypeIds', JSON.stringify(this.setIds(this.form.get('transportTypeIds').value)));
       this.formData.append('loadingMethodIds', JSON.stringify(this.setIds(this.form.get('loadingMethodIds').value)));
       this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
-      this.formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
+      // this.formData.append('cargoTypeIds', JSON.stringify(this.setIds(this.form.get('cargoTypeIds').value)));
     } else {
-    this.formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
-    this.formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
-    this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
-    this.formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
+      this.formData.append('transportKindIds', JSON.stringify(this.form.get('transportKindIds').value));
+      this.formData.append('transportTypeIds', JSON.stringify(this.form.get('transportTypeIds').value));
+      this.formData.append('loadingMethodIds', JSON.stringify(this.form.get('loadingMethodIds').value));
+      // this.formData.append('cargoTypeIds', JSON.stringify(this.form.get('cargoTypeIds').value));
     }
 
     if (typeof this.form.get('techPassportFrontFilePath')?.value === "string") {
@@ -424,14 +432,7 @@ export class AddTransportComponent implements OnInit {
     const uniqueFormData = removeDuplicateKeys(this.formData);
     if (this.form.value.id) {
       this._driverService.updateTransport(uniqueFormData)
-        .pipe(res => {
-          if (isObservable(res)) {
-            // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
-            return res
-          } else {
-            return res
-          }
-        }).subscribe(res => {
+        .subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
             this._toaster.success('Водитель успешно обновлена')
@@ -441,14 +442,7 @@ export class AddTransportComponent implements OnInit {
         })
     } else {
       this._driverService.createTransport(uniqueFormData)
-        .pipe(res => {
-          if (isObservable(res)) {
-            // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
-            return res
-          } else {
-            return res
-          }
-        }).subscribe(res => {
+        .subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
             this._toaster.success('Добавление транспорта  успешно')

@@ -16,7 +16,7 @@ export class ApiService {
 	protected apiVersion: string;
 
 
-	constructor(public _toasterService:ToastrService, protected _http: HttpClient ) {
+	constructor(public _toasterService: ToastrService, protected _http: HttpClient) {
 		this.apiUrl = env.apiUrl;
 		this.formatErrors = this.formatErrors.bind(this);
 		// 'http://192.168.1.218:3003/api/v2'
@@ -31,9 +31,13 @@ export class ApiService {
 	}
 
 	public formatErrors(error: any) {
-		this._toasterService.error(error.error.message ,error.message)
-		return error;
-		// return throwError(error);
+		if (error.message == 'internalError') {
+			this._toasterService.error(error.message)
+		}
+		else {
+			this._toasterService.error(error.error.message, error.message)
+		}
+		return throwError(error);
 	}
 
 	get<T>(path: string, params: HttpParams = new HttpParams()): Observable<Response<T>> {
@@ -41,7 +45,7 @@ export class ApiService {
 	}
 
 	getOne<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
-		return this._http.get<T>(`${this.apiUrl}${path}`, { params })			
+		return this._http.get<T>(`${this.apiUrl}${path}`, { params })
 	}
 
 	put<T>(path: string, body: Object = {}): Observable<Response<T>> {
@@ -64,7 +68,7 @@ export class ApiService {
 	post<T>(path: string, body: Object = {}, headers = this.httpOptions): Observable<Response<T>> {
 		const baseUrl = path.indexOf('http') === 0 ? '' : this.apiUrl;
 		if (body instanceof FormData) {
-			headers.headers.set('Content-Type','multipart/form-data');
+			headers.headers.set('Content-Type', 'multipart/form-data');
 			console.log(headers.headers);
 			return this._http.post<Response<T>>(
 				`${this.apiUrl}${path}`,
@@ -78,7 +82,7 @@ export class ApiService {
 				headers
 			).pipe(catchError(this.formatErrors));
 		}
-	
+
 	}
 
 	postFile(path: string, body: FormData, responseType = 'text' as 'json'): Observable<any> {

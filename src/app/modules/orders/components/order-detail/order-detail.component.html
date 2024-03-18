@@ -9,9 +9,9 @@
 <!-- <mat-tab> -->
 <mat-dialog-content class="h-full">
   <div class="h-60 w-full mt-4">
-    <ya-map [center]="[data.loadingLocation.latitude, data.loadingLocation.longitude]" [zoom]="12">
+    <ya-map [center]="[data?.loadingLocation?.latitude, data?.loadingLocation?.longitude]" [zoom]="12">
       <ya-multiroute
-        [referencePoints]="[[data.loadingLocation.latitude, data.loadingLocation.longitude], [data.deliveryLocation.latitude, data.deliveryLocation.longitude]]">
+        [referencePoints]="[[data?.loadingLocation?.latitude, data?.loadingLocation?.longitude], [data?.deliveryLocation?.latitude, data?.deliveryLocation?.longitude]]">
       </ya-multiroute>
     </ya-map>
   </div>

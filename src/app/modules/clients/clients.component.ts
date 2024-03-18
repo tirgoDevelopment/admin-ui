@@ -113,9 +113,9 @@ export class ClientsComponent {
         right: '0',
       },
       maxHeight: '100%'
+    }).afterClosed().subscribe(()=>{
+      this.getAllClient(this.pageParams);
     })
-
-
   }
 
   block(id: number) {

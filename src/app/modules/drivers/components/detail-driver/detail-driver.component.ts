@@ -69,6 +69,7 @@ export class DetailDriverComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
+        this._dialog.closeAll()
       })
   }
 
@@ -81,9 +82,16 @@ export class DetailDriverComponent implements OnInit {
       disableClose: true,
       autoFocus: false,
       data: { driverId: this.driverId },
-    });
+    }).afterClosed().subscribe(()=>{
+      this._dialog.closeAll()
+    })
   }
 
+  active(id:number){
+    this._driverService.active(id).subscribe(() => {
+      this._dialog.closeAll()
+    })
+  }
   addTransportEdit() {
     const dialogRef = this._dialog.open(AddTransportComponent, {
       minWidth: '70vw',
@@ -93,7 +101,9 @@ export class DetailDriverComponent implements OnInit {
       disableClose: true,
       autoFocus: false,
       data: { driverId: this.driverId, edit: true },
-    });
+    }).afterClosed().subscribe(()=>{
+      this._dialog.closeAll()
+    })
   }
 
   submit() {

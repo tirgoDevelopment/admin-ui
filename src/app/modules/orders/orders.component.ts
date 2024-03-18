@@ -91,6 +91,7 @@ export class OrdersComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
+        console.log('close')
         this.getOrders(this.pageParams);
       })
   }

@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AgreementComponent } from '../agreement/agreement.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { OrdersService } from '../../services/orders.service';
-import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, of, switchMap, tap } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, forkJoin, isObservable, of, switchMap, tap } from 'rxjs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
 import { ClientModel } from 'app/modules/clients/models/client.model';
@@ -210,13 +210,20 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    this.form.get('clientId').valueChanges.pipe(
-      debounceTime(300),
-      switchMap(clientId => this._clientService.get(clientId))
-    ).subscribe(response => {
-      if (response.success) {
-        this.clientInfo = response.data;
-      }
+    this.form.get('clientId').valueChanges.subscribe(response => {
+      this._clientService.get(response).subscribe({
+        next: (response: any) => {
+          if (response.success) {
+            this.clientInfo = response.data;
+          } else {
+            this.clientInfo = null;
+          }
+        },
+        error: (error: any) => {
+          // this.toastr.error(error.message)
+          console.error('Error fetching client info:', error);
+        }
+      });
     });
   }
 

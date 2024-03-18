@@ -52,6 +52,11 @@ export class ClientDetailComponent implements OnInit {
       })
   }
 
+  active(){
+    this._clientService.active(Number(this.client.id)).subscribe(() => {
+      this._dialog.closeAll()
+    })
+  }
   preview(fileName: string) {
     const dialog = this._dialog.open(ImagePriviewComponent, {
       minWidth: '60vw',

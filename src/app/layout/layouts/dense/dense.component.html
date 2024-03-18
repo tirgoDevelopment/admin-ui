@@ -1,5 +1,5 @@
 <fuse-loading-bar></fuse-loading-bar>
-<fuse-vertical-navigation class="print:hidden" *ngIf="isAthenticated" [config]="config"
+<fuse-vertical-navigation class="print:hidden sticky" *ngIf="isAthenticated" [config]="config"
     [appearance]="navigationAppearance" [mode]="isScreenSmall ? 'over' : 'side'" [name]="'mainNavigation'"
     [navigation]="navigation?.default" [opened]="!isScreenSmall">
     <ng-container fuseVerticalNavigationHeader>
