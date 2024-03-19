@@ -10,7 +10,7 @@
         <div class="p-3">
                 <mat-radio-group class="flex items-center">
                     <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg" [color]="white"
-                        [ngClass]="{'card-background-grey': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
+                        [ngClass]="{'bg-gray-50 dark:text-black': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
                         value="option1" *ngFor="let row of subscription" [value]="row.id">
                         <p class="w-40">${{row?.price}}/месяц</p>
                     </mat-radio-button>
