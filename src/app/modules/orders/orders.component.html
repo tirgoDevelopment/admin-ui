@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-auto ">
-  <div class="flex-auto border-t ">
+  <div class="flex-auto  ">
     <div class="flex items-center justify-between w-full">
       <div>
         <div class="text-3xl font-semibold tracking-tight leading-8">Грузы</div>
@@ -62,7 +62,7 @@
           {{ 'filter' | transloco }}</button>
       </div>
     </div>
-    <div class="mt-4 h-100">
+    <div class="mt-4  shadow-table">
       <mat-table matSort [dataSource]="dataSource" class="table">
         <ng-container matColumnDef="index">
           <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
@@ -103,7 +103,7 @@
         </ng-container>
 
         <ng-container matColumnDef="transport_type">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'transport_cargo' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <span *ngIf="row.transportTypes">
               <span *ngFor="let type of row?.transportTypes;let i=index">

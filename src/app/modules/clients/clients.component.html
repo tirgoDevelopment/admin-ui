@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-auto ">
-    <div class="flex-auto border-t ">
+    <div class="flex-auto  ">
         <div class="flex items-center justify-between w-full">
             <div>
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"clients"|transloco}}</div>
@@ -54,13 +54,19 @@
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
-        <div class="mt-4 h-100">
+        <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
-                <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"ID"|transloco}}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
+
+                <ng-container matColumnDef="index">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
+                    <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
                 </ng-container>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
+                    <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
+                </ng-container>
+                
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>

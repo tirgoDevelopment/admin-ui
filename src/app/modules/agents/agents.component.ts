@@ -44,9 +44,9 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
-  displayedColumns: string[] = ['id','full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['index', 'id','full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AgentModel>([]);

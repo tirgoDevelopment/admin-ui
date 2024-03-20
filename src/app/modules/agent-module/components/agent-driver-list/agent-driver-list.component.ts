@@ -39,12 +39,12 @@ export class AgentDriverListComponent implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   balances: [];
   cities: any[] = [];
   id: number;
-  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {

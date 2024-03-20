@@ -40,7 +40,7 @@ export class DriverMerchantComponent {
     createdFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['id', 'companyName', 'register_date', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'companyName', 'register_date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
@@ -60,7 +60,7 @@ export class DriverMerchantComponent {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   filterDrivers() {
 

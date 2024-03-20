@@ -14,7 +14,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from './services/client.service';
 import { ClientModel } from './models/client.model';
 import { AddClientComponent } from './components/add-client/add-client.component';
-import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { ClientDetailComponent } from './components/client-detail/client-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
@@ -22,7 +21,6 @@ import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ConfirmComponent } from 'app/shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-clients',
@@ -44,16 +42,14 @@ export class ClientsComponent {
     lastLogin_from: '',
     lastLogin_to: '',
   };
-
   pageParams = {
     page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
-  @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['id', 'full_name', 'phone',  'register_date', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone',  'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<ClientModel>([]);
@@ -169,13 +165,6 @@ export class ClientsComponent {
   }
 
   delete(id: number) {
-    // this._dialog.open(ConfirmComponent, {
-    //   width: '500px',
-    //   height: '450px',
-    //   data: {
-    //     text: 'Вы действительно хотите удалить пользователя из списка?',
-    //   }
-    // })
     this._clientService.delete(id).subscribe(() => {
       this.getAllClient(this.pageParams);
     })

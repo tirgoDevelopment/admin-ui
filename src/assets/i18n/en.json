@@ -255,5 +255,6 @@
     "connect_driver": "Connect Driver",
     "frozen_balance": "Frozen Balance",
     "active_balance": "Active Balance",
-    "subscription": "Subscription"
+    "subscription": "Subscription",
+    "view_transport":"View transport"
 }

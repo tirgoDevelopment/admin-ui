@@ -334,16 +334,19 @@ export class CreateOrderComponent implements OnInit {
 
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
       if (values.length == 1) {
+        console.log(this.transportKinds);
         let tranportKind = this.transportKinds.find(x => x.id == values);
         this.isAutotransport = tranportKind?.name?.includes('Автовоз');
-        this.isRefrigerator = tranportKind?.name?.includes('Рефрежератор');
+        this.isRefrigerator = tranportKind?.name?.includes('Рефрижератор');
         this.isCistern = tranportKind?.name?.includes('Цистерна');
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
       } else {
         values.forEach(x => {
+          console.log(this.transportKinds);
           let tranportKind = this.transportKinds.find(y => y.id == x);
+          console.log(tranportKind?.name?.includes('Рефрежератор'));
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
-          this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрежератор');
+          this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрижератор');
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
         });

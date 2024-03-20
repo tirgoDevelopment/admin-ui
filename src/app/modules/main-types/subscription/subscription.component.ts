@@ -34,7 +34,7 @@ export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<SubscriptionModel>([]);

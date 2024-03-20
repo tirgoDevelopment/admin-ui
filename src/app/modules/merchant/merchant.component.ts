@@ -39,7 +39,7 @@ export class MerchantComponent implements OnInit {
     createdFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {}
@@ -58,7 +58,7 @@ export class MerchantComponent implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   filterDrivers() {}
 

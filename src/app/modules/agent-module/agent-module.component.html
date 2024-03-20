@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-auto ">
-    <div class="flex-auto border-t ">
+    <div class="flex-auto  ">
         <div class="flex items-center justify-between w-full">
             <div>
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="mx-3 text-center">
-                       <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
+                        <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                             <span>{{balance?.frozenbalance}}</span>
                         </div>
@@ -21,12 +21,12 @@
                 </div>
 
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
-                   <span class="ml-2">{{ 'transaction' | transloco }}</span>
+                    <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
 
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-                   <span class="ml-2">{{ 'add' | transloco }}</span>
+                    <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
             </div>
         </div>
@@ -59,6 +59,16 @@
         </div>
         <div class="mt-4 h-100 ">
             <mat-table matSort [dataSource]="dataSource">
+
+                <ng-container matColumnDef="index">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
+                    <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
+                    <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}

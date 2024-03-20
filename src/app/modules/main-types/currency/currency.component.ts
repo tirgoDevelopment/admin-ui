@@ -35,7 +35,7 @@ export class CurrencyComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   dataSource = new MatTableDataSource<CurrencyModel>([]);
   constructor(private _currencyService: CurrencyService, protected _dialog?: MatDialog) {

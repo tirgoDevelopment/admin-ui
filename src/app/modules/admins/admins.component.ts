@@ -37,10 +37,10 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   
-  displayedColumns: string[] = ['full_name', 'login', 'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['index', 'id',  'full_name', 'login', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AdminModel>([]);

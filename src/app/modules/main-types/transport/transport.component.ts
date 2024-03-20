@@ -33,7 +33,7 @@ export class TransportComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   // displayedColumns: string[] = ['name', 'load_side', 'volume', 'capacity','actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;

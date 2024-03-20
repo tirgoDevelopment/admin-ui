@@ -33,7 +33,7 @@ export class TransportCargoComponent extends UnsubscribeAble implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   dataSource = new MatTableDataSource<TransportCargoModel>([]);
   constructor(private _transportCargoService: TransportCargoService, protected _dialog?: MatDialog) {

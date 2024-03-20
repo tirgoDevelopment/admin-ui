@@ -131,7 +131,6 @@ mat-form-field:not(.mat-focused) mat-placeholder {
   appearance: none !important;
 }
 
-
 :host ::ng-deep .status-badge {
   display: flex;
   justify-content: center;
@@ -201,12 +200,46 @@ mat-form-field:not(.mat-focused) mat-placeholder {
 .mat-mdc-table mat-row.mat-mdc-row:nth-child(odd),
 .mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd) {
     height: unset;
-    background:  #E2E2E2DB !important;
+    background:  #F3F3F3 !important;
 }
 
 .mat-mdc-table mat-header-row.mat-mdc-header-row:nth-child(odd):hover,
 .mat-mdc-table mat-row.mat-mdc-row:nth-child(odd):hover,
 .mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd):hover {
     cursor: pointer;
-    background:  #E2E2E2DB !important;
+    background:  #F3F3F3 !important;
+}
+
+.mat-column-index {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-id {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.shadow-table {
+  border: 2px solid #E2E2E2DB !important;
+  align-self: stretch;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 }

@@ -29,14 +29,13 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
-  @ViewChild('settingsDrawer') settingsDrawer: FuseDrawerComponent;
-  displayedColumns: string[] = ['id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
   pageParams = {
     page: 0,
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

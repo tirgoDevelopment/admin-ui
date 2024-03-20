@@ -40,9 +40,9 @@ export class AgentModuleComponent implements OnInit {
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
-  displayedColumns: string[] = ['full_name', 'phone', 'register_date', 'last_enter', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _authService: AuthService, private _agentService: AgentService, protected _dialog?: MatDialog) {

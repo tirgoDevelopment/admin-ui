@@ -255,5 +255,6 @@
     "connect_driver": "Ulanish haydovchi",
     "frozen_balance": "Muzlatilgan balans",
     "active_balance": "Faol balans",
-    "subscription": "Obuna"
+    "subscription": "Obuna",
+    "view_transport":"Transportni ko'rish"
 }

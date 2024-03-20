@@ -34,7 +34,7 @@ export class CargoLoadingMethodComponent extends UnsubscribeAble implements OnIn
     limit: 10,
     perPage: 10,
     sortBy: 'id',
-    sortType: 'asc'
+    sortType: 'desc'
   };
   dataSource = new MatTableDataSource<CargoLoadingModel>([]);
   constructor(private _cargoLoadingService: CargoLoadingMethodService, protected _dialog?: MatDialog) {
