@@ -35,12 +35,12 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
-  
-  displayedColumns: string[] = ['index', 'id',  'full_name', 'login', 'register_date', 'last_enter', 'actions'];
+
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'login', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<AdminModel>([]);
@@ -50,7 +50,6 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
     this.pageParams.page = event.pageIndex;
     this.getAllAdmin(this.pageParams);
   }
@@ -60,8 +59,11 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
   }
 
   getAllAdmin(params?) {
-    this._admninService.getAll(params).subscribe((response:any) => {
+    this._admninService.getAll(params).subscribe((response: any) => {
       this.dataSource.data = response.data.content;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 

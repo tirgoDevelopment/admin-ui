@@ -24,7 +24,7 @@ export class AgentService {
     return this._apiService.get<AgentModel[]>('/users/agents', createHttpParams(params));
   }
 
-  getAllByAgent( params?): Observable<Response<AgentModel[]>> {
+  getAllByAgent(params?): Observable<Response<AgentModel[]>> {
     return this._apiService.get<AgentModel[]>('/users/drivers/by-agent', createHttpParams(params));
   }
 

@@ -29,13 +29,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule,  DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ClientsComponent {
   cities: any[] = [];
   filters = {
     clientId: '',
-    firstName:'',
+    firstName: '',
     phoneNumber: '',
     createdAt_from: '',
     createdAt_to: '',
@@ -45,13 +45,13 @@ export class ClientsComponent {
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
-  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone',  'register_date', 'last_enter', 'status', 'actions'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'status', 'actions'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
     private _clientService: ClientService, protected _dialog?: MatDialog) {
@@ -59,8 +59,11 @@ export class ClientsComponent {
   }
 
   getAllClient(params?) {
-    this._clientService.getAll(Object.assign(this.filters, params)).subscribe((response:any) => {
+    this._clientService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
@@ -68,7 +71,7 @@ export class ClientsComponent {
   clearFilters() {
     this.filters = {
       clientId: '',
-      firstName:'',
+      firstName: '',
       phoneNumber: '',
       createdAt_from: '',
       createdAt_to: '',
@@ -83,7 +86,7 @@ export class ClientsComponent {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
+
     this.pageParams.page = event.pageIndex;
     this.getAllClient(this.pageParams);
   }
@@ -109,7 +112,7 @@ export class ClientsComponent {
         right: '0',
       },
       maxHeight: '100%'
-    }).afterClosed().subscribe(()=>{
+    }).afterClosed().subscribe(() => {
       this.getAllClient(this.pageParams);
     })
   }
@@ -129,7 +132,7 @@ export class ClientsComponent {
       })
   }
 
-  active(id:number){
+  active(id: number) {
     this._clientService.active(id).subscribe(() => {
       this.getAllClient(this.pageParams);
     })

@@ -35,9 +35,9 @@ import { ConnectDriverComponent } from '../connect-driver/connect-driver.compone
 export class AgentDriverListComponent implements OnInit {
   pageParams = {
     agentId: 0,
-    page: 1,
+    page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -49,7 +49,6 @@ export class AgentDriverListComponent implements OnInit {
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
-      console.log(params);
       this.id = params.id;
     })
   }
@@ -61,14 +60,17 @@ export class AgentDriverListComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
+
     this.pageParams.page = event.pageIndex;
     this.getAllDrivers(this.pageParams);
   }
 
   getAllDrivers(params) {
-    this._agentService.getAllByAgent(params).subscribe((response) => {
+    this._agentService.getAllByAgent(params).subscribe((response: any) => {
       this.dataSource.data = response?.data;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
@@ -78,12 +80,12 @@ export class AgentDriverListComponent implements OnInit {
     });
   }
 
-  detail(id:number) {
+  detail(id: number) {
     this._dialog.open(DetailAgentDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
-      data:id,
+      data: id,
       position: {
         top: '0',
         right: '0',

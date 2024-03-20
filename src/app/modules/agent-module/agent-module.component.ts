@@ -39,6 +39,7 @@ export class AgentModuleComponent implements OnInit {
     page: 0,
     limit: 10,
     perPage: 10,
+    totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -57,14 +58,17 @@ export class AgentModuleComponent implements OnInit {
   
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
+   
     this.pageParams.page = event.pageIndex;
     this.getAllDrivers(this.pageParams);
   }
 
   getAllDrivers( params) {
-    this._agentService.getAllByAgent(params).subscribe((response) => {
+    this._agentService.getAllByAgent(params).subscribe((response:any) => {
       this.dataSource.data = response?.data;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 

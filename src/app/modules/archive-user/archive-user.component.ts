@@ -25,7 +25,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, DatePipe,NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, DatePipe, NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
@@ -33,7 +33,7 @@ export class ArchiveUserComponent implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -45,11 +45,11 @@ export class ArchiveUserComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
+
     this.pageParams.page = event.pageIndex;
     this.getAllArchiveUsers(this.pageParams);
   }
-  
+
   detail(id: number) {
     this._dialog.open(DetailArchiveUserComponent, {
       width: '500px',
@@ -69,8 +69,11 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   getAllArchiveUsers(params) {
-    this._archiveUserService.getAll(params).subscribe((response) => {
+    this._archiveUserService.getAll(params).subscribe((response: any) => {
       this.dataSource.data = response?.data;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 }

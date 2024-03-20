@@ -136,7 +136,7 @@
 
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
-            <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="dataSource.data.length"
+            <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="pageParams.totalPagesCount-1"
                 [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
             </mat-paginator>
         </div>

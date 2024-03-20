@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrderModel } from './models/order.model';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-orders',
@@ -29,7 +30,7 @@ import { OrderModel } from './models/order.model';
   styleUrls: ['./orders.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, MatTooltipModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
@@ -53,7 +54,7 @@ export class OrdersComponent implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -116,7 +117,6 @@ export class OrdersComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
     this.pageParams.page = event.pageIndex;
     this.getOrders(this.pageParams);
   }

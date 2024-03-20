@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -40,7 +40,6 @@ export class MerchantModerationComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
   selectedFileNames: any;
   passportFile: FileList;
-
   certificateFile: FileList;
   data
   transactionRequest: any[] = [];
@@ -53,6 +52,13 @@ export class MerchantModerationComponent implements OnInit {
   registrationCertificateFilePath: string;
   passportFilePath: string;
   edit: boolean = false;
+  pageParams = {
+    page: 0,
+    limit: 10,
+    totalPagesCount:1,
+    sortBy: 'id',
+    sortType: 'desc'
+  };
   form: FormGroup = new FormGroup({
     id: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
@@ -146,6 +152,7 @@ export class MerchantModerationComponent implements OnInit {
       this.balances = res.data
     })
   }
+
 
   get f() {
     return this.form.controls

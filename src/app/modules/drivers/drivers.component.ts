@@ -39,11 +39,11 @@ export class DriversComponent implements OnInit {
   transportKinds: any[] = [];
   filters = {
     driverId: '',
-    firstName:'',
+    firstName: '',
     phoneNumber: '',
     transportKindId: '',
     isSubscribed: '',
-    isVerified:'',
+    isVerified: '',
     createdFrom: '',
     createdAtTo: '',
     lastLoginFrom: '',
@@ -52,22 +52,21 @@ export class DriversComponent implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
-  displayedColumns: string[] = ['index','id','full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(
-    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService:TypesService, private cdr: ChangeDetectorRef,) {
+    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService: TypesService, private cdr: ChangeDetectorRef,) {
   }
-
 
   ngOnInit() {
     this.getAllDrivers(this.pageParams);
-    this._typeService.getTransportKinds().subscribe((response:any) => {
+    this._typeService.getTransportKinds().subscribe((response: any) => {
       this.transportKinds = response.data;
     })
     this.cdr.detectChanges()
@@ -76,11 +75,11 @@ export class DriversComponent implements OnInit {
   clearFilters() {
     this.filters = {
       driverId: '',
-      firstName:'',
+      firstName: '',
       phoneNumber: '',
       transportKindId: '',
       isSubscribed: '',
-      isVerified:'',
+      isVerified: '',
       createdFrom: '',
       createdAtTo: '',
       lastLoginFrom: '',
@@ -89,7 +88,6 @@ export class DriversComponent implements OnInit {
   }
 
   filterDrivers() {
-
   }
 
   verification(driverId?: number, transportId?: number) {
@@ -109,17 +107,17 @@ export class DriversComponent implements OnInit {
   }
 
   getAllDrivers(params?) {
-    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response:any) => {
+    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
       this.pageParams.limit = response?.data?.per_page;
       this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
     this.pageParams.page = event.pageIndex;
     this.getAllDrivers(this.pageParams);
   }
@@ -176,7 +174,7 @@ export class DriversComponent implements OnInit {
         this.getAllDrivers(this.pageParams);
       })
   }
-  active(id:number){
+  active(id: number) {
     this._driversService.active(id).subscribe(() => {
       this.getAllDrivers(this.pageParams);
     })

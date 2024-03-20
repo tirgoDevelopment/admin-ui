@@ -1,3 +1,10 @@
+.truncate-cell {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 // .mdc-data-table__table {
 //   border: 1px solid #E3E3E3 !important;
 // }

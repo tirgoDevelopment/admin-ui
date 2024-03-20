@@ -4,6 +4,7 @@ export interface Response<T> {
 	success?: boolean;
 	status?: boolean;
 	totalCount?: number;
+	totalPagesCount?:number;
 	totalElements?: number;
 	code?: number;
 	error?;

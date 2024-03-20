@@ -32,7 +32,7 @@ export class CargoLoadingMethodComponent extends UnsubscribeAble implements OnIn
   pageParams = {
     page: 0,
     limit: 10,
-    perPage: 10,
+    totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -46,14 +46,17 @@ export class CargoLoadingMethodComponent extends UnsubscribeAble implements OnIn
   }
 
   getAllCargoStatus(params?) {
-    this._cargoLoadingService.getAll(params).subscribe((response) => {
+    this._cargoLoadingService.getAll(params).subscribe((response:any) => {
       this.dataSource.data = response.data;
+      this.pageParams.limit = response?.data?.per_page;
+      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
+   
     this.pageParams.page = event.pageIndex;
     this.getAllCargoStatus(this.pageParams);
   }

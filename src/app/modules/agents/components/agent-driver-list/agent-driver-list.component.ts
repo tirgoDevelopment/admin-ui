@@ -38,9 +38,10 @@ export class AgentDriverListComponent implements OnInit {
   id: number;
   pageParams = {
     agentId: 0,
-    page: 1,
+    page: 0,
     limit: 10,
     perPage: 10,
+    totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -60,14 +61,14 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   getAllAgentsDrivers(params) {
-    this._agentService.getAllByAgent(params).subscribe((response) => {
+    this._agentService.getAllByAgent(params).subscribe((response:any) => {
       this.dataSource.data = response?.data;
+      this.pageParams.totalPagesCount = response?.data.totalPagesCount;
     });
   }
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-    this.pageParams.perPage = event.pageSize;
     this.pageParams.page = event.pageIndex;
     this.getAllAgentsDrivers(this.pageParams);
   }
