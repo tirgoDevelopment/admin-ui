@@ -102,7 +102,7 @@
     "about_user": "Подробнее о пользователе",
     "about_driver": "Подробнее о водителе",
     "total": "Сумма",
-    "completed": "Завершенный",
+    "completed": "Выполнен",
     "negative": "Negative",
     "status": "Статус",
     "subscribe_to": "Subscribe to",
@@ -252,5 +252,9 @@
     "frozen_balance": "Замороженный баланс",
     "active_balance": "Активный баланс",
     "subscription": "Подписка",
-    "view_transport":"Просмотреть транспорт"
+    "view_transport":"Просмотреть транспорт",
+    "waiting":"Ожидающий",
+    "accepted":"Принято",
+    "closed":"Завершенный",
+    "canceled":"Отменено"
 }

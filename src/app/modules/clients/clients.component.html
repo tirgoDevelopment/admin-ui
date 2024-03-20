@@ -10,7 +10,7 @@
                 </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-                   <span class="ml-2">{{ 'add' | transloco }}</span>
+                    <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
             </div>
         </div>
@@ -26,25 +26,35 @@
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'phone' | transloco }}" name="phone" [(ngModel)]="filters.phoneNumber">
             </mat-form-field>
+            
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="filters.createdAtFrom"
+                    placeholder="{{ 'start_date_reg' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
 
-            <mat-form-field color="accent" class="w-100 px-1">
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}"
-                        [(ngModel)]="filters.createdAt_from">
-                    <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAt_to">
-                </mat-date-range-input>
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="filters.createdAtFrom"
+                    placeholder="{{ 'end_date_reg' | transloco }}">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <mat-form-field color="accent" class="w-80 px-1">
-                <mat-date-range-input [rangePicker]="pickers">
-                    <input matStartDate placeholder="{{ 'start_date_log' | transloco }}"
-                        [(ngModel)]="filters.lastLogin_from">
-                    <input matEndDate placeholder="{{ 'end_date_log' | transloco }}" [(ngModel)]="filters.lastLogin_to">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="pickers"></mat-datepicker-toggle>
-                <mat-date-range-picker #pickers></mat-date-range-picker>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="filters.lastLoginFrom"
+                    placeholder="{{ 'start_date_log' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker3" [(ngModel)]="filters.lastLoginTo"
+                    placeholder="{{ 'end_date_log' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+         
             <div class="px-1">
                 <button mat-flat-button color="warn" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
@@ -66,7 +76,7 @@
                     <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
                     <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
                 </ng-container>
-                
+
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
@@ -82,7 +92,7 @@
                     </mat-cell>
                 </ng-container>
 
-     
+
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
@@ -148,8 +158,9 @@
             </mat-table>
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
-            <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="pageParams.totalPagesCount-1"
-                [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
+            <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)"
+                [length]="pageParams.totalPagesCount-1" [pageSize]="pageParams.limit" [pageIndex]="pageParams.page"
+                [pageSizeOptions]="[10, 20, 50, 100, 200]">
             </mat-paginator>
         </div>
     </div>

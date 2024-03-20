@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,10 +37,10 @@ export class ClientsComponent {
     clientId: '',
     firstName: '',
     phoneNumber: '',
-    createdAt_from: '',
-    createdAt_to: '',
-    lastLogin_from: '',
-    lastLogin_to: '',
+    createdAtFrom: '',
+    createdAtTo: '',
+    lastLoginFrom: '',
+    lastLoginTo: '',
   };
   pageParams = {
     page: 0,
@@ -73,10 +73,10 @@ export class ClientsComponent {
       clientId: '',
       firstName: '',
       phoneNumber: '',
-      createdAt_from: '',
-      createdAt_to: '',
-      lastLogin_from: '',
-      lastLogin_to: '',
+      createdAtFrom: '',
+      createdAtTo: '',
+      lastLoginFrom: '',
+      lastLoginTo: '',
     };
   }
 

@@ -36,7 +36,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   filters = {
     merchantid: '',
     companyName: '',
-    createdFrom: '',
+    createdAtFrom: '',
     createdAtTo: '',
   };
   pageParams = {
@@ -58,7 +58,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     this.filters = {
       merchantid: '',
       companyName: '',
-      createdFrom: '',
+      createdAtFrom: '',
       createdAtTo: '',
     };
   }

@@ -18,6 +18,25 @@
       <mat-form-field color="accent" class="w-50 px-1">
         <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.orderId">
       </mat-form-field>
+<!-- 
+      Waiting = 0, //Ожидающий
+      Accepted = 1,  //Принято
+      Active = 2, //Выполняется
+      Completed = 3, //Выполнен
+      Closed = 4,  //Завершенный
+      Canceled = 5, //Отменено
+      Archive = 6 -->
+      <mat-form-field color="accent" class="w-50 px-1">
+        <mat-select placeholder="{{ 'StatusID' | transloco }}" name="StatusID"
+          [(ngModel)]="filters.statusId">
+          <mat-option value="0">{{ 'waiting' | transloco }}</mat-option>
+          <mat-option value="1">{{ 'accepted' | transloco }}</mat-option>
+          <mat-option value="2">{{ 'active' | transloco }}</mat-option>
+          <mat-option value="3">{{ 'completed' | transloco }}</mat-option>
+          <mat-option value="4">{{ 'closed' | transloco }}</mat-option>
+          <mat-option value="5">{{ 'canceled' | transloco }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
         <input matInput placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">

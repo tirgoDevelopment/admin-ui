@@ -36,7 +36,7 @@ export class MerchantComponent implements OnInit {
   filters = {
     merchantid: '',
     companyName: '',
-    createdFrom: '',
+    createdAtFrom: '',
     createdAtTo: '',
   };
   displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
@@ -48,7 +48,7 @@ export class MerchantComponent implements OnInit {
     this.filters = {
       merchantid: '',
       companyName: '',
-      createdFrom: '',
+      createdAtFrom: '',
       createdAtTo: '',
     };
   }

@@ -256,5 +256,9 @@
     "frozen_balance": "Frozen Balance",
     "active_balance": "Active Balance",
     "subscription": "Subscription",
-    "view_transport":"View transport"
+    "view_transport":"View transport",
+    "waiting":"Waiting",
+    "accepted":"Accepted",
+    "closed":"Closed",
+    "canceled":"Canceled"
 }

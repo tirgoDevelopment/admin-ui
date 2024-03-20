@@ -49,23 +49,33 @@
                     <mat-option value="option3">{{ 'notVerified' | transloco }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field color="accent" class="w-100 px-1">
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="{{ 'start_date_reg' | transloco }}"
-                        [(ngModel)]="filters.createdFrom">
-                    <input matEndDate placeholder="{{ 'end_date_reg' | transloco }}" [(ngModel)]="filters.createdAtTo">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="filters.createdAtFrom"
+                    placeholder="{{ 'start_date_reg' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-            <mat-form-field color="accent" class="w-80 px-1">
-                <mat-date-range-input [rangePicker]="pickers">
-                    <input matStartDate placeholder="{{ 'start_date_log' | transloco }}"
-                        [(ngModel)]="filters.lastLoginFrom">
-                    <input matEndDate placeholder="{{ 'end_date_log' | transloco }}" [(ngModel)]="filters.lastLoginTo">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="pickers"></mat-datepicker-toggle>
-                <mat-date-range-picker #pickers></mat-date-range-picker>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="filters.createdAtTo"
+                    placeholder="{{ 'end_date_reg' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="filters.lastLoginFrom"
+                    placeholder="{{ 'start_date_log' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker3" [(ngModel)]="filters.lastLoginTo"
+                    placeholder="{{ 'end_date_log' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
             </mat-form-field>
 
             <div class="px-1">

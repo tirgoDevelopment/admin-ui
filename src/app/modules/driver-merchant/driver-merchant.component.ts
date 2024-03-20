@@ -37,7 +37,7 @@ export class DriverMerchantComponent {
   filters = {
     merchantid: '',
     companyName: '',
-    createdFrom: '',
+    createdAtFrom: '',
     createdAtTo: '',
   };
   displayedColumns: string[] = ['index', 'id', 'companyName', 'register_date', 'actions'];
@@ -50,7 +50,7 @@ export class DriverMerchantComponent {
     this.filters = {
       merchantid: '',
       companyName: '',
-      createdFrom: '',
+      createdAtFrom: '',
       createdAtTo: '',
     };
   }

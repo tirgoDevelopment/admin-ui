@@ -256,5 +256,9 @@
     "frozen_balance": "Muzlatilgan balans",
     "active_balance": "Faol balans",
     "subscription": "Obuna",
-    "view_transport":"Transportni ko'rish"
+    "view_transport":"Transportni ko'rish",
+    "waiting":"Kutilmoqda",
+    "accepted":"Qabul qilingan",
+    "closed":"Bajarildi",
+    "canceled":"Bekor qilingan"
 }
