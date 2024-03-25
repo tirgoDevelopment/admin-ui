@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-block-driver',
@@ -53,15 +54,25 @@ export class BlockDriverComponent {
   }
 
   submit() {
-    this._driverService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Водитель успешно заблокирован')
-      } else {
-        this._toaster.error('Водитель не может быть успешно заблокирован')
-      }
-    })
+    if (this.form.valid) {
+      this._driverService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Водитель успешно заблокирован')
+        } else {
+          this._toaster.error('Водитель не может быть успешно заблокирован')
+        }
+      })
+    } else {
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 }
 

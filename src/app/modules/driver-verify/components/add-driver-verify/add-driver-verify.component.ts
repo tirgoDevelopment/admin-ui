@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { RoleService } from 'app/modules/main-types/role/services/role.service';
 import { DriverVerifyService } from '../../services/driver-verify.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-driver-verify',
@@ -41,7 +42,6 @@ export class AddDriverVerifyComponent {
     phone: new FormControl('', [Validators.required]),
     roleId: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -79,6 +79,7 @@ export class AddDriverVerifyComponent {
   }
 
   submit() {
+    if (this.form.valid) {
     if (this.form.value.id) {
       this._driverVerifyService.update(this.form.value).subscribe(res => {
         if (res.success) {
@@ -99,6 +100,15 @@ export class AddDriverVerifyComponent {
         }
       })
     }
+  } else {
+    this._dialog.open(MessageComponent, {
+      width: '500px',
+      height: '450px',
+      data: {
+        text: 'Вы должны ввести все обязательные поля',
+      }
+    })
+  }
   }
 
 

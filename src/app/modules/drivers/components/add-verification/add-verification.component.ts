@@ -27,6 +27,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 @Component({
   selector: 'app-add-verification',
   templateUrl: './add-verification.component.html',
@@ -79,31 +80,31 @@ export class AddVerificationComponent implements OnInit {
     private _subscriptionService: SubscriptionService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
-      this.form = this.fb.group({
-        id: new FormControl(''),
-        driverId: new FormControl(''),
-        transportId: new FormControl(''),
-        name: new FormControl('', [Validators.required]),
-        cubicCapacity: new FormControl('', [Validators.required]),
-        stateNumber: new FormControl('', [Validators.required]),
-        transportKindIds: new FormControl([]),
-        transportTypeIds: new FormControl([]),
-        loadingMethodIds: new FormControl([]),
-        cargoTypeIds: new FormControl([]),
-        refrigeratorFrom: new FormControl(''),
-        refrigeratorTo: new FormControl(''),
-        refrigeratorCount: new FormControl(''),
-        isHook: new FormControl(''),
-        isAdr: new FormControl(false),
-        techPassportFrontFilePath: new FormControl('', [Validators.required]),
-        techPassportBackFilePath: new FormControl('', [Validators.required]),
-        transportFrontFilePath: new FormControl('', [Validators.required]),
-        transportBackFilePath: new FormControl('', [Validators.required]),
-        transportSideFilePath: new FormControl('', [Validators.required]),
-        goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
-        driverLicenseFilePath: new FormControl('', [Validators.required]),
-        passportFilePath: new FormControl('', [Validators.required]),
-      })
+    this.form = this.fb.group({
+      id: new FormControl(''),
+      driverId: new FormControl(''),
+      transportId: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      cubicCapacity: new FormControl('', [Validators.required]),
+      stateNumber: new FormControl('', [Validators.required]),
+      transportKindIds: new FormControl([]),
+      transportTypeIds: new FormControl([]),
+      loadingMethodIds: new FormControl([]),
+      cargoTypeIds: new FormControl([]),
+      refrigeratorFrom: new FormControl(''),
+      refrigeratorTo: new FormControl(''),
+      refrigeratorCount: new FormControl(''),
+      isHook: new FormControl(''),
+      isAdr: new FormControl(false),
+      techPassportFrontFilePath: new FormControl('', [Validators.required]),
+      techPassportBackFilePath: new FormControl('', [Validators.required]),
+      transportFrontFilePath: new FormControl('', [Validators.required]),
+      transportBackFilePath: new FormControl('', [Validators.required]),
+      transportSideFilePath: new FormControl('', [Validators.required]),
+      goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
+      driverLicenseFilePath: new FormControl('', [Validators.required]),
+      passportFilePath: new FormControl('', [Validators.required]),
+    })
     this.form.patchValue({
       driverId: data.driverId,
       transportId: data.transportId
@@ -344,23 +345,33 @@ export class AddVerificationComponent implements OnInit {
       // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    this._driverService.updateTransportDriver(uniqueFormData)
-      .pipe(res => {
-        if (isObservable(res)) {
-          // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath','transportBackFilePath','transportSideFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
-          return res
-        } else {
-          return res
-        }
-      }).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Добавление транспорта  успешно')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
+    if (this.form.valid) {
+      this._driverService.updateTransportDriver(uniqueFormData)
+        .pipe(res => {
+          if (isObservable(res)) {
+            // this.formData = removeUnselected(this.formData,['techPassportFrontFilePath', 'techPassportBackFilePath','transportFrontFilePath','transportBackFilePath','transportSideFilePath', 'goodsTransportationLicenseCardFilePath', 'driverLicenseFilePath', 'passportFilePath']);
+            return res
+          } else {
+            return res
+          }
+        }).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Добавление транспорта  успешно')
+          } else {
+            this._toaster.error('Невозможно сохранить водитель')
+          }
+        })
+    } else {
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
+    }
   }
 
   trackByFn(item: any): number {

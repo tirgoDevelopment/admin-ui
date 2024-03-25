@@ -11,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { isObservable } from 'rxjs';
 
 @Component({
   selector: 'auth-sign-in',
@@ -43,10 +44,15 @@ export class AuthSignInComponent implements OnInit {
       return;
     }
     this.signInForm.disable();
-    this._authService.signIn(this.signInForm.value)
+    this._authService.signIn(this.signInForm.value).pipe((res) => {
+      if (isObservable(res)) {
+        this.signInForm.enable()
+      }
+      return res
+    })
       .subscribe(
-        (response:any) => {
-          this.signInForm.enable();
+        (response: any) => {
+          console.log(response)
           if (response.data.token) {
             this._router.navigateByUrl('dashboards');
           }

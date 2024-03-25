@@ -5,6 +5,8 @@ import { catchError } from 'rxjs/operators';
 import { Response } from '../models/reponse';
 import { ToastrService } from 'ngx-toastr';
 import { env } from 'app/environmens/environment';
+import { ErrorStauses } from '../enum/error.enum';
+import { TranslocoPipe, TranslocoService, translate } from '@ngneat/transloco';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +18,7 @@ export class ApiService {
 	protected apiVersion: string;
 
 
-	constructor(public _toasterService: ToastrService, protected _http: HttpClient) {
+	constructor(public _toasterService: ToastrService , private translocaService:TranslocoService,  protected _http: HttpClient ) {
 		this.apiUrl = env.apiUrl;
 		this.formatErrors = this.formatErrors.bind(this);
 		// 'http://192.168.1.218:3003/api/v2'
@@ -31,12 +33,12 @@ export class ApiService {
 	}
 
 	public formatErrors(error: any) {
-		if (error.message == 'internalError') {
-			this._toasterService.error(error.message)
-		}
-		else {
-			this._toasterService.error(error.error.message, error.message)
-		}
+		// if (error.message == ErrorStauses[error.message]) {
+		// 	this._toasterService.error(this.translocaService.translate(error.message))
+		// }
+		// else {
+		// 	this._toasterService.error(this.translocaService.translate(error.message))
+		// }
 		return throwError(error);
 	}
 

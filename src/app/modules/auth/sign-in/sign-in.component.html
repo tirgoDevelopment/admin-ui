@@ -30,6 +30,10 @@
                 <button class="fuse-mat-button-large  w-full mt-6" mat-flat-button [color]="'primary'"
                     [disabled]="signInForm.disabled" (click)="signIn()">
                     <span *ngIf="!signInForm.disabled">
+                        <mat-progress-spinner
+                        *ngIf="signInForm.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
                         Авторизоваться
                     </span>
                     <!-- <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"

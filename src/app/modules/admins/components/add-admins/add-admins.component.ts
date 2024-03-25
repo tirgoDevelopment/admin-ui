@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { RoleService } from 'app/modules/main-types/role/services/role.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 @Component({
   selector: 'app-add-admins',
   templateUrl: './add-admins.component.html',
@@ -39,7 +40,7 @@ export class AddAdminsComponent {
     phone: new FormControl('', [Validators.required]),
     roleId: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,10}$')]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -49,6 +50,7 @@ export class AddAdminsComponent {
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
+      console.log(this.data)
       this.form.patchValue({
         id: this.data?.id,
         fullName: this.data?.fullName,
@@ -72,34 +74,44 @@ export class AddAdminsComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._adminService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Админ успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить админ')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._adminService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Админ успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить админ')
+          }
+        })
+      } else {
+        this._adminService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Админ успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить админ')
+          }
+        })
+      }
     } else {
-      this._adminService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Админ успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить админ')
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }
   }
 
 
-  generate() {
-    this.form.patchValue({
-      password: this.passwordGenerator.generateRandomPassword(),
-    });
-  }
+    generate() {
+      this.form.patchValue({
+        password: this.passwordGenerator.generateRandomPassword(),
+      });
+    }
 
-}
+  }
 

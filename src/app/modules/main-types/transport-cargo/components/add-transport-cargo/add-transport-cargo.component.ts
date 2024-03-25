@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { TransportCargoService } from '../../services/transport-cargo.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-transport-cargo',
@@ -58,24 +59,34 @@ export class AddTransportCargoComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._transportCargoService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Перевозка грузов  успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить перевозка грузов')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._transportCargoService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Перевозка грузов  успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить перевозка грузов')
+          }
+        })
+      } else {
+        this._transportCargoService.create(this.form.value).subscribe(res => {
+          console.log(res)
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Перевозка грузов успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить перевозка грузов')
+          }
+        })
+      }
     } else {
-      this._transportCargoService.create(this.form.value).subscribe(res => {
-        console.log(res)
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Перевозка грузов успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить перевозка грузов')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

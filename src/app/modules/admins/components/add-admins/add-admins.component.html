@@ -29,18 +29,11 @@
                     <mat-error *ngIf="f.password.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
-                    <mat-error *ngIf="f.password.errors?.minlength">
-                        Минимальная длина поля 6
-                    </mat-error>
-                    <mat-error *ngIf="f.password.errors?.max    length">
-                        Максимальная длина поля 10
+                    <mat-error *ngIf="f.password.errors?.maxlength">
+                        Максимальная длина поля 6
                     </mat-error>
                     <mat-error *ngIf="f.password.errors?.pattern">
-                        Хотя бы одна строчная буква
-                        Не менее одной заглавной буквы
-                        Хотя бы одна цифра (число)
-                        Хотя бы один специальный символ из набора $@$!%*?&
-                        Полный пароль должен иметь длину от 6 до 10 символов
+                        Это должен быть символ и число
                     </mat-error>
                 </mat-form-field>
             </div>

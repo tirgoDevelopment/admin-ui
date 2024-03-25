@@ -24,6 +24,7 @@ import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, fo
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
 import { ClientModel } from 'app/modules/clients/models/client.model';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'create-order',
@@ -286,23 +287,31 @@ export class CreateOrderComponent implements OnInit {
         loadingMethodId: this.setId(this.form.get('loadingMethodId').value),
       })
     }
-
-    if (this.form.value.id) {
-      this._orderService.updateOrder(this.form.value).subscribe((res: any) => {
-        if (res.success) {
-          this.dialog.closeAll();
-          this.toastr.success('Заказ успешно изменен');
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._orderService.updateOrder(this.form.value).subscribe((res: any) => {
+          if (res.success) {
+            this.dialog.closeAll();
+            this.toastr.success('Заказ успешно изменен');
+          }
+        })
+      } else {
+        this._orderService.createOrder(this.form.value).subscribe((res: any) => {
+          if (res.success) {
+            this.dialog.closeAll();
+            this.toastr.success('Заказ успешно создан');
+          }
+        })
+      }
     } else {
-      this._orderService.createOrder(this.form.value).subscribe((res: any) => {
-        if (res.success) {
-          this.dialog.closeAll();
-          this.toastr.success('Заказ успешно создан');
+      this.dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }
-
   }
 
   nextStep() {

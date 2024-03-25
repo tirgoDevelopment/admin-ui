@@ -30,6 +30,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-transport',
@@ -430,26 +431,36 @@ export class AddTransportComponent implements OnInit {
     // driverLicenseFilePath: string;
     // passportFilePath: string;
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    if (this.form.value.id) {
-      this._driverService.updateTransport(uniqueFormData)
-        .subscribe(res => {
-          if (res.success) {
-            this._dialog.closeAll()
-            this._toaster.success('Водитель успешно обновлена')
-          } else {
-            this._toaster.error('Невозможно сохранить водитель')
-          }
-        })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._driverService.updateTransport(uniqueFormData)
+          .subscribe(res => {
+            if (res.success) {
+              this._dialog.closeAll()
+              this._toaster.success('Водитель успешно обновлена')
+            } else {
+              this._toaster.error('Невозможно сохранить водитель')
+            }
+          })
+      } else {
+        this._driverService.createTransport(uniqueFormData)
+          .subscribe(res => {
+            if (res.success) {
+              this._dialog.closeAll()
+              this._toaster.success('Добавление транспорта  успешно')
+            } else {
+              this._toaster.error('Невозможно сохранить водитель')
+            }
+          })
+      }
     } else {
-      this._driverService.createTransport(uniqueFormData)
-        .subscribe(res => {
-          if (res.success) {
-            this._dialog.closeAll()
-            this._toaster.success('Добавление транспорта  успешно')
-          } else {
-            this._toaster.error('Невозможно сохранить водитель')
-          }
-        })
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
     }
   }
 

@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SubscriptionService } from '../../services/subscription.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CurrencyService } from 'app/modules/main-types/currency/services/currency.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-subscription',
@@ -44,10 +45,10 @@ export class AddSubscriptionComponent {
     private _subscripionService: SubscriptionService,
     private _currencyStatusService: CurrencyService,
     private _dialog: MatDialog) {
-      this._currencyStatusService.getAll().subscribe((response: any) => {
-        this.currencies = response.data;
-        console.log(this.currencies)
-      })
+    this._currencyStatusService.getAll().subscribe((response: any) => {
+      this.currencies = response.data;
+      console.log(this.currencies)
+    })
     if (this.data) {
       this.edit = true;
       this.form.patchValue({
@@ -71,24 +72,34 @@ export class AddSubscriptionComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._subscripionService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Подписка успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить подписка')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._subscripionService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Подписка успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить подписка')
+          }
+        })
+      } else {
+        this._subscripionService.create(this.form.value).subscribe(res => {
+          console.log(res)
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Подписка успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить подписка')
+          }
+        })
+      }
     } else {
-      this._subscripionService.create(this.form.value).subscribe(res => {
-        console.log(res)
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Подписка успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить подписка')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

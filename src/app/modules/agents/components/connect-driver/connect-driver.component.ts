@@ -25,6 +25,7 @@ import { AgentService } from '../../services/agent.service';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { debounceTime, switchMap } from 'rxjs';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-connect-driver',
@@ -52,7 +53,6 @@ export class ConnectDriverComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
-      console.log(this.data)
       this.form.patchValue({
         agentId: this.data?.agentId,
       });
@@ -84,15 +84,25 @@ export class ConnectDriverComponent implements OnInit {
   }
 
   submit() {
-    this._agentService.connectToAgent(this.form.value).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Водитель успешно добавлена')
-      } else {
-        this._toaster.error('Невозможно сохранить водитель')
-      }
-    })
+    if (this.form.valid) {
+      this._agentService.connectToAgent(this.form.value).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Водитель успешно добавлена')
+        } else {
+          this._toaster.error('Невозможно сохранить водитель')
+        }
+      })
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 }
 

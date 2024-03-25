@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CargoGroupService } from '../../services/cargo-group.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 
 @Component({
@@ -54,23 +55,33 @@ export class AddCargoGroupComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._cargoGroupService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Грузовая группа успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить грузовая группа')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._cargoGroupService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Грузовая группа успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить грузовая группа')
+          }
+        })
+      } else {
+        this._cargoGroupService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Грузовая группа успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить грузовая группа')
+          }
+        })
+      }
     } else {
-      this._cargoGroupService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Грузовая группа успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить грузовая группа')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

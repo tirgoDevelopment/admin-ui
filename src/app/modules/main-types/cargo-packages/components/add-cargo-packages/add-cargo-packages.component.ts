@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CargoPackagesService } from '../../services/cargo-packages.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-cargo-packages',
@@ -53,23 +54,33 @@ export class AddCargoPackagesComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._cargoPackageService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Статус груза успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить статус груза')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._cargoPackageService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Статус груза успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить статус груза')
+          }
+        })
+      } else {
+        this._cargoPackageService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Статус груза успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить статус груза')
+          }
+        })
+      }
     } else {
-      this._cargoPackageService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Статус груза успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить статус груза')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

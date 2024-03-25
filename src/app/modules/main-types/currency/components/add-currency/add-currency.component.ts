@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CurrencyService } from '../../services/currency.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-currency',
@@ -54,23 +55,33 @@ export class AddCurrencyComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._currencyStatusService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Валюта успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить валюта')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._currencyStatusService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Валюта успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить валюта')
+          }
+        })
+      } else {
+        this._currencyStatusService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Валюта успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить валюта')
+          }
+        })
+      }
     } else {
-      this._currencyStatusService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Валюта успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить валюта')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

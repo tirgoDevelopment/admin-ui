@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
@@ -24,6 +24,7 @@ import { isObservable } from 'rxjs';
 import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 import { DriverMerchantService } from '../../services/driver-merchant.service';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-driver-merchant-moderation',
@@ -56,7 +57,7 @@ export class DriverMerchantModerationComponent implements OnInit {
   logoFilePath: string;
   registrationCertificateFilePath: string;
   passportFilePath: string;
-  internationalCargoLisensePath:string;
+  internationalCargoLisensePath: string;
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     merchantId: new FormControl('', [Validators.required]),
@@ -88,6 +89,7 @@ export class DriverMerchantModerationComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
     private driverMerchantService: DriverMerchantService) {
@@ -235,19 +237,29 @@ export class DriverMerchantModerationComponent implements OnInit {
     }
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
-      if (isObservable(res)) {
-        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
-        return res
-      } else {
-        return res
-      }
-    }).subscribe((res: any) => {
-      console.log(res)
-      if (res.success) {
-        this.router.navigate(['/merchants'])
-      }
-    })
+    if (this.form.valid) {
+      this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
+        if (isObservable(res)) {
+          // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
+          return res
+        } else {
+          return res
+        }
+      }).subscribe((res: any) => {
+        console.log(res)
+        if (res.success) {
+          this.router.navigate(['/merchants'])
+        }
+      })
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 
   verifyTransaction(transaction) {

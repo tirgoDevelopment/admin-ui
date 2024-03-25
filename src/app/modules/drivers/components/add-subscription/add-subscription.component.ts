@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-subscription',
@@ -68,23 +69,33 @@ export class AddSubscriptionComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._driverService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Водитель успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._driverService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Водитель успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить водитель')
+          }
+        })
+      } else {
+        this._driverService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Водитель успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить водитель')
+          }
+        })
+      }
     } else {
-      this._driverService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Водитель успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

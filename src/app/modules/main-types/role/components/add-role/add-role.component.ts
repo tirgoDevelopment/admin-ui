@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../services/role.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
 	selector: 'app-add-role',
@@ -80,24 +81,34 @@ export class AddRoleComponent {
 
 	submit() {
 		let data = this.parseData();
-		if (data.id) {
-			this.roleService.update(data).subscribe(res => {
-				if (res.success) {
-					this._dialog.closeAll()
-					this._toaster.success('Роль успешно обновлена')
-				} else {
-					this._toaster.error('Невозможно сохранить роль')
-				}
-			})
+		if (this.form.valid) {
+			if (data.id) {
+				this.roleService.update(data).subscribe(res => {
+					if (res.success) {
+						this._dialog.closeAll()
+						this._toaster.success('Роль успешно обновлена')
+					} else {
+						this._toaster.error('Невозможно сохранить роль')
+					}
+				})
+			} else {
+				this.roleService.create(data).subscribe(res => {
+					console.log(res)
+					if (res.success) {
+						this._dialog.closeAll()
+						this.form.reset()
+						this._toaster.success('Роль успешно добавлена')
+					} else {
+						this._toaster.error('Невозможно сохранить роль')
+					}
+				})
+			}
 		} else {
-			this.roleService.create(data).subscribe(res => {
-				console.log(res)
-				if (res.success) {
-					this._dialog.closeAll()
-					this.form.reset()
-					this._toaster.success('Роль успешно добавлена')
-				} else {
-					this._toaster.error('Невозможно сохранить роль')
+			this._dialog.open(MessagesComponent, {
+				width: '500px',
+				height: '450px',
+				data: {
+					text: 'Вы должны ввести все обязательные поля',
 				}
 			})
 		}

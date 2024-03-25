@@ -22,6 +22,7 @@ import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
 import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-agent',
@@ -39,11 +40,11 @@ export class AddAgentComponent {
   registrationCertificateFilePath: string;
   managerPassportFilePath: string;
   passwordGenerator = new PasswordGenerator();
-  formData=new FormData();
+  formData = new FormData();
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
     companyName: new FormControl('', [Validators.required]),
     legalAddress: new FormControl('', [Validators.required]),
     physicalAddress: new FormControl('', [Validators.required]),
@@ -185,38 +186,47 @@ export class AddAgentComponent {
     } else {
       // formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
-
-    if (this.form.value.id) {
-      this._agentService.update(this.form.value).pipe(res => {
-        if (isObservable(res)) {
-          this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
-          return res
-        } else {
-          return res
-        }
-      }).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Агент успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить агент')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._agentService.update(this.form.value).pipe(res => {
+          if (isObservable(res)) {
+            this.formData = removeUnselected(this.formData, ['registrationCertificateFilePath', 'managerPassportFilePath']);
+            return res
+          } else {
+            return res
+          }
+        }).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Агент успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить агент')
+          }
+        })
+      } else {
+        this._agentService.create(this.formData).pipe(res => {
+          if (isObservable(res)) {
+            this.formData = removeUnselected(this.formData, ['registrationCertificateFilePath', 'managerPassportFilePath']);
+            return res
+          } else {
+            return res
+          }
+        }).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Агент успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить агент')
+          }
+        })
+      }
     } else {
-      this._agentService.create( this.formData).pipe(res => {
-        if (isObservable(res)) {
-          this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
-          return res
-        } else {
-          return res
-        }
-      }).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Агент успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить агент')
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

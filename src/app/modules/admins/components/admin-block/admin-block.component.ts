@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { AdminsService } from '../../services/admins.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-admin-block',
@@ -53,15 +54,25 @@ export class AdminBlockComponent {
   }
 
   submit() {
-    this._adminService.block(this.form.get('id').value, this.form.get('block_reason').value).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Клиент успешно заблокирован')
-      } else {
-        this._toaster.error('Клиент не может быть успешно заблокирован')
-      }
-    })
+    if (this.form.valid) {
+      this._adminService.block(this.form.get('id').value, this.form.get('block_reason').value).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Клиент успешно заблокирован')
+        } else {
+          this._toaster.error('Клиент не может быть успешно заблокирован')
+        }
+      })
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 }
 

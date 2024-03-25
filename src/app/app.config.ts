@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -21,11 +21,9 @@ const mapConfig: YaConfig = {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptorService,
-            multi: true
-        },
+        provideHttpClient(
+            withInterceptors([ErrorInterceptorService]),
+        ),
         importProvidersFrom(AngularYandexMapsModule.forRoot(mapConfig)),
         provideAnimations(),
         provideHttpClient(),

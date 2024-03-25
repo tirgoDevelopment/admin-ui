@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MerchantService } from '../../services/merchant.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-block-merchant',
@@ -52,15 +53,25 @@ export class BlockMerchantComponent {
   }
 
   submit() {
-    this._merChantService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Водитель успешно заблокирован')
-      } else {
-        this._toaster.error('Водитель не может быть успешно заблокирован')
-      }
-    })
+    if (this.form.valid) {
+      this._merChantService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Водитель успешно заблокирован')
+        } else {
+          this._toaster.error('Водитель не может быть успешно заблокирован')
+        }
+      })
+    } else {
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 }
 

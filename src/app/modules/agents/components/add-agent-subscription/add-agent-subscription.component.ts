@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-agent-subscription',
@@ -68,16 +69,25 @@ export class AddAgentSubscriptionComponent {
   }
 
   submit() {
-    this._agentService.createsubscription(this.form.value).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Водитель успешно добавлена')
-      } else {
-        this._toaster.error('Невозможно сохранить водитель')
-      }
-    })
+    if (this.form.valid) {
+      this._agentService.createsubscription(this.form.value).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Водитель успешно добавлена')
+        } else {
+          this._toaster.error('Невозможно сохранить водитель')
+        }
+      })
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
-
 }
 

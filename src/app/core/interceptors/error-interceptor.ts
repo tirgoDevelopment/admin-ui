@@ -1,26 +1,21 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpErrorResponse,
-} from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { HttpRequest, HttpInterceptorFn, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
+import { ErrorStauses } from '../enum/error.enum';
+import { inject } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
-export class ErrorInterceptorService implements HttpInterceptor {
-  constructor(private toastr: ToastrService) { }
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
-    console.log('intercept')
-    console.log(request)
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.log(error)
-        this.toastr.error(error.error?.error)
-        return throwError(error);
-      })
-    );
-  }
-}
+export const ErrorInterceptorService: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  const translocaService = inject(TranslocoService);
+  const toaster = inject(ToastrService);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (Object.values(ErrorStauses).includes(error.error.message)) {
+        toaster.error(translocaService.translate(Object.keys(ErrorStauses).find(k => ErrorStauses[k] === error.error.message)))
+      } else {
+        toaster.error(error.error.message)
+      }
+      return throwError(error);
+    })
+  );
+};

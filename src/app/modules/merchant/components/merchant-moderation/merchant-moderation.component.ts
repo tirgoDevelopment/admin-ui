@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
@@ -23,6 +23,7 @@ import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -55,7 +56,7 @@ export class MerchantModerationComponent implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -83,6 +84,7 @@ export class MerchantModerationComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
     private merchantService: MerchantService) {
@@ -216,24 +218,33 @@ export class MerchantModerationComponent implements OnInit {
     } else {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    this.merchantService.updateMerchant(this.formData).pipe(res => {
-      if (isObservable(res)) {
-        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
-        return res
-      } else {
-        return res
-      }
-    }).subscribe((res: any) => {
-      console.log(res)
-      this.toastr.success('Обновить продавца')
-      if (res.success) {
-        this.router.navigate(['/client-merchants'])
-      }
-    })
+    if (this.form.valid) {
+      this.merchantService.updateMerchant(this.formData).pipe(res => {
+        if (isObservable(res)) {
+          // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
+          return res
+        } else {
+          return res
+        }
+      }).subscribe((res: any) => {
+        console.log(res)
+        this.toastr.success('Обновить продавца')
+        if (res.success) {
+          this.router.navigate(['/client-merchants'])
+        }
+      })
+    } else {
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 
   verifyTransaction(transaction) {
-    console.log(transaction)
     // if (transaction.transactionType=='withdrawAccount' ) {
     this.merchantService.verifyTransaction(transaction).subscribe((res: any) => {
       if (res.success) {

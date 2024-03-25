@@ -25,6 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { isObservable } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-client',
@@ -52,7 +53,7 @@ export class AddClientComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
-    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6)]),
+    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
     passport: new FormControl('', this.edit ? null : [Validators.required]),
   })
   constructor(
@@ -130,19 +131,54 @@ export class AddClientComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this.form.patchValue({
-        phoneNumbers: [this.form.get('phoneNumber').value]
-      })
-      this._clientService.update(this.form.value)
-        .pipe(res => {
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this.form.patchValue({
+          phoneNumbers: [this.form.get('phoneNumber').value]
+        })
+        this._clientService.update(this.form.value)
+          .pipe(res => {
+            if (isObservable(res)) {
+              // this.form.patchValue({
+              //   phoneNumbers: [
+              //     ...this.form.get('phoneNumbers').value
+              //   ]
+              // })
+              // this.formData = new FormData();
+              return res
+            } else {
+              return res
+            }
+          }).subscribe(res => {
+            if (res.success) {
+              this._dialog.closeAll()
+              this._toaster.success('Пользователь успешно обновлена')
+            } else {
+              this._toaster.error('Невозможно сохранить пользователь')
+              // this.form.patchValue({
+              //   phoneNumbers: [
+              //     ...this.form.get('phoneNumbers').value
+              //   ]
+              // })
+            }
+          })
+      } else {
+        this.formData.append('password', this.form.get('password').value);
+        // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
+        this.formData.append('id', this.form.get('id').value);
+        this.formData.append('firstName', this.form.get('firstName').value);
+        this.formData.append('lastName', this.form.get('lastName').value);
+        this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
+        this.formData.append('email', this.form.get('email').value);
+        const uniqueFormData = removeDuplicateKeys(this.formData);
+        this._clientService.create(uniqueFormData).pipe(res => {
           if (isObservable(res)) {
+            // this.formData = removeUnselected(this.formData,['passport']);
             // this.form.patchValue({
             //   phoneNumbers: [
             //     ...this.form.get('phoneNumbers').value
             //   ]
             // })
-            // this.formData = new FormData();
             return res
           } else {
             return res
@@ -150,9 +186,10 @@ export class AddClientComponent {
         }).subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
-            this._toaster.success('Пользователь успешно обновлена')
+            this.form.reset()
+            this._toaster.success('Пользователь успешно добавлена')
           } else {
-            this._toaster.error('Невозможно сохранить пользователь')
+            this._toaster.error('Невозможно сохранить пользователь');
             // this.form.patchValue({
             //   phoneNumbers: [
             //     ...this.form.get('phoneNumbers').value
@@ -160,39 +197,13 @@ export class AddClientComponent {
             // })
           }
         })
+      }
     } else {
-      this.formData.append('password', this.form.get('password').value);
-      // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
-      this.formData.append('id', this.form.get('id').value);
-      this.formData.append('firstName', this.form.get('firstName').value);
-      this.formData.append('lastName', this.form.get('lastName').value);
-      this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
-      this.formData.append('email', this.form.get('email').value);
-      const uniqueFormData = removeDuplicateKeys(this.formData);
-      this._clientService.create(uniqueFormData).pipe(res => {
-        if (isObservable(res)) {
-          // this.formData = removeUnselected(this.formData,['passport']);
-          // this.form.patchValue({
-          //   phoneNumbers: [
-          //     ...this.form.get('phoneNumbers').value
-          //   ]
-          // })
-          return res
-        } else {
-          return res
-        }
-      }).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Пользователь успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить пользователь');
-          // this.form.patchValue({
-          //   phoneNumbers: [
-          //     ...this.form.get('phoneNumbers').value
-          //   ]
-          // })
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

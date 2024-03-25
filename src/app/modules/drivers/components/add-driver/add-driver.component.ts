@@ -27,6 +27,7 @@ import { isObservable } from 'rxjs';
 import { ConfirmComponent } from 'app/shared/components/confirm/confirm.component';
 import { AddTransportComponent } from '../add-transport/add-transport.component';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -57,7 +58,7 @@ export class AddDriverComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumbers: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.maxLength(6)]),
-    driverLicense:new FormControl('', [Validators.required]),
+    driverLicense: new FormControl('', [Validators.required]),
     passport: new FormControl('', [Validators.required]),
   })
   constructor(
@@ -148,70 +149,80 @@ export class AddDriverComponent {
       // formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
     }
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    if (this.form.value.id) {
-      this._driverService.update(this.formData)
-        .pipe(res => {
-          if (isObservable(res)) {
-            this.formData = new FormData();
-            return res
-          } else {
-            return res
-          }
-        }).subscribe(res => {
-          if (res.success) {
-            this._dialog.closeAll()
-            this.form.reset()
-            this._toaster.success('Водитель успешно обновлена')
-          } else {
-            this.form.reset()
-            this._toaster.error('Невозможно сохранить водитель')
-          }
-        })
-    } else {
-      this._driverService.create(uniqueFormData)
-        .pipe(res => {
-          if (isObservable(res)) {
-            this.formData = new FormData();
-            return res
-          } else {
-            return res
-          }
-        }).subscribe((res: any) => {
-          this._dialog.open(ConfirmComponent, {
-            width: '500px',
-            height: '450px',
-            data: {
-              text: 'Вы хотите добавить транспорт?',
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._driverService.update(this.formData)
+          .pipe(res => {
+            if (isObservable(res)) {
+              this.formData = new FormData();
+              return res
+            } else {
+              return res
             }
-          }).afterClosed().subscribe(data => {
-            if (data) {
-              const dialogRef = this._dialog.open(AddTransportComponent, {
-                minWidth: '70vw',
-                maxWidth: '90vw',
-                minHeight: '60vh',
-                maxHeight: '100vh',
-                disableClose: true,
-                autoFocus: false,
-                data: { driverId: res.data.id },
-              }).afterClosed().subscribe(() => {
-                this._dialog.closeAll()
-              })
+          }).subscribe(res => {
+            if (res.success) {
+              this._dialog.closeAll()
+              this.form.reset()
+              this._toaster.success('Водитель успешно обновлена')
             } else {
               this.form.reset()
-              this._dialog.closeAll()
+              this._toaster.error('Невозможно сохранить водитель')
             }
           })
-        })
+      } else {
+        this._driverService.create(uniqueFormData)
+          .pipe(res => {
+            if (isObservable(res)) {
+              this.formData = new FormData();
+              return res
+            } else {
+              return res
+            }
+          }).subscribe((res: any) => {
+            this._dialog.open(ConfirmComponent, {
+              width: '500px',
+              height: '450px',
+              data: {
+                text: 'Вы хотите добавить транспорт?',
+              }
+            }).afterClosed().subscribe(data => {
+              if (data) {
+                const dialogRef = this._dialog.open(AddTransportComponent, {
+                  minWidth: '70vw',
+                  maxWidth: '90vw',
+                  minHeight: '60vh',
+                  maxHeight: '100vh',
+                  disableClose: true,
+                  autoFocus: false,
+                  data: { driverId: res.data.id },
+                }).afterClosed().subscribe(() => {
+                  this._dialog.closeAll()
+                })
+              } else {
+                this.form.reset()
+                this._dialog.closeAll()
+              }
+            })
+          })
 
-      // console.log(res)
-      // if (res.success) {
-      this.form.reset()
-      this._dialog.closeAll()
-      this.form.reset()
-      this._toaster.success('Водитель успешно добавлена')
-      // } else {
-      //   this._toaster.error('Невозможно сохранить водитель')
-      // }
+        // console.log(res)
+        // if (res.success) {
+        this.form.reset()
+        this._dialog.closeAll()
+        this.form.reset()
+        this._toaster.success('Водитель успешно добавлена')
+        // } else {
+        //   this._toaster.error('Невозможно сохранить водитель')
+        // }
+      }
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
     }
   }
 

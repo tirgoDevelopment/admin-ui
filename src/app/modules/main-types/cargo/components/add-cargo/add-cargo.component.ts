@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CargoService } from '../../services/cargo.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CargoGroupService } from 'app/modules/main-types/cargo-group/services/cargo-group.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-cargo',
@@ -65,26 +66,37 @@ export class AddCargoComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._cargoService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Груз успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить груз')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._cargoService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Груз успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить груз')
+          }
+        })
+      } else {
+        this._cargoService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Груз успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить груз')
+          }
+        })
+      }
     } else {
-      this._cargoService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Груз успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить груз')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }
+
   }
 
 }

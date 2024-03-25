@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CargoLoadingMethodService } from '../../services/cargo-loading-method.service';
+import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 
 @Component({
   selector: 'app-add-cargo-loading-method',
@@ -51,23 +52,33 @@ export class AddCargoLoadingMethodComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._cargoloadingService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Статус груза успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить статус груза')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._cargoloadingService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Статус груза успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить статус груза')
+          }
+        })
+      } else {
+        this._cargoloadingService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Статус груза успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить статус груза')
+          }
+        })
+      }
     } else {
-      this._cargoloadingService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Статус груза успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить статус груза')
+      this._dialog.open(MessagesComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

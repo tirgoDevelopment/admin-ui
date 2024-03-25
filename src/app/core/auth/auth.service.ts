@@ -34,11 +34,9 @@ export class AuthService {
   }
 
   signIn(credentials: { email: string; password: string }): Observable<any> {
-    // Throw error, if the user is already logged in
     if (this._authenticated) {
       return throwError('User is already logged in.');
     }
-
     return this._httpClient.post(`${this._baseUrl}/users/login`, credentials).pipe(
       switchMap((response: any) => {
         this.accessToken = response.data.token;
@@ -104,7 +102,6 @@ export class AuthService {
     if (AuthUtils.isTokenExpired(this.accessToken)) {
       return of(false);
     }
- 
     // return of(true)
     // If the access token exists, and it didn't expire, sign in using it
     // return this.signInUsingToken();

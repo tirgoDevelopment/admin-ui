@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { AgentService } from '../../services/agent.service';
 import { TypesService } from 'app/shared/services/types.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-balance-agent',
@@ -46,7 +47,6 @@ export class AddBalanceAgentComponent {
     private _agentService: AgentService,
     private _typeService: TypesService,
     private _dialog: MatDialog) {
-    console.log(this.transactionTypes)
     this.form.patchValue({
       agentId: Number(data.id)
     })
@@ -61,15 +61,25 @@ export class AddBalanceAgentComponent {
   }
 
   submit() {
-    this._agentService.CreateBalanseAgent(this.form.value).subscribe(res => {
-      if (res.success) {
-        this._dialog.closeAll()
-        this.form.reset()
-        this._toaster.success('Агент успешно добавлена')
-      } else {
-        this._toaster.error('Невозможно сохранить агент')
-      }
-    })
+    if (this.form.valid) {
+      this._agentService.CreateBalanseAgent(this.form.value).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Агент успешно добавлена')
+        } else {
+          this._toaster.error('Невозможно сохранить агент')
+        }
+      })
+    } else {
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
+        }
+      })
+    }
   }
 
 }

@@ -21,6 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-send-push',
@@ -54,23 +55,33 @@ export class SendPushComponent {
   }
 
   submit() {
-    if (this.form.value.id) {
-      this._driverService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Водитель успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
-        }
-      })
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this._driverService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Водитель успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить водитель')
+          }
+        })
+      } else {
+        this._driverService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Водитель успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить водитель')
+          }
+        })
+      }
     } else {
-      this._driverService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Водитель успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить водитель')
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }

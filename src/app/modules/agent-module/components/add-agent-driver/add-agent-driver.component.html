@@ -38,6 +38,12 @@
                     <mat-error *ngIf="f.password.errors?.required">
                         Поле не должно быть пустым
                     </mat-error>
+                    <mat-error *ngIf="f.password.errors?.maxlength">
+                        Максимальная длина поля 6
+                    </mat-error>
+                    <mat-error *ngIf="f.password.errors?.pattern">
+                        Это должен быть символ и число
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="flex flex-wrap gap-4 items-end justify-around">
