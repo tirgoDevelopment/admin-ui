@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { FuseNavigationItem } from '@fuse/components/navigation';
-
+// sendPush: this.f.sendPush.value,
+// driverFinance: this.f.driverFinance.value,
+// merchantFinance: this.f.merchantFinance.value,
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboards',
@@ -14,6 +16,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'dashboard.svg',
                 icon_w: 'dashboard-w.svg',
                 link: '/dashboards',
+                permission: []
             },
             {
                 id: 'admins',
@@ -22,6 +25,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'people.svg',
                 icon_w: 'admin-w.svg',
                 link: '/admins',
+                permission: []
             },
             // {
             //     id: 'role',
@@ -38,6 +42,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'clients.svg',
                 icon_w: 'client-w.svg',
                 link: '/clients',
+                permission: ['seeClientsInfo']
             },
             {
                 id: 'drivers',
@@ -46,6 +51,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'drivers.svg',
                 icon_w: 'driver-w.svg',
                 link: '/drivers',
+                permission: ['seeDriversInfo']
             },
             {
                 id: 'archived-clients',
@@ -54,6 +60,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/archived-users',
+                permission: []
             },
             {
                 id: 'merchant',
@@ -62,6 +69,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/client-merchants',
+                permission: ['merchantList'],
                 children: [
                     {
                         id: 'merchant.client',
@@ -71,6 +79,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon: 'clients.svg',
                         link: '/client-merchants',
                         exactMatch: true,
+                        permission: ['merchantList'],
                     },
                     {
                         id: 'merchant.driver',
@@ -80,6 +89,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon: 'clients.svg',
                         link: '/driver-merchants',
                         exactMatch: true,
+                        permission: ['merchantList'],
                     },
                 ],
             },
@@ -90,6 +100,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'file.svg',
                 icon_w: 'file-w.svg',
                 link: '/orders',
+                permission: [],
             },
             {
                 id: 'tracking',
@@ -98,6 +109,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'tracking-w.svg',
                 icon: 'tracking.svg',
                 link: '/tracking',
+                permission: ['tracking'],
             },
             {
                 id: 'types',
@@ -106,6 +118,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'list-w.svg',
                 icon: 'list.svg',
                 link: '/types/role',
+                permission: [],
                 children: [
                     {
                         id: 'types.role',
@@ -115,6 +128,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/role',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.subcription',
@@ -124,6 +138,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/subcription',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.currency',
@@ -133,6 +148,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/currency',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.car',
@@ -142,6 +158,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/transport',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.transport-cargo',
@@ -151,6 +168,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/transport-cargo',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.cargo',
@@ -160,6 +178,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.cargo-status',
@@ -169,6 +188,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-status',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.cargo_group',
@@ -178,6 +198,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-group',
                         exactMatch: true,
+                        permission: [],
                     },
                     {
                         id: 'types.package',
@@ -187,8 +208,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-package',
                         exactMatch: true,
+                        permission: [],
                     },
-
                     {
                         id: 'types.loading_method',
                         title: 'loading_method',
@@ -197,6 +218,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-loading-method',
                         exactMatch: true,
+                        permission: [],
                     },
                 ],
             },
@@ -207,6 +229,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'chat-w.svg',
                 icon: 'chat.svg',
                 link: '/chats',
+                permission: ['chat'],
             },
             {
                 id: 'active',
@@ -215,6 +238,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'computer-w.svg',
                 icon: 'computer.svg',
                 link: '/active',
+                permission: [],
             },
             // {
             //     id: 'verification',
@@ -231,6 +255,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 icon: 'people.svg',
                 link: '/agents',
+                permission: [],
             },
             {
                 id: 'agents',
@@ -239,6 +264,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 icon: 'people.svg',
                 link: '/agent-module',
+                permission: [],
             }
         ],
     }

@@ -333,5 +333,15 @@
      "OfferWasCanceled": "Taklif bekor qilindi",
      "NotEnoughBalance": "Balans yetarli emas",
      "AccessDenied": "Kirish rad etildi",
-     "TokenExpired": "Token muddati tugagan"
+     "TokenExpired": "Token muddati tugagan",
+     "registr_merchant_client":"Savdo mijozini ro'yxatdan o'tkazish",
+     "registr_merchant_driver":"Savdogar haydovchisini ro'yxatdan o'tkazing",
+     "merchant_client_list":"Mijoz sotuvchilar ro'yxati",
+     "merchant_driver_list":"Haydovchi sotuvchilar ro'yxati",
+     "admin_page":"Admin sahifasi",
+     "fin_request":"Moliyaviy so'rov",
+     "driver_merchant_page":"Haydovchi savdogar sahifasi",
+     "client_merchant_page":"Mijoz savdogar sahifasi",
+     "driver_verification":"Haydovchini tekshirish",
+     "agent_page":"Agent sahifasi"
 }

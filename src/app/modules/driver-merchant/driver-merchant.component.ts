@@ -20,6 +20,7 @@ import { MerchantModel } from '../merchant/models/merchanr.model';
 import { DriverMerchantListComponent } from './components/driver-merchant-list/driver-merchant-list.component';
 import { BlockMerchantComponent } from '../merchant/components/block-merchant/block-merchant.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -28,10 +29,11 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink,NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
+  permission=['merchantFinance']
   transportKinds: any[] = [];
   transportTypes: any[] = [];
   filters = {

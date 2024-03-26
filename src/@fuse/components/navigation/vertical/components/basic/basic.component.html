@@ -72,12 +72,16 @@
 <!-- Item template -->
 <ng-template #itemTemplate>
     <!-- Icon -->
-    <ng-container *ngIf="item.icon&&config?.scheme=='light' ">
+    <!-- {{item.permission}} -->
+
+    <ng-container *ngIf="item.icon&&config?.scheme=='light'"  ngxPermissionsOnly="item.permission||[]">
         <img [src]="'assets/images/sidebar/'+item.icon" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
     </ng-container>
-    <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' " >
+
+    <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' " ngxPermissionsOnly="item.permission||[]">
         <img [src]="'assets/images/sidebar/'+item.icon_w" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
     </ng-container>
+    
     <!-- Title & Subtitle -->
     <div class="fuse-vertical-navigation-item-title-wrapper">
         <div class="fuse-vertical-navigation-item-title">

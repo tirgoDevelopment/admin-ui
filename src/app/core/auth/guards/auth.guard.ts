@@ -6,12 +6,17 @@ import { Observable, of, switchMap } from 'rxjs';
 
 export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
     const router: Router = inject(Router);
-    // const permissionService: NgxPermissionsService = inject(NgxPermissionsService);
+    const permissionService: NgxPermissionsService = inject(NgxPermissionsService);
+permissionService.permissions$.subscribe(res=>{console.log(res)})
     return inject(AuthService).check().pipe(
         switchMap((authenticated) => {
             if (!authenticated) {
                 const urlTree = router.parseUrl(`/auth/sign-in`);
                 return of(urlTree);
+                if (route.data.roles=='agent') {
+                    const urlTree = router.parseUrl(`/agent-module`);
+                    return of(urlTree);
+                }
             }
 
             return of(true);
@@ -24,15 +29,12 @@ export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
 function checkPermissions(roles: string[]): Observable<boolean> {
     const permissionsService: NgxPermissionsService = inject(NgxPermissionsService);
 
-    // Check if the user has any of the required roles
     const hasPermissions = permissionsService.hasPermission(roles);
     if (hasPermissions) {
         return of(true);
     } else {
-        // Redirect to unauthorized page or handle accordingly
         const router: Router = inject(Router);
-        const urlTree = router.parseUrl('/unauthorized');
-
+        const urlTree = router.parseUrl('/auth/sign-in');
         return of(false);
     }
 }

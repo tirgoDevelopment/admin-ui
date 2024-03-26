@@ -27,7 +27,8 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
 })
 export class RoleComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['role', 'add_driver', 'add_client', 'add_order', 'cancel_order', 'watch_driver', 'watch_client',
-    'send_push', 'chat', 'tracking', 'driver_finance', 'merchant_finance', 'registr_merchant', 'actions'];
+    'send_push', 'chat', 'tracking', 'driver_finance', 'merchant_finance', 'registr_merchant','admin_page','fin_request', 
+    'driver_merchant_page', 'client_merchant_page','driver_verification','agent_page', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<RoleModel>([]);
   constructor(private _roleService: RoleService, protected _dialog?: MatDialog) {

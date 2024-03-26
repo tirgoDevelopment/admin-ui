@@ -333,5 +333,15 @@
     "OfferWasCanceled": "Offer was canceled",
     "NotEnoughBalance": "Not enough balance",
     "AccessDenied": "Access denied",
-    "TokenExpired": "Token expired"
+    "TokenExpired": "Token expired",
+    "registr_merchant_client":"Register merchant client",
+    "registr_merchant_driver":"Register merchant driver",
+    "merchant_client_list":"Client merchant list",
+    "merchant_driver_list":"Driver merchant list",
+    "admin_page":"Admin page",
+    "fin_request":"Finance request",
+    "driver_merchant_page":"Driver merchant page",
+    "client_merchant_page":"Client merchant page",
+    "driver_verification":"Driver   verification",
+    "agent_page":"Agent page"
 }

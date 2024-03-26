@@ -13,6 +13,7 @@ import { mockApiServices } from './core/mock-api';
 import { provideToastr } from 'ngx-toastr';
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 import { ErrorInterceptorService } from './core/interceptors/error-interceptor';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 const mapConfig: YaConfig = {
     apikey: 'df0cb391-97e5-47ce-a954-f54cb0644e56',
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(
             withInterceptors([ErrorInterceptorService]),
         ),
+        importProvidersFrom(NgxPermissionsModule.forRoot()),
         importProvidersFrom(AngularYandexMapsModule.forRoot(mapConfig)),
         provideAnimations(),
         provideHttpClient(),
@@ -56,7 +58,6 @@ export const appConfig: ApplicationConfig = {
                 },
             },
         },
-
         provideTransloco(),
         provideAuth(),
         provideIcons(),

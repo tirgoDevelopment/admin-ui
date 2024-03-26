@@ -20,6 +20,7 @@ import { MerchantModel } from './models/merchanr.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlockMerchantComponent } from './components/block-merchant/block-merchant.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxPermissionsModule } from 'ngx-permissions';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -27,10 +28,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];
+  permission=['merchantFinance']
   transportKinds: any[] = [];
   transportTypes: any[] = [];
   filters = {

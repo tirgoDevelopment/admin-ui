@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NO_ERRORS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
@@ -10,6 +10,9 @@ import { FuseConfig, FuseConfigService } from '@fuse/services/config';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { TranslocoModule } from '@ngneat/transloco';
+import { AuthService } from 'app/core/auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
+import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -26,6 +29,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
     isScreenSmall: boolean;
     navigationAppearance: 'default' | 'dense';
     config: FuseConfig;
+    user:any;
     isActiveMatchOptions: IsActiveMatchOptions;
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -39,6 +43,8 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         private _fuseUtilsService: FuseUtilsService,
         private _fuseConfigService: FuseConfigService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
+        private permissionsService: NgxPermissionsService,
+        private authService:AuthService,
         private cdr: ChangeDetectorRef
     )
     {
@@ -58,14 +64,14 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      */
     ngOnInit(): void
     {
+        this.user = jwtDecode(this.authService.accessToken);
+        console.log(this.user)
         this._fuseConfigService.config$
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe((config: FuseConfig) => {
-            // Store the config
             this.config = config;
             this.cdr.detectChanges();
         });
-      
         // Set the "isActiveMatchOptions" either from item's
         // "isActiveMatchOptions" or the equivalent form of
         // item's "exactMatch" option

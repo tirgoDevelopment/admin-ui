@@ -27,39 +27,68 @@
                 <mat-slide-toggle class="py-2" formControlName="addOrder">
                     {{"add_order"|transloco}}
                 </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="cancelOrder">
+                    {{"cancel_order"|transloco}}
+                </mat-slide-toggle>
                 <mat-slide-toggle class="py-2" formControlName="seeDriversInfo">
                     {{"see_drivers_info"|transloco}}
                 </mat-slide-toggle>
                 <mat-slide-toggle class="py-2" formControlName="seeClientsInfo">
                     {{"see_clients_info"|transloco}}
                 </mat-slide-toggle>
-            </div>
-            <div class="p-3 flex flex-col">
                 <mat-slide-toggle class="py-2" formControlName="sendPush">
                     {{"send_push"|transloco}}
                 </mat-slide-toggle>
                 <mat-slide-toggle class="py-2" formControlName="tracking">
                     {{"tracking"|transloco}}
                 </mat-slide-toggle>
-                <mat-slide-toggle class="py-2" formControlName="driverFinance">
-                    {{"driver_finance"|transloco}}
-                </mat-slide-toggle>
+            
+            </div>
+
+            <div class="p-3 flex flex-col">
                 <mat-slide-toggle class="py-2" formControlName="chat">
                     {{"chat"|transloco}}
                 </mat-slide-toggle>
-            </div>
-            <div class="p-3 flex flex-col">
-                <mat-slide-toggle class="py-2" formControlName="merchantFinance">
+                <mat-slide-toggle class="py-2" formControlName="driverMerchantFinance">
+                    {{"driver_finance"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="clientMerchantFinance">
                     {{"merchant_finance"|transloco}}
                 </mat-slide-toggle>
-                <mat-slide-toggle class="py-2" formControlName="registrMerchant">
-                    {{"registr_merchant"|transloco}}
+                <mat-slide-toggle class="py-2" formControlName="registerClientMerchant">
+                    {{"registr_merchant_client"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="registerDriverMerchant">
+                    {{"registr_merchant_driver"|transloco}}
                 </mat-slide-toggle>
                 <mat-slide-toggle class="py-2" formControlName="verifyDriver">
                     {{"verify_driver"|transloco}}
                 </mat-slide-toggle>
-                <mat-slide-toggle class="py-2" formControlName="merchantList">
-                    {{"merchant_list"|transloco}}
+                <mat-slide-toggle class="py-2" formControlName="clientMerchantList">
+                    {{"merchant_client_list"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="driverMerchantList">
+                    {{"merchant_driver_list"|transloco}}
+                </mat-slide-toggle>
+            </div>
+            <div class="p-3 flex flex-col">
+                <mat-slide-toggle class="py-2" formControlName="adminPage">
+                    {{"admin_page"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="finRequest">
+                    {{"fin_request"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="driverMerchantPage">
+                    {{"driver_merchant_page"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="clientMerchantPage">
+                    {{"client_merchant_page"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="driverVerification">
+                    {{"driver_verification"|transloco}}
+                </mat-slide-toggle>
+                <mat-slide-toggle class="py-2" formControlName="agentPage">
+                    {{"agent_page"|transloco}}
                 </mat-slide-toggle>
             </div>
         </div>
