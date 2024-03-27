@@ -41,6 +41,6 @@ jobs:
            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/test-admin-ui:latest
            sudo docker stop test-admin-ui-container || true
            sudo docker rm -f test-admin-ui-container || true
-           sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/test-admin-ui:latest || true
+           sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/test-admin-ui || true
            sudo docker run -d -p 4300:4300 --name test-admin-ui-container ${{ secrets.DOCKER_USERNAME }}/test-admin-ui:latest
           EOF
