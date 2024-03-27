@@ -5,6 +5,7 @@ import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { env } from 'app/environmens/environment';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // public _baseUrl: string = 'https://test-api.tirgo.io/';
@@ -14,6 +15,7 @@ export class AuthService {
   constructor(
     private _httpClient: HttpClient,
     private _userService: UserService,
+    private permissionService:NgxPermissionsService
   ) {
   }
 
@@ -40,6 +42,12 @@ export class AuthService {
     return this._httpClient.post(`${this._baseUrl}/users/login`, credentials).pipe(
       switchMap((response: any) => {
         this.accessToken = response.data.token;
+        let user: any;
+        user = this.accessToken ? jwtDecode(this.accessToken) : null;
+        let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
+        console.log(allPermission, 'allPermissions')
+        this.permissionService.loadPermissions(allPermission);
+        const hasPermissions = this.permissionService.getPermissions();
         this._authenticated = true;
         return of(response);
       }),
@@ -67,11 +75,45 @@ export class AuthService {
         }
         this._authenticated = true;
         this._userService.user = response.user;
+        let user: any;
+        user = this.accessToken ? jwtDecode(this.accessToken) : null;
+        let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
+        this.permissionService.loadPermissions(allPermission);
+        const hasPermissions = this.permissionService.getPermissions();
+        console.log(hasPermissions)
         return of(true);
       }),
     );
   }
 
+   checkPermissions(permissions: any) {
+    const keysToCheck = ['addDriver',
+        'addClient',
+        'addOrder',
+        'cancelOrder',
+        'seeDriversInfo',
+        'seeClientsInfo',
+        'sendPush',
+        'chat',
+        'tracking',
+        'driverFinance',
+        'clientMerchantFinance',
+        'driverMerchantFinance',
+        'registerClientMerchant',
+        'registerDriverMerchant',
+        'verifyDriver',
+        'clientMerchantList',
+        'driverMerchantList',
+        'adminPage',
+        'finRequest',
+        'driverMerchantPage',
+        'clientMerchantPage',
+        'driverVerification',
+        'agentPage'
+    ];
+    let result = keysToCheck.filter(key => permissions[key]);
+    return result
+}
   signOut(): Observable<any> {
     localStorage.removeItem('accessToken');
     this._authenticated = false;

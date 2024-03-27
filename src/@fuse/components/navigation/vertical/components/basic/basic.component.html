@@ -3,8 +3,9 @@
     [ngClass]="item.classes?.wrapper">
 
     <!-- Item with an internal link -->
-    <ng-container *ngIf="item.link && !item.externalLink && !item.function && !item.disabled">
-        <a class="fuse-vertical-navigation-item"
+    <ng-container   *ngIf="hasAdminPermission(item.permission)">
+        <a class="fuse-vertical-navigation-item" 
+        *ngIf="item.link && !item.externalLink && !item.function && !item.disabled"
             [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [routerLink]="[item.link]"
             [fragment]="item.fragment ?? null" [preserveFragment]="item.preserveFragment ?? false"
             [queryParams]="item.queryParams ?? null" [queryParamsHandling]="item.queryParamsHandling ?? null"
@@ -15,8 +16,8 @@
     </ng-container>
 
     <!-- Item with an external link -->
-    <ng-container *ngIf="item.link && item.externalLink && !item.function && !item.disabled">
-        <a class="fuse-vertical-navigation-item" [href]="item.link" [target]="item.target || '_self'"
+    <ng-container >
+        <a *ngIf="item.link && item.externalLink && !item.function && !item.disabled" class="fuse-vertical-navigation-item" [href]="item.link" [target]="item.target || '_self'"
             [matTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
@@ -72,25 +73,27 @@
 <!-- Item template -->
 <ng-template #itemTemplate>
     <!-- Icon -->
-    <!-- {{item.permission}} -->
-
-    <ng-container *ngIf="item.icon&&config?.scheme=='light'"  ngxPermissionsOnly="item.permission||[]">
+    <ng-container   *ngIf="hasAdminPermission(item.permission)">
+        <ng-container *ngIf="item.icon&&config?.scheme=='light'">
         <img [src]="'assets/images/sidebar/'+item.icon" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
+       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' " ngxPermissionsOnly="item.permission||[]">
-        <img [src]="'assets/images/sidebar/'+item.icon_w" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
+    <ng-container  *ngIf="hasAdminPermission(item.permission)">
+        <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' ">
+            <img [src]="'assets/images/sidebar/'+item.icon_w" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
+        </ng-container>
     </ng-container>
     
     <!-- Title & Subtitle -->
-    <div class="fuse-vertical-navigation-item-title-wrapper">
-        <div class="fuse-vertical-navigation-item-title">
+    <div class="fuse-vertical-navigation-item-title-wrapper" >
+        <div class="fuse-vertical-navigation-item-title" *ngIf="hasAdminPermission(item.permission)" >
             <span [ngClass]="item.classes?.title" >
                 {{item.title | transloco}}
             </span>
         </div>
         <ng-container *ngIf="item.subtitle">
-            <div class="fuse-vertical-navigation-item-subtitle" >
+            <div class="fuse-vertical-navigation-item-subtitle"  *ngIf="hasAdminPermission(item.permission)">
                 <span [ngClass]="item.classes?.subtitle" >
                     {{item.subtitle}}
                 </span>

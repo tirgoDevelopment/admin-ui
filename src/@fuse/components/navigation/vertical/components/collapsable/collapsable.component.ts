@@ -71,7 +71,6 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config: FuseConfig) => {
                 this.config = config;
-                console.log(this.config);
                 this.cdr.detectChanges();
             });
 

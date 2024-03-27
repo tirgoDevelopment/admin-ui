@@ -1,8 +1,28 @@
 /* eslint-disable */
 import { FuseNavigationItem } from '@fuse/components/navigation';
-// sendPush: this.f.sendPush.value,
-// driverFinance: this.f.driverFinance.value,
-// merchantFinance: this.f.merchantFinance.value,
+// addDriver: new FormControl(''),
+// addClient: new FormControl(''),
+// addOrder: new FormControl(''),
+// cancelOrder: new FormControl(''),
+// seeDriversInfo: new FormControl(''),
+// seeClientsInfo: new FormControl(''),
+// sendPush: new FormControl(''),
+// tracking: new FormControl(''),
+// chat: new FormControl(''),
+// clientMerchantFinance: new FormControl(''),
+// driverMerchantFinance: new FormControl(''),
+// registerClientMerchant: new FormControl(''),
+// registerDriverMerchant: new FormControl(''),
+// verifyDriver: new FormControl(''),
+// clientMerchantList: new FormControl(''),
+// driverMerchantList: new FormControl(''),
+// adminPage: new FormControl(''),
+// finRequest: new FormControl(''),
+// driverMerchantPage: new FormControl(''),
+// clientMerchantPage: new FormControl(''),
+// driverVerification: new FormControl(''),
+// driverFinance: new FormControl(''),
+// agentPage: new FormControl(''),
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboards',
@@ -25,7 +45,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'people.svg',
                 icon_w: 'admin-w.svg',
                 link: '/admins',
-                permission: []
+                permission: ['adminPage']
             },
             // {
             //     id: 'role',
@@ -60,7 +80,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/archived-users',
-                permission: []
+                permission: ['seeClientsInfo', 'seeDriversInfo']
             },
             {
                 id: 'merchant',
@@ -69,7 +89,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/client-merchants',
-                permission: ['merchantList'],
+                permission: ['clientMerchantList', 'driverMerchantList'],
                 children: [
                     {
                         id: 'merchant.client',
@@ -79,7 +99,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon: 'clients.svg',
                         link: '/client-merchants',
                         exactMatch: true,
-                        permission: ['merchantList'],
+                        permission: ['clientMerchantList'],
                     },
                     {
                         id: 'merchant.driver',
@@ -89,7 +109,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon: 'clients.svg',
                         link: '/driver-merchants',
                         exactMatch: true,
-                        permission: ['merchantList'],
+                        permission: ['driverMerchantList'],
                     },
                 ],
             },
@@ -264,7 +284,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 icon: 'people.svg',
                 link: '/agent-module',
-                permission: [],
+                permission: ['agentPage'],
             }
         ],
     }

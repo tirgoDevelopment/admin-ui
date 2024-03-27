@@ -11,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { isObservable } from 'rxjs';
 
 @Component({
@@ -22,7 +23,6 @@ import { isObservable } from 'rxjs';
   standalone: true,
   imports: [RouterLink, FuseAlertComponent, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule],
 })
-
 export class AuthSignInComponent implements OnInit {
   @ViewChild('signInNgForm') signInNgForm: NgForm;
   signInForm: UntypedFormGroup;
@@ -30,6 +30,7 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router,
+    private _permissionService: NgxPermissionsService
   ) { }
   ngOnInit() {
     this.signInForm = this._formBuilder.group({
@@ -52,8 +53,10 @@ export class AuthSignInComponent implements OnInit {
     })
       .subscribe(
         (response: any) => {
-          console.log(response)
-          if (response.data.token) {
+          const hasPermissions = this._permissionService.getPermissions();
+          if (response.data.token && hasPermissions.hasOwnProperty('chat')) {
+            this._router.navigateByUrl('chats');
+          } else {
             this._router.navigateByUrl('dashboards');
           }
         },

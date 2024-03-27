@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { PermissionGuard } from './core/auth/guards/permission.guard';
 
 export const appRoutes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
@@ -22,45 +23,84 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard, PermissionGuard],
+        canActivateChild: [AuthGuard, PermissionGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
         },
         children: [
             {
-                path: 'dashboards', loadChildren: () => import('app/modules/dashboards/dashboard.resolver')
+                path: 'chats', loadChildren: () => import('app/modules/chat/chat.routes'),
+                data: {
+                    requiredPermissions: ['chat']
+                }
             },
             {
-                path: 'admins', loadChildren: () => import('app/modules/admins/admins.resolver')
+                path: 'dashboards', loadChildren: () => import('app/modules/dashboards/dashboard.resolver'),
+                data: {
+                    requiredPermissions: ['dashboard']
+                }
             },
             {
-                path: 'secure-transaction', loadChildren: () => import('app/modules/secure-transaction/secure-transaction.resolver')
+                path: 'admins', loadChildren: () => import('app/modules/admins/admins.resolver'),
+                data: {
+                    requiredPermissions: ['adminPage']
+                }
+            },
+            // {
+            //     path: 'secure-transaction', loadChildren: () => import('app/modules/secure-transaction/secure-transaction.resolver'),
+            //     data: {
+            //         requiredPermissions: ['ADMIN']
+            //     }
+            // },
+            {
+                path: 'clients', loadChildren: () => import('app/modules/clients/clients.resolver'),
+                data: {
+                    requiredPermissions: ['seeClientsInfo']
+                }
             },
             {
-                path: 'clients', loadChildren: () => import('app/modules/clients/clients.resolver')
+                path: 'drivers', loadChildren: () => import('app/modules/drivers/drivers.resolver'),
+                data: {
+                    requiredPermissions: ['seeDriversInfo']
+                }
             },
             {
-                path: 'drivers', loadChildren: () => import('app/modules/drivers/drivers.resolver')
+                path: 'archived-users', loadChildren: () => import('app/modules/archive-user/archive-user.resolver'),
+                data: {
+                    requiredPermissions: ['seeClientsInfo', 'seeDriversInfo']
+                }
             },
             {
-                path: 'archived-users', loadChildren: () => import('app/modules/archive-user/archive-user.resolver')
+                path: 'client-merchants', loadChildren: () => import('app/modules/merchant/merchant.resolver'),
+                data: {
+                    requiredPermissions: ['clientMerchantPage']
+                }
             },
             {
-                path: 'client-merchants', loadChildren: () => import('app/modules/merchant/merchant.resolver')
+                path: 'driver-merchants', loadChildren: () => import('app/modules/driver-merchant/driver-merchant.resolver'),
+                data: {
+                    requiredPermissions: ['driverMerchantPage']
+                }
             },
             {
-                path: 'driver-merchants', loadChildren: () => import('app/modules/driver-merchant/driver-merchant.resolver')
+                path: 'orders', loadChildren: () => import('app/modules/orders/orders.resolver'),
+                data: {
+                    requiredPermissions: ['orders']
+                }
             },
             {
-                path: 'orders', loadChildren: () => import('app/modules/orders/orders.resolver')
-            },
-            {
-                path: 'tracking', loadChildren: () => import('app/modules/tracking/tracking.resolver')
+                path: 'tracking', loadChildren: () => import('app/modules/tracking/tracking.resolver'),
+                data: {
+                    requiredPermissions: ['tracking']
+                }
             },
             {
                 path: 'types',
+                data: {
+                    requiredPermissions: ['types']
+                },
                 children: [
                     {
                         path: 'role', loadChildren: () => import('app/modules/main-types/role/role.resolver')
@@ -95,20 +135,34 @@ export const appRoutes: Route[] = [
                 ]
             },
             {
-                path: 'chats', loadChildren: () => import('app/modules/chat/chat.routes')
+                path: 'chats', loadChildren: () => import('app/modules/chat/chat.routes'),
+                data: {
+                    requiredPermissions: ['chat']
+                }
             },
             {
-                path: 'active', loadChildren: () => import('app/modules/user-activity/user-activity.resolver')
+                path: 'active', loadChildren: () => import('app/modules/user-activity/user-activity.resolver'),
+                data: {
+                    requiredPermissions: ['active']
+                }
             },
             {
-                path: 'agents', loadChildren: () => import('app/modules/agents/agents.resolver')
+                path: 'agents', loadChildren: () => import('app/modules/agents/agents.resolver'),
+                data: {
+                    requiredPermissions: ['agentPage']
+                }
             },
-
             {
-                path: 'agent-module', loadChildren: () => import('app/modules/agent-module/agents-module.resolver')
+                path: 'agent-module', loadChildren: () => import('app/modules/agent-module/agents-module.resolver'),
+                data: {
+                    requiredPermissions: ['agent-module']
+                }
             },
             {
-                path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver')
+                path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver'),
+                data: {
+                    requiredPermissions: ['verification']
+                }
             },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }
