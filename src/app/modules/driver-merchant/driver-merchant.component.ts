@@ -33,7 +33,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
-  permission=['merchantFinance']
   transportKinds: any[] = [];
   transportTypes: any[] = [];
   filters = {
