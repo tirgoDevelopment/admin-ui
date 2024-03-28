@@ -8,7 +8,7 @@
         <!-- <button (click)="detail()" class="hidden sm:inline-flex mr-3 "  mat-flat-button [color]="'primary'">
           detail
         </button> -->
-        <button (click)="createOrderModal()" mat-flat-button [color]="'primary'">
+        <button (click)="createOrderModal()" *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
           <mat-icon>add</mat-icon>
           Разместить груз
         </button>
@@ -18,17 +18,8 @@
       <mat-form-field color="accent" class="w-50 px-1">
         <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.orderId">
       </mat-form-field>
-<!-- 
-      Waiting = 0, //Ожидающий
-      Accepted = 1,  //Принято
-      Active = 2, //Выполняется
-      Completed = 3, //Выполнен
-      Closed = 4,  //Завершенный
-      Canceled = 5, //Отменено
-      Archive = 6 -->
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-select placeholder="{{ 'StatusID' | transloco }}" name="StatusID"
-          [(ngModel)]="filters.statusId">
+        <mat-select placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">
           <mat-option value="0">{{ 'waiting' | transloco }}</mat-option>
           <mat-option value="1">{{ 'accepted' | transloco }}</mat-option>
           <mat-option value="2">{{ 'active' | transloco }}</mat-option>
@@ -95,12 +86,14 @@
 
         <ng-container matColumnDef="sendLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name"> {{row?.loadingLocation?.name}} </mat-cell>
+          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
+            {{row?.loadingLocation?.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row"  [matTooltip]="row.deliveryLocation?.name"> {{row?.deliveryLocation?.name}} </mat-cell>
+          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
+            {{row?.deliveryLocation?.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -181,7 +174,7 @@
       </mat-table>
       <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="pageParams.totalPagesCount-1"
         [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
-  </mat-paginator>
+      </mat-paginator>
     </div>
   </div>
 </div>

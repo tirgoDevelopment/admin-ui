@@ -89,6 +89,18 @@ export class AddRoleComponent {
         driverVerification: new FormControl(''),
         driverFinance: new FormControl(''),
         agentPage: new FormControl(''),
+
+        dashboardPage: new FormControl(''),
+        archivedPage: new FormControl(''),
+        orderPage: new FormControl(''),
+        referencesPage: new FormControl(''),
+        activePage: new FormControl(''),
+        adminAgentPage: new FormControl(''),
+        AttachDriverAgent: new FormControl(''),
+        addBalanceAgent: new FormControl(''),
+        seeTransactionAgent: new FormControl(''),
+        seePaymentTransactionAdmin: new FormControl(''),
+        seeServiceTransactionAdmin: new FormControl(''),
     });
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,

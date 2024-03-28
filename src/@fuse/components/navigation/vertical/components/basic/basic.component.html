@@ -3,7 +3,7 @@
     [ngClass]="item.classes?.wrapper">
 
     <!-- Item with an internal link -->
-    <ng-container   *ngIf="hasAdminPermission(item.permission)">
+    <ng-container   *ngIf="hasPermission(item.permission)">
         <a class="fuse-vertical-navigation-item" 
         *ngIf="item.link && !item.externalLink && !item.function && !item.disabled"
             [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [routerLink]="[item.link]"
@@ -73,13 +73,13 @@
 <!-- Item template -->
 <ng-template #itemTemplate>
     <!-- Icon -->
-    <ng-container   *ngIf="hasAdminPermission(item.permission)">
+    <ng-container   *ngIf="hasPermission(item.permission)">
         <ng-container *ngIf="item.icon&&config?.scheme=='light'">
         <img [src]="'assets/images/sidebar/'+item.icon" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
        </ng-container>
     </ng-container>
 
-    <ng-container  *ngIf="hasAdminPermission(item.permission)">
+    <ng-container  *ngIf="hasPermission(item.permission)">
         <ng-container *ngIf="item.icon_w&& config?.scheme=='dark' ">
             <img [src]="'assets/images/sidebar/'+item.icon_w" class="mr-3" style="height:24px; width:24px"  [matTooltip]="item.title | transloco">
         </ng-container>
@@ -87,13 +87,13 @@
     
     <!-- Title & Subtitle -->
     <div class="fuse-vertical-navigation-item-title-wrapper" >
-        <div class="fuse-vertical-navigation-item-title" *ngIf="hasAdminPermission(item.permission)" >
+        <div class="fuse-vertical-navigation-item-title" *ngIf="hasPermission(item.permission)" >
             <span [ngClass]="item.classes?.title" >
                 {{item.title | transloco}}
             </span>
         </div>
         <ng-container *ngIf="item.subtitle">
-            <div class="fuse-vertical-navigation-item-subtitle"  *ngIf="hasAdminPermission(item.permission)">
+            <div class="fuse-vertical-navigation-item-subtitle"  *ngIf="hasPermission(item.permission)">
                 <span [ngClass]="item.classes?.subtitle" >
                     {{item.subtitle}}
                 </span>

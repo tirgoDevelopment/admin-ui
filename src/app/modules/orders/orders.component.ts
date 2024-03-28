@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrderModel } from './models/order.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-orders',
@@ -64,6 +65,7 @@ export class OrdersComponent implements OnInit {
   dataSource = new MatTableDataSource<OrderModel>([]);
   constructor(
     private orderService: OrdersService,
+    private _permissionService: NgxPermissionsService,
     private authService: AuthService,
     private dialog: MatDialog,
     private _typeService: TypesService) { }
@@ -76,6 +78,11 @@ export class OrdersComponent implements OnInit {
     this._typeService.getTransportTypes().subscribe((response: any) => {
       this.transportTypes = response.data;
     })
+  }
+
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
   }
 
   detail(id: number): void {

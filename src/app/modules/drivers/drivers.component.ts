@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddVerificationComponent } from './components/add-verification/add-verification.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-drivers',
@@ -61,7 +62,11 @@ export class DriversComponent implements OnInit {
 
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(
-    private _driversService: DriversService, protected _dialog: MatDialog, private _typeService: TypesService, private cdr: ChangeDetectorRef,) {
+    private _driversService: DriversService,
+    private _permissionService: NgxPermissionsService,
+    protected _dialog: MatDialog,
+    private _typeService: TypesService,
+    private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -70,6 +75,11 @@ export class DriversComponent implements OnInit {
       this.transportKinds = response.data;
     })
     this.cdr.detectChanges()
+  }
+
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
   }
 
   clearFilters() {
