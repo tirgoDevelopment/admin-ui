@@ -183,6 +183,60 @@
                     </mat-cell>
                 </ng-container>
 
+
+                <ng-container matColumnDef="dashboard_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"dashboard_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.dashboardPage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.dashboardPage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="archived_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"archived_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.archivedPage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.archivedPage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="order_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"order_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.orderPage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.orderPage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="reference_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"reference_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.referencesPage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.referencesPage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="active_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"active_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.activePage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.activePage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="admin_agent_page">
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"admin_agent_page"|transloco}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span *ngIf="row?.permission?.adminAgentPage">{{"yes"|transloco}}</span>
+                        <span *ngIf="!row?.permission?.adminAgentPage">{{"no"|transloco}}</span>
+                    </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
 

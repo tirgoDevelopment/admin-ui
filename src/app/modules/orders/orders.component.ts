@@ -35,7 +35,13 @@ import { NgxPermissionsService } from 'ngx-permissions';
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
-  displayedColumns: string[] = ['index', 'id', 'sendLocation', 'cargoDeliveryLocation', 'status', 'date_send', 'offeredPrice', 'secure_transaction', 'type_cargo', 'transport_type', 'client', 'actions'];
+ 
+  displayedColumns: string[] = ['index', 
+  'id', 'sendLocation', 'cargoDeliveryLocation',
+   'status', 'date_send', 'offeredPrice', 
+   'secure_transaction', 'type_cargo', 'transport_type',
+
+    'client', 'actions'];
   currentUser: any;
   transportKinds: any[] = [];
   transportTypes: any[] = [];
