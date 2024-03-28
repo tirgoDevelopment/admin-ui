@@ -49,7 +49,7 @@ export class AddAgentDriverComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,5}$|^\d{1,5}[a-zA-Z]+$')]),
     passportFilePath: new FormControl('', [Validators.required]),
     driverLisenseFilePath: new FormControl('', [Validators.required]),
   })

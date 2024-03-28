@@ -19,13 +19,13 @@
                         </div>
                     </div>
                 </div>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
+                <button class="hidden sm:inline-flex ml-3" [color]="'primary'" *ngIf="hasPermission('attachDriverAgent')"  mat-flat-button (click)="connect()">
                     <span class="ml-2">{{ 'connect_driver' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
+                <button class="hidden sm:inline-flex ml-3" *ngIf="hasPermission('seeSubscriptionTransactionAgent')" [color]="'primary'" mat-flat-button (click)="transaction()">
                    <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="addBalanse()">
+                <button class="hidden sm:inline-flex ml-3"  *ngIf="hasPermission('addBalanceAgent')" [color]="'primary'" mat-flat-button (click)="addBalanse()">
                     <span class="ml-2">{{ 'balance' | transloco }}</span>
                 </button>
             </div>

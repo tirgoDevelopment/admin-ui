@@ -53,7 +53,7 @@ export class AddClientComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', [Validators.required]),
-    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
+    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,5}$|^\d{1,5}[a-zA-Z]+$')]),
     passport: new FormControl('', this.edit ? null : [Validators.required]),
   })
   constructor(

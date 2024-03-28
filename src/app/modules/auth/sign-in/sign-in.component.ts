@@ -54,8 +54,8 @@ export class AuthSignInComponent implements OnInit {
       .subscribe(
         (response: any) => {
           const hasPermissions = this._permissionService.getPermissions();
-          if (response.data.token && hasPermissions.hasOwnProperty('chat')) {
-            this._router.navigateByUrl('chats');
+          if (response.data.token && hasPermissions.hasOwnProperty('agentPage')) {
+            this._router.navigateByUrl('agent-module');
           } else {
             this._router.navigateByUrl('dashboards');
           }

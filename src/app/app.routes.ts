@@ -23,8 +23,8 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        canActivate: [AuthGuard, PermissionGuard],
-        canActivateChild: [AuthGuard, PermissionGuard],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver

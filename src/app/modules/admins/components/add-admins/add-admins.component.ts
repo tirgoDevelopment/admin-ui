@@ -40,7 +40,7 @@ export class AddAdminsComponent {
     phone: new FormControl('', [Validators.required]),
     roleId: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,5}$|^\d{1,5}[a-zA-Z]+$')]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
