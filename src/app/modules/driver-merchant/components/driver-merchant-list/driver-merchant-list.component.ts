@@ -33,8 +33,8 @@ export class DriverMerchantListComponent {
   }
 
   unverifiedMerchants() {
-    this._driverMerchantService.unVerified().subscribe(res => {
-      this.driverMerchants = res.data
+    this._driverMerchantService.unVerified().subscribe((res:any) => {
+      this.driverMerchants = res.data.content
     })
   }
 }

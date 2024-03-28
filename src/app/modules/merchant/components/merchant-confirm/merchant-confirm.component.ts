@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,12 +33,13 @@ import { MerchantModel } from '../../models/merchanr.model';
   imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class MerchantConfirmComponent implements OnInit {
-  merchant: MerchantModel;
+  merchant: any;
   id: number;
   constructor(
     public dialog: MatDialog,
     private merchantService: MerchantService,
     private router: Router,
+    private _cdr: ChangeDetectorRef,
     private route: ActivatedRoute) {
   }
 
@@ -53,11 +54,11 @@ export class MerchantConfirmComponent implements OnInit {
   getMerchant(id: number) {
     this.merchantService.get(id).subscribe((responce:any) => {
       this.merchant = responce.data;
+      this._cdr.detectChanges();
     })
   }
 
   privew(image: string): void {
-    console.log(image)
     this.dialog.open(ImagePriviewComponent, {
       minHeight: '50vh',
       maxHeight: "90vh",

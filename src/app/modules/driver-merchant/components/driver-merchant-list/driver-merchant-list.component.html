@@ -14,7 +14,7 @@
                     <p class="text-gray-700 mr-4">{{ merchant?.register_date | date: 'dd/MM/yyyy'}}</p>
                     <ul class="flex">
                         <button class="bg-green-500 text-white px-4 py-2 rounded"
-                            [routerLink]="'merchants/moderation/' + merchant.id" (click)="dialogref.close()">
+                            [routerLink]="'driver-merchants/moderation/' + merchant.id" (click)="dialogref.close()">
                             {{"open"|transloco}}
                         </button>
                     </ul>

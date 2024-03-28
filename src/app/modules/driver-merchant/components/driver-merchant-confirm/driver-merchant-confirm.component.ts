@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,15 +31,15 @@ import { DriverMerchantService } from '../../services/driver-merchant.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
-export class DriverMerchantConfirmComponent {
+export class DriverMerchantConfirmComponent implements OnInit {
   merchant: MerchantModel;
   id: number;
   constructor(
     public dialog: MatDialog,
     private driverMerchantService: DriverMerchantService,
     private router: Router,
+    private _cdr: ChangeDetectorRef,
     private route: ActivatedRoute) {
   }
 
@@ -52,18 +52,19 @@ export class DriverMerchantConfirmComponent {
   }
 
   getMerchant(id: number) {
-    this.driverMerchantService.get(id).subscribe(responce => {
+    this.driverMerchantService.get(id).subscribe((responce:any) => {
       this.merchant = responce.data;
+      this._cdr.detectChanges();
     })
   }
 
   privew(image?: string): void {
     this.dialog.open(ImagePriviewComponent, {
-      data: image,
       minHeight: '50vh',
       maxHeight: "90vh",
       minWidth: '50vw',
       maxWidth: "90vw",
+      data: { keyName: 'driver_merchant', fileName: image },
     })
   }
 
