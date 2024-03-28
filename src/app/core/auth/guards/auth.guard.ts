@@ -41,7 +41,8 @@ export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
 
 
 function checkPermissions(permissions: any) {
-    const keysToCheck = ['addDriver',
+    const keysToCheck = [
+        'addDriver',
         'addClient',
         'addOrder',
         'cancelOrder',
@@ -63,7 +64,18 @@ function checkPermissions(permissions: any) {
         'driverMerchantPage',
         'clientMerchantPage',
         'driverVerification',
-        'agentPage'
+        'agentPage',
+        'dashboardPage',
+        'archivedPage',
+        'orderPage',
+        'referencesPage',
+        'activePage',
+        'adminAgentPage',
+        'attachDriverAgent',
+        'addBalanceAgent',
+        'seeSubscriptionTransactionAgent',
+        'seePaymentTransactionAdmin',
+        'seeServiceTransactionAdmin'
     ];
     let result = keysToCheck.filter(key => permissions[key]);
     return result

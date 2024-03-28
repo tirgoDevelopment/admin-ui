@@ -46,24 +46,30 @@
     <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
         <!-- Basic -->
-        <ng-container *ngIf="item.type === 'basic'">
-            <fuse-vertical-navigation-basic-item [item]="item" [name]="name"></fuse-vertical-navigation-basic-item>
+        <ng-container *ngIf="hasPermission(item.permission)">
+            <ng-container *ngIf="item.type === 'basic'">
+                <fuse-vertical-navigation-basic-item [item]="item" [name]="name"></fuse-vertical-navigation-basic-item>
+            </ng-container>
         </ng-container>
 
         <!-- Collapsable -->
-        <ng-container *ngIf="item.type === 'collapsable'">
-            <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name"
-                [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+        <ng-container *ngIf="hasPermission(item.permission)">
+            <ng-container *ngIf="item.type === 'collapsable'">
+                <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name"
+                    [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+            </ng-container>
         </ng-container>
 
         <!-- Divider -->
         <ng-container *ngIf="item.type === 'divider'">
             <fuse-vertical-navigation-divider-item [item]="item" [name]="name"></fuse-vertical-navigation-divider-item>
         </ng-container>
-
+        <!-- *ngIf="hasPermission(item.permission)" -->
         <!-- Group -->
-        <ng-container *ngIf="item.type === 'group'">
-            <fuse-vertical-navigation-group-item [item]="item" [name]="name"></fuse-vertical-navigation-group-item>
+        <ng-container *ngIf="hasPermission(item.permission)">
+            <ng-container *ngIf="item.type === 'group'">
+                <fuse-vertical-navigation-group-item [item]="item" [name]="name"></fuse-vertical-navigation-group-item>
+            </ng-container>
         </ng-container>
 
         <!-- Spacer -->
