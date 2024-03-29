@@ -23,6 +23,17 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 // driverVerification: new FormControl(''),
 // driverFinance: new FormControl(''),
 // agentPage: new FormControl(''),
+// dashboardPage: new FormControl(''),
+// archivedPage: new FormControl(''),
+// orderPage: new FormControl(''),
+// referencesPage: new FormControl(''),
+// activePage: new FormControl(''),
+// adminAgentPage: new FormControl(''),
+// attachDriverAgent: new FormControl(''),
+// addBalanceAgent: new FormControl(''),
+// seeSubscriptionTransactionAgent: new FormControl(''),
+// seePaymentTransactionAdmin: new FormControl(''),
+// seeServiceTransactionAdmin: new FormControl(''),
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboards',
@@ -36,7 +47,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'dashboard.svg',
                 icon_w: 'dashboard-w.svg',
                 link: '/dashboards',
-                permission: []
+                permission: ['dashboardPage']
             },
             {
                 id: 'admins',
@@ -80,7 +91,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/archived-users',
-                permission: ['seeClientsInfo', 'seeDriversInfo']
+                permission: ['archivedPage']
             },
             {
                 id: 'merchant',
@@ -89,7 +100,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'client-w.svg',
                 icon: 'clients.svg',
                 link: '/client-merchants',
-                permission: ['clientMerchantList', 'driverMerchantList'],
+                permission: ['clientMerchantList'],
                 children: [
                     {
                         id: 'merchant.client',
@@ -120,7 +131,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'file.svg',
                 icon_w: 'file-w.svg',
                 link: '/orders',
-                permission: [],
+                permission: ['orderPage'],
             },
             {
                 id: 'tracking',
@@ -138,7 +149,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'list-w.svg',
                 icon: 'list.svg',
                 link: '/types/role',
-                permission: [],
+                permission: ['referencesPage'],
                 children: [
                     {
                         id: 'types.role',
@@ -148,7 +159,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/role',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.subcription',
@@ -158,7 +169,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/subcription',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.currency',
@@ -168,7 +179,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/currency',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.car',
@@ -178,7 +189,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/transport',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.transport-cargo',
@@ -188,7 +199,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/transport-cargo',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.cargo',
@@ -198,7 +209,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.cargo-status',
@@ -208,7 +219,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-status',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.cargo_group',
@@ -218,7 +229,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-group',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.package',
@@ -228,7 +239,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-package',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                     {
                         id: 'types.loading_method',
@@ -238,7 +249,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         icon_w: 'file-w.svg',
                         link: '/types/cargo-loading-method',
                         exactMatch: true,
-                        permission: [],
+                        permission: ['referencesPage'],
                     },
                 ],
             },
@@ -258,7 +269,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'computer-w.svg',
                 icon: 'computer.svg',
                 link: '/active',
-                permission: [],
+                permission: ['activePage'],
             },
             // {
             //     id: 'verification',
@@ -275,7 +286,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon_w: 'admin-w.svg',
                 icon: 'people.svg',
                 link: '/agents',
-                permission: [],
+                permission: ['adminAgentPage'],
             },
             {
                 id: 'agents',

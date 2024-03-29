@@ -45,7 +45,8 @@ export class AuthSignInComponent implements OnInit {
       return;
     }
     this.signInForm.disable();
-    this._authService.signIn(this.signInForm.value).pipe((res) => {
+    this._authService.signIn(this.signInForm.value)
+    .pipe((res) => {
       if (isObservable(res)) {
         this.signInForm.enable()
       }
@@ -54,7 +55,7 @@ export class AuthSignInComponent implements OnInit {
       .subscribe(
         (response: any) => {
           const hasPermissions = this._permissionService.getPermissions();
-          if (response.data.token && hasPermissions.hasOwnProperty('agentPage')) {
+          if (response.data.token && hasPermissions.hasOwnProperty('agentPage') && !hasPermissions.hasOwnProperty('adminPage')) {
             this._router.navigateByUrl('agent-module');
           } else {
             this._router.navigateByUrl('dashboards');

@@ -354,5 +354,6 @@
     "add_balance_agent":"Add balance agent" ,
     "see_subscription_transaction_agent":"See agent's subscription transaction",
     "see_payment_transaction_admin":"See admin's payment transaction" ,
-    "see_service_transaction_admin":"See admin's service transaction"
+    "see_service_transaction_admin":"See admin's service transaction",
+    "username":"Username"
 }

@@ -14,6 +14,10 @@
     <div *ngIf="isAthenticated"
         class=" flex flex-0 items-center w-full h-16 sticky px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+             
+            <p class="text-xl normal-case mx-3"> {{"username"|transloco}} : <span class="font-bold">{{staff?.username}}</span> </p>
+            <p class="text-xl normal-case mx-3"> {{"phone"|transloco}}: <span class="font-bold">{{staff?.phone}}</span> </p>
+           
             <languages></languages>
             <notifications></notifications>
             <div class="flex items-center py-3 pl-5 pr-6 rounded-full cursor-pointer ring-inset ring-primary bg-hover"

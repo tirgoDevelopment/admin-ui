@@ -24,7 +24,8 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput placeholder="{{ 'password' | transloco }}" formControlName="password"
+                    <input matInput placeholder="{{ 'password' | transloco }}" 
+                        formControlName="password"
                         [ngClass]="{'is-invalid': f.password.errors}">
                     <mat-error *ngIf="f.password.errors?.required">
                         {{ 'is_empty' | transloco }}
@@ -32,7 +33,6 @@
                     <mat-error *ngIf="f.password.errors?.maxlength">
                         Максимальная длина поля 6
                     </mat-error>
-               
                 </mat-form-field>
             </div>
             <div class="p-3">

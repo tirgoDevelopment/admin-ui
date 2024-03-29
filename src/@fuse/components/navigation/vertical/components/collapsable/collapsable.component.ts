@@ -153,7 +153,8 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     }
 
     hasPermission(permission): boolean {
-        let getPermissions = this.permissionsService.getPermissions()
+        let getPermissions = this.permissionsService.getPermissions();
+        // console.log(getPermissions)
         return getPermissions.hasOwnProperty(permission)
     }
     /**

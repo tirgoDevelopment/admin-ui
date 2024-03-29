@@ -66,9 +66,7 @@ export class DriverMerchantComponent {
     sortBy: 'id',
     sortType: 'desc'
   };
-  filterDrivers() {
-
-  }
+  filterDrivers() {}
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;

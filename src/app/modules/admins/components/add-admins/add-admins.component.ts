@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,11 +26,11 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   templateUrl: './add-admins.component.html',
   styleUrls: ['./add-admins.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
-export class AddAdminsComponent {
+export class AddAdminsComponent implements OnInit {
   roles = [];
   edit: boolean = false;
   passwordGenerator = new PasswordGenerator();
@@ -47,20 +47,22 @@ export class AddAdminsComponent {
     private _toaster: ToastrService,
     private _adminService: AdminsService,
     private _roleService: RoleService,
-    private _dialog: MatDialog) {
+    private _cdr: ChangeDetectorRef,
+    private _dialog: MatDialog) {}
+  ngOnInit(): void {
+    this.getRoles()
     if (this.data) {
       this.edit = true;
-      console.log(this.data)
       this.form.patchValue({
         id: this.data?.id,
         fullName: this.data?.fullName,
         phone: this.data?.phone,
-        roleId: this.data?.roleId,
+        roleId: this.data?.user?.role?.id,
         username: this.data?.username,
         password: this.data?.password,
       });
+      this._cdr.detectChanges();
     }
-    this.getRoles()
   }
 
   getRoles() {
@@ -106,12 +108,11 @@ export class AddAdminsComponent {
     }
   }
 
-
-    generate() {
-      this.form.patchValue({
-        password: this.passwordGenerator.generateRandomPassword(),
-      });
-    }
-
+  generate() {
+    this.form.patchValue({
+      password: this.passwordGenerator.generateRandomPassword(),
+    });
   }
+
+}
 

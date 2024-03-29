@@ -16,7 +16,7 @@ export class DriverMerchantService {
   get(id: number): Observable<Response<DriverMerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.get<DriverMerchantModel>(`/users/driver-merchant-by`, queryParams);
+    return this._apiService.get<DriverMerchantModel>(`/users/driver-merchants/driver-merchant-by`, queryParams);
   }
 
   delete(id: number): Observable<Response<DriverMerchantModel>> {

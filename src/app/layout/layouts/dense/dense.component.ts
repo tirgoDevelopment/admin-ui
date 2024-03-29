@@ -8,14 +8,17 @@ import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { FuseConfig, FuseConfigService, Scheme } from '@fuse/services/config';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { TranslocoModule } from '@ngneat/transloco';
 import { AuthService } from 'app/core/auth/auth.service';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
+import { AdminsService } from 'app/modules/admins/services/admins.service';
 import { LanguagesComponent } from 'app/shared/components/common/languages/languages.component';
 import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 import { NotificationsComponent } from 'app/shared/components/common/notifications/notifications.component';
 import { SearchComponent } from 'app/shared/components/common/search/search.component';
 import { UserComponent } from 'app/shared/components/common/user/user.component';
+import { jwtDecode } from 'jwt-decode';
 
 import { Subject, takeUntil } from 'rxjs';
 
@@ -24,7 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
     templateUrl: './dense.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [FuseLoadingBarComponent, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
+    imports: [FuseLoadingBarComponent,TranslocoModule, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
 })
 export class DenseLayoutComponent implements OnInit, OnDestroy {
     @Input('isAthenticated') isAthenticated: boolean
@@ -33,8 +36,11 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
     navigationAppearance: 'default' | 'dense';
     scheme: 'dark' | 'light';
     config: FuseConfig;
+    user: any;
+    staff: any;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     constructor(
+        private _adminService: AdminsService,
         private _authService: AuthService,
         private _fuseConfigService: FuseConfigService,
         private _router: Router,
@@ -67,6 +73,11 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
 
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
+        this.user = this._authService.accessToken ? jwtDecode(this._authService.accessToken) : null;
+        this._adminService.get(this.user.userId).subscribe(res => {
+            console.log(res)
+            this.staff=res.data
+        })
     }
 
     ngOnDestroy(): void {

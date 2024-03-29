@@ -43,10 +43,9 @@ export class AuthService {
         this.accessToken = response.data.token;
         let user: any;
         user = this.accessToken ? jwtDecode(this.accessToken) : null;
+        console.log(user.role.permission)
         let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
-        console.log(allPermission, 'allPermissions')
         this.permissionService.loadPermissions(allPermission);
-        const hasPermissions = this.permissionService.getPermissions();
         this._authenticated = true;
         return of(response);
       }),
@@ -76,6 +75,7 @@ export class AuthService {
         this._userService.user = response.user;
         let user: any;
         user = this.accessToken ? jwtDecode(this.accessToken) : null;
+        console.log(user?.role?.permission, 'permission')
         let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
         this.permissionService.loadPermissions(allPermission);
         return of(true);
@@ -84,7 +84,8 @@ export class AuthService {
   }
 
    checkPermissions(permissions: any) {
-    const keysToCheck = ['addDriver',
+    const keysToCheck = [
+        'addDriver',
         'addClient',
         'addOrder',
         'cancelOrder',
