@@ -48,7 +48,7 @@
         <div>
             <p class="font-semibold">{{ 'account' | transloco }}</p>
             <p *ngFor="let bankAccount of merchant?.bankAccounts">
-                <span> {{bankAccount}}</span>
+                <span> {{bankAccount?.account}}</span>
             </p>
         </div>
         <div>

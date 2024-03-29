@@ -31,7 +31,7 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   templateUrl: './driver-merchant-moderation.component.html',
   styleUrls: ['./driver-merchant-moderation.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TranslocoModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
@@ -60,31 +60,31 @@ export class DriverMerchantModerationComponent implements OnInit {
   internationalCargoLisensePath: string;
   edit: boolean = false;
   form: FormGroup = new FormGroup({
-    merchantId: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    companyName: new FormControl('', [Validators.required]),
-    supervisorFirstName: new FormControl('', [Validators.required]),
-    supervisorLastName: new FormControl('', [Validators.required]),
-    responsiblePersonFullName: new FormControl('', [Validators.required]),
-    responsiblePersonLastName: new FormControl('', [Validators.required]),
-    responsbilePersonPhoneNumber: new FormControl('', [Validators.required]),
-    legalAddress: new FormControl('', [Validators.required]),
-    factAddress: new FormControl('', [Validators.required]),
-    postalCode: new FormControl('', [Validators.required]),
-    garageAddress: new FormControl('', [Validators.required]),
-    bankName: new FormControl('', [Validators.required]),
-    bankBranchName: new FormControl('', [Validators.required]),
-    inn: new FormControl('', [Validators.required]),
-    oked: new FormControl('', [Validators.required]),
-    mfo: new FormControl('', [Validators.required]),
-    taxPayerCode: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    merchantId: new FormControl(''),
+    email: new FormControl(''),
+    companyName: new FormControl(''),
+    supervisorFirstName: new FormControl(''),
+    supervisorLastName: new FormControl(''),
+    responsiblePersonFullName: new FormControl(''),
+    responsiblePersonLastName: new FormControl(''),
+    responsbilePersonPhoneNumber: new FormControl(''),
+    legalAddress: new FormControl(''),
+    factAddress: new FormControl(''),
+    postalCode: new FormControl(''),
+    garageAddress: new FormControl(''),
+    bankName: new FormControl(''),
+    bankBranchName: new FormControl(''),
+    inn: new FormControl(''),
+    oked: new FormControl(''),
+    mfo: new FormControl(''),
+    taxPayerCode: new FormControl(''),
+    phoneNumber: new FormControl(''),
     dunsNumber: new FormControl(''),
     ibanNumber: new FormControl(''),
-    internationalCargoLisensePath: new FormControl('', [Validators.required]),
-    logoFilePath: new FormControl('', [Validators.required]),
-    registrationCertificateFilePath: new FormControl('', [Validators.required]),
-    passportFilePath: new FormControl('', [Validators.required]),
+    internationalCargoLisensePath: new FormControl(''),
+    logoFilePath: new FormControl(''),
+    registrationCertificateFilePath: new FormControl(''),
+    passportFilePath: new FormControl(''),
   })
   constructor(
     private router: Router,
@@ -202,11 +202,11 @@ export class DriverMerchantModerationComponent implements OnInit {
     this.formData.append('ibanNumber', this.form.get('ibanNumber').value);
     this.formData.append('taxPayerCode', this.form.get('taxPayerCode').value);
     this.formData.append('email', this.form.get('email').value);
-    this.formData.append('supervisorFirstName', this.form.get('supervisorFirstName').value);
-    this.formData.append('supervisorLastName', this.form.get('supervisorLastName').value);
-    this.formData.append('responsiblePersonFistName', this.form.get('responsiblePersonFistName').value);
-    this.formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName').value);
-    this.formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber').value);
+    this.formData.append('supervisorFirstName', this.form.get('supervisorFirstName')?.value);
+    this.formData.append('supervisorLastName', this.form.get('supervisorLastName')?.value);
+    this.formData.append('responsiblePersonFistName', this.form.get('responsiblePersonFistName')?.value);
+    this.formData.append('responsiblePersonLastName', this.form.get('responsiblePersonLastName')?.value);
+    this.formData.append('responsbilePersonPhoneNumber', this.form.get('responsbilePersonPhoneNumber')?.value);
     this.formData.append('legalAddress', this.form.get('legalAddress').value);
     this.formData.append('factAddress', this.form.get('factAddress').value);
     this.formData.append('postalCode', this.form.get('postalCode').value);
@@ -237,6 +237,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     }
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
+    console.log(this.f)
     if (this.form.valid) {
       this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
         if (isObservable(res)) {

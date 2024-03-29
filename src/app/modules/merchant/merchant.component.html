@@ -65,7 +65,7 @@
                 <ng-container matColumnDef="companyName">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"company_name"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.companyName}} </mat-cell>
+                    <mat-cell *matCellDef="let row">{{row?.companyType}}  {{ row?.companyName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="entity">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"tax_payer_code"|transloco}}

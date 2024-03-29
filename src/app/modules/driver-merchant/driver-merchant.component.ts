@@ -21,13 +21,14 @@ import { DriverMerchantListComponent } from './components/driver-merchant-list/d
 import { BlockMerchantComponent } from '../merchant/components/block-merchant/block-merchant.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
+import { DriverMerchantService } from './services/driver-merchant.service';
 
 @Component({
   selector: 'app-driver-merchant',
   templateUrl: './driver-merchant.component.html',
   styleUrls: ['./driver-merchant.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TranslocoModule, RouterLink,NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
@@ -45,7 +46,7 @@ export class DriverMerchantComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(
-     private _merchantService: MerchantService,
+     private _merchantService: DriverMerchantService,
      private _permissionService: NgxPermissionsService,
     protected _dialog?: MatDialog) {
   }
@@ -82,9 +83,10 @@ export class DriverMerchantComponent {
     let getPermissions = this._permissionService.getPermissions()
     return getPermissions.hasOwnProperty(permission)
   }
+
   getAllMerchants(params?) {
     this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response:any) => {
-      this.dataSource.data = response?.data;
+      this.dataSource.data = response?.data.content;
       this.pageParams.limit = response?.data?.per_page;
       this.pageParams.page = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
