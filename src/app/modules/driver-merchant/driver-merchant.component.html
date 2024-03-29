@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"merchant_driver"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class=" sm:inline-flex ml-3 "  [color]="'primary'" mat-flat-button (click)="requests()">
+                <button class=" sm:inline-flex ml-3 " *ngIf="hasPermission('merchant_finance')"  [color]="'primary'" mat-flat-button (click)="requests()">
                     <span class="ml-2">requests</span>
                 </button>
             </div>

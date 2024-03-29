@@ -9,6 +9,7 @@ import { FuseVerticalNavigationCollapsableItemComponent } from '@fuse/components
 import { FuseVerticalNavigationDividerItemComponent } from '@fuse/components/navigation/vertical/components/divider/divider.component';
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -35,12 +36,17 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
      * Constructor
      */
     constructor(
+        private permissionsService: NgxPermissionsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
     )
     {
     }
 
+    hasPermission(permission): boolean {
+        let getPermissions = this.permissionsService.getPermissions()
+        return getPermissions.hasOwnProperty(permission)
+    }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------

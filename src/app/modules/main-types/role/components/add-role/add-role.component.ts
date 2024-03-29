@@ -89,6 +89,18 @@ export class AddRoleComponent {
         driverVerification: new FormControl(''),
         driverFinance: new FormControl(''),
         agentPage: new FormControl(''),
+
+        dashboardPage: new FormControl(''),
+        archivedPage: new FormControl(''),
+        orderPage: new FormControl(''),
+        referencesPage: new FormControl(''),
+        activePage: new FormControl(''),
+        adminAgentPage: new FormControl(''),
+        attachDriverAgent: new FormControl(''),
+        addBalanceAgent: new FormControl(''),
+        seeSubscriptionTransactionAgent: new FormControl(''),
+        seePaymentTransactionAdmin: new FormControl(''),
+        seeServiceTransactionAdmin: new FormControl(''),
     });
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -123,7 +135,19 @@ export class AddRoleComponent {
                 clientMerchantPage: this.data?.permission?.clientMerchantPage,
                 driverVerification: this.data?.permission?.driverVerification,
                 agentPage: this.data?.permission?.addDriver,
-                driverFinance: this.data?.permission?.driverFinance
+                driverFinance: this.data?.permission?.driverFinance,
+
+                dashboardPage: this.data?.permission?.dashboardPage,
+                archivedPage: this.data?.permission?.archivedPage,
+                orderPage: this.data?.permission?.orderPage,
+                referencesPage: this.data?.permission?.referencesPage,
+                activePage: this.data?.permission?.activePage,
+                adminAgentPage: this.data?.permission?.adminAgentPage,
+                attachDriverAgent: this.data?.permission?.attachDriverAgent,
+                addBalanceAgent: this.data?.permission?.addBalanceAgent,
+                seeSubscriptionTransactionAgent: this.data?.permission?.seeSubscriptionTransactionAgent,
+                seePaymentTransactionAdmin: this.data?.permission?.seePaymentTransactionAdmin,
+                seeServiceTransactionAdmin: this.data?.permission?.seeServiceTransactionAdmin,
             });
         }
     }
@@ -194,7 +218,18 @@ export class AddRoleComponent {
                 clientMerchantPage: this.f?.clientMerchantPage.value,
                 driverVerification: this.f?.driverVerification.value,
                 agentPage: this.f?.agentPage.value,
-                driverFinance: this.f?.driverFinance.value
+                driverFinance: this.f?.driverFinance.value,
+                dashboardPage: this.f?.dashboardPage.value,
+                archivedPage: this.f?.archivedPage.value,
+                orderPage: this.f?.orderPage.value,
+                referencesPage: this.f?.referencesPage.value,
+                activePage: this.f?.activePage.value,
+                adminAgentPage: this.f?.adminAgentPage.value,
+                attachDriverAgent: this.f?.attachDriverAgent.value,
+                addBalanceAgent: this.f?.addBalanceAgent.value,
+                seeSubscriptionTransactionAgent: this.f?.seeSubscriptionTransactionAgent.value,
+                seePaymentTransactionAdmin: this.f?.seePaymentTransactionAdmin.value,
+                seeServiceTransactionAdmin: this.f?.seeServiceTransactionAdmin.value,
             },
         };
         return data;

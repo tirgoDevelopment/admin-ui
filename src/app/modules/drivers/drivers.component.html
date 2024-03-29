@@ -8,7 +8,7 @@
                 <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
+                <button class=" sm:inline-flex ml-3"  *ngIf="hasPermission('addDriver')"  [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>

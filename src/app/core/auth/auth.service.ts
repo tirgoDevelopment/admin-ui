@@ -8,7 +8,6 @@ import { env } from 'app/environmens/environment';
 import { NgxPermissionsService } from 'ngx-permissions';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // public _baseUrl: string = 'https://test-api.tirgo.io/';
   public _baseUrl: string = env.apiUrl;
   public _authenticated: boolean = false;
 
@@ -79,8 +78,6 @@ export class AuthService {
         user = this.accessToken ? jwtDecode(this.accessToken) : null;
         let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
         this.permissionService.loadPermissions(allPermission);
-        const hasPermissions = this.permissionService.getPermissions();
-        console.log(hasPermissions)
         return of(true);
       }),
     );
@@ -109,7 +106,18 @@ export class AuthService {
         'driverMerchantPage',
         'clientMerchantPage',
         'driverVerification',
-        'agentPage'
+        'agentPage',
+        'dashboardPage',
+        'archivedPage',
+        'orderPage',
+        'referencesPage',
+        'activePage',
+        'adminAgentPage',
+        'attachDriverAgent',
+        'addBalanceAgent',
+        'seeSubscriptionTransactionAgent',
+        'seePaymentTransactionAdmin',
+        'seeServiceTransactionAdmin'
     ];
     let result = keysToCheck.filter(key => permissions[key]);
     return result

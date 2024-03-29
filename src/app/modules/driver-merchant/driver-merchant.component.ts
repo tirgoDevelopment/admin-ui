@@ -20,7 +20,7 @@ import { MerchantModel } from '../merchant/models/merchanr.model';
 import { DriverMerchantListComponent } from './components/driver-merchant-list/driver-merchant-list.component';
 import { BlockMerchantComponent } from '../merchant/components/block-merchant/block-merchant.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-import { NgxPermissionsModule } from 'ngx-permissions';
+import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -44,7 +44,10 @@ export class DriverMerchantComponent {
   displayedColumns: string[] = ['index', 'id', 'companyName', 'register_date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
-  constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {
+  constructor(
+     private _merchantService: MerchantService,
+     private _permissionService: NgxPermissionsService,
+    protected _dialog?: MatDialog) {
   }
 
   clearFilters() {
@@ -77,6 +80,10 @@ export class DriverMerchantComponent {
     this.getAllMerchants(this.pageParams);
   }
 
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
+  }
   getAllMerchants(params?) {
     this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response:any) => {
       this.dataSource.data = response?.data;

@@ -44,7 +44,7 @@ export class AddAgentComponent {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,6}$')]),
+    password: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,5}$|^\d{1,5}[a-zA-Z]+$')]),
     companyName: new FormControl('', [Validators.required]),
     legalAddress: new FormControl('', [Validators.required]),
     physicalAddress: new FormControl('', [Validators.required]),

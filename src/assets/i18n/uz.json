@@ -343,5 +343,16 @@
      "driver_merchant_page":"Haydovchi savdogar sahifasi",
      "client_merchant_page":"Mijoz savdogar sahifasi",
      "driver_verification":"Haydovchini tekshirish",
-     "agent_page":"Agent sahifasi"
+     "agent_page":"Agent sahifasi",
+     "dashboard_page":"Boshqaruv paneli sahifasi",
+     "archived_page":"Arxivlangan sahifa",
+     "order_page":"Buyurtma sahifasi",
+     "reference_page":"Ma'lumotnomalar sahifalari" ,
+     "active_page":"Faol sahifa",
+     "admin_agent_page":"Admin agenti sahifasi",
+     "attach_driver_agent":"Drayver agentini biriktirish",
+     "add_balance_agent":"Balans agentini qo'shish" ,
+     "see_subscription_transaction_agent":"Agentning obuna operatsiyasini ko'ring",
+     "see_payment_transaction_admin":"Administratorning toʻlov tranzaksiyasini koʻring" ,
+     "see_service_transaction_admin":"Administratorning xizmat tranzaksiyasini ko'rish"
 }

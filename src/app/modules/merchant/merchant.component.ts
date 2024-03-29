@@ -20,7 +20,7 @@ import { MerchantModel } from './models/merchanr.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlockMerchantComponent } from './components/block-merchant/block-merchant.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPermissionsModule } from 'ngx-permissions';
+import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -43,7 +43,7 @@ export class MerchantComponent implements OnInit {
   displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
-  constructor(private _merchantService: MerchantService, protected _dialog?: MatDialog) {}
+  constructor(private _merchantService: MerchantService,  private _permissionService: NgxPermissionsService, protected _dialog?: MatDialog) {}
 
   clearFilters() {
     this.filters = {
@@ -52,6 +52,11 @@ export class MerchantComponent implements OnInit {
       createdAtFrom: '',
       createdAtTo: '',
     };
+  }
+
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
   }
 
   pageParams = {

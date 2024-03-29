@@ -343,5 +343,16 @@
     "driver_merchant_page":"Driver merchant page",
     "client_merchant_page":"Client merchant page",
     "driver_verification":"Driver   verification",
-    "agent_page":"Agent page"
+    "agent_page":"Agent page",
+    "dashboard_page":"Dashboard page",
+    "archived_page":"Archived page",
+    "order_page":"Order page",
+    "reference_page":"References pages" ,
+    "active_page":"Active page",
+    "admin_agent_page":"Admin agent page",
+    "attach_driver_agent":"Attach driver agent",
+    "add_balance_agent":"Add balance agent" ,
+    "see_subscription_transaction_agent":"See agent's subscription transaction",
+    "see_payment_transaction_admin":"See admin's payment transaction" ,
+    "see_service_transaction_admin":"See admin's service transaction"
 }

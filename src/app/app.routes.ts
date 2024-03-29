@@ -23,8 +23,8 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard, ],
+        canActivateChild: [AuthGuard,],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -39,7 +39,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'dashboards', loadChildren: () => import('app/modules/dashboards/dashboard.resolver'),
                 data: {
-                    requiredPermissions: ['dashboard']
+                    requiredPermissions: ['dashboardPage']
                 }
             },
             {
@@ -69,7 +69,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'archived-users', loadChildren: () => import('app/modules/archive-user/archive-user.resolver'),
                 data: {
-                    requiredPermissions: ['seeClientsInfo', 'seeDriversInfo']
+                    requiredPermissions: ['archivedPage']
                 }
             },
             {
@@ -87,7 +87,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'orders', loadChildren: () => import('app/modules/orders/orders.resolver'),
                 data: {
-                    requiredPermissions: ['orders']
+                    requiredPermissions: ['orderPage']
                 }
             },
             {
@@ -99,7 +99,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'types',
                 data: {
-                    requiredPermissions: ['types']
+                    requiredPermissions: ['referencesPage']
                 },
                 children: [
                     {
@@ -143,27 +143,27 @@ export const appRoutes: Route[] = [
             {
                 path: 'active', loadChildren: () => import('app/modules/user-activity/user-activity.resolver'),
                 data: {
-                    requiredPermissions: ['active']
+                    requiredPermissions: ['activePage']
                 }
             },
             {
                 path: 'agents', loadChildren: () => import('app/modules/agents/agents.resolver'),
                 data: {
-                    requiredPermissions: ['agentPage']
+                    requiredPermissions: ['adminAgentPage']
                 }
             },
             {
                 path: 'agent-module', loadChildren: () => import('app/modules/agent-module/agents-module.resolver'),
                 data: {
-                    requiredPermissions: ['agent-module']
+                    requiredPermissions: ['agentPage']
                 }
             },
-            {
-                path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver'),
-                data: {
-                    requiredPermissions: ['verification']
-                }
-            },
+            // {
+            //     path: 'verification', loadChildren: () => import('app/modules/driver-verify/driver-verify.resolver'),
+            //     data: {
+            //         requiredPermissions: ['verification']
+            //     }
+            // },
             { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/shared/components/error-404/error-404.routes') },
             { path: '**', redirectTo: '404-not-found' }
         ]

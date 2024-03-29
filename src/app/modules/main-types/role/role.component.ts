@@ -26,10 +26,18 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class RoleComponent extends UnsubscribeAble implements OnInit {
+   // dashboardPage: this.f?.dashboardPage.value,
+  // archivedPage: this.f?.archivedPage.value,
+  // orderPage: this.f?.orderPage.value,
+  // referencesPage: this.f?.referencesPage.value,
+  // activePage: this.f?.activePage.value,
+  // adminAgentPage: this.f?.adminAgentPage.value,
   displayedColumns: string[] = [
     'role', 'add_driver', 'add_client', 'add_order', 'cancel_order', 
     'send_push', 'chat', 'tracking', 'registr_merchant', 'driver_merchant_page', 
-    'client_merchant_page','driver_verification','agent_page', 'actions'
+    'client_merchant_page','driver_verification','agent_page',
+    'dashboard_page','archived_page','order_page','reference_page','active_page','admin_agent_page',
+    'actions'
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<RoleModel>([]);

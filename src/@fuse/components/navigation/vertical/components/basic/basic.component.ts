@@ -61,7 +61,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      * On init
      */
 
-    hasAdminPermission(permission): boolean {
+    hasPermission(permission): boolean {
         let getPermissions = this.permissionsService.getPermissions()
         return getPermissions.hasOwnProperty(permission)
     }

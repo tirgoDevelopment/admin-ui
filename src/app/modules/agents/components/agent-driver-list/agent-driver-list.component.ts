@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AddAgentSubscriptionComponent } from '../add-agent-subscription/add-agent-subscription.component';
 import { ConnectDriverComponent } from '../connect-driver/connect-driver.component';
 import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent.component';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -48,7 +49,9 @@ export class AgentDriverListComponent implements OnInit {
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
-  constructor(private _router: ActivatedRoute, private _agentService: AgentService, protected _dialog?: MatDialog) {
+  constructor(private _router: ActivatedRoute, 
+    private _permissionService: NgxPermissionsService,
+    private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
       this.id = params.id;
       this.pageParams.agentId = params.id;
@@ -58,6 +61,11 @@ export class AgentDriverListComponent implements OnInit {
   ngOnInit() {
     this.getAllAgentsDrivers(this.pageParams);
     this.getBalance(this.id)
+  }
+
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
   }
 
   getAllAgentsDrivers(params) {

@@ -21,6 +21,7 @@ import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-clients',
@@ -54,7 +55,9 @@ export class ClientsComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
-    private _clientService: ClientService, protected _dialog?: MatDialog) {
+    private _clientService: ClientService,
+    private _permissionService: NgxPermissionsService,
+    protected _dialog?: MatDialog) {
     this.getAllClient(this.pageParams);
   }
 
@@ -67,6 +70,10 @@ export class ClientsComponent {
     });
   }
 
+  hasPermission(permission): boolean {
+    let getPermissions = this._permissionService.getPermissions()
+    return getPermissions.hasOwnProperty(permission)
+  }
 
   clearFilters() {
     this.filters = {
