@@ -22,6 +22,7 @@ import { BlockMerchantComponent } from '../merchant/components/block-merchant/bl
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { DriverMerchantService } from './services/driver-merchant.service';
+import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -48,6 +49,7 @@ export class DriverMerchantComponent {
   constructor(
      private _merchantService: DriverMerchantService,
      private _permissionService: NgxPermissionsService,
+     private utilsService: FuseUtilsService,
     protected _dialog?: MatDialog) {
   }
 
@@ -80,9 +82,8 @@ export class DriverMerchantComponent {
   }
 
   hasPermission(permission): boolean {
-    let getPermissions = this._permissionService.getPermissions()
-    return getPermissions.hasOwnProperty(permission)
-  }
+    return this.utilsService.hasPermission(permission[0])
+}
 
   getAllMerchants(params?) {
     this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response:any) => {

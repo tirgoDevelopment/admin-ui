@@ -25,6 +25,7 @@ import { AddVerificationComponent } from './components/add-verification/add-veri
 import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
   selector: 'app-drivers',
@@ -66,6 +67,7 @@ export class DriversComponent implements OnInit {
     private _permissionService: NgxPermissionsService,
     protected _dialog: MatDialog,
     private _typeService: TypesService,
+    private utilsService: FuseUtilsService,
     private cdr: ChangeDetectorRef) {
   }
 
@@ -78,9 +80,8 @@ export class DriversComponent implements OnInit {
   }
 
   hasPermission(permission): boolean {
-    let getPermissions = this._permissionService.getPermissions()
-    return getPermissions.hasOwnProperty(permission)
-  }
+    return this.utilsService.hasPermission(permission[0])
+}
 
   clearFilters() {
     this.filters = {

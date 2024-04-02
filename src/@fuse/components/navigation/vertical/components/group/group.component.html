@@ -44,7 +44,6 @@
 
     <!-- Skip the hidden items -->
     <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
-
         <!-- Basic -->
         <ng-container *ngIf="hasPermission(item.permission)">
             <ng-container *ngIf="item.type === 'basic'">

@@ -44,7 +44,8 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private permissionsService: NgxPermissionsService,
         private authService: AuthService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private utilsService: FuseUtilsService
     ) {
         // Set the equivalent of {exact: false} as default for active match options.
         // We are not assigning the item.isActiveMatchOptions directly to the
@@ -62,8 +63,8 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      */
 
     hasPermission(permission): boolean {
-        let getPermissions = this.permissionsService.getPermissions()
-        return getPermissions.hasOwnProperty(permission)
+        console.log(this.utilsService.hasPermission(permission[0]))
+        return this.utilsService.hasPermission(permission[0])
     }
     ngOnInit(): void {
         this._fuseConfigService.config$

@@ -24,6 +24,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrderModel } from './models/order.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
   selector: 'app-orders',
@@ -70,6 +71,7 @@ export class OrdersComponent implements OnInit {
 
   dataSource = new MatTableDataSource<OrderModel>([]);
   constructor(
+    private utilsService: FuseUtilsService,
     private orderService: OrdersService,
     private _permissionService: NgxPermissionsService,
     private authService: AuthService,
@@ -87,9 +89,8 @@ export class OrdersComponent implements OnInit {
   }
 
   hasPermission(permission): boolean {
-    let getPermissions = this._permissionService.getPermissions()
-    return getPermissions.hasOwnProperty(permission)
-  }
+    return this.utilsService.hasPermission(permission[0])
+}
 
   detail(id: number): void {
     const dialog = this.dialog.open(OrderDetailComponent, {

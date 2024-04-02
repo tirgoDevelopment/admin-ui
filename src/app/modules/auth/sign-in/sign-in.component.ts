@@ -10,9 +10,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent } from '@fuse/components/alert';
+import { FuseUtilsService } from '@fuse/services/utils';
 import { AuthService } from 'app/core/auth/auth.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { isObservable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'auth-sign-in',
@@ -30,7 +32,8 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router,
-    private _permissionService: NgxPermissionsService
+    private _permissionService: NgxPermissionsService,
+    private utilsService: FuseUtilsService
   ) { }
   ngOnInit() {
     this.signInForm = this._formBuilder.group({
@@ -54,8 +57,8 @@ export class AuthSignInComponent implements OnInit {
     })
       .subscribe(
         (response: any) => {
-          const hasPermissions = this._permissionService.getPermissions();
-          if (response.data.token && hasPermissions.hasOwnProperty('agentPage') && !hasPermissions.hasOwnProperty('adminPage')) {
+          const user: any = jwtDecode(response.data.token);
+          if (response.data.token && user.role?.permission['agentPage'] && !user.role?.permission['adminPage']) {
             this._router.navigateByUrl('agent-module');
           } else {
             this._router.navigateByUrl('dashboards');
