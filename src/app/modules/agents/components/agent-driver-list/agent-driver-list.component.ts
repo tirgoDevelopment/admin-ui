@@ -23,6 +23,7 @@ import { AddAgentSubscriptionComponent } from '../add-agent-subscription/add-age
 import { ConnectDriverComponent } from '../connect-driver/connect-driver.component';
 import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent.component';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -51,6 +52,7 @@ export class AgentDriverListComponent implements OnInit {
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, 
     private _permissionService: NgxPermissionsService,
+    private utilsService: FuseUtilsService,
     private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
       this.id = params.id;
@@ -64,9 +66,8 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   hasPermission(permission): boolean {
-    let getPermissions = this._permissionService.getPermissions()
-    return getPermissions.hasOwnProperty(permission)
-  }
+    return this.utilsService.hasPermission(permission[0])
+}
 
   getAllAgentsDrivers(params) {
     this._agentService.getAllByAgent(params).subscribe((response:any) => {

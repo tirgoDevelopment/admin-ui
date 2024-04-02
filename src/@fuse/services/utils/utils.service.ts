@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { IsActiveMatchOptions } from '@angular/router';
+import { AuthService } from 'app/core/auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({providedIn: 'root'})
 export class FuseUtilsService
 {
-    /**
+
+   /**
      * Constructor
      */
-    constructor()
+    constructor(
+        private authService: AuthService
+    )
     {
     }
 
@@ -61,5 +66,10 @@ export class FuseUtilsService
         }
 
         return name;
+    }
+
+    hasPermission(permission: string) {
+        const user: any = jwtDecode(this.authService.accessToken);
+        return user.role?.permission[permission]
     }
 }

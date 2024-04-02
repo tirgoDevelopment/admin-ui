@@ -22,6 +22,7 @@ import { BlockClientComponent } from './components/block-client/block-client.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
   selector: 'app-clients',
@@ -56,6 +57,7 @@ export class ClientsComponent {
   dataSource = new MatTableDataSource<ClientModel>([]);
   constructor(
     private _clientService: ClientService,
+    private utilsService: FuseUtilsService,
     private _permissionService: NgxPermissionsService,
     protected _dialog?: MatDialog) {
     this.getAllClient(this.pageParams);
@@ -71,9 +73,8 @@ export class ClientsComponent {
   }
 
   hasPermission(permission): boolean {
-    let getPermissions = this._permissionService.getPermissions()
-    return getPermissions.hasOwnProperty(permission)
-  }
+    return this.utilsService.hasPermission(permission[0])
+}
 
   clearFilters() {
     this.filters = {

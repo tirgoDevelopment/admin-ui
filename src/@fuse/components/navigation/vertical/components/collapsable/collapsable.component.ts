@@ -13,6 +13,7 @@ import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navig
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
 import { FuseConfig, FuseConfigService } from '@fuse/services/config';
+import { FuseUtilsService } from '@fuse/services/utils';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 import { filter, Subject, takeUntil } from 'rxjs';
@@ -48,7 +49,8 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
         private _router: Router,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseConfigService: FuseConfigService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private utilsService: FuseUtilsService
     ) {
     }
 
@@ -153,9 +155,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     }
 
     hasPermission(permission): boolean {
-        let getPermissions = this.permissionsService.getPermissions();
-        // console.log(getPermissions)
-        return getPermissions.hasOwnProperty(permission)
+        return this.utilsService.hasPermission(permission[0])
     }
     /**
      * On destroy
