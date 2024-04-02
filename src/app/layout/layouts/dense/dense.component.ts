@@ -74,7 +74,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
         this.user = this._authService.accessToken ? jwtDecode(this._authService.accessToken) : null;
-        this._adminService.get(this.user.userId).subscribe(res => {
+        this._adminService.get(this.user.sub).subscribe(res => {
             console.log(res)
             this.staff=res.data
         })
