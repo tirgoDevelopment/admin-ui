@@ -66,7 +66,7 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   hasPermission(permission): boolean {
-    return this.utilsService.hasPermission(permission[0])
+    return this.utilsService.hasPermission(permission)
 }
 
   getAllAgentsDrivers(params) {

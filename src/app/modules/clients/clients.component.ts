@@ -73,7 +73,7 @@ export class ClientsComponent {
   }
 
   hasPermission(permission): boolean {
-    return this.utilsService.hasPermission(permission[0])
+    return this.utilsService.hasPermission(permission)
 }
 
   clearFilters() {
