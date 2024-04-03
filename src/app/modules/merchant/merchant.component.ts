@@ -58,6 +58,7 @@ export class MerchantComponent implements OnInit {
       createdAtFrom: '',
       createdAtTo: '',
     };
+    this.getAllMerchants(this.pageParams)
   }
 
   hasPermission(permission): boolean {
