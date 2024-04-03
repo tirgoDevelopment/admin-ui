@@ -55,7 +55,6 @@ export class AddDriverComponent {
     id: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumbers: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
     driverLicense: new FormControl('', [Validators.required]),
@@ -78,7 +77,6 @@ export class AddDriverComponent {
           id: response.data?.id,
           firstName: response.data?.firstName,
           lastName: response.data?.lastName,
-          email: response.data?.email,
           phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,
           password: response.data?.password,
           passportFile: response.data?.passport,
@@ -135,7 +133,6 @@ export class AddDriverComponent {
     this.formData.append('id', this.form.get('id').value);
     this.formData.append('firstName', this.form.get('firstName').value);
     this.formData.append('lastName', this.form.get('lastName').value);
-    this.formData.append('email', this.form.get('email').value);
     this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumbers').value]));
     this.formData.append('password', this.form.get('password').value);
     if (typeof this.form.get('passportFile')?.value === "string") {
