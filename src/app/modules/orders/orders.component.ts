@@ -124,6 +124,7 @@ export class OrdersComponent implements OnInit {
       sendDate: '',
       merchantOrder: ''
     };
+    this.getOrders(this.pageParams)
   }
 
   filterDrivers() {

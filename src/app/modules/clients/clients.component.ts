@@ -86,6 +86,7 @@ export class ClientsComponent {
       lastLoginFrom: '',
       lastLoginTo: '',
     };
+    this.getAllClient(this.pageParams)
   }
 
   filterClients() {

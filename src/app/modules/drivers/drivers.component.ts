@@ -96,6 +96,7 @@ export class DriversComponent implements OnInit {
       lastLoginFrom: '',
       lastLoginTo: '',
     };
+    this.getAllDrivers(this.pageParams)
   }
 
   filterDrivers() {
