@@ -479,4 +479,5 @@ export class AddTransportComponent implements OnInit {
     return ids.map(item => item.id);
   }
 
+
 }
