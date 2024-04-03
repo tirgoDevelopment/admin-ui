@@ -27,7 +27,7 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   imports: [TranslocoModule, MatIconModule, MatButtonModule, NoDataPlaceholderComponent, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class CargoComponent extends UnsubscribeAble implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'codeTNVED', 'actions'];
   pageParams = {
     page: 0,
     limit: 10,
