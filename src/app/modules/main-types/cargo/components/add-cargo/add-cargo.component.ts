@@ -36,6 +36,7 @@ export class AddCargoComponent {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
+    codeTNVED: new FormControl('', [Validators.required]),
     cargoTypeGroupId: new FormControl('', [Validators.required]),
   })
   constructor(
@@ -49,6 +50,7 @@ export class AddCargoComponent {
       this.form.patchValue({
         id: this.data?.id,
         name: this.data?.name,
+        codeTNVED: this.data?.codeTNVED,
         cargoTypeGroupId: this.data?.cargoTypeGroupId,
       });
     }
