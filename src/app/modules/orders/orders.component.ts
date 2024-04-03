@@ -89,7 +89,7 @@ export class OrdersComponent implements OnInit {
   }
 
   hasPermission(permission): boolean {
-    return this.utilsService.hasPermission(permission[0])
+    return this.utilsService.hasPermission(permission)
 }
 
   detail(id: number): void {

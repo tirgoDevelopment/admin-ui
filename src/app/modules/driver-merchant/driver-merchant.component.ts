@@ -82,7 +82,7 @@ export class DriverMerchantComponent {
   }
 
   hasPermission(permission): boolean {
-    return this.utilsService.hasPermission(permission[0])
+    return this.utilsService.hasPermission(permission)
 }
 
   getAllMerchants(params?) {
