@@ -1,4 +1,4 @@
-import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +20,8 @@ import { DriverModel } from '../../models/driver.model';
 import { BlockDriverComponent } from '../block-driver/block-driver.component';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
 import { AddTransportComponent } from '../add-transport/add-transport.component';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
   selector: 'app-detail-driver',
@@ -27,23 +29,28 @@ import { AddTransportComponent } from '../add-transport/add-transport.component'
   styleUrls: ['./detail-driver.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [TranslocoModule, NgClass, DatePipe, FormsModule, ReactiveFormsModule, MatInputModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule,PipeModule,CommonModule, NgClass, DatePipe, FormsModule, ReactiveFormsModule, MatInputModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DetailDriverComponent implements OnInit {
   driver: DriverModel;
   driverId: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog,private fileService:FileUrlService) {
     this.getDriver(data);
     this.driverId = data
   }
   getDriver(id: any) {
     this._driverService.get(id).subscribe((response) => {
       this.driver = response.data;
+      console.log(this.driver);
+      
     });
   }
   ngOnInit(): void {
   }
 
+  downloadPhoto(fileName) {
+    this.fileService.downloadImage('driver',fileName)
+  }
   block() {
     const dialog = this._dialog.open(BlockDriverComponent, {
       minWidth: '20vw',

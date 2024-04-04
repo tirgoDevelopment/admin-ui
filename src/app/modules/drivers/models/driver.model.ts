@@ -24,4 +24,6 @@ export interface DriverModel extends BaseModel {
     driverLicense?:string;
     passport?:string;
     blocked?:boolean;
+    passportFilePath:string;
+    driverLicenseFilePath:string;
 }
