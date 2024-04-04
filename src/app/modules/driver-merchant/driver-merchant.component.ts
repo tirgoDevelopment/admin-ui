@@ -60,6 +60,7 @@ export class DriverMerchantComponent {
       createdAtFrom: '',
       createdAtTo: '',
     };
+    this.getAllMerchants(this.pageParams);
   }
 
   pageParams = {
