@@ -20,4 +20,18 @@ export class FileUrlService {
       })
     );;
   }
+
+  downloadImage(keyName: string,fileName: string) {
+   return this.http.get(env.references + `/references/files/${keyName}/${fileName}`, { responseType: 'blob' }).subscribe(blob => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = Date.now() + '.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }, error => {
+        console.error('Error downloading the image: ', error.error.message);
+    });
+  }
+
 }
