@@ -34,6 +34,7 @@ export class AddCargoGroupComponent {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
+    codeTNVED: new FormControl('', [Validators.required])
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -45,6 +46,7 @@ export class AddCargoGroupComponent {
       this.form.patchValue({
         id: this.data?.id,
         name: this.data?.name,
+        codeTNVED: this.data?.codeTNVED
       });
     }
   }
