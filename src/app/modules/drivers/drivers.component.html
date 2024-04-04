@@ -45,8 +45,8 @@
             <mat-form-field color="accent" class="w-50 px-1">
                 <mat-select placeholder="{{ 'verified' | transloco }}" name="isVerified"
                     [(ngModel)]="filters.isVerified">
-                    <mat-option value="option1">{{ 'verified' | transloco }}</mat-option>
-                    <mat-option value="option3">{{ 'notVerified' | transloco }}</mat-option>
+                    <mat-option value="true">{{ 'verified' | transloco }}</mat-option>
+                    <mat-option value="false">{{ 'notVerified' | transloco }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
