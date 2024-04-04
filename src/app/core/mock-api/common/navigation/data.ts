@@ -122,6 +122,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         exactMatch: true,
                         permission: ['driverMerchantList'],
                     },
+                    {
+                        id: 'agents',
+                        title: 'agents',
+                        type: 'basic',
+                        icon_w: 'admin-w.svg',
+                        icon: 'people.svg',
+                        link: '/agents',
+                        permission: ['adminAgentPage'],
+                    },
                 ],
             },
             {
@@ -279,15 +288,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             //     icon_w: 'verify-w.svg',
             //     link: '/verification',
             // },
-            {
-                id: 'agents',
-                title: 'agents',
-                type: 'basic',
-                icon_w: 'admin-w.svg',
-                icon: 'people.svg',
-                link: '/agents',
-                permission: ['adminAgentPage'],
-            },
+           
             {
                 id: 'agents',
                 title: 'agents',

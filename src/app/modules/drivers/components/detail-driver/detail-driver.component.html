@@ -57,10 +57,6 @@
                 </p>
                 <p class="font-bold">Подтвержден</p>
             </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                <p class="font-bold"> {{driver?.email}}</p>
-            </div>
         </div>
     </div>
     <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md">
@@ -95,12 +91,12 @@
             </div>
         </div>
     </div>
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md cursor-pointer" (click)="addTransportEdit()"
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md cursor-pointer" (click)="addTransportEdit()"
         *ngIf="driver?.driverTransports?.length>0">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"view_transport"|transloco}}</h2>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
@@ -290,8 +286,16 @@
             </button>
         </div>
     </div> -->
-
-    <div class="flex justify-end mt-4 px-4">
+    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md cursor-pointer" (click)="addTransportEdit()"
+    *ngIf="driver?.driverTransports?.length>0">
+    <div class="mb-5">
+        <h2 class="text-2xl leading-4 font-bold">{{"view_transport"|transloco}}</h2>
+    </div>
+</div> -->
+    <div class="flex justify-end gap-4 mt-4 px-4">
+        <button *ngIf="driver?.driverTransports?.length>0" mat-flat-button [color]="'primary'" (click)="addTransportEdit()">
+            {{"view_transport"|transloco}}
+        </button>
         <button mat-flat-button [color]="'primary'" (click)="addTransport()">
             {{"add_transport"|transloco}}
         </button>

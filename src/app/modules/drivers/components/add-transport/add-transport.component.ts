@@ -31,6 +31,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
   selector: 'app-add-transport',
@@ -73,6 +74,7 @@ export class AddTransportComponent implements OnInit {
   passportFilePath: string;
   transports: any[] = [];
   constructor(
+    private fileService: FileUrlService,
     public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
@@ -479,5 +481,8 @@ export class AddTransportComponent implements OnInit {
     return ids.map(item => item.id);
   }
 
+  downloadPhoto(fileName) {
+    this.fileService.downloadImage('driver',fileName)
+  }
 
 }
