@@ -91,6 +91,45 @@
             </div>
         </div>
     </div>
+
+    <div class="flex items-end gap-4 mt-2 p-4">
+        <div class="w-40" *ngIf="driver.passportFilePath">
+            <mat-label class="text-large font-bold">{{ 'passport' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        matRipple>
+                        <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                            (click)="downloadPhoto(driver.passportFilePath)"></mat-icon>
+                    </label>
+                </div>
+                <img class="object-fill w-full h-full" [src]="driver.passportFilePath | fileFetch: 'driver'|async">
+            </div>
+        </div>
+
+        <div class="w-40" *ngIf="driver.driverLicenseFilePath">
+            <mat-label class="text-large font-bold">{{ 'driver_lisense_card' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <div>
+                        <label
+                            class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                            matRipple>
+                            <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                (click)="downloadPhoto(driver.driverLicenseFilePath)"></mat-icon>
+                        </label>
+                    </div>
+                </div>
+
+                <img class="object-fill w-full h-full" [src]="driver.driverLicenseFilePath | fileFetch: 'driver'|async">
+            </div>
+        </div>
+
+    </div>
+
+
     <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md cursor-pointer" (click)="addTransportEdit()"
         *ngIf="driver?.driverTransports?.length>0">
         <div class="mb-5">
@@ -293,7 +332,8 @@
     </div>
 </div> -->
     <div class="flex justify-end gap-4 mt-4 px-4">
-        <button *ngIf="driver?.driverTransports?.length>0" mat-flat-button [color]="'primary'" (click)="addTransportEdit()">
+        <button *ngIf="driver?.driverTransports?.length>0" mat-flat-button [color]="'primary'"
+            (click)="addTransportEdit()">
             {{"view_transport"|transloco}}
         </button>
         <button mat-flat-button [color]="'primary'" (click)="addTransport()">
@@ -301,10 +341,12 @@
         </button>
     </div>
     <div class="flex justify-end mt-4 px-4">
-        <button mat-flat-button [color]="'primary'"  *ngIf="!driver?.blocked" [disabled]="driver?.blocked" (click)="block()">
+        <button mat-flat-button [color]="'primary'" *ngIf="!driver?.blocked" [disabled]="driver?.blocked"
+            (click)="block()">
             {{"block"|transloco}}
         </button>
-        <button mat-flat-button [color]="'primary'"  *ngIf="driver?.blocked" [disabled]="!driver?.blocked" (click)="active()">
+        <button mat-flat-button [color]="'primary'" *ngIf="driver?.blocked" [disabled]="!driver?.blocked"
+            (click)="active()">
             {{"unblock"|transloco}}
         </button>
     </div>
