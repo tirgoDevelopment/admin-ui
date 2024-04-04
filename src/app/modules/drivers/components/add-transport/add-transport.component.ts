@@ -279,6 +279,7 @@ export class AddTransportComponent implements OnInit {
   selectFile(event: any, name: string) {
     const file: File = event.target.files[0];
     if (file) {
+      console.log(name, this.form.get(name)?.value, file)
       this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
       const reader = new FileReader();
       reader.onload = () => {
@@ -429,8 +430,9 @@ export class AddTransportComponent implements OnInit {
     // transportFrontFilePath: string;
     // goodsTransportationLicenseCardFilePath: string;
     // driverLicenseFilePath: string;
-    // passportFilePath: string;
+    // passportFilePath: string; techPassportBackFilePath
     const uniqueFormData = removeDuplicateKeys(this.formData);
+    console.log(this.form.value)
     if (this.form.valid) {
       if (this.form.value.id) {
         this._driverService.updateTransport(uniqueFormData)
