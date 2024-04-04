@@ -24,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -82,6 +83,7 @@ export class MerchantModerationComponent implements OnInit {
     passportFilePath: new FormControl('', [Validators.required]),
   })
   constructor(
+    protected fileService: FileUrlService,
     private router: Router,
     private route: ActivatedRoute,
     private _dialog: MatDialog,

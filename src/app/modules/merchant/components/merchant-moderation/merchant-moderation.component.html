@@ -68,8 +68,8 @@
             <mat-form-field color="accent" class="w-full">
                 <mat-label>{{ 'phone' | transloco }}*</mat-label>
                 <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
-                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
-                    name="phoneNumber" #phoneNumber>
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber"
+                    #phoneNumber>
                 </ngx-mat-intl-tel-input>
             </mat-form-field>
 
@@ -98,7 +98,7 @@
             </mat-form-field>
         </div>
         <div class="flex flex-wrap gap-4 items-end justify-start">
-        
+
             <div class="w-40">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
@@ -109,11 +109,20 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'logoFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input1" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('client_merchant', logoFilePath)"></mat-icon>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
@@ -132,11 +141,20 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'passportFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input2" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input2" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('client_merchant', passportFilePath)"></mat-icon>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
@@ -155,11 +173,20 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'registrationCertificateFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input3" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input3" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('client_merchant', registrationCertificateFilePath)"></mat-icon>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
@@ -168,7 +195,7 @@
                         [src]="registrationCertificateFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
-        
+
         </div>
     </form>
     <div class="mt-10 flex ">
