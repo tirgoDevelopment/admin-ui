@@ -47,7 +47,7 @@ export class AgentModuleComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _authService: AuthService, private _agentService: AgentService, protected _dialog?: MatDialog) {
-    this.id = this._authService.getDecodedAccessToken().userId
+    this.id = this._authService.getDecodedAccessToken().sub
   }
 
   ngOnInit() {

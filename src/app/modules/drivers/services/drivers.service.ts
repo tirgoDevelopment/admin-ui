@@ -27,7 +27,7 @@ export class DriversService {
   }
 
   create(body): Observable<Response<DriverModel>> {
-    body.phoneNumbers = [body.phoneNumbers]
+    
     return this._apiService.post<DriverModel>('/users/drivers/register', body);
   }
 

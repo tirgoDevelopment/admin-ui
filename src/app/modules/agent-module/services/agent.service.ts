@@ -62,6 +62,14 @@ export class AgentService {
     return this._apiService.post<AgentModel>('/users/agents/register', body);
   }
 
+  createDriver(body): Observable<Response<AgentModel>> {
+    return this._apiService.post<AgentModel>('/users/agents/add-driver', body);
+  }
+
+  updateDriver(body): Observable<Response<AgentModel>> {
+    return this._apiService.post<AgentModel>('/users/agents/update-driver', body);
+  }
+
   createsubscription(body): Observable<Response<AgentModel>> {
     return this._apiService.post<AgentModel>('/users/agents/add-subscription-driver', body);
   }
