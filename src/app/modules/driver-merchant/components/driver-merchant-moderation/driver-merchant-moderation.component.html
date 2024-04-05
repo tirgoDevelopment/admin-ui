@@ -33,13 +33,14 @@
 
             <mat-form-field>
                 <mat-label> {{ 'responce_person_first_name' | transloco }}</mat-label>
-                <input required matInput name="responsiblePersonFistName" formControlName="responsiblePersonFistName" required />
+                <input required matInput name="responsiblePersonFistName" formControlName="responsiblePersonFistName"
+                    required />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label> {{ 'responce_person_last_name' | transloco }}</mat-label>
-                <input required matInput name="responsiblePersonLastName"                
-                    formControlName="responsiblePersonLastName" required />
+                <input required matInput name="responsiblePersonLastName" formControlName="responsiblePersonLastName"
+                    required />
             </mat-form-field>
 
             <mat-form-field>
@@ -118,7 +119,7 @@
 
         </div>
         <div class="flex flex-wrap gap-4 items-end justify-around">
-          
+
             <div class="w-40">
                 <mat-label>{{ 'lisense_international_cargo_tranportation' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
@@ -129,16 +130,25 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'internationalCargoLisensePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input1" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input1" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('driver_merchant', internationalCargoLisensePath)"></mat-icon>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="internationalCargoLisensePath&&!edit" [src]="internationalCargoLisensePath">
+                    <img class="object-fill w-full h-full" *ngIf="internationalCargoLisensePath&&!edit"
+                        [src]="internationalCargoLisensePath">
                     <img class="object-fill w-full h-full" *ngIf="internationalCargoLisensePath&&edit"
-                        [src]="internationalCargoLisensePath | fileFetch: 'merchant'|async">
+                        [src]="internationalCargoLisensePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
 
@@ -152,16 +162,25 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'logoFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input2" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input2" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('driver_merchant', logoFilePath)"></mat-icon>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
                     <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
-                        [src]="logoFilePath | fileFetch: 'merchant'|async">
+                        [src]="logoFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
 
@@ -175,16 +194,24 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'passportFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input3" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input3" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('driver_merchant', passportFilePath)"></mat-icon>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
                     <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
-                        [src]="passportFilePath | fileFetch: 'merchant'|async">
+                        [src]="passportFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
 
@@ -198,20 +225,28 @@
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'registrationCertificateFilePath')">
-                            <label
-                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                for="avatar-file-input4" matRipple>
-                                <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                            </label>
+                            <div class="flex">
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    for="avatar-file-input4" matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                    matRipple>
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                        (click)="fileService.downloadImage('driver_merchant', registrationCertificateFilePath)"></mat-icon>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
                         [src]="registrationCertificateFilePath">
                     <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&edit"
-                        [src]="registrationCertificateFilePath | fileFetch: 'merchant'|async">
+                        [src]="registrationCertificateFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
-            
+
         </div>
     </form>
     <div class="mt-10 flex ">
@@ -225,7 +260,7 @@
                 </div>
             </div>
             <div class="mx-3 text-center">
-               <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
+                <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
                 <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
                     <span>{{balance?.frozenbalance}}</span>
                 </div>

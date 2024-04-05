@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +23,8 @@ import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
   selector: 'app-add-agent',
@@ -31,7 +33,7 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule,CommonModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule,PipeModule, HeaderTextComponent],
 })
 
 export class AddAgentComponent {
@@ -66,7 +68,8 @@ export class AddAgentComponent {
     private _agentService: AgentService,
     private _typeService: TypesService,
     private _cdr: ChangeDetectorRef,
-    private _dialog: MatDialog) {
+    private _dialog: MatDialog,
+    protected fileService: FileUrlService) {
     this._typeService.getCurrencies().subscribe((response: any) => {
       this.currencies = response.data;
     })
