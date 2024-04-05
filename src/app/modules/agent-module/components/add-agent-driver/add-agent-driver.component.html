@@ -51,10 +51,10 @@
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
                             <div>
-                                <input formControlName="passportFilePath" id="avatar-file-input1"
+                                <input formControlName="passport" id="avatar-file-input1"
                                     class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                     [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'passportFilePath')">
+                                    (change)="selectFile($event, 'passport')">
                                 <label
                                     class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
                                     for="avatar-file-input1" matRipple>
@@ -62,9 +62,9 @@
                                 </label>
                             </div>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
-                            [src]="passportFilePath | fileFetch: 'client'|async">
+                        <img class="object-fill w-full h-full" *ngIf="passport&&!edit" [src]="passport">
+                        <img class="object-fill w-full h-full" *ngIf="passport&&edit"
+                            [src]="passport | fileFetch: 'client'|async">
                     </div>
                 </div>
                 <div class="w-40">
@@ -73,21 +73,21 @@
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
                             <div>
-                                <input formControlName="driverLisenseFilePath" id="avatar-file-input1"
+                                <input formControlName="driverLicense" id="avatar-file-input2"
                                     class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                     [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                    (change)="selectFile($event, 'driverLisenseFilePath')">
+                                    (change)="selectFile($event, 'driverLicense')">
                                 <label
                                     class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
+                                    for="avatar-file-input2" matRipple>
                                     <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
                                 </label>
                             </div>
                         </div>
-                        <img class="object-fill w-full h-full" *ngIf="driverLisenseFilePath&&!edit"
-                            [src]="driverLisenseFilePath">
-                        <img class="object-fill w-full h-full" *ngIf="driverLisenseFilePath&&edit"
-                            [src]="driverLisenseFilePath | fileFetch: 'client'|async">
+                        <img class="object-fill w-full h-full" *ngIf="driverLicense&&!edit"
+                            [src]="driverLicense">
+                        <img class="object-fill w-full h-full" *ngIf="driverLicense&&edit"
+                            [src]="driverLicense | fileFetch: 'client'|async">
                     </div>
                 </div>
             </div>
