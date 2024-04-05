@@ -25,6 +25,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
 import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { AgentService } from '../../services/agent.service';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -40,8 +41,8 @@ export class AddAgentDriverComponent implements OnInit {
   subscription = [];
   edit: boolean = false;
   formData = new FormData();
-  passportFilePath: string;
-  driverLisenseFilePath: string;
+  passport: string;
+  driverLicense: string;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     subscriptionId: new FormControl(''),
@@ -49,20 +50,21 @@ export class AddAgentDriverComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(6)]),
-    passportFilePath: new FormControl('', [Validators.required]),
-    driverLisenseFilePath: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern('^[a-zA-Z0-9]+$')]),
+    passport: new FormControl('', [Validators.required]),
+    driverLicense: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _agentsService: AgentService,
     private _typeService: TypesService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
-        agentId: data
+        agentId: data.id
       })
     }
   }
@@ -92,6 +94,7 @@ export class AddAgentDriverComponent implements OnInit {
   }
 
   selectFile(event: any, name: string) {
+    console.log(name, this)
     const file: File = event.target.files[0];
     if (file) {
       this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
@@ -118,29 +121,34 @@ export class AddAgentDriverComponent implements OnInit {
   }
 
   submit() {
-    // const formData = new FormData();
-    this.formData.append('id', this.form.get('id').value);
-    this.formData.append('agentId', this.form.get('agentId').value);
-    this.formData.append('subscriptionId', this.form.get('subscriptionId').value);
-    this.formData.append('firstName', this.form.get('firstName').value);
-    this.formData.append('lastName', this.form.get('lastName').value);
-    this.formData.append('password', this.form.get('password').value);
-
-    if (typeof this.form.get('passportFilePath')?.value === "string") {
-      this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
-    } else {
-      // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+    const formData = new FormData();
+    formData.append('id', this.form.get('id').value);
+    formData.append('password', this.form.get('password').value);
+    if(this.form.get('subscriptionId').value) {
+      formData.append('subscriptionId', this.form.get('subscriptionId').value);
     }
-    if (typeof this.form.get('driverLisenseFilePath')?.value === "string") {
-      this.formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value);
-    } else {
-      // this.formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
-    }
+    formData.append('lastName', this.form.get('lastName').value);
+    formData.append('agentId', this.form.get('agentId').value);
+    formData.append('firstName', this.form.get('firstName').value);
+    formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumbers').value]));
+    formData.append('passport', this.formData.get('passport')), new Date().getTime()
+    formData.append('driverLicense', this.formData.get('driverLicense')), new Date().getTime()
+    // console.log(this.form.get('firstName')?.value, formData.get('firstName'))
+    // if (typeof this.form.get('passportFilePath')?.value === "string") {
+    //   formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
+    // } else {
+    //   // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
+    // }
+    // if (typeof this.form.get('driverLisenseFilePath')?.value === "string") {
+    //   formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value);
+    // } else {
+    //   // formData.append('driverLisenseFilePath', this.form.get('driverLisenseFilePath')?.value, String(new Date().getTime()));
+    // }
     if (this.form.valid) {
       if (this.form.value.id) {
         this._driverService.update(this.formData).pipe(res => {
           if (isObservable(res)) {
-            this.formData = removeUnselected(this.formData, ['passportFilePath', 'driverLisenseFilePath']);
+            // this.formData = removeUnselected(this.formData, ['passport', 'driverLicense']);
             return res
           } else {
             return res
@@ -154,9 +162,9 @@ export class AddAgentDriverComponent implements OnInit {
           }
         })
       } else {
-        this._driverService.create(this.formData).pipe(res => {
+        this._agentsService.createDriver(formData).pipe(res => {
           if (isObservable(res)) {
-            this.formData = removeUnselected(this.formData, ['passportFilePath', 'driverLisenseFilePath']);
+            // this.formData = removeUnselected(formData, ['passport', 'driverLicense']);
             return res
           } else {
             return res

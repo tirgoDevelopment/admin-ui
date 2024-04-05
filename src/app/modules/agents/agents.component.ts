@@ -72,8 +72,8 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
 
   getAllAgents(params?) {
     this._agentService.getAll(params).subscribe((response:any) => {
-      this.dataSource.data = response?.data;
-      this.pageParams.limit = response?.data?.per_page;
+      this.dataSource.data = response?.data.content;
+      this.pageParams.limit = response?.data?.pageSize;
       this.pageParams.page = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });

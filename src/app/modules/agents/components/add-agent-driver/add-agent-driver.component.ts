@@ -49,7 +49,7 @@ export class AddAgentDriverComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', this.edit ? null : [Validators.required, Validators.maxLength(6), Validators.pattern('^[a-zA-Z]+\d{1,5}$|^\d{1,5}[a-zA-Z]+$')]),
+    password: new FormControl('', this.edit ? null : [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern('^[a-zA-Z0-9]+$')]),
     passportFilePath: new FormControl('', [Validators.required]),
     driverLisenseFilePath: new FormControl('', [Validators.required]),
   })
