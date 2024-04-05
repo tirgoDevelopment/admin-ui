@@ -38,7 +38,7 @@ export class AuthService {
     if (this._authenticated) {
       return throwError('User is already logged in.');
     }
-    return this._httpClient.post(`${this._baseUrl}/users/login`, credentials).pipe(
+    return this._httpClient.post(`http://localhost:3000/api/v2/users/login`, credentials).pipe(
       switchMap((response: any) => {
         this.accessToken = response.data.token;
         let user: any;

@@ -15,6 +15,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { isObservable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'auth-sign-in',
@@ -23,11 +24,13 @@ import { jwtDecode } from 'jwt-decode';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, FuseAlertComponent, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule],
+  imports: [RouterLink, FuseAlertComponent, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
+     MatCheckboxModule, MatProgressSpinnerModule, MatSelectModule],
 })
 export class AuthSignInComponent implements OnInit {
   @ViewChild('signInNgForm') signInNgForm: NgForm;
   signInForm: UntypedFormGroup;
+  userType: string;
   constructor(
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
