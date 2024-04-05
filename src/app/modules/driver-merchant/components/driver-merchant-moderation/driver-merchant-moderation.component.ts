@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,8 @@ import { removeUnselected } from 'app/shared/functions/remove-unselected-formDat
 import { DriverMerchantService } from '../../services/driver-merchant.service';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
   selector: 'app-driver-merchant-moderation',
@@ -33,7 +35,7 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [TranslocoModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, PipeModule,CommonModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 
 })
@@ -92,6 +94,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
+    protected fileService: FileUrlService,
     private driverMerchantService: DriverMerchantService) {
     this.route.params.subscribe(params => {
       const param = params.id;
@@ -103,6 +106,10 @@ export class DriverMerchantModerationComponent implements OnInit {
   getMerchant(id: number) {
     this.edit = true
     this.driverMerchantService.get(id).subscribe((responce: any) => {
+      this.internationalCargoLisensePath = responce.data?.transportationCertificateFilePath;
+      this.logoFilePath = responce.data?.logoFilePath;
+      this.passportFilePath = responce.data?.passportFilePath;
+      this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.form.patchValue({
         merchantId: responce.data.id,
         bankName: responce.data.bankName,
@@ -125,7 +132,7 @@ export class DriverMerchantModerationComponent implements OnInit {
         inn: responce.data.inn,
         oked: responce.data.oked,
         mfo: responce.data.mfo,
-        internationalCargoLisensePath: responce.data?.internationalCargoLisensePath,
+        internationalCargoLisensePath: responce.data?.transportationCertificateFilePath,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
         passportFilePath: responce.data?.passportFilePath
