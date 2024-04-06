@@ -27,6 +27,15 @@
                         Требуется пароль
                     </mat-error>
                 </mat-form-field>
+
+                <mat-form-field color="accent" class="w-50 px-1">
+                    <mat-select placeholder="Пользователь" [formControlName]="'userType'"
+                      name="transportTypeId">
+                      <mat-option value="staff">Админ</mat-option>
+                      <mat-option value="agent">Агент</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                 <button class="fuse-mat-button-large  w-full mt-6" mat-flat-button [color]="'primary'"
                     [disabled]="signInForm.disabled" (click)="signIn()">
                     <span *ngIf="!signInForm.disabled">
