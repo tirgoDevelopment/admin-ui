@@ -102,6 +102,7 @@ export class AddTransportComponent implements OnInit {
       isAdr: new FormControl(false),
       cisternVolume: new FormControl(''),
       containerVolume: new FormControl(''),
+      high: new FormControl(''),
       techPassportFrontFilePath: new FormControl('', [Validators.required]),
       techPassportBackFilePath: new FormControl('', [Validators.required]),
       // transportFrontFilePath: new FormControl('', [Validators.required]),

@@ -351,5 +351,6 @@
      "see_subscription_transaction_agent":"Просмотреть транзакцию подписки агента",
      "see_payment_transaction_admin":"Просмотреть платежную транзакцию администратора",
      "see_service_transaction_admin":"Просмотреть транзакцию услуги администратора",
-     "username":"Имя пользователя"
+     "username":"Имя пользователя",
+     "userType": "Тип пользователя"
 }
