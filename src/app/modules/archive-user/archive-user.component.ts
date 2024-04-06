@@ -17,6 +17,7 @@ import { ArchiveUserModel } from './models/archive-user.model';
 import { DetailArchiveUserComponent } from './components/detail-archive-user/detail-archive-user.component';
 import { ArchiveUserService } from './services/archive-user.service';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-archive-user',
@@ -25,10 +26,14 @@ import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeh
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, DatePipe, NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule,FormsModule, MatIconModule, DatePipe, NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
+  filters = {
+    userId: '',
+    userType:''
+  };
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
   pageParams = {
     page: 0,
@@ -45,7 +50,6 @@ export class ArchiveUserComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
-
     this.pageParams.page = event.pageIndex;
     this.getAllArchiveUsers(this.pageParams);
   }
@@ -68,13 +72,25 @@ export class ArchiveUserComponent implements OnInit {
     this.getAllArchiveUsers(this.pageParams);
   }
 
-  getAllArchiveUsers(params) {
-    this._archiveUserService.getAll(params).subscribe((response: any) => {
+  getAllArchiveUsers(params?) {
+    this._archiveUserService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data;
       this.pageParams.limit = response?.data?.per_page;
       this.pageParams.page = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
+  }
+
+  clearFilters() {
+    this.filters = {
+      userId:'',
+      userType: ''
+    };
+    this.getAllArchiveUsers(this.pageParams)
+  }
+
+  filterClients() {
+
   }
 }
 

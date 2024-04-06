@@ -47,16 +47,20 @@
                         <input type="number" max="25" min=0 matInput formControlName="refrigeratorTo">
                     </mat-form-field>
                 </div>
-                <div class="flex items-center" *ngIf="isContainer">
+                <div class="flex items-center gap-4" *ngIf="isContainer">
                     <mat-form-field class="flex items-center w-full">
                         <mat-label> {{ 'volume_f' | transloco }}</mat-label>
                         <mat-select [value]="'EU'" formControlName="containerVolume">
                             <mat-option [value]="'20'">20(ф.)</mat-option>
                             <mat-option [value]="'40'">40(ф.)</mat-option>
                             <mat-option [value]="'60'">60(ф.)</mat-option>
-                            <mat-option [value]="'high'">Высокий куб</mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <mat-slide-toggle class="py-2 w-full" formControlName="isAdr">
+                        {{"Высокий куб"|transloco}}
+                    </mat-slide-toggle>
+
                 </div>
                 <div class="flex items-center gap-4" *ngIf="isLoad">
                     <mat-form-field class="flex items-center w-full">
@@ -277,12 +281,12 @@
     </form>
 
     <mat-tab-group *ngIf="edit" (selectedTabChange)="onTabClick($event)">
-        <mat-tab *ngFor="let transport of transports" >
+        <mat-tab *ngFor="let transport of transports">
             <ng-template mat-tab-label>
                 {{ transport.name }}
             </ng-template>
             <div>
-                <form [formGroup]="form" >
+                <form [formGroup]="form">
                     <div class="grid grid-cols-3 gap-4">
                         <div class="px-4">
                             <mat-form-field class="flex items-center">
@@ -408,12 +412,22 @@
                                             class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                             [multiple]="false" [accept]="'image/jpeg, image/png'"
                                             (change)="selectFile($event, 'techPassportFrontFilePath')">
-                                        <label
-                                            class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                            for="avatar-file-input7" matRipple>
-                                            <mat-icon class="text-white"
-                                                [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                        </label>
+                                        <div class="flex">
+                                            <label
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                for="avatar-file-input7" matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                            </label>
+                                            <label *ngIf="techPassportFrontFilePath"
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                                    (click)="fileService.downloadImage('driver', techPassportFrontFilePath)"></mat-icon>
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <img class="object-fill w-full h-full" *ngIf="techPassportFrontFilePath&&!edit"
@@ -432,12 +446,22 @@
                                             class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                             [multiple]="false" [accept]="'image/jpeg, image/png'"
                                             (change)="selectFile($event, 'techPassportBackFilePath')">
-                                        <label
-                                            class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                            for="avatar-file-input2" matRipple>
-                                            <mat-icon class="text-white"
-                                                [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                        </label>
+                                        <div class="flex">
+                                            <label
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                for="avatar-file-input2" matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                            </label>
+                                            <label *ngIf="techPassportBackFilePath"
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                                    (click)="fileService.downloadImage('driver', techPassportBackFilePath)"></mat-icon>
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <img class="object-fill w-full h-full" *ngIf="techPassportBackFilePath&&!edit"
@@ -458,12 +482,22 @@
                                             class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                             [multiple]="false" [accept]="'image/jpeg, image/png'"
                                             (change)="selectFile($event, 'goodsTransportationLicenseCardFilePath')">
-                                        <label
-                                            class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                            for="avatar-file-input3" matRipple>
-                                            <mat-icon class="text-white"
-                                                [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                        </label>
+                                        <div class="flex">
+                                            <label
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                for="avatar-file-input3" matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                            </label>
+                                            <label *ngIf="goodsTransportationLicenseCardFilePath"
+                                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                                                matRipple>
+                                                <mat-icon class="text-white"
+                                                    [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                                                    (click)="fileService.downloadImage('driver', goodsTransportationLicenseCardFilePath)"></mat-icon>
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <img class="object-fill w-full h-full"

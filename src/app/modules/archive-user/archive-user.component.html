@@ -5,6 +5,31 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"archived_users"|transloco}}</div>
             </div>
         </div>
+
+        <div class="flex items-baseline flex-wrap">
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput placeholder="{{ 'ID' | transloco }}" name="id" [(ngModel)]="filters.userId">
+            </mat-form-field>
+
+          <mat-form-field color="accent" class="w-50 px-1">
+            <mat-select [(ngModel)]="filters.userType" placeholder="{{ 'userType' | transloco }}">
+                <mat-option value="admin">Админ</mat-option>
+                <mat-option value="client">Клиент</mat-option>
+                <mat-option value="driver">Водитель</mat-option>
+            </mat-select>
+        </mat-form-field>
+            
+         
+            <div class="px-1">
+                <button mat-flat-button color="warn" (click)="clearFilters()">
+                    {{ 'clear' | transloco }}</button>
+            </div>
+            <div class=" px-1">
+                <button mat-flat-button color="warn" (click)="getAllArchiveUsers()">
+                    {{ 'filter' | transloco }}</button>
+            </div>
+        </div>
+
         <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="index">
