@@ -11,4 +11,5 @@ export interface ClientModel extends BaseModel {
     blocked?: boolean;
     passport?: string;
     phoneNumbers:[];
+    passportFilePath?:string;
 }

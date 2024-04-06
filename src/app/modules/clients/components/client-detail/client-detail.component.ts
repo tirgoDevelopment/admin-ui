@@ -58,6 +58,8 @@ export class ClientDetailComponent implements OnInit {
     })
   }
   preview(fileName: string) {
+    console.log(fileName);
+    
     const dialog = this._dialog.open(ImagePriviewComponent, {
       minWidth: '60vw',
       maxWidth: '80vw',
