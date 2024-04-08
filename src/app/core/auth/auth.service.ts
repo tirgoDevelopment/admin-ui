@@ -43,7 +43,6 @@ export class AuthService {
         this.accessToken = response.data.token;
         let user: any;
         user = this.accessToken ? jwtDecode(this.accessToken) : null;
-        console.log(user.role.permission)
         let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
         this.permissionService.loadPermissions(allPermission);
         this._authenticated = true;
