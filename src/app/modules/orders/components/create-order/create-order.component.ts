@@ -24,7 +24,7 @@ import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, fo
 import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
 import { ClientModel } from 'app/modules/clients/models/client.model';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'create-order',
@@ -61,6 +61,7 @@ export class CreateOrderComponent implements OnInit {
   isContainer: any;
   clientInfo: ClientModel;
   private searchSubject = new Subject<string>();
+  private searchClientSubject = new Subject<number>();
   constructor(
     private dialogRef: MatDialogRef<CreateOrderComponent>,
     private formBuilder: FormBuilder,
@@ -84,6 +85,21 @@ export class CreateOrderComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.findList = res.data;
+      });
+    this.searchClientSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        tap(() => this.loading = true),
+        switchMap((findText: number) => {
+          return this._clientService.get(findText).pipe(
+            catchError(() => of([])),
+            tap(() => this.loading = false)
+          );
+        })
+      )
+      .subscribe((res: any) => {
+        this.clientInfo = res.data;
       });
     if (this.data) {
       this.getOrderById(this.data.id);
@@ -181,7 +197,8 @@ export class CreateOrderComponent implements OnInit {
       cargoHeight: [null],
       cubature: [null],
       cargoPackageId: [null],
-      loadingMethodId: [null]
+      loadingMethodId: [null],
+      fullName: [null],
     })
     this.changeValue();
     forkJoin({
@@ -211,21 +228,21 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    this.form.get('clientId').valueChanges.subscribe(response => {
-      this._clientService.get(response).subscribe({
-        next: (response: any) => {
-          if (response.success) {
-            this.clientInfo = response.data;
-          } else {
-            this.clientInfo = null;
-          }
-        },
-        error: (error: any) => {
-          // this.toastr.error(error.message)
-          console.error('Error fetching client info:', error);
-        }
-      });
-    });
+    // this.form.get('clientId').valueChanges.subscribe(response => {
+    //   this._clientService.get(response).subscribe({
+    //     next: (response: any) => {
+    //       if (response.success) {
+    //         this.clientInfo = response.data;
+    //       } else {
+    //         this.clientInfo = null;
+    //       }
+    //     },
+    //     error: (error: any) => {
+    //       // this.toastr.error(error.message)
+    //       console.error('Error fetching client info:', error);
+    //     }
+    //   });
+    // });
   }
 
 
@@ -304,7 +321,7 @@ export class CreateOrderComponent implements OnInit {
         })
       }
     } else {
-      this.dialog.open(MessagesComponent, {
+      this.dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {
@@ -368,8 +385,19 @@ export class CreateOrderComponent implements OnInit {
     this.searchSubject.next(findText);
   }
 
+  findClient(ev: any): void {
+    this.form.patchValue({
+      clientId: ev.target.value
+    })
+    const findText = ev.target.value.toString().trim().toLowerCase();
+    this.searchClientSubject.next(findText);
+  }
+
   displayFn(city: any): string {
     return city ? city.displayName : '';
+  }
+  displayClientFn(client: any): string {
+    return client ? client.firstName + ' ' + client.lastName : '';
   }
   findCities(findText: string): Observable<any> {
     if (!findText) {

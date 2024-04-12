@@ -63,7 +63,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      */
 
     hasPermission(permission): boolean {
-        console.log(this.utilsService.hasPermission(permission[0]))
+        // console.log(this.utilsService.hasPermission(permission[0]))
         return this.utilsService.hasPermission(permission[0])
     }
     ngOnInit(): void {
