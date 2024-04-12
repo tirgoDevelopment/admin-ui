@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,28 +25,25 @@ import { removeUnselected } from 'app/shared/functions/remove-unselected-formDat
 import { DriverMerchantService } from '../../services/driver-merchant.service';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 @Component({
   selector: 'app-driver-merchant-moderation',
   templateUrl: './driver-merchant-moderation.component.html',
   styleUrls: ['./driver-merchant-moderation.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
+  imports: [TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
 export class DriverMerchantModerationComponent implements OnInit {
   displayedColumns: string[] = ['full_name', 'sum', 'currencyName', 'date', 'type', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>([]);
-  fileApi = 'https://merchant.tirgo.io/api/v1/file/download/';
   selectedFileNames: any;
-  passportFile: FileList;
-
   certificateFile: FileList;
-  data
+  data: any;
   transactionRequest: any[] = [];
   transaction: any;
   balances: any;
@@ -57,39 +54,44 @@ export class DriverMerchantModerationComponent implements OnInit {
   logoFilePath: string;
   registrationCertificateFilePath: string;
   passportFilePath: string;
-  internationalCargoLisensePath: string;
+  transportationCertificateFilePath: string;
+  logoFile: boolean = false;
+  registrationCertificateFile: boolean = false;
+  passportFile: boolean = false;
+  transportationCertificateFile: boolean = false;
+
   edit: boolean = false;
   form: FormGroup = new FormGroup({
-    merchantId: new FormControl(''),
-    email: new FormControl(''),
-    companyName: new FormControl(''),
-    supervisorFirstName: new FormControl(''),
-    supervisorLastName: new FormControl(''),
-    responsiblePersonFullName: new FormControl(''),
-    responsiblePersonLastName: new FormControl(''),
-    responsbilePersonPhoneNumber: new FormControl(''),
-    legalAddress: new FormControl(''),
-    factAddress: new FormControl(''),
-    postalCode: new FormControl(''),
-    garageAddress: new FormControl(''),
-    bankName: new FormControl(''),
-    bankBranchName: new FormControl(''),
-    inn: new FormControl(''),
-    oked: new FormControl(''),
-    mfo: new FormControl(''),
-    taxPayerCode: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    dunsNumber: new FormControl(''),
-    ibanNumber: new FormControl(''),
-    internationalCargoLisensePath: new FormControl(''),
-    logoFilePath: new FormControl(''),
-    registrationCertificateFilePath: new FormControl(''),
-    passportFilePath: new FormControl(''),
+    merchantId: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    companyName: new FormControl('', [Validators.required]),
+    supervisorFirstName: new FormControl('', [Validators.required]),
+    supervisorLastName: new FormControl('', [Validators.required]),
+    responsiblePersonFullName: new FormControl('', [Validators.required]),
+    responsiblePersonLastName: new FormControl('', [Validators.required]),
+    responsbilePersonPhoneNumber: new FormControl('', [Validators.required]),
+    legalAddress: new FormControl('', [Validators.required]),
+    factAddress: new FormControl('', [Validators.required]),
+    postalCode: new FormControl('', [Validators.required]),
+    garageAddress: new FormControl('', [Validators.required]),
+    bankName: new FormControl('', [Validators.required]),
+    bankBranchName: new FormControl('', [Validators.required]),
+    inn: new FormControl('', [Validators.required]),
+    oked: new FormControl('', [Validators.required]),
+    mfo: new FormControl('', [Validators.required]),
+    taxPayerCode: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    dunsNumber: new FormControl('', [Validators.required]),
+    ibanNumber: new FormControl('', [Validators.required]),
+    transportationCertificateFilePath: new FormControl('', [Validators.required]),
+    logoFilePath: new FormControl('', [Validators.required]),
+    registrationCertificateFilePath: new FormControl('', [Validators.required]),
+    passportFilePath: new FormControl('', [Validators.required]),
+    companyType: new FormControl('', [Validators.required])
   })
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
     private driverMerchantService: DriverMerchantService) {
@@ -103,6 +105,10 @@ export class DriverMerchantModerationComponent implements OnInit {
   getMerchant(id: number) {
     this.edit = true
     this.driverMerchantService.get(id).subscribe((responce: any) => {
+      this.transportationCertificateFilePath = responce.data?.transportationCertificateFilePath,
+        this.logoFilePath = responce.data?.logoFilePath,
+        this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath,
+        this.passportFilePath = responce.data?.passportFilePath;
       this.form.patchValue({
         merchantId: responce.data.id,
         bankName: responce.data.bankName,
@@ -125,11 +131,13 @@ export class DriverMerchantModerationComponent implements OnInit {
         inn: responce.data.inn,
         oked: responce.data.oked,
         mfo: responce.data.mfo,
-        internationalCargoLisensePath: responce.data?.internationalCargoLisensePath,
+        transportationCertificateFilePath: responce.data?.transportationCertificateFilePath,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
-        passportFilePath: responce.data?.passportFilePath
+        passportFilePath: responce.data?.passportFilePath,
+        companyType: responce.data?.companyType
       })
+      this._cdr.detectChanges();
     })
   }
   ngOnInit(): void {
@@ -145,6 +153,15 @@ export class DriverMerchantModerationComponent implements OnInit {
         this[name] = reader.result;
         this._cdr.detectChanges();
       };
+      if (name == 'logoFilePath') {
+        this.logoFile = true;
+      } else if (name == 'registrationCertificateFilePath') {
+        this.registrationCertificateFile = true;
+      } else if (name == 'passportFilePath') {
+        this.passportFile = true;
+      } else if (name == 'transportationCertificateFilePath') {
+        this.transportationCertificateFile = true;
+      }
       reader.readAsDataURL(file);
     }
   }
@@ -214,6 +231,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     this.formData.append('inn', this.form.get('inn').value);
     this.formData.append('oked', this.form.get('oked').value);
     this.formData.append('mfo', this.form.get('mfo').value);
+    this.formData.append('companyType', this.form.get('companyType').value);
     if (typeof this.form.get('logoFilePath')?.value === "string") {
       this.formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
     } else {
@@ -230,37 +248,36 @@ export class DriverMerchantModerationComponent implements OnInit {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
 
-    if (typeof this.form.get('internationalCargoLisensePath')?.value === "string") {
-      this.formData.append('internationalCargoLisensePath', this.form.get('internationalCargoLisensePath')?.value);
+    if (typeof this.form.get('transportationCertificateFilePath')?.value === "string") {
+      this.formData.append('transportationCertificateFilePath', this.form.get('transportationCertificateFilePath')?.value);
     } else {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    console.log(this.f)
-    if (this.form.valid) {
-      this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
-        if (isObservable(res)) {
-          // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
-          return res
-        } else {
-          return res
-        }
-      }).subscribe((res: any) => {
-        console.log(res)
-        if (res.success) {
-          this.router.navigate(['/merchants'])
-        }
-      })
-    } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
+    // if (this.form.valid) {
+    this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
+      if (isObservable(res)) {
+        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
+        return res
+      } else {
+        return res
+      }
+    }).subscribe((res: any) => {
+      console.log(res)
+      if (res.success) {
+        this.router.navigate(['/merchants'])
+      }
+    })
+    // } else {
+    //   this._dialog.open(MessageComponent, {
+    //     width: '500px',
+    //     height: '450px',
+    //     data: {
+    //       text: 'Вы должны ввести все обязательные поля',
+    //     }
+    //   })
+    // }
   }
 
   verifyTransaction(transaction) {

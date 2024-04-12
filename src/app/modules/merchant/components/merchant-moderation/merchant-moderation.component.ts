@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -30,7 +30,7 @@ import { MessagesComponent } from 'app/shared/components/common/messages/message
   templateUrl: './merchant-moderation.component.html',
   styleUrls: ['./merchant-moderation.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
@@ -40,7 +40,6 @@ export class MerchantModerationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>([]);
   selectedFileNames: any;
-  passportFile: FileList;
   certificateFile: FileList;
   data
   transactionRequest: any[] = [];
@@ -52,6 +51,10 @@ export class MerchantModerationComponent implements OnInit {
   logoFilePath: string;
   registrationCertificateFilePath: string;
   passportFilePath: string;
+  logoFile: boolean = false;
+  registrationCertificateFile: boolean = false;
+  passportFile: boolean = false;
+  transportationCertificateFile: boolean = false;
   edit: boolean = false;
   pageParams = {
     page: 0,
@@ -80,11 +83,11 @@ export class MerchantModerationComponent implements OnInit {
     logoFilePath: new FormControl('', [Validators.required]),
     registrationCertificateFilePath: new FormControl('', [Validators.required]),
     passportFilePath: new FormControl('', [Validators.required]),
+    companyType: new FormControl('', [Validators.required])
   })
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
     private merchantService: MerchantService) {
@@ -98,7 +101,6 @@ export class MerchantModerationComponent implements OnInit {
   getMerchant(id: number) {
     this.edit = true
     this.merchantService.get(id).subscribe((responce: any) => {
-      console.log(responce);
       this.logoFilePath = responce.data?.logoFilePath;
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.passportFilePath = responce.data?.passportFilePath;
@@ -121,8 +123,10 @@ export class MerchantModerationComponent implements OnInit {
         notes: responce.data?.notes,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
-        passportFilePath: responce.data?.passportFilePath
+        passportFilePath: responce.data?.passportFilePath,
+        companyType: responce.data?.companyType
       })
+      this._cdr.detectChanges();
     })
   }
   ngOnInit(): void {
@@ -138,6 +142,15 @@ export class MerchantModerationComponent implements OnInit {
         this[name] = reader.result;
         this._cdr.detectChanges();
       };
+      if (name == 'logoFilePath') {
+        this.logoFile = true;
+      } else if (name == 'registrationCertificateFilePath') {
+        this.registrationCertificateFile = true;
+      } else if (name == 'passportFilePath') {
+        this.passportFile = true;
+      } else if (name == 'transportationCertificateFilePath') {
+        this.transportationCertificateFile = true;
+      }
       reader.readAsDataURL(file);
     }
   }
@@ -203,6 +216,7 @@ export class MerchantModerationComponent implements OnInit {
     this.formData.append('oked', this.form.get('oked').value);
     this.formData.append('mfo', this.form.get('mfo').value);
     this.formData.append('notes', this.form.get('notes').value);
+    this.formData.append('companyType', this.form.get('companyType').value);
     if (typeof this.form.get('logoFilePath')?.value === "string") {
       this.formData.append('logoFilePath', this.form.get('logoFilePath')?.value);
     } else {
@@ -218,7 +232,7 @@ export class MerchantModerationComponent implements OnInit {
     } else {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    if (this.form.valid) {
+    // if (this.form.valid) {
       this.merchantService.updateMerchant(this.formData).pipe(res => {
         if (isObservable(res)) {
           // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
@@ -233,15 +247,15 @@ export class MerchantModerationComponent implements OnInit {
           this.router.navigate(['/client-merchants'])
         }
       })
-    } else {
-      this._dialog.open(MessagesComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
+    // } else {
+    //   this._dialog.open(MessagesComponent, {
+    //     width: '500px',
+    //     height: '450px',
+    //     data: {
+    //       text: 'Вы должны ввести все обязательные поля',
+    //     }
+    //   })
+    // }
   }
 
   verifyTransaction(transaction) {

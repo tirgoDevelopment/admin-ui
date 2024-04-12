@@ -68,13 +68,13 @@
             <mat-form-field color="accent" class="w-full">
                 <mat-label>{{ 'phone' | transloco }}*</mat-label>
                 <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
-                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
-                    name="phoneNumber" #phoneNumber>
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber"
+                    #phoneNumber>
                 </ngx-mat-intl-tel-input>
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-full">
-                <mat-label>{{ 'phone' | transloco }}*</mat-label>
+                <mat-label>{{ 'responce_phone' | transloco }}*</mat-label>
                 <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
                     [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
                     name="responsbilePersonPhoneNumber" #responsbilePersonPhoneNumber>
@@ -96,9 +96,29 @@
                 <mat-label> {{ 'notes' | transloco }}</mat-label>
                 <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>Наименование фирмы</mat-label>
+                <input matInput formControlName="companyName">
+                <mat-select formControlName="companyType" [value]="'ООО'" matPrefix>
+                    <mat-option value="ООО">ООО</mat-option>
+                    <mat-option value="ИП">ИП</mat-option>
+                    <mat-option value="АО">АО</mat-option>
+                    <mat-option value="ОАО">ОАО</mat-option>
+                    <mat-option value="ЗАО">ЗАО</mat-option>
+                    <mat-option value="АК">АК</mat-option>
+                    <mat-option value="ПК">ПК</mat-option>
+                    <mat-option value="НКО">НКО</mat-option>
+                    <mat-option value="ПК">ПК</mat-option>
+                    <mat-option value="ГП">ГП</mat-option>
+                    <mat-option value="МП">МП</mat-option>
+                    <mat-option value="УП">УП</mat-option>
+                    <mat-option value="ГУП">ГУП</mat-option>
+                    <mat-option value="' '">Другой</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="flex flex-wrap gap-4 items-end justify-start">
-        
+
             <div class="w-40">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
@@ -116,8 +136,8 @@
                             </label>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
+                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&logoFile" [src]="logoFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!logoFile"
                         [src]="logoFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
@@ -139,8 +159,9 @@
                             </label>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
+                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&passportFile"
+                        [src]="passportFilePath">
+                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!passportFile"
                         [src]="passportFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
@@ -162,13 +183,15 @@
                             </label>
                         </div>
                     </div>
-                    <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
+                    <img class="object-fill w-full h-full"
+                        *ngIf="registrationCertificateFilePath&&registrationCertificateFile"
                         [src]="registrationCertificateFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&edit"
+                    <img class="object-fill w-full h-full"
+                        *ngIf="registrationCertificateFilePath&&!registrationCertificateFile"
                         [src]="registrationCertificateFilePath | fileFetch: 'client_merchant'|async">
                 </div>
             </div>
-        
+
         </div>
     </form>
     <div class="mt-10 flex ">
