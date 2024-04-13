@@ -43,7 +43,7 @@ export class DriversService {
     return this._apiService.post  <DriverModel>('/users/driver/transport/to-verification', body);
   }
 
-  getTransportWithDriver(driverId: number, transportId: number): Observable<Response<DriverModel>> {
+  getTransportWithDriver(driverId: number, transportId: number|string): Observable<Response<DriverModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("driverId", driverId);
     queryParams = queryParams.append("transportId", transportId);

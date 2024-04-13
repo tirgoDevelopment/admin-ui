@@ -10,7 +10,6 @@ export class FileFetchPipe implements PipeTransform {
   constructor(private fileService: FileUrlService) { }
 
   transform(fileName: string, keyName): Observable<string> {
-    console.log(keyName, fileName);
     return this.fileService.getFileUrl(keyName, fileName)
   }
 

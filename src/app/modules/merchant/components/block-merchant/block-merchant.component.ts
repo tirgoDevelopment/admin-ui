@@ -21,7 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MerchantService } from '../../services/merchant.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-block-merchant',
@@ -64,7 +64,7 @@ export class BlockMerchantComponent {
         }
       })
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

@@ -27,7 +27,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { forkJoin, isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 @Component({
   selector: 'app-add-verification',
   templateUrl: './add-verification.component.html',
@@ -364,7 +364,7 @@ export class AddVerificationComponent implements OnInit {
           }
         })
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

@@ -1,0 +1,43 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"assign_driver"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="flex">
+            <div class="w-full">
+                <mat-form-field class="w-full">
+                    <mat-label>{{ 'client' | transloco }}</mat-label>
+                    <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
+                      formControlName="fullName">
+                    <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete" [displayWith]="displayDriverFn">
+                      <ng-container *ngIf="driverInfo?.firstName">
+                        <mat-option [value]="driverInfo">
+                          {{driverInfo.firstName}} {{driverInfo.lastName}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'amount' | transloco }}</mat-label>
+                    <input matInput formControlName="amount"
+                        [ngClass]="{'is-invalid': f.amount.errors}">
+                    <mat-error *ngIf="f.amount.errors?.required">
+                        {{ 'is_empty' | transloco }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end justify-items-end">
+    <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
+        {{ 'cancel' | transloco }}</button>
+    <button
+        [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button ': !form.invalid && !form.pristine}"
+        mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+        {{ 'save' | transloco }}
+    </button>
+</mat-dialog-actions>

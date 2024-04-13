@@ -23,7 +23,7 @@ import { MerchantService } from '../../services/merchant.service';
 import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 import { FileUrlService } from 'app/shared/services/file-url.service';
 
 @Component({
@@ -236,7 +236,7 @@ export class MerchantModerationComponent implements OnInit {
         }
       })
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

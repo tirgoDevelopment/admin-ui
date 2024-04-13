@@ -157,15 +157,15 @@ export class OrdersComponent implements OnInit {
   }
   statusOrderCheck(params) {
     switch (params) {
-      case 'waiting':
+      case 'Ожидающий':
         return "Ожидающий";
-      case 1:
+      case 'Выполняется':
         return "Выполняется";
-      case 2:
+      case 'Выполнен':
         return "Выполнен";
-      case 3:
+      case 'Завершен':
         return "Завершен";
-      case 4:
+      case 'Отменен':
         return "Отменен";
       default:
         return "Не определен";

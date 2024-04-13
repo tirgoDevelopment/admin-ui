@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CargoService } from '../../services/cargo.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CargoGroupService } from 'app/modules/main-types/cargo-group/services/cargo-group.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-cargo',
@@ -90,7 +90,7 @@ export class AddCargoComponent {
         })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {
