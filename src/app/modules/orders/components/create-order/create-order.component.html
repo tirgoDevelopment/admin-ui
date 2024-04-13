@@ -32,13 +32,13 @@
       </div>
       <!-- Место отправки груза - Место доставки груза -->
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-        
+
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>Место отправки груза</mat-label>
           <input type="text" matInput [matAutocomplete]="loadingLocation" (input)="findCity($event)"
             formControlName="loadingLocation">
-            <mat-autocomplete autoActiveFirstOption #loadingLocation="matAutocomplete"  [displayWith]="displayFn">
-              <ng-container *ngFor="let city of findList">
+          <mat-autocomplete autoActiveFirstOption #loadingLocation="matAutocomplete" [displayWith]="displayFn">
+            <ng-container *ngFor="let city of findList">
               <mat-option [value]="city">
                 {{city.displayName}}
               </mat-option>
@@ -51,8 +51,8 @@
           <mat-label>Место доставки груза</mat-label>
           <input type="text" matInput [matAutocomplete]="deliveryLocation" (input)="findCity($event)"
             formControlName="deliveryLocation">
-            <mat-autocomplete autoActiveFirstOption #deliveryLocation="matAutocomplete"  [displayWith]="displayFn">
-              <ng-container *ngFor="let city of findList">
+          <mat-autocomplete autoActiveFirstOption #deliveryLocation="matAutocomplete" [displayWith]="displayFn">
+            <ng-container *ngFor="let city of findList">
               <mat-option [value]="city">
                 {{city.displayName}}
               </mat-option>
@@ -74,18 +74,26 @@
         </mat-form-field>
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>{{ 'client' | transloco }}</mat-label>
-          <input matInput formControlName="clientId">
+          <input type="text" matInput [matAutocomplete]="clientIdcomplete" (input)="findClient($event)"
+            formControlName="fullName">
+          <mat-autocomplete autoActiveFirstOption #clientIdcomplete="matAutocomplete" [displayWith]="displayClientFn">
+            <ng-container *ngIf="clientInfo?.firstName">
+              <mat-option [value]="clientInfo">
+                {{clientInfo.firstName}} {{clientInfo.lastName}}
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field *ngIf="clientInfo?.firstName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>{{ 'first_name'|transloco}}</mat-label>
-          <input matInput [value]="clientInfo.firstName">
-        </mat-form-field>
+        <!-- <mat-form-field *ngIf="clientInfo?.firstName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+          <mat-label>{{ 'full_name'|transloco}}</mat-label>
+          <input matInput [value]="clientInfo.firstName + ' '+this.clientInfo.lastName">
+        </mat-form-field> -->
 
-        <mat-form-field *ngIf="clientInfo?.lastName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
+        <!-- <mat-form-field *ngIf="clientInfo?.lastName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
           <mat-label>{{ 'last_name'|transloco}}</mat-label>
           <input matInput [value]="clientInfo.lastName">
-        </mat-form-field>
+        </mat-form-field> -->
         <!-- <div *ngIf="clientInfo" class="flex-auto gt-xs:pr-3 w-1/2 mt-3 ml-3">
             <p>{{ 'first_name'|transloco}}: {{clientInfo.firstName}} </p>
             <p>{{ 'last_name'|transloco}}: {{clientInfo.lastName}} </p>
