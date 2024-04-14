@@ -23,7 +23,8 @@
                 <div class="flex ">
                     <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                     <div>
-                        <p class="text-2xl font-semibold">{{archiveUser?.client.firstName}} {{archiveUser?.client.lastName }}</p>
+                        <p class="text-2xl font-semibold">{{archiveUser?.client.firstName}}
+                            {{archiveUser?.client.lastName }}</p>
                         <p class="text-gray-600"># {{archiveUser?.client.id}}</p>
                     </div>
                 </div>
@@ -71,7 +72,8 @@
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumber">{{archiveUser?.client.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumber">{{archiveUser?.client.phoneNumber}}
+                    </p>
                     <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.client.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
@@ -79,13 +81,14 @@
                     </p>
                 </div>
             </div>
-    
+
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
                     <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="previewClient(client.passport)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                    <mat-icon (click)="previewClient(client.passport)"
+                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                 </div>
             </div>
         </div>
@@ -112,7 +115,8 @@
                 <div class="flex ">
                     <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                     <div>
-                        <p class="text-2xl font-semibold">{{archiveUser?.driver.firstName}} {{archiveUser?.driver.lastName }}</p>
+                        <p class="text-2xl font-semibold">{{archiveUser?.driver.firstName}}
+                            {{archiveUser?.driver.lastName }}</p>
                         <p class="text-gray-600"># {{archiveUser?.driver.id}}</p>
                     </div>
                 </div>
@@ -141,10 +145,10 @@
             <div class="mb-5">
                 <h2 class="text-2xl leading-4 font-semibold">{{"transport"|transloco}}</h2>
             </div>
-    
+
             <div class="grid grid-cols-2 gap-4" *ngFor="let transport of archiveUser?.driver.driverTransports">
                 <div>
-                    <p class="text-xl leading-4 mb-1">{{"machine_type"|transloco}}</p>
+                    <p class="text-xl leading-4 mb-1">{{"transport_cargo"|transloco}}</p>
                     <p class="font-semibold">Тентовка</p>
                 </div>
                 <div>
@@ -166,16 +170,17 @@
                     <p class="text-xl leading-4 mb-1">{{"state_number_trailer"|transloco}}</p>
                     <p class="font-semibold">{{transport?.stateNumber}}</p>
                 </div>
-        
+
             </div>
-    
+
             <div class="grid grid-cols-1 gap-4" *ngFor="let transport of archiveUser?.driver.driverTransports">
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
                         <label class="block mb-2 font-semibold">{{"technical_passport"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.techPassportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.techPassportFrontFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
@@ -183,16 +188,18 @@
                         <label class="block mb-2 font-semibold">{{"tech_passport_front"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.techPassportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.techPassportBackFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
-    
+
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
                         <label class="block mb-2 font-semibold">{{"transport_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.transportFrontFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.transportFrontFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
@@ -200,34 +207,38 @@
                         <label class="block mb-2 font-semibold">{{"transport_back_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.transportBackFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.transportBackFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
-    
+
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
                         <label class="block mb-2 font-semibold">{{"transport_side_photo"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.transportSideFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.transportSideFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
-    
+
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
                         <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.passportFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.passportFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
-    
+
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                     <div class="w-3/4">
                         <label class="block mb-2 font-semibold">{{"driver_lisense_card"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.driverLicenseFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.driverLicenseFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
                 <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
@@ -235,7 +246,8 @@
                         <label class="block mb-2 font-semibold">{{"good_transportation_lisense"|transloco}}</label>
                     </div>
                     <div class="w-1/4 flex items-center justify-end">
-                        <mat-icon (click)="previewDriver(transport.goodsTransportationLicenseCardFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                        <mat-icon (click)="previewDriver(transport.goodsTransportationLicenseCardFilePath)"
+                            class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                     </div>
                 </div>
             </div>
@@ -249,7 +261,8 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumber">{{archiveUser?.driver.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumber">{{archiveUser?.driver.phoneNumber}}
+                    </p>
                     <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.driver.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
@@ -268,7 +281,7 @@
                 {{"block"|transloco}}
             </button>
         </div>
- 
+
     </div>
     <div *ngIf="archiveUser?.clientMerchant">
         <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-black rounded-lg shadow-md">
@@ -299,7 +312,8 @@
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumber">{{archiveUser?.clientMerchant.phoneNumber}}</p>
+                    <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumber">
+                        {{archiveUser?.clientMerchant.phoneNumber}}</p>
                     <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.clientMerchant.phoneNumbers">
                             {{phoneNumber?.phoneNumber}}
@@ -360,7 +374,7 @@
             <div class="mb-5">
                 <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
             </div>
-       
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>
@@ -389,7 +403,7 @@
                     <p class="text-xl leading-4 mb-1">{{"director_last_name"|transloco}}</p>
                     <p class="font-semibold">{{archiveUser?.agent.managerLastName}}</p>
                 </div>
-        
+
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"legal_address"|transloco}}</p>
                     <p class="font-semibold">{{archiveUser?.agent.legalAddress}}</p>
@@ -418,7 +432,8 @@
                     <label class="block mb-2 font-semibold">{{"registration_certificate"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="previewAgent(archiveUser?.agent.registrationCertificateFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                    <mat-icon (click)="previewAgent(archiveUser?.agent.registrationCertificateFilePath)"
+                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                 </div>
             </div>
 
@@ -427,7 +442,8 @@
                     <label class="block mb-2 font-semibold">{{"passport"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="previewAgent(archiveUser?.agent.managerPassportFilePath)" class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
+                    <mat-icon (click)="previewAgent(archiveUser?.agent.managerPassportFilePath)"
+                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
                 </div>
             </div>
         </div>
@@ -442,7 +458,7 @@
             <div class="mb-5">
                 <h2 class="text-2xl leading-4 font-semibold">{{"information"|transloco}}</h2>
             </div>
-       
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"status"|transloco}}</p>

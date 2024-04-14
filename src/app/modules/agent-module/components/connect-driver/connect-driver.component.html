@@ -9,17 +9,17 @@
         <mat-form-field class="flex-auto gt-xs:pr-3 w-full">
             <mat-label>{{ 'driver' | transloco }}</mat-label>
             <input matInput formControlName="driverId">
-          </mat-form-field>
+        </mat-form-field>
 
-          <mat-form-field *ngIf="driverInfo?.firstName" class="flex-auto gt-xs:pr-3 w-full">
+        <mat-form-field *ngIf="driverInfo?.firstName" class="flex-auto gt-xs:pr-3 w-full">
             <mat-label>{{ 'first_name'|transloco}}</mat-label>
             <input matInput [value]="driverInfo.firstName">
-          </mat-form-field>
-  
-          <mat-form-field *ngIf="driverInfo?.lastName" class="flex-auto gt-xs:pr-3 w-full">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="driverInfo?.lastName" class="flex-auto gt-xs:pr-3 w-full">
             <mat-label>{{ 'last_name'|transloco}}</mat-label>
             <input matInput [value]="driverInfo.lastName">
-          </mat-form-field>
+        </mat-form-field>
 
     </form>
 </mat-dialog-content>

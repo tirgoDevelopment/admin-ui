@@ -138,12 +138,12 @@
             </div>
 
             <div class="w-32">
-                <mat-label >{{ 'registration_certificate' | transloco }} </mat-label>
+                <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="registrationCertificateFilePath" id="avatar-file-input1"
+                            <input id="avatar-file-input1"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'registrationCertificateFilePath')">
@@ -179,12 +179,12 @@
             </mat-form-field> -->
 
             <div class="w-32">
-                <mat-label >{{ 'passport_owner' | transloco }} </mat-label>
+                <mat-label>{{ 'passport_owner' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input formControlName="managerPassportFilePath" id="avatar-file-input1"
+                            <input id="avatar-file-input1"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'managerPassportFilePath')">

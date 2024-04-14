@@ -14,9 +14,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { Subscription } from 'rxjs';
 import { OrdersService } from '../../services/orders.service';
-import { ToastrService } from 'ngx-toastr';
 import { TypesService } from 'app/shared/services/types.service';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { ClientDetailComponent } from 'app/modules/clients/components/client-detail/client-detail.component';
+import { DriverModel } from 'app/modules/drivers/models/driver.model';
 
 @Component({
   selector: 'app-order-detail',
@@ -27,7 +28,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
   imports: [MatIconModule, MatTabsModule, NgIf, PipeModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule, AngularYandexMapsModule, MatDialogModule, TranslocoModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule],
 })
 export class OrderDetailComponent implements OnInit {
-  private sseSubscription: Subscription;
+  driverInfo: DriverModel;
   currencies: any;
   editing: boolean = false;
 
@@ -40,7 +41,8 @@ export class OrderDetailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private orderService: OrdersService,
     private typesService: TypesService,
-  ) { }
+    protected _dialog?: MatDialog) { }
+    
   ngOnInit(): void {
     this.typesService.getCurrencies().subscribe((res: any) => {
       if (res.success) {
@@ -54,11 +56,33 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.getOrderById(this.data).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
-        console.log(this.data)
         // this.updateDriverOffers();
       }
     })
   }
+  clientInfo(clientId:number) {
+    this._dialog.open(ClientDetailComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: clientId,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+    })
+  }
+
+  cancelOrder(id) {
+    this.orderService.cancelOrder(id).subscribe((res: any) => {
+      if (res.success) {
+        this.getOrderById();
+      }
+    })
+  }
+  
   // acceptDriver(offer) {
   //   if (this.data.isSafeTransaction) {
   //     const dialogRef = this.dialog.open(ScoreComponent, {

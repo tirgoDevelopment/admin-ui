@@ -24,21 +24,19 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
-import { forkJoin, isObservable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
 import { FileUrlService } from 'app/shared/services/file-url.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-transport',
   templateUrl: './add-transport.component.html',
   styleUrls: ['./add-transport.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, AsyncPipe, MatTabsModule, PipeModule, MatCheckboxModule, MatOptionModule, NgClass, NgFor, MatSelectModule, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
@@ -62,16 +60,12 @@ export class AddTransportComponent implements OnInit {
   isCistern: any;
   isContainer: any;
   isLoad: any;
-  roles = [];
   subscription = [];
   edit: boolean = false;
   formData = new FormData();
   techPassportFrontFilePath: string;
   techPassportBackFilePath: string;
-  transportFrontFilePath: string;
   goodsTransportationLicenseCardFilePath: string;
-  driverLicenseFilePath: string;
-  // passportFilePath: string;
   transports: any[] = [];
   constructor(
     private fileService: FileUrlService,
@@ -92,7 +86,6 @@ export class AddTransportComponent implements OnInit {
       transportKindIds: new FormControl([]),
       transportTypeIds: new FormControl([]),
       loadingMethodIds: new FormControl([]),
-      // cargoTypeIds: new FormControl([]),
       refrigeratorFrom: new FormControl(''),
       refrigeratorTo: new FormControl(''),
       refrigeratorCount: new FormControl(''),
@@ -100,24 +93,20 @@ export class AddTransportComponent implements OnInit {
       loadTo: new FormControl(''),
       isHook: new FormControl(false),
       isAdr: new FormControl(false),
+      isHighCube: new FormControl(false),
       cisternVolume: new FormControl(''),
       containerVolume: new FormControl(''),
       high: new FormControl(''),
-      techPassportFrontFilePath: new FormControl('', [Validators.required]),
-      techPassportBackFilePath: new FormControl('', [Validators.required]),
-      // transportFrontFilePath: new FormControl('', [Validators.required]),
-      goodsTransportationLicenseCardFilePath: new FormControl('', [Validators.required]),
-      // driverLicenseFilePath: new FormControl('', [Validators.required]),
-      // passportFilePath: new FormControl('', [Validators.required]),
+      techPassportFrontFilePath: new FormControl(undefined, [Validators.required]),
+      techPassportBackFilePath: new FormControl(undefined, [Validators.required]),
+      goodsTransportationLicenseCardFilePath: new FormControl(undefined, [Validators.required]),
     })
-    console.log(data)
     this.form.patchValue({
       driverId: data?.driverId,
     })
     if (data.edit) {
       this.edit = true;
     }
-    // this.changeValue();
     forkJoin({
       currencies: this._typesService.getCurrencies(),
       cargoTypes: this._typesService.getCargoTypes(),
@@ -147,63 +136,20 @@ export class AddTransportComponent implements OnInit {
         this.changeTab(this.transports[0].id)
       });
     }
-    // if (this.f.id.value) {
-    //   this._driverService.getTransportWithDriver(this.f.driverId.value, this.f.id.value).subscribe(res => {
-    //     this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
-    //     this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
-    //     this.transportFrontFilePath = res.data[0].transportFrontFilePath;
-    //     this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
-    //     this.driverLicenseFilePath = res.data[0].driverLicenseFilePath;
-    //     this.passportFilePath = res.data[0].passportFilePath;
-    //     this.edit = true;
-    //     this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
-    //     this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
-    //     this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
-    //     this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
-    //     this.form.patchValue({
-    //       name: res.data[0]?.name,
-    //       isHook: res.data[0]?.isHook,
-    //       isAdr: res.data[0]?.isAdr,
-    //       cubicCapacity: res.data[0]?.cubicCapacity,
-    //       stateNumber: res.data[0]?.stateNumber,
-    //       techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
-    //       techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
-    //       transportFrontFilePath: res.data[0]?.transportFrontFilePath,
-    //       goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
-    //       driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
-    //       passportFilePath: res.data[0]?.passportFilePath,
-    //       refrigeratorFrom: res.data[0]?.refrigeratorFrom,
-    //       refrigeratorTo: res.data[0]?.refrigeratorTo,
-    //       refrigeratorCount: res.data[0]?.refrigeratorCount,
-    //     })
-    //   })
-    //   this._cdr.detectChanges()
-    // }
-
     this.transportKindIdsChange();
   }
 
   transportKindIdsChange() {
-    console.log('change TransportKinds')
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
-      console.log(values.length)
-      console.log(values)
       if (values.length == 1) {
         let tranportKind = this.transportKinds.find(x => x.id == values);
-        console.log(tranportKind)
-        console.log(tranportKind?.name?.includes('Рефрижератор'), 'Рефрижератор')
         this.isAutotransport = tranportKind?.name?.includes('Автовоз');
         this.isRefrigerator = tranportKind?.name?.includes('Рефрижератор');
         this.isCistern = tranportKind?.name?.includes('Цистерна');
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
         this.isLoad = tranportKind?.name?.includes('Грузоподъемность');
-        console.log(this.isAutotransport)
-        console.log(this.isRefrigerator)
-        console.log(this.isCistern)
-        console.log(this.isContainer)
-        console.log(this.isLoad)
         this._cdr.detectChanges()
-      } else {
+      } else if (values.length > 1) {
         values.forEach(x => {
           let tranportKind = this.transportKinds.find(y => y.id == x);
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
@@ -211,38 +157,29 @@ export class AddTransportComponent implements OnInit {
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
           this.isLoad = this.isLoad || tranportKind?.name?.includes('Грузоподъемность');
-          console.log(this.isAutotransport)
-          console.log(this.isRefrigerator)
-          console.log(this.isCistern)
-          console.log(this.isContainer)
-          console.log(this.isLoad)
           this._cdr.detectChanges()
         });
+      } else {
+        this.isAutotransport = false;
+        this.isRefrigerator = false;
+        this.isCistern = false;
+        this.isContainer = false;
+        this.isLoad = false;
       }
     })
   }
 
   transportKindIdsChangeEdit() {
-    console.log('change TransportKinds')
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
-      console.log(values.length)
-      console.log(values[0].id)
       if (values.length == 1) {
         let tranportKind = this.transportKinds.find(x => x.id == values[0].id);
-        console.log(tranportKind)
-        console.log(tranportKind?.name?.includes('Рефрижератор'), 'Рефрижератор')
         this.isAutotransport = tranportKind?.name?.includes('Автовоз');
         this.isRefrigerator = tranportKind?.name?.includes('Рефрижератор');
         this.isCistern = tranportKind?.name?.includes('Цистерна');
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
         this.isLoad = tranportKind?.name?.includes('Грузоподъемность');
-        console.log(this.isAutotransport)
-        console.log(this.isRefrigerator)
-        console.log(this.isCistern)
-        console.log(this.isContainer)
-        console.log(this.isLoad)
         this._cdr.detectChanges()
-      } else {
+      } else if (values.length > 1) {
         values.forEach(x => {
           let tranportKind = this.transportKinds.find(y => y.id == x);
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
@@ -250,19 +187,20 @@ export class AddTransportComponent implements OnInit {
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
           this.isLoad = this.isLoad || tranportKind?.name?.includes('Грузоподъемность');
-          console.log(this.isAutotransport)
-          console.log(this.isRefrigerator)
-          console.log(this.isCistern)
-          console.log(this.isContainer)
-          console.log(this.isLoad)
           this._cdr.detectChanges()
         });
+      } else {
+        this.isAutotransport = false;
+        this.isRefrigerator = false;
+        this.isCistern = false;
+        this.isContainer = false;
+        this.isLoad = false;
       }
     })
   }
 
 
-  onTabClick(event) {
+  onTabClick(event: any) {
     let tab: any = this.transports.find((value, index) => {
       if (index == event.index) {
         return value
@@ -271,34 +209,26 @@ export class AddTransportComponent implements OnInit {
     this._driverService.getTransportWithDriver(this.f.driverId.value, tab.id).subscribe(res => {
       this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
       this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
-      this.transportFrontFilePath = res.data[0].transportFrontFilePath;
       this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
-      this.driverLicenseFilePath = res.data[0].driverLicenseFilePath;
-      // this.passportFilePath = res.data[0].passportFilePath;
       this.edit = true;
-      console.log('change tabs')
-      this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
-      this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
-      this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
-      // this.changeValue()
+      this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds);
+      this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods);
+      this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes);
       this.transportKindIdsChangeEdit();
-      // this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
       this.form.patchValue({
-        id: res.data[0]?.id,
-        name: res.data[0]?.name,
-        isHook: res.data[0]?.isHook,
-        isAdr: res.data[0]?.isAdr,
-        cubicCapacity: res.data[0]?.cubicCapacity,
-        stateNumber: res.data[0]?.stateNumber,
-        techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
-        techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
-        transportFrontFilePath: res.data[0]?.transportFrontFilePath,
-        goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
-        driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
-        // passportFilePath: res.data[0]?.passportFilePath,
-        refrigeratorFrom: res.data[0]?.refrigeratorFrom,
-        refrigeratorTo: res.data[0]?.refrigeratorTo,
-        refrigeratorCount: res.data[0]?.refrigeratorCount,
+        id: res.data[0]?.id ? res.data[0]?.id : '',
+        name: res.data[0]?.name ? res.data[0]?.name : '',
+        isHook: res.data[0]?.isHook ? res.data[0]?.isHook : false,
+        isAdr: res.data[0]?.isAdr ? res.data[0]?.isAdr : false,
+        isHighCube: res.data[0]?.isHighCube ? res.data[0]?.isHighCube : false,
+        cubicCapacity: res.data[0]?.cubicCapacity ? res.data[0]?.cubicCapacity : '',
+        stateNumber: res.data[0]?.stateNumber ? res.data[0]?.stateNumber : '',
+        techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath ? res.data[0]?.techPassportFrontFilePath : '',
+        techPassportBackFilePath: res.data[0]?.techPassportBackFilePath ? res.data[0]?.techPassportBackFilePath : '',
+        goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath ? res.data[0]?.goodsTransportationLicenseCardFilePath : '',
+        refrigeratorFrom: res.data[0]?.refrigeratorFrom ? res.data[0]?.refrigeratorFrom : '',
+        refrigeratorTo: res.data[0]?.refrigeratorTo ? res.data[0]?.refrigeratorTo : '',
+        refrigeratorCount: res.data[0]?.refrigeratorCount ? res.data[0]?.refrigeratorCount : '',
       })
     })
     this._cdr.detectChanges()
@@ -307,37 +237,29 @@ export class AddTransportComponent implements OnInit {
 
   changeTab(id) {
     this._driverService.getTransportWithDriver(this.f.driverId.value, id).subscribe(res => {
+      this.edit = true;
       this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
       this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
-      this.transportFrontFilePath = res.data[0].transportFrontFilePath;
       this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
-      this.driverLicenseFilePath = res.data[0].driverLicenseFilePath;
-      // this.passportFilePath = res.data[0].passportFilePath;
-      this.edit = true;
-      this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds)
-      this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods)
-      this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes)
-      // this.changeValue()
+      this.form.get('transportKindIds').setValue(res.data[0]?.transportKinds);
+      this.form.get('loadingMethodIds').setValue(res.data[0]?.cargoLoadMethods);
+      this.form.get('transportTypeIds').setValue(res.data[0]?.transportTypes);
       this.transportKindIdsChangeEdit();
-      // this.form.get('cargoTypeIds').setValue(res.data[0]?.cargoTypes)
       this.form.patchValue({
-        id: res.data[0]?.id,
-        name: res.data[0]?.name,
-        isHook: res.data[0]?.isHook,
-        isAdr: res.data[0]?.isAdr,
-        cubicCapacity: res.data[0]?.cubicCapacity,
-        stateNumber: res.data[0]?.stateNumber,
-        techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath,
-        techPassportBackFilePath: res.data[0]?.techPassportBackFilePath,
-        transportFrontFilePath: res.data[0]?.transportFrontFilePath,
-        goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath,
-        driverLicenseFilePath: res.data[0]?.driverLicenseFilePath,
-        // passportFilePath: res.data[0]?.passportFilePath,
-        refrigeratorFrom: res.data[0]?.refrigeratorFrom,
-        refrigeratorTo: res.data[0]?.refrigeratorTo,
-        refrigeratorCount: res.data[0]?.refrigeratorCount,
+        id: res.data[0]?.id ? res.data[0]?.id : '',
+        name: res.data[0]?.name ? res.data[0]?.name : '',
+        isHook: res.data[0]?.isHook ? res.data[0]?.isHook : false,
+        isAdr: res.data[0]?.isAdr ? res.data[0]?.isAdr : false,
+        isHighCube: res.data[0]?.isHighCube ? res.data[0]?.isHighCube : false,
+        cubicCapacity: res.data[0]?.cubicCapacity ? res.data[0]?.cubicCapacity : '',
+        stateNumber: res.data[0]?.stateNumber ? res.data[0]?.stateNumber : '',
+        techPassportFrontFilePath: res.data[0]?.techPassportFrontFilePath ? res.data[0]?.techPassportFrontFilePath : '',
+        techPassportBackFilePath: res.data[0]?.techPassportBackFilePath ? res.data[0]?.techPassportBackFilePath : '',
+        goodsTransportationLicenseCardFilePath: res.data[0]?.goodsTransportationLicenseCardFilePath ? res.data[0]?.goodsTransportationLicenseCardFilePath : '',
+        refrigeratorFrom: res.data[0]?.refrigeratorFrom ? res.data[0]?.refrigeratorFrom : '',
+        refrigeratorTo: res.data[0]?.refrigeratorTo ? res.data[0]?.refrigeratorTo : '',
+        refrigeratorCount: res.data[0]?.refrigeratorCount ? res.data[0]?.refrigeratorCount : '',
       })
-      this._cdr.detectChanges()
     })
     this._cdr.detectChanges()
   }
@@ -349,7 +271,6 @@ export class AddTransportComponent implements OnInit {
   selectFile(event: any, name: string) {
     const file: File = event.target.files[0];
     if (file) {
-      console.log(name, this.form.get(name)?.value, file)
       this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
       const reader = new FileReader();
       reader.onload = () => {
@@ -383,22 +304,11 @@ export class AddTransportComponent implements OnInit {
         this.form.patchValue({
           techPassportBackFilePath: file
         });
-      case 'transportFrontFilePath':
-        this.form.patchValue({
-          transportFrontFilePath: file
-        });
       case 'goodsTransportationLicenseCardFilePath':
         this.form.patchValue({
           goodsTransportationLicenseCardFilePath: file
         });
-      case 'driverLicenseFilePath':
-        this.form.patchValue({
-          driverLicenseFilePath: file
-        });
-      // case 'passportFilePath':
-      //   this.form.patchValue({
-      //     passportFilePath: file
-      //   });
+
     }
   }
 
@@ -425,7 +335,6 @@ export class AddTransportComponent implements OnInit {
     const findText = ev.target.value.toString().trim().toLowerCase();
     if (findText.length >= 2) {
       this.viewText = true;
-      //  this.findList = await this.authService.findCity(findText).toPromise();
     } else {
       this.viewText = false;
       this.findList = [];
@@ -446,6 +355,7 @@ export class AddTransportComponent implements OnInit {
     this.form.get('refrigeratorCount').value ? this.formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
     this.form.get('isHook').value ? this.formData.append('isHook', this.form.get('isHook').value) : ''
     this.form.get('isAdr').value ? this.formData.append('isAdr', this.form.get('isAdr').value) : ''
+    this.form.get('isHighCube').value ? this.formData.append('isHighCube', this.form.get('isHighCube').value) : ''
     this.form.get('loadFrom').value ? this.formData.append('loadFrom', this.form.get('loadFrom').value) : ''
     this.form.get('loadTo').value ? this.formData.append('loadTo', this.form.get('loadTo').value) : ''
     if (this.form.get('id').value) {
@@ -472,11 +382,6 @@ export class AddTransportComponent implements OnInit {
       // formData.append('techPassportBackFilePath', this.form.get('techPassportBackFilePath')?.value, String(new Date().getTime()));
     }
 
-    if (typeof this.form.get('transportFrontFilePath')?.value === "string") {
-      this.formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value);
-    } else {
-      // formData.append('transportFrontFilePath', this.form.get('transportFrontFilePath')?.value, String(new Date().getTime()));
-    }
 
     if (typeof this.form.get('goodsTransportationLicenseCardFilePath')?.value === "string") {
       this.formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value);
@@ -484,25 +389,9 @@ export class AddTransportComponent implements OnInit {
       // formData.append('goodsTransportationLicenseCardFilePath', this.form.get('goodsTransportationLicenseCardFilePath')?.value, String(new Date().getTime()));
     }
 
-    if (typeof this.form.get('driverLicenseFilePath')?.value === "string") {
-      this.formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value);
-    } else {
-      // formData.append('driverLicenseFilePath', this.form.get('driverLicenseFilePath')?.value, String(new Date().getTime()));
-    }
 
-    if (typeof this.form.get('passportFilePath')?.value === "string") {
-      this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value);
-    } else {
-      // formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
-    }
-    // techPassportFrontFilePath: string;
-    // techPassportBackFilePath: string;
-    // transportFrontFilePath: string;
-    // goodsTransportationLicenseCardFilePath: string;
-    // driverLicenseFilePath: string;
-    // passportFilePath: string; techPassportBackFilePath
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    console.log(this.form.value)
+    console.log(this.form)
     if (this.form.valid) {
       if (this.form.value.id) {
         this._driverService.updateTransport(uniqueFormData)
@@ -526,7 +415,7 @@ export class AddTransportComponent implements OnInit {
           })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

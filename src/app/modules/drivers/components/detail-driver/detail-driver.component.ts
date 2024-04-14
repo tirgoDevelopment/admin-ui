@@ -90,7 +90,6 @@ export class DetailDriverComponent implements OnInit {
       autoFocus: false,
       data: { driverId: this.driverId },
     }).afterClosed().subscribe(()=>{
-      this._dialog.closeAll()
     })
   }
 
@@ -109,7 +108,6 @@ export class DetailDriverComponent implements OnInit {
       autoFocus: false,
       data: { driverId: this.driverId, edit: true },
     }).afterClosed().subscribe(()=>{
-      this._dialog.closeAll()
     })
   }
 

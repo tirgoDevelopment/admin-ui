@@ -193,6 +193,19 @@
           {{data.cargoPackage?.name ? data.cargoPackage?.name : 'Не указана'}}</p>
       </div>
     </div>
+    <div class="flex justify-end gap-4 mt-4 px-4">
+      <button mat-flat-button [color]="'primary'" (click)="clientInfo(data?.client?.id)">
+        {{"about_user"|transloco}}
+      </button>
+    </div>
+    <!-- <div class="flex justify-end gap-4 mt-4 px-4">
+      <button mat-flat-button [color]="'warn'" (click)="cancelOrder(data?.id)">
+        {{"cancel_order"|transloco}}
+      </button>
+      <button mat-flat-button [color]="'primary'" (click)="clientInfo(data?.client?.id)">
+        {{"assign_driver"|transloco}}
+      </button>
+    </div> -->
   </div>
 
 </mat-dialog-content>

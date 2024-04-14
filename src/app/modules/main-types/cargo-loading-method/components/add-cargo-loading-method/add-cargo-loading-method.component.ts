@@ -16,7 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CargoLoadingMethodService } from '../../services/cargo-loading-method.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-cargo-loading-method',
@@ -74,7 +74,7 @@ export class AddCargoLoadingMethodComponent {
         })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

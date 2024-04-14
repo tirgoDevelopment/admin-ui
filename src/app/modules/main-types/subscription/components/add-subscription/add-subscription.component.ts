@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SubscriptionService } from '../../services/subscription.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CurrencyService } from 'app/modules/main-types/currency/services/currency.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-subscription',
@@ -95,7 +95,7 @@ export class AddSubscriptionComponent {
         })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

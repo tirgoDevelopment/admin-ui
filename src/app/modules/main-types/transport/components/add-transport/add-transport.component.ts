@@ -16,7 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { TransportService } from '../../services/transport.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-transport',
@@ -86,7 +86,7 @@ export class AddTransportComponent {
         })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

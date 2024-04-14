@@ -189,10 +189,12 @@
         </div>
     </div> -->
     <div class="flex justify-end mt-4 px-4">
-        <button mat-flat-button [color]="'primary'"  *ngIf="!client?.blocked" [disabled]="client?.blocked" (click)="block()">
+        <button mat-flat-button [color]="'primary'" *ngIf="!client?.blocked" [disabled]="client?.blocked"
+            (click)="block()">
             {{"block"|transloco}}
         </button>
-        <button mat-flat-button [color]="'primary'"  *ngIf="client?.blocked" [disabled]="!client?.blocked" (click)="active()">
+        <button mat-flat-button [color]="'primary'" *ngIf="client?.blocked" [disabled]="!client?.blocked"
+            (click)="active()">
             {{"unblock"|transloco}}
         </button>
     </div>

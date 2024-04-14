@@ -21,7 +21,7 @@
       <ng-container matColumnDef="agent">
          <mat-header-cell *matHeaderCellDef>{{'agent'| transloco}}</mat-header-cell>
          <mat-cell *matCellDef="let row">
-          <span *ngIf="row.userType=='agent'">
+            <span *ngIf="row.userType=='agent'">
                {{row?.createdBy}}
             </span> </mat-cell>
       </ng-container>
@@ -33,7 +33,7 @@
          <mat-header-cell *matHeaderCellDef>{{'type'| transloco}}</mat-header-cell>
          <mat-cell *matCellDef="let row">
 
-            <span  class="tw-text-red-500">
+            <span class="tw-text-red-500">
                {{row?.transctionType}}
             </span>
          </mat-cell>

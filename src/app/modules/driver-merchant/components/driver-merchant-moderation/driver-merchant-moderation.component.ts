@@ -21,7 +21,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
 import { DriverMerchantService } from '../../services/driver-merchant.service';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';

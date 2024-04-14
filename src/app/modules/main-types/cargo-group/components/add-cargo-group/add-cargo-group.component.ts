@@ -16,7 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { CargoGroupService } from '../../services/cargo-group.service';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 
 @Component({
@@ -79,7 +79,7 @@ export class AddCargoGroupComponent {
         })
       }
     } else {
-      this._dialog.open(MessagesComponent, {
+      this._dialog.open(MessageComponent, {
         width: '500px',
         height: '450px',
         data: {

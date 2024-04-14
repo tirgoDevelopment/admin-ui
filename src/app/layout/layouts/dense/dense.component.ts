@@ -14,7 +14,7 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { AdminsService } from 'app/modules/admins/services/admins.service';
 import { LanguagesComponent } from 'app/shared/components/common/languages/languages.component';
-import { MessagesComponent } from 'app/shared/components/common/messages/messages.component';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 import { NotificationsComponent } from 'app/shared/components/common/notifications/notifications.component';
 import { SearchComponent } from 'app/shared/components/common/search/search.component';
 import { UserComponent } from 'app/shared/components/common/user/user.component';
@@ -27,7 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
     templateUrl: './dense.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [FuseLoadingBarComponent,TranslocoModule, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
+    imports: [FuseLoadingBarComponent,TranslocoModule, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessageComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
 })
 export class DenseLayoutComponent implements OnInit, OnDestroy {
     @Input('isAthenticated') isAthenticated: boolean

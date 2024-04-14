@@ -23,9 +23,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { isObservable } from 'rxjs';
-import { removeUnselected } from 'app/shared/functions/remove-unselected-formData';
-import { MessageComponent } from 'app/shared/components/message/message.component';
 import { AgentService } from '../../services/agent.service';
+import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-agent-driver',
@@ -82,13 +81,13 @@ export class AddAgentDriverComponent implements OnInit {
   onFileSelected(event: any, type: string): void {
     const file: File = event.target.files[0];
     switch (type) {
-      case 'passportFilePath':
+      case 'passport':
         this.form.patchValue({
-          passportFilePath: file
+          passport: file
         });
-      case 'driverLisenseFilePath':
+      case 'driverLicense':
         this.form.patchValue({
-          driverLisenseFilePath: file
+          driverLicense: file
         });
     }
   }

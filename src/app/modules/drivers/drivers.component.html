@@ -118,12 +118,12 @@
                 <ng-container matColumnDef="type_transport">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <span *ngFor="let driver of row.driverTransports">
-                            <div *ngFor="let driver of driver.transportTypes">
+                    <mat-cell *matCellDef="let row" class="flex flex-col justify-start">
+                        <div *ngFor="let driver of row.driverTransports" >
+                            <div *ngFor="let driver of driver.transportTypes" >
                                 {{driver?.name}}
                             </div>
-                        </span>
+                        </div>
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
