@@ -1,5 +1,5 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title  class="font-bold text-2xl uppercase">{{"add_agent"|transloco}}</p>
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"add_agent"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -7,30 +7,29 @@
 <mat-dialog-content>
     <form [formGroup]="form" class="px-3">
 
-            <mat-form-field class="w-full">
-                <mat-label>{{ 'currency' | transloco }}</mat-label>
-                <mat-select formControlName="currencyId">
-                    <mat-option *ngFor="let currency of currencies"
-                        [value]="currency.id">{{currency.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>{{ 'currency' | transloco }}</mat-label>
+            <mat-select formControlName="currencyId">
+                <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-            <mat-form-field class="w-full">
-                <mat-label>{{ 'amount' | transloco }}</mat-label>
-                <input required matInput name="amount" type="number" [ngClass]="{'is-invalid': f.amount.errors}"
-                    formControlName="amount"  />
-                <mat-error *ngIf="f.amount.errors?.required">
-                    {{ 'is_empty' | transloco }}
-                </mat-error>
-            </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>{{ 'amount' | transloco }}</mat-label>
+            <input required matInput name="amount" type="number" [ngClass]="{'is-invalid': f.amount.errors}"
+                formControlName="amount" />
+            <mat-error *ngIf="f.amount.errors?.required">
+                {{ 'is_empty' | transloco }}
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field class="w-full">
-                <mat-label>{{ 'transactionType' | transloco }}</mat-label>
-                <mat-select formControlName="transactionType">
-                    <mat-option *ngFor="let transaction of transactionTypes"
-                        [value]="transaction">{{transaction}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>{{ 'transactionType' | transloco }}</mat-label>
+            <mat-select formControlName="transactionType">
+                <mat-option *ngFor="let transaction of transactionTypes"
+                    [value]="transaction">{{transaction}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
     </form>
 </mat-dialog-content>

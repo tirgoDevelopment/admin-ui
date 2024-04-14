@@ -10,8 +10,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput  formControlName="fullName"
-                        [ngClass]="{'is-invalid': f.fullName.errors}">
+                    <input matInput formControlName="fullName" [ngClass]="{'is-invalid': f.fullName.errors}">
                     <mat-error *ngIf="f.fullName.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -19,8 +18,7 @@
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput  formControlName="username"
-                        [ngClass]="{'is-invalid': f.username.errors}">
+                    <input matInput formControlName="username" [ngClass]="{'is-invalid': f.username.errors}">
                     <mat-error *ngIf="f.username.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -74,8 +72,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput  formControlName="username"
-                        [ngClass]="{'is-invalid': f.username.errors}">
+                    <input matInput formControlName="username" [ngClass]="{'is-invalid': f.username.errors}">
                     <mat-error *ngIf="f.username.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -90,8 +87,7 @@
             </div>
             <div class="p-3">
                 <mat-form-field color="accent" class="w-full">
-                    <input matInput  formControlName="username"
-                        [ngClass]="{'is-invalid': f.username.errors}">
+                    <input matInput formControlName="username" [ngClass]="{'is-invalid': f.username.errors}">
                     <mat-error *ngIf="f.username.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>

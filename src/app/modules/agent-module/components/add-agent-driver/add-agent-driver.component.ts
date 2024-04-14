@@ -81,13 +81,13 @@ export class AddAgentDriverComponent implements OnInit {
   onFileSelected(event: any, type: string): void {
     const file: File = event.target.files[0];
     switch (type) {
-      case 'passportFilePath':
+      case 'passport':
         this.form.patchValue({
-          passportFilePath: file
+          passport: file
         });
-      case 'driverLisenseFilePath':
+      case 'driverLicense':
         this.form.patchValue({
-          driverLisenseFilePath: file
+          driverLicense: file
         });
     }
   }

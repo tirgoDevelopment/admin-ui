@@ -65,7 +65,7 @@
                         <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                         <div class="absolute inset-0 flex items-center justify-center z-20">
                             <div>
-                                <input formControlName="passport" id="avatar-file-input1"
+                                <input id="avatar-file-input1"
                                     class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                     [multiple]="false" [accept]="'image/jpeg, image/png'"
                                     (change)="selectFile($event, 'passport')">
@@ -89,8 +89,7 @@
     <div class="ml-auto p-4">
         <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
             {{ 'cancel' | transloco }}</button>
-        <button
-            [ngClass]="{'fuse-mat-button text-white': form.invalid , 'fuse-mat-button dark': !form.invalid }"
+        <button [ngClass]="{'fuse-mat-button text-white': form.invalid , 'fuse-mat-button dark': !form.invalid }"
             mat-flat-button [color]="'primary'" [disabled]="form.invalid " (click)="submit()">
             {{ 'save' | transloco }}
         </button>
