@@ -216,7 +216,7 @@
         </mat-form-field>
       </div>
 
-      <div class="flex gap-2" *ngIf="isContainer">
+      <!-- <div class="flex gap-2" *ngIf="isContainer">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
           <mat-label>Объем(ф)</mat-label>
           <mat-select [value]="'EU'" formControlName="containerVolume">
@@ -226,8 +226,23 @@
             <mat-option [value]="'high'">Высокий куб</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
+      <div class="flex items-center gap-2" *ngIf="isContainer">
+        <mat-form-field class="flex items-center w-full">
+            <mat-label> {{ 'volume_f' | transloco }}</mat-label>
+            <mat-select [value]="'EU'" formControlName="containerVolume">
+                <mat-option [value]="'20'">20(ф.)</mat-option>
+                <mat-option [value]="'40'">40(ф.)</mat-option>
+                <mat-option [value]="'60'">60(ф.)</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-slide-toggle class="py-2 w-full" formControlName="isHighCube">
+            {{"Высокий куб"|transloco}}
+        </mat-slide-toggle>
+
+    </div>
 
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">

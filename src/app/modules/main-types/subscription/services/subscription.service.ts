@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createHttpParams } from 'app/core/functions/http-param';
 import { Response } from 'app/core/models/reponse';
-import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { SubscriptionModel } from '../models/subscription.model';
 import { HttpParams } from '@angular/common/http';

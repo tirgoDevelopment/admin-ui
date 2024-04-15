@@ -21,7 +21,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
 import { MerchantService } from '../../services/merchant.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MerchantModel } from '../../models/merchanr.model';
 
 @Component({
   selector: 'app-merchant-confirm',

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Response } from '../models/reponse';
 import { ToastrService } from 'ngx-toastr';
 import { env } from 'app/environmens/environment';
-import { ErrorStauses } from '../enum/error.enum';
 import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable({

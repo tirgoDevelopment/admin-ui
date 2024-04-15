@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Response } from 'app/core/models/reponse';
-import { ApiService } from 'app/core/service/api.service';
 import { Observable } from 'rxjs';
 import { CargoStatusModel } from '../models/cargo-status.model';
 import { createHttpParams } from 'app/core/functions/http-param';

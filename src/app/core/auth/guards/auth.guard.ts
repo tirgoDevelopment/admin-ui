@@ -3,7 +3,7 @@ import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 
 export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
     const router: Router = inject(Router);

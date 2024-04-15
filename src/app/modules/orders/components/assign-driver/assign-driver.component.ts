@@ -49,13 +49,9 @@ export class AssignDriverComponent {
     private _driverService: DriversService,
     private _dialog: MatDialog) {
     if (this.data) {
-      console.log(this.data)
-      // this.form.patchValue({
-      //   id: this.data?.id,
-      //   name: this.data?.name,
-      //   codeTNVED: this.data?.codeTNVED,
-      //   cargoTypeGroupId: this.data?.cargoTypeGroupId,
-      // });
+      this.form.patchValue({
+        orderId: this.data,
+      });
     }
     this.searchdriverSubject
     .pipe(
@@ -79,6 +75,8 @@ export class AssignDriverComponent {
     return this.form.controls
   }
   findDriver(ev: any): void {
+    console.log(ev.target.value)
+    console.log(ev.data)
     this.form.patchValue({
       driverId: ev.target.value
     })

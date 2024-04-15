@@ -26,6 +26,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-drivers',
@@ -34,7 +35,7 @@ import { FuseUtilsService } from '@fuse/services/utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule,MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
@@ -83,6 +84,22 @@ export class DriversComponent implements OnInit {
     return this.utilsService.hasPermission(permission)
 }
 
+
+
+tooltipText(driverTransports: any[]): string {
+  if (!driverTransports || driverTransports.length === 0) {
+    return '';
+  }
+  
+  const tooltipArray = [];
+  for (const driver of driverTransports) {
+    for (const type of driver.transportTypes) {
+      tooltipArray.push(type.name);
+    }
+  }
+  
+  return tooltipArray.join(', ');
+}
   clearFilters() {
     this.filters = {
       driverId: '',

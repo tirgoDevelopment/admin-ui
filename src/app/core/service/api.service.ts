@@ -5,8 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Response } from '../models/reponse';
 import { ToastrService } from 'ngx-toastr';
 import { env } from 'app/environmens/environment';
-import { ErrorStauses } from '../enum/error.enum';
-import { TranslocoPipe, TranslocoService, translate } from '@ngneat/transloco';
+import {  TranslocoService } from '@ngneat/transloco';
 
 @Injectable({
 	providedIn: 'root'

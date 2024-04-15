@@ -4,8 +4,8 @@
 }
 
 .h-screen-minus-200 {
-    height: calc(100vh - 200px); /* Make the container 200px less than the full height of the screen */
-    width: min-content; /* Ensure the container width adapts to the content */
-    max-width: 100%; /* Ensure the container does not exceed the width of the screen */
+    height: calc(100vh - 200px);
+    width: min-content; 
+    max-width: 100%;
 }
 

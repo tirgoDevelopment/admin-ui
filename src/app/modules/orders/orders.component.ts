@@ -130,6 +130,13 @@ export class OrdersComponent implements OnInit {
   filterDrivers() {
   }
 
+  tooltipText(row: any): string {
+    if (row.transportTypes) {
+      return row.transportTypes.map(type => type.name).join(', ');
+    } else {
+      return '';
+    }
+  }
   onPageChange(event: PageEvent): void {
     this.pageParams.limit = event.pageSize;
     this.pageParams.page = event.pageIndex;
