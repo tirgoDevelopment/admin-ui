@@ -8,7 +8,8 @@
                 <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class=" sm:inline-flex ml-3"  *ngIf="hasPermission('addDriver')"  [color]="'primary'" mat-flat-button (click)="add()">
+                <button class=" sm:inline-flex ml-3" *ngIf="hasPermission('addDriver')" [color]="'primary'"
+                    mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
@@ -89,7 +90,7 @@
         </div>
         <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
-                
+
                 <ng-container matColumnDef="index">
                     <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
                     <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
@@ -118,12 +119,8 @@
                 <ng-container matColumnDef="type_transport">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row" class="flex flex-col justify-start">
-                        <div *ngFor="let driver of row.driverTransports" >
-                            <div *ngFor="let driver of driver.transportTypes" >
-                                {{driver?.name}}
-                            </div>
-                        </div>
+                    <mat-cell *matCellDef="let row" [matTooltip]="tooltipText(row.driverTransports)">
+                        {{row.driverTransports[0]?.transportTypes[0].name}}
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
@@ -197,11 +194,8 @@
             </mat-table>
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">
             </app-no-data-placeholder>
-            <mat-paginator  (page)="onPageChange($event)" 
-                [length]="pageParams.totalPagesCount-1"
-                [pageSize]="pageParams.limit" 
-                [pageIndex]="pageParams.page" 
-                [pageSizeOptions]="[10, 20, 50, 100, 200]">
+            <mat-paginator (page)="onPageChange($event)" [length]="pageParams.totalPagesCount-1"
+                [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
             </mat-paginator>
         </div>
     </div>

@@ -1,5 +1,5 @@
-import { NgFor, NgIf } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,11 +9,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent } from '@fuse/components/alert';
-import { CountryService } from 'app/shared/services/country.service';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +24,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ClientService } from 'app/modules/clients/services/client.service';
 import { ClientModel } from 'app/modules/clients/models/client.model';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { MatOptionModule } from '@angular/material/core';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'create-order',
@@ -33,7 +36,7 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, MatCheckboxModule, TranslocoModule, MatSelectModule, MatInputModule, MatFormFieldModule,
+  imports: [RouterLink, NgIf, NgFor, MatCheckboxModule, AsyncPipe,PipeModule,MatSlideToggleModule, NgClass,MatRadioModule, TranslocoModule, MatSelectModule,MatOptionModule, MatInputModule, MatFormFieldModule,
     MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class CreateOrderComponent implements OnInit {
@@ -70,6 +73,7 @@ export class CreateOrderComponent implements OnInit {
     private _clientService: ClientService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private _cdr: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.searchSubject
       .pipe(
@@ -132,6 +136,7 @@ export class CreateOrderComponent implements OnInit {
           isUrgent: res.data?.isUrgent,
           isTwoDays: res.data?.isTwoDays,
           isAdr: res.data?.isAdr,
+          isHighCube: res.data?.isAdr,
           isCarnetTir: res.data?.isCarnetTir,
           isGlonas: res.data?.isGlonas,
           isParanom: res.data?.isParanom,
@@ -178,7 +183,10 @@ export class CreateOrderComponent implements OnInit {
       isCarnetTir: [false],
       isGlonas: [false],
       isParanom: [false],
+      isHighCube: [false],
       offeredPrice: [null],
+      containerVolume: [null],
+      cisternVolume: [null],
       offeredPriceCurrencyId: [null],
       inAdvancePrice: [0],
       inAdvancePriceCurrencyId: [null],
@@ -200,6 +208,7 @@ export class CreateOrderComponent implements OnInit {
       loadingMethodId: [null],
       fullName: [null],
     })
+    this._cdr.detectChanges()
     this.changeValue();
     forkJoin({
       currencies: this._typesService.getCurrencies(),
@@ -360,22 +369,24 @@ export class CreateOrderComponent implements OnInit {
 
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
       if (values.length == 1) {
-        console.log(this.transportKinds);
         let tranportKind = this.transportKinds.find(x => x.id == values);
         this.isAutotransport = tranportKind?.name?.includes('Автовоз');
         this.isRefrigerator = tranportKind?.name?.includes('Рефрижератор');
         this.isCistern = tranportKind?.name?.includes('Цистерна');
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
-      } else {
+      } else if (values.length > 1) {
         values.forEach(x => {
-          console.log(this.transportKinds);
           let tranportKind = this.transportKinds.find(y => y.id == x);
-          console.log(tranportKind?.name?.includes('Рефрежератор'));
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
           this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрижератор');
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
         });
+      } else {
+        this.isAutotransport = false;
+        this.isRefrigerator = false;
+        this.isCistern = false;
+        this.isContainer = false;
       }
     })
   }

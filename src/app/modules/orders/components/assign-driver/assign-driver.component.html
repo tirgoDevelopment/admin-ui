@@ -9,7 +9,7 @@
         <div class="flex">
             <div class="w-full">
                 <mat-form-field class="w-full">
-                    <mat-label>{{ 'client' | transloco }}</mat-label>
+                    <mat-label>{{ 'drivers' | transloco }}</mat-label>
                     <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
                         formControlName="fullName">
                     <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete"
@@ -23,10 +23,7 @@
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'amount' | transloco }}</mat-label>
-                    <input matInput formControlName="amount" [ngClass]="{'is-invalid': f.amount.errors}">
-                    <mat-error *ngIf="f.amount.errors?.required">
-                        {{ 'is_empty' | transloco }}
-                    </mat-error>
+                    <input matInput formControlName="amount">
                 </mat-form-field>
             </div>
         </div>

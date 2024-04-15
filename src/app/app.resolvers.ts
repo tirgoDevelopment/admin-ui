@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { NavigationService } from 'app/core/navigation/navigation.service';
-
 import { forkJoin } from 'rxjs';
 import { MessagesService } from './shared/components/common/messages/messages.service';
 import { NotificationsService } from './shared/components/common/notifications/notifications.service';

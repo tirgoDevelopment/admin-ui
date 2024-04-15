@@ -18,6 +18,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { ClientDetailComponent } from 'app/modules/clients/components/client-detail/client-detail.component';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
+import { AssignDriverComponent } from '../assign-driver/assign-driver.component';
 
 @Component({
   selector: 'app-order-detail',
@@ -66,6 +67,21 @@ export class OrderDetailComponent implements OnInit {
       height: '100vh',
       autoFocus: false,
       data: clientId,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+    })
+  }
+
+  assignDriver(orderId:number) {
+    this._dialog.open(AssignDriverComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: orderId,
       position: {
         top: '0',
         right: '0',
