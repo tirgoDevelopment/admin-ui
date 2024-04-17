@@ -355,5 +355,9 @@
     "see_subscription_transaction_agent":"See agent's subscription transaction",
     "see_payment_transaction_admin":"See admin's payment transaction" ,
     "see_service_transaction_admin":"See admin's service transaction",
-    "username":"Username"
+    "username":"Username",
+    "welcome":"Welcome",
+    "assign_merchant_driver":"Assign  merchant driver",
+    "driver_merchant":"Driver merchant "
+
 }

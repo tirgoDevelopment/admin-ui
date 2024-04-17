@@ -4,16 +4,6 @@
             <div>
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
-            <div class="flex items-center ml-6">
-                <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
-                    <span>{{ 'send' | transloco }}</span>
-                </button>
-                <button class=" sm:inline-flex ml-3" *ngIf="hasPermission('addDriver')" [color]="'primary'"
-                    mat-flat-button (click)="add()">
-                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-                    <span class="ml-2">{{ 'add' | transloco }}</span>
-                </button>
-            </div>
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
@@ -164,10 +154,6 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
-                                <button [disabled]="row.blocked" mat-menu-item color="accent" (click)="edit(row.id)">
-                                    <mat-icon>edit</mat-icon>
-                                    {{"edit"|transloco}}
-                                </button>
                                 <button mat-menu-item color="accent" (click)="detail(row.id)">
                                     <mat-icon>remove_red_eye</mat-icon>
                                     {{"detail"|transloco}}

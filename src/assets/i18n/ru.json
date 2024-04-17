@@ -184,7 +184,7 @@
     "legal_address": "Юридический адресс",
     "actual_address": "Фактический адресс",
     "bank_name": "Нзавние банка",
-    "account": "Account",
+    "account": "Счет",
     "inn": "ИНН",
     "oked": "ОКЭД",
     "mfo": "МФО",
@@ -350,5 +350,10 @@
      "see_payment_transaction_admin":"Просмотреть платежную транзакцию администратора",
      "see_service_transaction_admin":"Просмотреть транзакцию услуги администратора",
      "username":"Имя пользователя",
-     "userType": "Тип пользователя"
+     "userType": "Тип пользователя",
+    "welcome":"Добро пожаловать",
+    "assign_merchant_driver":"Назначить водителя продавца",
+    "driver_merchant":"Водитель-торговец "
+
+
 }

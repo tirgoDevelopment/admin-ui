@@ -27,7 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
     templateUrl: './dense.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [FuseLoadingBarComponent,TranslocoModule, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessageComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
+    imports: [FuseLoadingBarComponent, TranslocoModule, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, MessageComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
 })
 export class DenseLayoutComponent implements OnInit, OnDestroy {
     @Input('isAthenticated') isAthenticated: boolean
@@ -37,7 +37,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
     scheme: 'dark' | 'light';
     config: FuseConfig;
     user: any;
-    // staff: any;
+    staff: any;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     constructor(
         private _adminService: AdminsService,
@@ -74,10 +74,9 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
         this.user = this._authService.accessToken ? jwtDecode(this._authService.accessToken) : null;
-        // this._adminService.get(this.user.sub).subscribe(res => {
-        //     console.log(res)
-        //     this.staff=res.data
-        // })
+        this._adminService.get(this.user.sub).subscribe(res => {
+            this.staff = res.data
+        })
     }
 
     ngOnDestroy(): void {

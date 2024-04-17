@@ -14,92 +14,87 @@ import { Inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
-import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
 import { MessageComponent } from 'app/shared/components/message/message.component';
-import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DriverMerchantService } from 'app/modules/driver-merchant/services/driver-merchant.service';
+import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-assign-driver',
-  templateUrl: './assign-driver.component.html',
-  styleUrls: ['./assign-driver.component.scss'],
+  selector: 'app-assign-tmc',
+  templateUrl: './assign-tmc.component.html',
+  styleUrls: ['./assign-tmc.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, AsyncPipe, MatIconModule, MatAutocompleteModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-})
 
-export class AssignDriverComponent implements OnInit {
+})
+export class AssignTmcComponent implements OnInit {
   cargoGroup = [];
   loading: boolean = false;
   dirverList: any[] = [];
-  driverInfo: any[];
+  merchantInfo: any[];
+  merchantList: any[] = [];
   private searchdriverSubject = new Subject<number>();
   form: FormGroup = new FormGroup({
-    orderId: new FormControl('', [Validators.required]),
+    merchantId: new FormControl('', [Validators.required]),
     driverId: new FormControl('', [Validators.required]),
-    amount: new FormControl(''),
     fullName: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _driverService: DriversService,
+    private _merchantService: DriverMerchantService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
-        orderId: this.data,
+        driverId: this.data,
       });
     }
     this.searchdriverSubject
       .pipe(
         debounceTime(300),
         switchMap((findText: number) => {
-          return this._driverService.get(findText).pipe(
+          return this._merchantService.get(findText).pipe(
             catchError(() => of([])),
           );
         })
       )
       .subscribe((res: any) => {
-        this.driverInfo.push(res.data);
+        this.merchantInfo.push(res.data);
+        this.form.patchValue({
+          merchantId: this.merchantInfo[0]?.id ? this.merchantInfo[0]?.id : null
+        })
         this._cdr.detectChanges()
       });
   }
 
   ngOnInit(): void {
-    // this._driverService.getAll().subscribe((res: any) => {
-    //   this.dirverList = res.data.content
-    // })
-
+    this._merchantService.Verified().subscribe((response: any) => {
+      this.merchantList = response?.data.content;
+      console.log(this.merchantList)
+    });
   }
 
   get f() {
     return this.form.controls
   }
+
   findDriver(ev: any): void {
-    this.driverInfo = [];
-    this.form.patchValue({
-      driverId: ev.target.value
-    })
+    this.merchantInfo = [];
     const findText = ev.target.value.toString().trim().toLowerCase();
     this.searchdriverSubject.next(findText);
   }
+
   displayDriverFn(driver: any): string {
-    return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
+    return driver ? driver.id + ' ' + driver.companyType + ' ' + driver.companyName : '';
   }
   submit() {
+    console.log(this.form)
     if (this.form.valid) {
-      // this._cargoService.create(this.form.value).subscribe(res => {
-      //   if (res.success) {
-      //     this._dialog.closeAll()
-      //     this.form.reset()
-      //     this._toaster.success('Груз успешно добавлена')
-      //   } else {
-      //     this._toaster.error('Невозможно сохранить груз')
-      //   }
-      // })
+
     } else {
       this._dialog.open(MessageComponent, {
         width: '500px',

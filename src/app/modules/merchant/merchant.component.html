@@ -113,8 +113,8 @@
                             </button>
                             <mat-menu #moreMenu="matMenu">
                                 <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
-                                    <mat-icon>list</mat-icon>
-                                    {{"list"|transloco}}
+                                    <mat-icon>edit</mat-icon>
+                                    {{"edit"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" *ngIf="!row.blocked" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>

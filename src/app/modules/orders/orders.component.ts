@@ -36,12 +36,11 @@ import { FuseUtilsService } from '@fuse/services/utils';
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
- 
-  displayedColumns: string[] = ['index', 
-  'id', 'sendLocation', 'cargoDeliveryLocation',
-   'status', 'date_send', 'offeredPrice', 
-   'secure_transaction', 'type_cargo', 'transport_type',
 
+  displayedColumns: string[] = ['index',
+    'id', 'sendLocation', 'cargoDeliveryLocation',
+    'status', 'date_send', 'offeredPrice',
+    'secure_transaction', 'type_cargo', 'transport_type',
     'client', 'actions'];
   currentUser: any;
   transportKinds: any[] = [];
@@ -62,7 +61,7 @@ export class OrdersComponent implements OnInit {
   pageParams = {
     page: 0,
     limit: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -90,7 +89,7 @@ export class OrdersComponent implements OnInit {
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
+  }
 
   detail(id: number): void {
     const dialog = this.dialog.open(OrderDetailComponent, {
@@ -144,8 +143,7 @@ export class OrdersComponent implements OnInit {
   }
   getOrders(params?) {
     this.isLoading = true;
-    this.orderService.getOrders(Object.assign(this.filters,params)).subscribe((res: any) => {
-      console.log(res)
+    this.orderService.getOrders(Object.assign(this.filters, params)).subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data.content;

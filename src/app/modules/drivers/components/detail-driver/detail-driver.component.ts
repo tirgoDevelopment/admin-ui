@@ -22,6 +22,7 @@ import { ImagePriviewComponent } from 'app/shared/components/image-priview/image
 import { AddTransportComponent } from '../add-transport/add-transport.component';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { FileUrlService } from 'app/shared/services/file-url.service';
+import { AssignTmcComponent } from '../assign-tmc/assign-tmc.component';
 
 @Component({
   selector: 'app-detail-driver',
@@ -111,6 +112,20 @@ export class DetailDriverComponent implements OnInit {
     })
   }
 
+  assignMerchantDriver(id: number) {
+    this._dialog.open(AssignTmcComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: id,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+    })
+  }
   submit() {
   }
 }
