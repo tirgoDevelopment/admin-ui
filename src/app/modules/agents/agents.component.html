@@ -13,12 +13,12 @@
         </div>
         <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
+                <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.agentId">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'company_name' | transloco }}" name="company_name"
-                    [(ngModel)]="filters.companyName">
+                <input matInput placeholder="{{ 'username' | transloco }}" name="username"
+                    [(ngModel)]="filters.username">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
@@ -36,7 +36,7 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+                <button mat-flat-button color="warn"  (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
