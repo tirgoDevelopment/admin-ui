@@ -25,6 +25,7 @@ import { isObservable } from 'rxjs';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { FileUrlService } from 'app/shared/services/file-url.service';
+import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -283,6 +284,16 @@ export class MerchantModerationComponent implements OnInit {
         this.toastr.success('Успешно завершено')
       }
     })
+  }
+  createTransaction() {
+    const dialogRef = this._dialog.open(CreateTransactionComponent, {
+      autoFocus: false,
+      disableClose: true,
+      data: { balance: this.balances }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // this.getAllTransaction();
+    });
   }
 }
 

@@ -198,9 +198,15 @@
 
         </div>
     </form>
-    <div class="mt-10 flex ">
+    <div class="mt-10 flex justify-between items-center ">
         <div class="text-lg font-semibold">История платежей</div>
-        <span class="ml-auto"></span>
+        <div class="flex gap-2 items-center">
+            <button class="fuse-mat-button-large dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'" (click)="createTransaction()">
+                <mat-icon>add</mat-icon>
+                Пополнить баланс
+            </button>
+        </div>
+        <!-- <span class="ml-auto"></span> -->
         <div class="flex flex-row " *ngFor="let balance of balances">
             <div class="mx-3 text-center">
                 <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
@@ -218,6 +224,7 @@
     </div>
 
     <div class="mt-4  shadow-table">
+
         <mat-table matSort [dataSource]="dataSource">
             <ng-container matColumnDef="full_name">
                 <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
