@@ -146,7 +146,7 @@ export class MerchantModerationComponent implements OnInit {
   }
   getTransactions() {
     this.merchantService.getMerchantTransactions(this.id).subscribe(res => {
-      this.data = res.data
+      this.data = res.data.content
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator;
     })
@@ -157,7 +157,6 @@ export class MerchantModerationComponent implements OnInit {
       this.balances = res.data
     })
   }
-
 
   get f() {
     return this.form.controls
@@ -289,7 +288,7 @@ export class MerchantModerationComponent implements OnInit {
     const dialogRef = this._dialog.open(CreateTransactionComponent, {
       autoFocus: false,
       disableClose: true,
-      data: { balance: this.balances }
+      data: {merchantId:this.id, balance: this.balances }
     });
     dialogRef.afterClosed().subscribe(result => {
       // this.getAllTransaction();

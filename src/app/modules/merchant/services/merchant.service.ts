@@ -97,4 +97,8 @@ export class MerchantService {
     return this._http.patch<any>(env.apiUrl + `/finance/transaction/verify`, {}, { params: queryParams });
   }
 
+  createTransaction(params?) {
+    return this._apiService.post('/finance/transaction/add-client-merchant-balance', params);
+  }
+
 }

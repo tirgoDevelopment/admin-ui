@@ -1,304 +1,295 @@
 <div class="w-full bg-white dark:bg-transparent  dar p-6 rounded shadow-lg">
-    <div class="flex justify-between items-center">
-        <h2 class="text-xl font-bold">Редактировать</h2>
-        <div class="flex items-center">
-            <button (click)="editMerchant()" class="bg-green-500 dark:bg-blue-500 text-white px-4 py-2 rounded-md mr-2">
-                Сохранить
-            </button>
-        </div>
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl font-bold">Редактировать</h2>
+    <div class="flex items-center">
+      <button (click)="editMerchant()" class="bg-green-500 dark:bg-blue-500 text-white px-4 py-2 rounded-md mr-2">
+        Сохранить
+      </button>
     </div>
+  </div>
 
-    <form [formGroup]="form">
-        <div class="grid grid-cols-3 gap-3 w-full">
+  <form [formGroup]="form">
+    <div class="grid grid-cols-3 gap-3 w-full">
 
-            <mat-form-field>
-                <mat-label>{{ 'email' | transloco }}</mat-label>
-                <input matInput name="email" formControlName="email" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'email' | transloco }}</mat-label>
+        <input matInput name="email" formControlName="email" required />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'company_name' | transloco }}</mat-label>
-                <input required matInput name="companyName" formControlName="companyName" />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'company_name' | transloco }}</mat-label>
+        <input required matInput name="companyName" formControlName="companyName" />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label> {{ 'director_first_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName" />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'director_first_name' | transloco }}</mat-label>
+        <input required matInput name="supervisorFirstName" formControlName="supervisorFirstName" />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label> {{ 'director_last_name' | transloco }}</mat-label>
-                <input required matInput name="supervisorLastName" formControlName="supervisorLastName" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label> {{ 'responce_person_first_name' | transloco }}</mat-label>
-                <input required matInput name="responsiblePersonFistName"
-                    placeholder="{{ 'responce_person_first_name' | transloco }}"
-                    formControlName="responsiblePersonFistName" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'director_last_name' | transloco }}</mat-label>
+        <input required matInput name="supervisorLastName" formControlName="supervisorLastName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'responce_person_first_name' | transloco }}</mat-label>
+        <input required matInput name="responsiblePersonFistName"
+          placeholder="{{ 'responce_person_first_name' | transloco }}" formControlName="responsiblePersonFistName"
+          required />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label> {{ 'responce_person_last_name' | transloco }}</mat-label>
-                <input required matInput name="responsiblePersonLastName"
-                    placeholder="{{ 'responce_person_last_name' | transloco }}"
-                    formControlName="responsiblePersonLastName" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'responce_person_last_name' | transloco }}</mat-label>
+        <input required matInput name="responsiblePersonLastName"
+          placeholder="{{ 'responce_person_last_name' | transloco }}" formControlName="responsiblePersonLastName"
+          required />
+      </mat-form-field>
 
 
-            <mat-form-field>
-                <mat-label> {{ 'bank_name' | transloco }}</mat-label>
-                <input matInput name="bankName" formControlName="bankName" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'bank_name' | transloco }}</mat-label>
+        <input matInput name="bankName" formControlName="bankName" required />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'inn' | transloco }}</mat-label>
-                <input type="text" mask="999999999" matInput name="inn" formControlName="inn" maxlength="9" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'inn' | transloco }}</mat-label>
+        <input type="text" mask="999999999" matInput name="inn" formControlName="inn" maxlength="9" required />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'oked' | transloco }}</mat-label>
-                <input type="text" mask="99999" matInput name="oked" formControlName="oked" maxlength="5" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'oked' | transloco }}</mat-label>
+        <input type="text" mask="99999" matInput name="oked" formControlName="oked" maxlength="5" required />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'mfo' | transloco }}</mat-label>
-                <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'mfo' | transloco }}</mat-label>
+        <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
+      </mat-form-field>
 
-            <mat-form-field color="accent" class="w-full">
-                <mat-label>{{ 'phone' | transloco }}*</mat-label>
-                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
-                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber"
-                    #phoneNumber>
-                </ngx-mat-intl-tel-input>
-            </mat-form-field>
+      <mat-form-field color="accent" class="w-full">
+        <mat-label>{{ 'phone' | transloco }}*</mat-label>
+        <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber" [preferredCountries]="['uz']"
+          [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber" #phoneNumber>
+        </ngx-mat-intl-tel-input>
+      </mat-form-field>
 
-            <mat-form-field color="accent" class="w-full">
-                <mat-label>{{ 'phone' | transloco }}*</mat-label>
-                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
-                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
-                    name="responsbilePersonPhoneNumber" #responsbilePersonPhoneNumber>
-                </ngx-mat-intl-tel-input>
-            </mat-form-field>
+      <mat-form-field color="accent" class="w-full">
+        <mat-label>{{ 'phone' | transloco }}*</mat-label>
+        <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
+          [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
+          name="responsbilePersonPhoneNumber" #responsbilePersonPhoneNumber>
+        </ngx-mat-intl-tel-input>
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'duns_number' | transloco }}</mat-label>
-                <input type="text" matInput name="dunsNumber" formControlName="dunsNumber"
-                    placeholder="{{ 'duns_number' | transloco }}" mask="999999999" maxlength="9" />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'duns_number' | transloco }}</mat-label>
+        <input type="text" matInput name="dunsNumber" formControlName="dunsNumber"
+          placeholder="{{ 'duns_number' | transloco }}" mask="999999999" maxlength="9" />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>{{ 'legal_address' | transloco }}</mat-label>
-                <input type="text" matInput name="dunsNumber" formControlName="legalAddress" />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'legal_address' | transloco }}</mat-label>
+        <input type="text" matInput name="dunsNumber" formControlName="legalAddress" />
+      </mat-form-field>
 
-            <mat-form-field>
-                <mat-label> {{ 'notes' | transloco }}</mat-label>
-                <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
-            </mat-form-field>
+      <mat-form-field>
+        <mat-label> {{ 'notes' | transloco }}</mat-label>
+        <input matInput name="notes" formControlName="notes" placeholder="{{ 'notes' | transloco }}" />
+      </mat-form-field>
+    </div>
+    <div class="flex flex-wrap gap-4 items-end justify-start">
+
+      <div class="w-40">
+        <mat-label>{{ 'logo' | transloco }} </mat-label>
+        <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+          <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-20">
+            <div>
+              <input id="avatar-file-input1" class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                type="file" [multiple]="false" [accept]="'image/jpeg, image/png'"
+                (change)="selectFile($event, 'logoFilePath')">
+              <div class="flex">
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  for="avatar-file-input1" matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                </label>
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                    (click)="fileService.downloadImage('client_merchant', logoFilePath)"></mat-icon>
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
+          <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
+            [src]="logoFilePath | fileFetch: 'client_merchant'|async">
         </div>
-        <div class="flex flex-wrap gap-4 items-end justify-start">
+      </div>
 
-            <div class="w-40">
-                <mat-label>{{ 'logo' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div>
-                            <input id="avatar-file-input1"
-                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                (change)="selectFile($event, 'logoFilePath')">
-                            <div class="flex">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input1" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                                        (click)="fileService.downloadImage('client_merchant', logoFilePath)"></mat-icon>
-                                </label>
-                            </div>
+      <div class="w-40">
+        <mat-label>{{ 'passport' | transloco }} </mat-label>
+        <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+          <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-20">
+            <div>
+              <input id="avatar-file-input2" class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                type="file" [multiple]="false" [accept]="'image/jpeg, image/png'"
+                (change)="selectFile($event, 'passportFilePath')">
+              <div class="flex">
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  for="avatar-file-input2" matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                </label>
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                    (click)="fileService.downloadImage('client_merchant', passportFilePath)"></mat-icon>
+                </label>
+              </div>
 
-                        </div>
-                    </div>
-                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&!edit" [src]="logoFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="logoFilePath&&edit"
-                        [src]="logoFilePath | fileFetch: 'client_merchant'|async">
-                </div>
             </div>
-
-            <div class="w-40">
-                <mat-label>{{ 'passport' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div>
-                            <input id="avatar-file-input2"
-                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                (change)="selectFile($event, 'passportFilePath')">
-                            <div class="flex">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input2" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                                        (click)="fileService.downloadImage('client_merchant', passportFilePath)"></mat-icon>
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
-                        [src]="passportFilePath | fileFetch: 'client_merchant'|async">
-                </div>
-            </div>
-
-            <div class="w-40">
-                <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
-                <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div>
-                            <input id="avatar-file-input3"
-                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
-                                [multiple]="false" [accept]="'image/jpeg, image/png'"
-                                (change)="selectFile($event, 'registrationCertificateFilePath')">
-                            <div class="flex">
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    for="avatar-file-input3" matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                </label>
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                    matRipple>
-                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                                        (click)="fileService.downloadImage('client_merchant', registrationCertificateFilePath)"></mat-icon>
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
-                        [src]="registrationCertificateFilePath">
-                    <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&edit"
-                        [src]="registrationCertificateFilePath | fileFetch: 'client_merchant'|async">
-                </div>
-            </div>
-
+          </div>
+          <img class="object-fill w-full h-full" *ngIf="passportFilePath&&!edit" [src]="passportFilePath">
+          <img class="object-fill w-full h-full" *ngIf="passportFilePath&&edit"
+            [src]="passportFilePath | fileFetch: 'client_merchant'|async">
         </div>
-    </form>
-    <div class="mt-10 flex justify-between items-center ">
-        <div class="text-lg font-semibold">История платежей</div>
-        <div class="flex gap-2 items-center">
-            <button class="fuse-mat-button-large dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'" (click)="createTransaction()">
+      </div>
+
+      <div class="w-40">
+        <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
+        <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+          <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-20">
+            <div>
+              <input id="avatar-file-input3" class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                type="file" [multiple]="false" [accept]="'image/jpeg, image/png'"
+                (change)="selectFile($event, 'registrationCertificateFilePath')">
+              <div class="flex">
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  for="avatar-file-input3" matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                </label>
+                <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                  matRipple>
+                  <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                    (click)="fileService.downloadImage('client_merchant', registrationCertificateFilePath)"></mat-icon>
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&!edit"
+            [src]="registrationCertificateFilePath">
+          <img class="object-fill w-full h-full" *ngIf="registrationCertificateFilePath&&edit"
+            [src]="registrationCertificateFilePath | fileFetch: 'client_merchant'|async">
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="mt-10 flex justify-between items-center ">
+    <div class="text-lg font-semibold">История платежей</div>
+    <div class="flex gap-2 items-center">
+
+    </div>
+    <span class="ml-auto"></span>
+    <div class="flex flex-row " *ngFor="let balance of balances">
+      <div class="mx-3 text-center">
+        <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
+        <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+          <span>{{balance?.activebalance}}</span>
+        </div>
+      </div>
+      <div class="mx-3 text-center">
+        <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
+        <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
+          <span>{{balance?.frozenbalance}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <button class="hidden sm:inline-flex ml-3" [color]="'primary'" mat-flat-button (click)="createTransaction()">
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+      <span class="ml-2">{{ 'Пополнить баланс' | transloco }}</span>
+    </button>
+  </div>
+
+  <div class="mt-4  shadow-table">
+
+    <mat-table matSort [dataSource]="dataSource">
+      <ng-container matColumnDef="full_name">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row?.createdBy}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="currencyName">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"currency_name"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row?.currencyName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sum">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"sum"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row?.amount}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"date"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row?.createdAt}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span *ngIf="row.transctionType == 'topupAccount'">Пополнение счета</span>
+          <span *ngIf="row.transctionType == 'withdrawAccount'">Вывод стредств</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="font-bold" *matHeaderCellDef>{{"status"|transloco}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="bg-red-500 text-white p-2" *ngIf="row.rejected">{{"rejected"|transloco}}</span>
+          <span class="bg-green-500 text-white p-2" *ngIf="row.verified">{{"approve"|transloco}}</span>
+          <span class="bg-yellow-500 text-white p-2"
+            *ngIf="!row.verified && !row.rejected">{{"request"|transloco}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div fxFlex="row" fxLayoutAlign="end center">
+            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More" (click)="$event.stopPropagation()">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #moreMenu="matMenu">
+              <button mat-menu-item color="accent" *ngIf="!row.verified " (click)="verifyTransaction(row.id)">
                 <mat-icon>add</mat-icon>
-                Пополнить баланс
-            </button>
-        </div>
-        <!-- <span class="ml-auto"></span> -->
-        <div class="flex flex-row " *ngFor="let balance of balances">
-            <div class="mx-3 text-center">
-                <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
-                <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                    <span>{{balance?.activebalance}}</span>
-                </div>
-            </div>
-            <div class="mx-3 text-center">
-                <div class="text-sm font-semibold">{{ 'frozen_balance' | transloco }}</div>
-                <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-                    <span>{{balance?.frozenbalance}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+                {{"approve"|transloco}}
+              </button>
+              <button mat-menu-item color="accent" *ngIf=" !row.rejected" (click)="rejectTransaction(row.id)">
+                <mat-icon>remove</mat-icon>
+                {{"reject"|transloco}}
+              </button>
+            </mat-menu>
+          </div>
+        </mat-cell>
+      </ng-container>
 
-    <div class="mt-4  shadow-table">
-
-        <mat-table matSort [dataSource]="dataSource">
-            <ng-container matColumnDef="full_name">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.createdBy}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="currencyName">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"currency_name"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.currencyName}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="sum">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"sum"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.amount}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="date">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"date"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row?.createdAt}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="type">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <span *ngIf="row.transctionType == 'topupAccount'">Пополнение счета</span>
-                    <span *ngIf="row.transctionType == 'withdrawAccount'">Вывод стредств</span>
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-                <mat-header-cell class="font-bold" *matHeaderCellDef>{{"status"|transloco}}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <span class="bg-red-500 text-white p-2" *ngIf="row.rejected">{{"rejected"|transloco}}</span>
-                    <span class="bg-green-500 text-white p-2" *ngIf="row.verified">{{"approve"|transloco}}</span>
-                    <span class="bg-yellow-500 text-white p-2"
-                        *ngIf="!row.verified && !row.rejected">{{"request"|transloco}}</span>
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <div fxFlex="row" fxLayoutAlign="end center">
-                        <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
-                            (click)="$event.stopPropagation()">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #moreMenu="matMenu">
-                            <button mat-menu-item color="accent" *ngIf="!row.verified "
-                                (click)="verifyTransaction(row.id)">
-                                <mat-icon>add</mat-icon>
-                                {{"approve"|transloco}}
-                            </button>
-                            <button mat-menu-item color="accent" *ngIf=" !row.rejected"
-                                (click)="rejectTransaction(row.id)">
-                                <mat-icon>remove</mat-icon>
-                                {{"reject"|transloco}}
-                            </button>
-                        </mat-menu>
-                    </div>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns">
-            </mat-row>
-        </mat-table>
-        <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
-            [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
-        </mat-paginator>
-    </div>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns">
+      </mat-row>
+    </mat-table>
+    <mat-paginator [showFirstLastButtons]="true" [length]="dataSource.data.length"
+      [pageSizeOptions]="[10, 20, 50, 100, 200]" showFirstLastButtons>
+    </mat-paginator>
+  </div>
 </div>

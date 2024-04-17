@@ -37,10 +37,11 @@ export class CreateTransactionComponent {
     currencies: any;
     transactionType: string = '';
     form: FormGroup = new FormGroup({
-        transactionType: new FormControl('', [Validators.required]),
-        amount: new FormControl('', [Validators.required]),
+        merchantId: new FormControl(+this.data.merchantId, [Validators.required]),
+        transactionType: new FormControl('topupAccount', [Validators.required]),
+        amount: new FormControl(null, [Validators.required]),
         currencyId: new FormControl('', [Validators.required]),
-        comment: new FormControl(''),
+        comment: new FormControl('')
     })
 
     constructor(
@@ -59,10 +60,20 @@ export class CreateTransactionComponent {
     }
 
     create() {
+        this.form.patchValue({
+            amount: +this.form.value.amount
+        })
         this.form.disable();
-        console.log(this.form.value);
-        
-        this.form.enable()
+        this._merChantService.createTransaction(this.form.value).subscribe((res:any) => {
+          if(res && res.success) {
+            this.form.enable();
+            this._toaster.success('Транзакция успешно создана');
+            this._dialog.closeAll();
+          }
+        },err => {
+          this.form.enable();
+          this._toaster.error(err.error.message);
+        })
     }
 
     closeModal() {
