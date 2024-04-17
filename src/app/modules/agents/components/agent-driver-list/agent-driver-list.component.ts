@@ -40,8 +40,8 @@ export class AgentDriverListComponent implements OnInit {
   id: number;
   pageParams = {
     agentId: 0,
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     perPage: 10,
     totalPagesCount:1,
     sortBy: 'id',
@@ -77,8 +77,8 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;    
     this.getAllAgentsDrivers(this.pageParams);
   }
 

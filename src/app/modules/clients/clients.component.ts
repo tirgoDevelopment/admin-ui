@@ -1,11 +1,11 @@
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +21,6 @@ import { SendPushComponent } from './components/send-push/send-push.component';
 import { BlockClientComponent } from './components/block-client/block-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 
 @Component({
@@ -31,7 +30,7 @@ import { FuseUtilsService } from '@fuse/services/utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, MatIconModule, DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatIconModule, MatSortModule, DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, NoDataPlaceholderComponent, MatSelectModule, ClientDetailComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class ClientsComponent {
   cities: any[] = [];
@@ -45,8 +44,8 @@ export class ClientsComponent {
     lastLoginTo: '',
   };
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
@@ -55,26 +54,27 @@ export class ClientsComponent {
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<ClientModel>([]);
+
   constructor(
     private _clientService: ClientService,
     private utilsService: FuseUtilsService,
-    private _permissionService: NgxPermissionsService,
     protected _dialog?: MatDialog) {
     this.getAllClient(this.pageParams);
   }
 
+
   getAllClient(params?) {
     this._clientService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
+  }
 
   clearFilters() {
     this.filters = {
@@ -94,9 +94,8 @@ export class ClientsComponent {
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllClient(this.pageParams);
   }
 
@@ -145,6 +144,20 @@ export class ClientsComponent {
     this._clientService.active(id).subscribe(() => {
       this.getAllClient(this.pageParams);
     })
+  }
+
+  sortData(filter: string): void {
+    if (filter === this.pageParams.sortBy) {
+      if (this.pageParams.sortType === 'desc') {
+        this.pageParams.sortType = 'asc';
+      } else {
+        this.pageParams.sortType = 'desc';
+      }
+    } else {
+      this.pageParams.sortBy = filter;
+      this.pageParams.sortType = 'desc';
+    }
+    this.getAllClient(this.pageParams)
   }
 
   add() {

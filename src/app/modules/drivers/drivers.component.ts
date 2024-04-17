@@ -24,7 +24,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddVerificationComponent } from './components/add-verification/add-verification.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -35,7 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class DriversComponent implements OnInit {
@@ -53,10 +52,10 @@ export class DriversComponent implements OnInit {
     lastLoginFrom: '',
     lastLoginTo: '',
   };
-  totalPagesCount: number;
+  totalPagesCount = 1;
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -69,7 +68,7 @@ export class DriversComponent implements OnInit {
     protected _dialog: MatDialog,
     private _typeService: TypesService,
     private utilsService: FuseUtilsService,
-    private cdr: ChangeDetectorRef) {
+    private _cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -77,29 +76,29 @@ export class DriversComponent implements OnInit {
     this._typeService.getTransportKinds().subscribe((response: any) => {
       this.transportKinds = response.data;
     })
-    this.cdr.detectChanges()
+    this._cdr.detectChanges()
   }
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
-
-
-
-tooltipText(driverTransports: any[]): string {
-  if (!driverTransports || driverTransports.length === 0) {
-    return '';
   }
-  
-  const tooltipArray = [];
-  for (const driver of driverTransports) {
-    for (const type of driver.transportTypes) {
-      tooltipArray.push(type.name);
+
+
+
+  tooltipText(driverTransports: any[]): string {
+    if (!driverTransports || driverTransports.length === 0) {
+      return '';
     }
+
+    const tooltipArray = [];
+    for (const driver of driverTransports) {
+      for (const type of driver.transportTypes) {
+        tooltipArray.push(type.name);
+      }
+    }
+
+    return tooltipArray.join(', ');
   }
-  
-  return tooltipArray.join(', ');
-}
   clearFilters() {
     this.filters = {
       driverId: '',
@@ -135,19 +134,33 @@ tooltipText(driverTransports: any[]): string {
       })
   }
 
+
+  sortData(filter: string): void {
+    if (filter === this.pageParams.sortBy) {
+      if (this.pageParams.sortType === 'desc') {
+        this.pageParams.sortType = 'asc';
+      } else {
+        this.pageParams.sortType = 'desc';
+      }
+    } else {
+      this.pageParams.sortBy = filter;
+      this.pageParams.sortType = 'desc';
+    }
+    this.getAllDrivers(this.pageParams)
+  }
   getAllDrivers(params?) {
     this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllDrivers(this.pageParams);
   }
 

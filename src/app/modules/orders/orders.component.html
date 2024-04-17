@@ -5,9 +5,6 @@
         <div class="text-3xl font-semibold tracking-tight leading-8">Грузы</div>
       </div>
       <div class="flex items-center ml-6">
-        <!-- <button (click)="detail()" class="hidden sm:inline-flex mr-3 "  mat-flat-button [color]="'primary'">
-          detail
-        </button> -->
         <button (click)="createOrderModal()" *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
           <mat-icon>add</mat-icon>
           Разместить груз
@@ -20,17 +17,9 @@
       </mat-form-field>
       <mat-form-field color="accent" class="w-50 px-1">
         <mat-select placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">
-          <mat-option value="0">{{ 'waiting' | transloco }}</mat-option>
-          <mat-option value="1">{{ 'accepted' | transloco }}</mat-option>
-          <mat-option value="2">{{ 'active' | transloco }}</mat-option>
-          <mat-option value="3">{{ 'completed' | transloco }}</mat-option>
-          <mat-option value="4">{{ 'closed' | transloco }}</mat-option>
-          <mat-option value="5">{{ 'canceled' | transloco }}</mat-option>
+          <mat-option *ngFor="let cargostatus of cargoStatuses" [value]="cargostatus.id">{{ cargostatus.name
+            }}</mat-option>
         </mat-select>
-      </mat-form-field>
-
-      <mat-form-field color="accent" class="w-50 px-1">
-        <input matInput placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
@@ -80,13 +69,14 @@
         </ng-container>
 
         <ng-container matColumnDef="id">
-          <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
+          <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID
+          </mat-header-cell>
           <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="sendLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
+          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
             {{row?.loadingLocation?.name}} </mat-cell>
         </ng-container>
 
@@ -98,13 +88,11 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef class="font-bold" mat-sort-header sortActionDescription="Sort by status">
+          <mat-header-cell *matHeaderCellDef class="font-bold" mat-sort-header (click)="sortData('cargoStatus')">
             {{ 'status' |
             transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <div class="status-badge" [class]="returnClassStatusOrder(row.cargoStatus?.name)">
-              <span>{{statusOrderCheck(row.cargoStatus?.name)}}</span>
-            </div>
+          <mat-cell *matCellDef="let row" class="flex justify-center" [style.background-color]="row.cargoStatus?.color">
+            <span>{{ row.cargoStatus?.name }}</span>
           </mat-cell>
         </ng-container>
 
@@ -127,18 +115,21 @@
         </ng-container>
 
         <ng-container matColumnDef="secure_transaction">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'secure_transaction' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header (click)="sortData('isSafe')">{{
+            'secure_transaction' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row?.isSafe ? 'Да':'Нет'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'price' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header>{{ 'price' | transloco
+            }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.offeredPrice }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="date_send">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'shipment_date' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header (click)="sortData('createdAt')">{{
+            'shipment_date' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             {{ (row.isUrgent ? addTwoDays(row.createdAt) : row.createdAt) | date: 'dd.MM.YYYY' }}
           </mat-cell>
@@ -175,8 +166,9 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; let i=index" (click)="detail(row.id)"></mat-row>
       </mat-table>
-      <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)" [length]="pageParams.totalPagesCount-1"
-        [pageSize]="pageParams.limit" [pageIndex]="pageParams.page" [pageSizeOptions]="[10, 20, 50, 100, 200]">
+      <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)"
+        [length]="pageParams.totalPagesCount*pageParams.pageSize" [pageSize]="pageParams.pageSize"
+        [pageIndex]="pageParams.pageIndex-1" [pageSizeOptions]="[10, 20, 50, 100, 200]">
       </mat-paginator>
     </div>
   </div>

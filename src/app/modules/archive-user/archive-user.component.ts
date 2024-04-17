@@ -36,8 +36,8 @@ export class ArchiveUserComponent implements OnInit {
   };
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
@@ -49,9 +49,8 @@ export class ArchiveUserComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
-    this.getAllArchiveUsers(this.pageParams);
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;    this.getAllArchiveUsers(this.pageParams);
   }
 
   detail(id: number) {
@@ -75,8 +74,8 @@ export class ArchiveUserComponent implements OnInit {
   getAllArchiveUsers(params?) {
     this._archiveUserService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }

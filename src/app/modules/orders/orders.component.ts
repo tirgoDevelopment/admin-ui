@@ -23,8 +23,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrderModel } from './models/order.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { CargoStatusService } from '../main-types/cargo-status/services/cargo-status.service';
 
 @Component({
   selector: 'app-orders',
@@ -45,6 +45,7 @@ export class OrdersComponent implements OnInit {
   currentUser: any;
   transportKinds: any[] = [];
   transportTypes: any[] = [];
+  cargoStatuses: any[] = [];
   filters = {
     orderId: '',
     statusId: '',
@@ -59,8 +60,8 @@ export class OrdersComponent implements OnInit {
   };
 
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
@@ -70,14 +71,14 @@ export class OrdersComponent implements OnInit {
 
   dataSource = new MatTableDataSource<OrderModel>([]);
   constructor(
-    private utilsService: FuseUtilsService,
-    private orderService: OrdersService,
-    private _permissionService: NgxPermissionsService,
-    private authService: AuthService,
-    private dialog: MatDialog,
+    private _utilsService: FuseUtilsService,
+    private _orderService: OrdersService,
+    private _authService: AuthService,
+    private _dialog: MatDialog,
+    private _cargostatusService: CargoStatusService,
     private _typeService: TypesService) { }
   ngOnInit(): void {
-    this.currentUser = jwtDecode(this.authService.accessToken);
+    this.currentUser = jwtDecode(this._authService.accessToken);
     this.getOrders();
     this._typeService.getTransportKinds().subscribe((response: any) => {
       this.transportKinds = response.data;
@@ -85,14 +86,17 @@ export class OrdersComponent implements OnInit {
     this._typeService.getTransportTypes().subscribe((response: any) => {
       this.transportTypes = response.data;
     })
+    this._cargostatusService.getAll().subscribe((response: any) => {
+      this.cargoStatuses = response.data;
+    })
   }
 
   hasPermission(permission): boolean {
-    return this.utilsService.hasPermission(permission)
+    return this._utilsService.hasPermission(permission)
   }
 
   detail(id: number): void {
-    const dialog = this.dialog.open(OrderDetailComponent, {
+    const dialog = this._dialog.open(OrderDetailComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,
@@ -137,13 +141,13 @@ export class OrdersComponent implements OnInit {
     }
   }
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
-    this.getOrders(this.pageParams);
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;   
+     this.getOrders(this.pageParams);
   }
   getOrders(params?) {
     this.isLoading = true;
-    this.orderService.getOrders(Object.assign(this.filters, params)).subscribe((res: any) => {
+    this._orderService.getOrders(Object.assign(this.filters, params)).subscribe((res: any) => {
       if (res && res.success) {
         this.isLoading = false;
         this.dataSource = res.data.content;
@@ -193,15 +197,29 @@ export class OrdersComponent implements OnInit {
     }
   }
   cancel(row) {
-    this.orderService.cancelOrder(row.id).subscribe((res: any) => {
+    this._orderService.cancelOrder(row.id).subscribe((res: any) => {
       if (res && res.success) {
         this.getOrders(this.pageParams);
       }
     })
   }
 
+  sortDaat(filter: string): void {
+    if (filter === this.pageParams.sortBy) {
+      if (this.pageParams.sortType === 'desc') {
+        this.pageParams.sortType = 'asc';
+      } else {
+        this.pageParams.sortType = 'desc';
+      }
+    } else {
+      this.pageParams.sortBy = filter;
+      this.pageParams.sortType = 'desc';
+    }
+    this.getOrders(this.pageParams)
+  }
+
   edit(row) {
-    const dialogRef = this.dialog.open(CreateOrderComponent, {
+    const dialogRef = this._dialog.open(CreateOrderComponent, {
       minWidth: '50vw',
       maxWidth: '70vw',
       minHeight: '50vh',
@@ -216,7 +234,7 @@ export class OrdersComponent implements OnInit {
   }
 
   createOrderModal() {
-    const dialogRef = this.dialog.open(CreateOrderComponent, {
+    const dialogRef = this._dialog.open(CreateOrderComponent, {
       minWidth: '50vw',
       maxWidth: '70vw',
       minHeight: '50vh',
