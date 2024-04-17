@@ -36,10 +36,10 @@ export class AgentModuleComponent implements OnInit {
   id: number;
   pageParams = {
     agentId: 0,
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     perPage: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -55,19 +55,18 @@ export class AgentModuleComponent implements OnInit {
     this.getAllDrivers(this.pageParams);
     this.getBalance(this.id)
   }
-  
+
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-   
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllDrivers(this.pageParams);
   }
 
-  getAllDrivers( params) {
-    this._agentService.getAllByAgent(params).subscribe((response:any) => {
+  getAllDrivers(params) {
+    this._agentService.getAllByAgent(params).subscribe((response: any) => {
       this.dataSource.data = response?.data;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
@@ -78,11 +77,11 @@ export class AgentModuleComponent implements OnInit {
     });
   }
 
-  detail(id:number) {
+  detail(id: number) {
     this._dialog.open(DetailAgentDriverComponent, {
       width: '500px',
       height: '100vh',
-      data:id,
+      data: id,
       autoFocus: false,
       position: {
         top: '0',

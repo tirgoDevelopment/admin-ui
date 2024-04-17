@@ -40,8 +40,8 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     createdAtTo: '',
   };
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
     totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
@@ -71,18 +71,17 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   }
 
   getAllAgents(params?) {
-    this._agentService.getAll(params).subscribe((response:any) => {
+    this._agentService.getAll(params).subscribe((response: any) => {
       this.dataSource.data = response?.data.content;
-      this.pageParams.limit = response?.data?.pageSize;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllAgents(this.pageParams);
   }
 

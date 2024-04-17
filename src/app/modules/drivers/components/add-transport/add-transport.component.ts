@@ -104,6 +104,7 @@ export class AddTransportComponent implements OnInit {
     this.form.patchValue({
       driverId: data?.driverId,
     })
+    console.log(data)
     if (data.edit) {
       this.edit = true;
     }
@@ -171,6 +172,7 @@ export class AddTransportComponent implements OnInit {
 
   transportKindIdsChangeEdit() {
     this.form.get('transportKindIds').valueChanges.subscribe((values) => {
+
       if (values.length == 1) {
         let tranportKind = this.transportKinds.find(x => x.id == values[0].id);
         this.isAutotransport = tranportKind?.name?.includes('Автовоз');
@@ -180,15 +182,18 @@ export class AddTransportComponent implements OnInit {
         this.isLoad = tranportKind?.name?.includes('Грузоподъемность');
         this._cdr.detectChanges()
       } else if (values.length > 1) {
+        console.log(values)
+        console.log(values.length)
         values.forEach(x => {
-          let tranportKind = this.transportKinds.find(y => y.id == x);
+          console.log(x)
+          let tranportKind = this.transportKinds.find(y => y.id == x.id);
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
           this.isRefrigerator = this.isRefrigerator || tranportKind?.name?.includes('Рефрижератор');
           this.isCistern = this.isCistern || tranportKind?.name?.includes('Цистерна');
           this.isContainer = this.isContainer || tranportKind?.name?.includes('Контейнеровоз');
           this.isLoad = this.isLoad || tranportKind?.name?.includes('Грузоподъемность');
-          this._cdr.detectChanges()
         });
+        this._cdr.detectChanges()
       } else {
         this.isAutotransport = false;
         this.isRefrigerator = false;
@@ -237,7 +242,7 @@ export class AddTransportComponent implements OnInit {
 
   changeTab(id) {
     this._driverService.getTransportWithDriver(this.f.driverId.value, id).subscribe(res => {
-      this.edit = true;
+      console.log(res)
       this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
       this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
       this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;
@@ -260,6 +265,10 @@ export class AddTransportComponent implements OnInit {
         refrigeratorTo: res.data[0]?.refrigeratorTo ? res.data[0]?.refrigeratorTo : '',
         refrigeratorCount: res.data[0]?.refrigeratorCount ? res.data[0]?.refrigeratorCount : '',
       })
+      if (res.data[0]?.refrigeratorFrom || res.data[0]?.refrigeratorTo) {
+        this.isRefrigeratorMode = true
+      }
+      console.log(this.form.value)
     })
     this._cdr.detectChanges()
   }
@@ -353,6 +362,8 @@ export class AddTransportComponent implements OnInit {
     this.form.get('refrigeratorFrom').value ? this.formData.append('refrigeratorFrom', this.form.get('refrigeratorFrom').value) : ''
     this.form.get('refrigeratorTo').value ? this.formData.append('refrigeratorTo', this.form.get('refrigeratorTo').value) : ''
     this.form.get('refrigeratorCount').value ? this.formData.append('refrigeratorCount', this.form.get('refrigeratorCount').value) : ''
+    this.form.get('cisternVolume').value ? this.formData.append('cisternVolume', this.form.get('cisternVolume').value) : ''
+    this.form.get('containerVolume').value ? this.formData.append('cisternVolume', this.form.get('containerVolume').value) : ''
     this.form.get('isHook').value ? this.formData.append('isHook', this.form.get('isHook').value) : ''
     this.form.get('isAdr').value ? this.formData.append('isAdr', this.form.get('isAdr').value) : ''
     this.form.get('isHighCube').value ? this.formData.append('isHighCube', this.form.get('isHighCube').value) : ''

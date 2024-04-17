@@ -47,10 +47,10 @@ export class DriverMerchantDriverListComponent implements OnInit {
     lastLoginFrom: '',
     lastLoginTo: '',
   };
-  totalPagesCount: number;
   pageParams = {
-    page: 0,
-    limit: 10,
+    pageIndex: 1,
+    pageSize: 10,
+    totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -116,16 +116,16 @@ tooltipText(driverTransports: any[]): string {
   getAllDrivers(params?) {
     this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
-      this.totalPagesCount = response?.data?.totalPagesCount;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
+      this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
 
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1; 
     this.getAllDrivers(this.pageParams);
   }
 

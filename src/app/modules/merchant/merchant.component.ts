@@ -20,7 +20,7 @@ import { MerchantModel } from './models/merchanr.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlockMerchantComponent } from './components/block-merchant/block-merchant.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 @Component({
   selector: 'app-merchant',
@@ -45,11 +45,9 @@ export class MerchantComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(
-    private _merchantService: MerchantService,  
-    private _permissionService: NgxPermissionsService, 
+    private _merchantService: MerchantService,
     private utilsService: FuseUtilsService,
-    protected _dialog?: MatDialog
-    ) {}
+    protected _dialog?: MatDialog) { }
 
   clearFilters() {
     this.filters = {
@@ -63,20 +61,20 @@ export class MerchantComponent implements OnInit {
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
+  }
 
   pageParams = {
-    page: 0,
-    limit: 10,
-    totalPagesCount:1,
+    pageIndex: 1,
+    pageSize: 10,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
-  filterDrivers() {}
+  filterDrivers() { }
 
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllMerchants(this.pageParams);
   }
 
@@ -87,8 +85,8 @@ export class MerchantComponent implements OnInit {
   getAllMerchants(params?) {
     this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }

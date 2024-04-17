@@ -28,13 +28,14 @@ import { CargoPackagesModel } from './models/cargo-packages.model';
 export class CargoPackagesComponent extends UnsubscribeAble implements OnInit {
   displayedColumns: string[] = ['name',  'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  pageParams = {
-    page: 0,
-    limit: 10,
+     pageParams = {
+    pageIndex: 1,
+    pageSize: 10,
     totalPagesCount:1,
     sortBy: 'id',
     sortType: 'desc'
   };
+
   dataSource = new MatTableDataSource<CargoPackagesModel>([]);
   constructor(private _cargoPackageService: CargoPackagesService, protected _dialog?: MatDialog) {
     super();
@@ -47,16 +48,15 @@ export class CargoPackagesComponent extends UnsubscribeAble implements OnInit {
   getAllCargoStatus(params?) {
     this._cargoPackageService.getAll(params).subscribe((response:any) => {
       this.dataSource.data = response.data;
-      this.pageParams.limit = response?.data?.per_page;
-      this.pageParams.page = response?.data?.pageIndex;
+      this.pageParams.pageSize = response?.data?.pageSize;
+      this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
   
   onPageChange(event: PageEvent): void {
-    this.pageParams.limit = event.pageSize;
-   
-    this.pageParams.page = event.pageIndex;
+    this.pageParams.pageSize = event.pageSize;
+    this.pageParams.pageIndex = event.pageIndex+1;
     this.getAllCargoStatus(this.pageParams);
   }
 
