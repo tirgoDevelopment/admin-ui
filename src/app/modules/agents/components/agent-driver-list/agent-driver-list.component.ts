@@ -24,6 +24,8 @@ import { ConnectDriverComponent } from '../connect-driver/connect-driver.compone
 import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent.component';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -32,12 +34,19 @@ import { FuseUtilsService } from '@fuse/services/utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class AgentDriverListComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
+  filters = {
+    driverId: '',
+    firstName: '',
+    phoneNumber: '',
+    createdAtFrom:'',
+    createdAtTo: '',
+  };
   pageParams = {
     agentId: 0,
     pageIndex: 1,
@@ -65,12 +74,23 @@ export class AgentDriverListComponent implements OnInit {
     this.getBalance(this.id)
   }
 
+  
+  clearFilters() {
+    this.filters = {
+      driverId: '',
+      firstName: '',
+      phoneNumber: '',
+      createdAtFrom:'',
+      createdAtTo: ''
+    };
+  }
+
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
 }
 
-  getAllAgentsDrivers(params) {
-    this._agentService.getAllByAgent(params).subscribe((response:any) => {
+  getAllAgentsDrivers(params?) {
+    this._agentService.getAllByAgent(Object.assign(this.filters, params)).subscribe((response:any) => {
       this.dataSource.data = response?.data;
       this.pageParams.totalPagesCount = response?.data.totalPagesCount;
     });

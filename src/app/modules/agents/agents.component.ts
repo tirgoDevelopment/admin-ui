@@ -34,8 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;
   filters = {
-    merchantid: '',
-    companyName: '',
+    agentId: '',
+    username: '',
     createdAtFrom: '',
     createdAtTo: '',
   };
@@ -56,8 +56,8 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
 
   clearFilters() {
     this.filters = {
-      merchantid: '',
-      companyName: '',
+      agentId: '',
+      username: '',
       createdAtFrom: '',
       createdAtTo: '',
     };
@@ -71,7 +71,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   }
 
   getAllAgents(params?) {
-    this._agentService.getAll(params).subscribe((response: any) => {
+    this._agentService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data.content;
       this.pageParams.pageSize = response?.data?.pageSize;
       this.pageParams.pageIndex = response?.data?.pageIndex;
