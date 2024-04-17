@@ -103,9 +103,17 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
+                                <button mat-menu-item color="accent" (click)="assignDriver(row.id)">
+                                    <mat-icon>assignment_ind </mat-icon>
+                                    {{"assign_driver"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" [routerLink]="['driver', row.id]">
                                     <mat-icon>list</mat-icon>
-                                    {{"list"|transloco}}
+                                    {{"drivers"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
+                                    <mat-icon>edit</mat-icon>
+                                    {{"edit"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" *ngIf="row.active" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>

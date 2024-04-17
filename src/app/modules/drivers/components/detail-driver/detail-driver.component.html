@@ -331,6 +331,7 @@
         <h2 class="text-2xl leading-4 font-bold">{{"view_transport"|transloco}}</h2>
     </div>
 </div> -->
+
     <div class="flex justify-end gap-4 mt-4 px-4">
         <button *ngIf="driver?.driverTransports?.length>0" mat-flat-button [color]="'primary'"
             (click)="addTransportEdit()">
@@ -338,6 +339,11 @@
         </button>
         <button mat-flat-button [color]="'primary'" (click)="addTransport()">
             {{"add_transport"|transloco}}
+        </button>
+    </div>
+    <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
+        <button mat-flat-button [color]="'primary'" (click)="assignMerchantDriver(data)">
+            {{"assign_merchant_driver"|transloco}}
         </button>
     </div>
     <div class="flex justify-end mt-4 px-4">

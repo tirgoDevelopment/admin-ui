@@ -63,6 +63,7 @@ export class CreateOrderComponent implements OnInit {
   isCistern: any;
   isContainer: any;
   clientInfo: ClientModel;
+  clientList: any[] = [];
   private searchSubject = new Subject<string>();
   private searchClientSubject = new Subject<number>();
   constructor(
@@ -79,11 +80,9 @@ export class CreateOrderComponent implements OnInit {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        tap(() => this.loading = true),
         switchMap((findText: string) => {
           return this.findCities(findText.trim().toLowerCase()).pipe(
             catchError(() => of([])),
-            tap(() => this.loading = false)
           );
         })
       )

@@ -15,14 +15,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterLink } from '@angular/router';
-import { MerchantService } from '../merchant/services/merchant.service';
 import { MerchantModel } from '../merchant/models/merchanr.model';
 import { DriverMerchantListComponent } from './components/driver-merchant-list/driver-merchant-list.component';
 import { BlockMerchantComponent } from '../merchant/components/block-merchant/block-merchant.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { DriverMerchantService } from './services/driver-merchant.service';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { AssignDriverComponent } from './components/assign-driver/assign-driver.component';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -31,7 +31,7 @@ import { FuseUtilsService } from '@fuse/services/utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [TranslocoModule, RouterLink,NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
@@ -48,7 +48,6 @@ export class DriverMerchantComponent {
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(
      private _merchantService: DriverMerchantService,
-     private _permissionService: NgxPermissionsService,
      private utilsService: FuseUtilsService,
     protected _dialog?: MatDialog) {
   }
@@ -94,7 +93,17 @@ export class DriverMerchantComponent {
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
-
+  assignDriver(id:number) {
+    this._dialog.open(AssignDriverComponent, {
+      minWidth: '40vw',
+      maxWidth: '60vw',
+      minHeight: '32vh',
+      maxHeight: '45vh',
+      data: id,
+      autoFocus: false,
+    }).afterClosed().subscribe(() => {
+    })
+  }
 
 
   block(id: number) {

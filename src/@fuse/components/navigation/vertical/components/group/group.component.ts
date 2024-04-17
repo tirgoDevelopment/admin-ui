@@ -57,7 +57,6 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
      */
     ngOnInit(): void
     {
-        console.log('item', this.item)
         // Get the parent navigation component
         this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
 

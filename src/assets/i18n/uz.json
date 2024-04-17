@@ -355,5 +355,9 @@
      "see_subscription_transaction_agent":"Agentning obuna operatsiyasini ko'ring",
      "see_payment_transaction_admin":"Administratorning toʻlov tranzaksiyasini koʻring" ,
      "see_service_transaction_admin":"Administratorning xizmat tranzaksiyasini ko'rish",
-     "username":"Foydalanuvchi nomi"
+     "username":"Foydalanuvchi nomi",
+     "welcome":"Xush kelibsiz",
+    "assign_merchant_driver":"Savdogar haydovchisini biriktiring",
+    "driver_merchant":"Haydovchi savdogar "
+
 }

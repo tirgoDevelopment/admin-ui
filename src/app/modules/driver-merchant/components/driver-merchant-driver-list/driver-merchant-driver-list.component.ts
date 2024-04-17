@@ -12,33 +12,27 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { DriversService } from './services/drivers.service';
-import { DriverModel } from './models/driver.model';
-import { AddDriverComponent } from './components/add-driver/add-driver.component';
-import { DetailDriverComponent } from './components/detail-driver/detail-driver.component';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
-import { SendPushComponent } from './components/send-push/send-push.component';
-import { AddTransportComponent } from './components/add-transport/add-transport.component';
-import { BlockDriverComponent } from './components/block-driver/block-driver.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddVerificationComponent } from './components/add-verification/add-verification.component';
 import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DriversService } from 'app/modules/drivers/services/drivers.service';
+import { DriverModel } from 'app/modules/drivers/models/driver.model';
+import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
+import { BlockDriverComponent } from 'app/modules/drivers/components/block-driver/block-driver.component';
 
 @Component({
-  selector: 'app-drivers',
-  templateUrl: './drivers.component.html',
-  styleUrls: ['./drivers.component.scss'],
+  selector: 'app-driver-merchant-driver-list',
+  templateUrl: './driver-merchant-driver-list.component.html',
+  styleUrls: ['./driver-merchant-driver-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule,MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
-export class DriversComponent implements OnInit {
+export class DriverMerchantDriverListComponent implements OnInit {
   cities: any[] = [];
   transportKinds: any[] = [];
   filters = {
@@ -90,7 +84,7 @@ tooltipText(driverTransports: any[]): string {
   if (!driverTransports || driverTransports.length === 0) {
     return '';
   }
-  
+
   const tooltipArray = [];
   for (const driver of driverTransports) {
     for (const type of driver.transportTypes) {
@@ -119,22 +113,6 @@ tooltipText(driverTransports: any[]): string {
   filterDrivers() {
   }
 
-  verification(driverId?: number, transportId?: number) {
-    const dialog = this._dialog.open(AddVerificationComponent, {
-      minWidth: '60vw',
-      maxWidth: '80vw',
-      minHeight: '60vh',
-      maxHeight: '100vh',
-      disableClose: true,
-      autoFocus: false,
-      data: { driverId, transportId },
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this.getAllDrivers(this.pageParams);
-      })
-  }
-
   getAllDrivers(params?) {
     this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
@@ -151,15 +129,6 @@ tooltipText(driverTransports: any[]): string {
     this.getAllDrivers(this.pageParams);
   }
 
-  send() {
-    this._dialog.open(SendPushComponent, {
-      minWidth: '20vw',
-      maxWidth: '30vw',
-      minHeight: '30vh',
-      maxHeight: '50vh',
-      autoFocus: false,
-    })
-  }
 
   detail(id: number) {
     this._dialog.open(DetailDriverComponent, {
@@ -175,19 +144,6 @@ tooltipText(driverTransports: any[]): string {
     })
   }
 
-  add() {
-    const dialog = this._dialog.open(AddDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
-      minHeight: '42vh',
-      maxHeight: '80vh',
-      autoFocus: false,
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this.getAllDrivers(this.pageParams);
-      })
-  }
 
   block(id: number) {
     const dialog = this._dialog.open(BlockDriverComponent, {
@@ -209,36 +165,6 @@ tooltipText(driverTransports: any[]): string {
     })
   }
 
-  edit(id: number) {
-    const dialogRef = this._dialog.open(AddDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
-      minHeight: '42vh',
-      maxHeight: '80vh',
-      autoFocus: false,
-      data: id,
-    });
-    dialogRef.afterClosed()
-      .subscribe(() => {
-        this.getAllDrivers(this.pageParams);
-      })
-  }
-
-  addTransport(driverId?: number, transportId?: number) {
-    const dialogRef = this._dialog.open(AddTransportComponent, {
-      minWidth: '70vw',
-      maxWidth: '90vw',
-      minHeight: '60vh',
-      maxHeight: '100vh',
-      disableClose: true,
-      autoFocus: false,
-      data: { driverId, transportId },
-    });
-    dialogRef.afterClosed()
-      .subscribe(() => {
-        this.getAllDrivers(this.pageParams);
-      })
-  }
 
   delete(id: number) {
     this._driversService.delete(id).subscribe(() => {
@@ -246,4 +172,3 @@ tooltipText(driverTransports: any[]): string {
     })
   }
 }
-

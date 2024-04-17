@@ -1,5 +1,5 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"assign_driver"|transloco}}</p>
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"assign_merchant_driver"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -9,21 +9,17 @@
         <div class="flex">
             <div class="w-full">
                 <mat-form-field class="w-full">
-                    <mat-label>{{ 'drivers' | transloco }}</mat-label>
+                    <mat-label>{{ 'driver_merchant' | transloco }}</mat-label>
                     <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
                         formControlName="fullName">
                     <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete"
                         [displayWith]="displayDriverFn">
-                        <ng-container *ngIf="driverInfo">
-                            <mat-option *ngFor="let driver of driverInfo" [value]="driver">
-                                {{ driver?.id }} - {{ driver?.firstName }} {{ driver.lastName }}
+                        <ng-container *ngIf="merchantInfo">
+                            <mat-option *ngFor="let merchant of merchantInfo" [value]="merchant">
+                                {{ merchant?.id }} - {{ merchant.companyType }} {{ merchant?.companyName }}
                             </mat-option>
                         </ng-container>
                     </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field color="accent" class="w-full">
-                    <mat-label>{{ 'amount' | transloco }}</mat-label>
-                    <input matInput formControlName="amount" type="number">
                 </mat-form-field>
             </div>
         </div>
