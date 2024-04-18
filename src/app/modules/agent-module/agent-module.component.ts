@@ -123,9 +123,9 @@ export class AgentModuleComponent implements OnInit {
   connect() {
     this._dialog.open(ConnectDriverComponent, {
       minWidth: '25vw',
-      maxWidth: '40vw',
-      minHeight: '30vh',
-      maxHeight: '60vh',
+      maxWidth: '35vw',
+      minHeight: '20vh',
+      maxHeight: '30vh',
       data: { agentId: this.id },
     })
   }

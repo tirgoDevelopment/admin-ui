@@ -23,9 +23,10 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
-import { debounceTime, switchMap } from 'rxjs';
+import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-connect-driver',
@@ -34,23 +35,25 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, JsonPipe, NgxMatSelectSearchModule, NgFor, FormsModule, ReactiveFormsModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, JsonPipe, MatAutocompleteModule, NgxMatSelectSearchModule, NgFor, FormsModule, ReactiveFormsModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class ConnectDriverComponent implements OnInit {
-  driverInfo: DriverModel;
   subscription: any;
   edit: boolean = false;
   form: FormGroup = new FormGroup({
     driverId: new FormControl(''),
     agentId: new FormControl(''),
   })
+  dirverList: any[] = [];
+  driverInfo: any[];
+  private searchdriverSubject = new Subject<number>();
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _agentService: AgentService,
     private _typeService: TypesService,
-    private _dirfverService: DriversService,
-    private cdr: ChangeDetectorRef,
+    private _driverService: DriversService,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
@@ -58,24 +61,40 @@ export class ConnectDriverComponent implements OnInit {
       });
     }
     this.getSubscription();
+    this.searchdriverSubject
+    .pipe(
+      debounceTime(300),
+      switchMap((findText: number) => {
+        return this._driverService.get(findText).pipe(
+          catchError(() => of([])),
+        );
+      })
+    )
+    .subscribe((res: any) => {
+      this.driverInfo.push(res.data);
+      this.form.patchValue({
+        driverId: this.driverInfo[0].id
+      })
+      this._cdr.detectChanges()
+    });
   }
 
 
   ngOnInit(): void {
-    this.form.get('driverId').valueChanges.pipe(
-      debounceTime(300),
-      switchMap(driverId => this._dirfverService.get(driverId))
-    ).subscribe(response => {
-      if (response.success) {
-        this.driverInfo = response.data;
-      }
-    });
+    // this.form.get('driverId').valueChanges.pipe(
+    //   debounceTime(300),
+    //   switchMap(driverId => this._dirfverService.get(driverId))
+    // ).subscribe(response => {
+    //   if (response.success) {
+    //     this.driverInfo = response.data;
+    //   }
+    // });
   }
 
   getSubscription() {
     this._typeService.getSubscription().subscribe((response: any) => {
       this.subscription = response.data;
-      this.cdr.detectChanges();
+      this._cdr.detectChanges();
     })
   }
 
@@ -83,7 +102,19 @@ export class ConnectDriverComponent implements OnInit {
     return this.form.controls
   }
 
+  findDriver(ev: any): void {
+    this.driverInfo = [];
+
+    const findText = ev.target.value.toString().trim().toLowerCase();
+    if (findText != '' || findText != null || findText != undefined) {
+      this.searchdriverSubject.next(findText);
+    }
+  }
+  displayDriverFn(driver: any): string {
+    return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
+  }
   submit() {
+    
     if (this.form.valid) {
       this._agentService.connectToAgent(this.form.value).subscribe(res => {
         if (res.success) {

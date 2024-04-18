@@ -6,21 +6,18 @@
 </div>
 <mat-dialog-content>
     <form [formGroup]="form" class="px-3">
-        <mat-form-field class="flex-auto gt-xs:pr-3 w-full">
-            <mat-label>{{ 'DriverID' | transloco }}</mat-label>
-            <input matInput formControlName="driverId">
+        <mat-form-field class="w-full">
+            <mat-label>{{ 'drivers' | transloco }}</mat-label>
+            <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
+                formControlName="fullName">
+            <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete" [displayWith]="displayDriverFn">
+                <ng-container *ngIf="driverInfo">
+                    <mat-option *ngFor="let driver of driverInfo" [value]="driver">
+                        {{ driver?.id }} - {{ driver?.firstName }} {{ driver.lastName }}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
         </mat-form-field>
-
-        <mat-form-field *ngIf="driverInfo?.firstName" class="flex-auto gt-xs:pr-3 w-full">
-            <mat-label>{{ 'first_name'|transloco}}</mat-label>
-            <input matInput [value]="driverInfo.firstName">
-        </mat-form-field>
-
-        <mat-form-field *ngIf="driverInfo?.lastName" class="flex-auto gt-xs:pr-3 w-full">
-            <mat-label>{{ 'last_name'|transloco}}</mat-label>
-            <input matInput [value]="driverInfo.lastName">
-        </mat-form-field>
-
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
@@ -29,7 +26,7 @@
             {{ 'cancel' | transloco }}</button>
         <button
             [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button ': !form.invalid && !form.pristine}"
-            mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+            mat-flat-button [color]="'primary'" [disabled]="form.invalid " (click)="submit()">
             {{ 'save' | transloco }}
         </button>
     </div>
