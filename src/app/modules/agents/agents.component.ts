@@ -60,6 +60,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
       createdAtFrom: '',
       createdAtTo: '',
     };
+    this.getAllAgents(this.pageParams);
   }
 
   filterDrivers() {

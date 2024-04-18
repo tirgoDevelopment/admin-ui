@@ -61,11 +61,6 @@ export class UserActivityComponent implements OnInit {
     });
   }
 
-
-
-
-
-
   delete(id: number) {
     this._userActivityService.delete(id).subscribe(() => {
       this.getAllUsersActivity()

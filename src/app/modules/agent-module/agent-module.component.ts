@@ -74,6 +74,7 @@ export class AgentModuleComponent implements OnInit {
       createdAtFrom:'',
       createdAtTo: ''
     };
+    this.getAllDrivers(this.pageParams);
   }
   ngOnInit() {
     this.pageParams.agentId = this.id;

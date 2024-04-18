@@ -82,6 +82,7 @@ export class AgentDriverListComponent implements OnInit {
       createdAtFrom:'',
       createdAtTo: ''
     };
+    this.getAllAgentsDrivers(this.pageParams);
   }
 
   hasPermission(permission): boolean {
