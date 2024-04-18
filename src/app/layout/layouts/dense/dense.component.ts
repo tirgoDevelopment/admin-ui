@@ -21,6 +21,7 @@ import { UserComponent } from 'app/shared/components/common/user/user.component'
 import { jwtDecode } from 'jwt-decode';
 
 import { Subject, takeUntil } from 'rxjs';
+import { AgentService } from 'app/modules/agents/services/agent.service';
 
 @Component({
     selector: 'dense-layout',
@@ -41,6 +42,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     constructor(
         private _adminService: AdminsService,
+        private _agentService: AgentService,
         private _authService: AuthService,
         private _fuseConfigService: FuseConfigService,
         private _router: Router,
@@ -70,13 +72,18 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(({ matchingAliases }) => {
                 this.isScreenSmall = !matchingAliases.includes('md');
-
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
         this.user = this._authService.accessToken ? jwtDecode(this._authService.accessToken) : null;
-        this._adminService.get(this.user.sub).subscribe(res => {
-            this.staff = res.data
-        })
+        if (this.user.userType != 'agent') {
+            this._adminService.get(this.user.sub).subscribe(res => {
+                this.staff = res.data
+            })
+        } else {
+            this._agentService.get(this.user.sub).subscribe(res => {
+                this.staff = res.data
+            })
+        }
     }
 
     ngOnDestroy(): void {

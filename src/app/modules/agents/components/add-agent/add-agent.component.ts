@@ -20,7 +20,6 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { AgentService } from '../../services/agent.service';
 import { PasswordGenerator } from 'app/shared/functions/password-generator';
 import { TypesService } from 'app/shared/services/types.service';
-import { isObservable } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
@@ -33,7 +32,7 @@ import { FileUrlService } from 'app/shared/services/file-url.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,CommonModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule,PipeModule, HeaderTextComponent],
+  imports: [TranslocoModule, CommonModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, PipeModule, HeaderTextComponent],
 })
 
 export class AddAgentComponent {
@@ -110,6 +109,9 @@ export class AddAgentComponent {
     const file: File = event.target.files[0];
     if (file) {
       this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      this.form.patchValue({
+        [name]: file
+      })
       const reader = new FileReader();
       reader.onload = () => {
         this[name] = reader.result;
@@ -146,20 +148,6 @@ export class AddAgentComponent {
     this.itemsFormArray.removeAt(index);
   }
 
-  onFileSelected(event: any, type: string): void {
-    const file: File = event.target.files[0];
-    switch (type) {
-      case 'registrationCertificateFilePath':
-        this.form.patchValue({
-          registrationCertificateFilePath: file
-        });
-      case 'managerPassportFilePath':
-        this.form.patchValue({
-          managerPassportFilePath: file
-        });
-    }
-  }
-
   get f() {
     return this.form.controls
   }
@@ -190,16 +178,10 @@ export class AddAgentComponent {
       // this.formData.append('managerPassportFilePath', this.form.get('managerPassportFilePath')?.value, String(new Date().getTime()));
     }
     const uniqueFormData = removeDuplicateKeys(this.formData);
+    console.log(this.form)
     if (this.form.valid) {
       if (this.form.value.id) {
-        this._agentService.update(this.form.value).pipe(res => {
-          if (isObservable(res)) {
-            // this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
-            return res
-          } else {
-            return res
-          }
-        }).subscribe(res => {
+        this._agentService.update(this.form.value).subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
             this._toaster.success('Агент успешно обновлена')
@@ -208,14 +190,7 @@ export class AddAgentComponent {
           }
         })
       } else {
-        this._agentService.create(uniqueFormData).pipe(res => {
-          if (isObservable(res)) {
-            // this.formData = removeUnselected(this.formData,['registrationCertificateFilePath', 'managerPassportFilePath']);
-            return res
-          } else {
-            return res
-          }
-        }).subscribe(res => {
+        this._agentService.create(uniqueFormData).subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
             this.form.reset()

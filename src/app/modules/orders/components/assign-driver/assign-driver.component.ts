@@ -84,7 +84,9 @@ export class AssignDriverComponent implements OnInit {
       driverId: ev.target.value
     })
     const findText = ev.target.value.toString().trim().toLowerCase();
-    this.searchdriverSubject.next(findText);
+    if (findText != '' || findText != null || findText != undefined) {
+      this.searchdriverSubject.next(findText);
+    }
   }
   displayDriverFn(driver: any): string {
     return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';

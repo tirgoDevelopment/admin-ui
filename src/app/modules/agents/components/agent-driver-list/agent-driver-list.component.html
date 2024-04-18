@@ -40,10 +40,12 @@
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'firstName' | transloco }}" [(ngModel)]="filters.firstName" name="firstName">
+                <input matInput placeholder="{{ 'firstName' | transloco }}" [(ngModel)]="filters.firstName"
+                    name="firstName">
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'phone' | transloco }}" [(ngModel)]="filters.phoneNumber" name="phoneNumber">
+                <input matInput placeholder="{{ 'phone' | transloco }}" [(ngModel)]="filters.phoneNumber"
+                    name="phoneNumber">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
@@ -96,7 +98,6 @@
                         </span>
                     </mat-cell>
                 </ng-container>
-
 
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}

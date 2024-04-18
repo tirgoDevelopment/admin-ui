@@ -60,7 +60,6 @@ export class AgentDriverListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, 
-    private _permissionService: NgxPermissionsService,
     private utilsService: FuseUtilsService,
     private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
@@ -83,6 +82,7 @@ export class AgentDriverListComponent implements OnInit {
       createdAtFrom:'',
       createdAtTo: ''
     };
+    this.getAllAgentsDrivers(this.pageParams);
   }
 
   hasPermission(permission): boolean {
@@ -128,9 +128,9 @@ export class AgentDriverListComponent implements OnInit {
   connect() {
     this._dialog.open(ConnectDriverComponent, {
       minWidth: '25vw',
-      maxWidth: '40vw',
-      minHeight: '30vh',
-      maxHeight: '60vh',
+      maxWidth: '35vw',
+      minHeight: '20vh',
+      maxHeight: '30vh',
       data: { agentId: this.id },
     }).afterClosed()
       .subscribe(() => {

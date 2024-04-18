@@ -6,8 +6,20 @@
 </div>
 <mat-dialog-content>
     <form [formGroup]="form">
+        <mat-form-field class="w-full">
+            <mat-label>{{ 'drivers' | transloco }}</mat-label>
+            <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
+                formControlName="fullName">
+            <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete" [displayWith]="displayDriverFn">
+                <ng-container *ngIf="driverInfo">
+                    <mat-option *ngFor="let driver of driverInfo" [value]="driver">
+                        {{ driver?.id }} - {{ driver?.firstName }} {{ driver.lastName }}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
         <mat-radio-group class="flex items-center" formControlName="subscriptionId">
-            <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg" [color]="white"
+            <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg"
                 [ngClass]="{'bg-gray-50 dark:text-black': !form.invalid || !form.pristine, 'card-background-black text-white': form.invalid && form.pristine}"
                 *ngFor="let row of subscription" [value]="row.id">
                 <p class="w-40">${{row?.price}}/месяц</p>

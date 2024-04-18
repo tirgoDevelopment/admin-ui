@@ -69,7 +69,7 @@ export class OrdersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  dataSource = new MatTableDataSource<OrderModel>([]);
+  dataSource: any = new MatTableDataSource<OrderModel>([]);
   constructor(
     private _utilsService: FuseUtilsService,
     private _orderService: OrdersService,
@@ -142,8 +142,8 @@ export class OrdersComponent implements OnInit {
   }
   onPageChange(event: PageEvent): void {
     this.pageParams.pageSize = event.pageSize;
-    this.pageParams.pageIndex = event.pageIndex + 1;   
-     this.getOrders(this.pageParams);
+    this.pageParams.pageIndex = event.pageIndex + 1;
+    this.getOrders(this.pageParams);
   }
   getOrders(params?) {
     this.isLoading = true;
@@ -154,7 +154,7 @@ export class OrdersComponent implements OnInit {
       }
       else {
         this.isLoading = false;
-        this.dataSource.data = [];
+        this.dataSource = [];
       }
     })
     this.isLoading = false;
