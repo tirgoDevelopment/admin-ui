@@ -10,10 +10,14 @@ export const ErrorInterceptorService: HttpInterceptorFn = (req: HttpRequest<unkn
   const toaster = inject(ToastrService);
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (Object.values(ErrorStauses).includes(error.error.message)) {
-        toaster.error(translocaService.translate(Object.keys(ErrorStauses).find(k => ErrorStauses[k] === error.error.message)))
+      if (error.error.message != undefined || error.error.message != null) {
+        if (Object.values(ErrorStauses).includes(error.error.message)) {
+          toaster.error(translocaService.translate(Object.keys(ErrorStauses).find(k => ErrorStauses[k] === error.error.message)))
+        } else {
+          toaster.error(error.error.message)
+        }
       } else {
-        toaster.error(error.error.message)
+        toaster.error(error.message)
       }
       return throwError(error);
     })

@@ -11,16 +11,26 @@
                 <mat-form-field class="w-full">
                     <mat-label>{{ 'drivers' | transloco }}</mat-label>
                     <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
-                        formControlName="fullName">
+                        formControlName="drivers">
                     <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete"
                         [displayWith]="displayDriverFn">
                         <ng-container *ngIf="driverInfo">
                             <mat-option *ngFor="let driver of driverInfo" [value]="driver">
-                                {{ driver?.id }} - {{ driver?.firstName }} {{ driver.lastName }}
+                                {{ driver?.id }} - {{ driver?.firstName }} {{ driver?.lastName }}
                             </mat-option>
                         </ng-container>
                     </mat-autocomplete>
                 </mat-form-field>
+                <div *ngIf="driverList">
+                    <div *ngFor="let driver of driverList; let i = index" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                        <span>{{ driver?.id }} - {{ driver?.firstName }} {{ driver?.lastName }}</span>
+                        <button (click)="removeDriver(i)" class="ml-2 outline-none focus:outline-none">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 hover:text-red-700" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 12.586l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 11 5.293 7.707a1 1 0 011.414-1.414L10 9.586l3.293-3.293a1 1 0 111.414 1.414L11.414 11l3.293 3.293a1 1 0 11-1.414 1.414L10 12.586z" clip-rule="evenodd" />
+                          </svg>
+                        </button>
+                      </div>
+                </div>
             </div>
         </div>
     </form>

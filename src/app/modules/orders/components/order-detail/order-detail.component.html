@@ -198,6 +198,11 @@
         {{"about_user"|transloco}}
       </button>
     </div>
+    <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="driverId">
+      <button mat-flat-button [color]="'primary'" (click)="driverDetail(driverId)">
+        {{"about_driver"|transloco}}
+      </button>
+    </div>
     <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
       <button mat-flat-button [color]="'warn'" (click)="cancelOrder(data?.id)">
         {{"cancel_order"|transloco}}

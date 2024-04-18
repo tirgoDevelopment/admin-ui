@@ -30,27 +30,25 @@ import { AssignTmcComponent } from '../assign-tmc/assign-tmc.component';
   styleUrls: ['./detail-driver.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [TranslocoModule,PipeModule,CommonModule, NgClass, DatePipe, FormsModule, ReactiveFormsModule, MatInputModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, PipeModule, CommonModule, NgClass, DatePipe, FormsModule, ReactiveFormsModule, MatInputModule, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DetailDriverComponent implements OnInit {
   driver: DriverModel;
   driverId: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog,private fileService:FileUrlService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog, private fileService: FileUrlService) {
     this.getDriver(data);
     this.driverId = data
   }
   getDriver(id: any) {
     this._driverService.get(id).subscribe((response) => {
       this.driver = response.data;
-      console.log(this.driver);
-      
     });
   }
   ngOnInit(): void {
   }
 
   downloadPhoto(fileName) {
-    this.fileService.downloadImage('driver',fileName)
+    this.fileService.downloadImage('driver', fileName)
   }
   block() {
     const dialog = this._dialog.open(BlockDriverComponent, {
@@ -90,11 +88,11 @@ export class DetailDriverComponent implements OnInit {
       disableClose: true,
       autoFocus: false,
       data: { driverId: this.driverId },
-    }).afterClosed().subscribe(()=>{
+    }).afterClosed().subscribe(() => {
     })
   }
 
-  active(id:number){
+  active(id: number) {
     this._driverService.active(id).subscribe(() => {
       this._dialog.closeAll()
     })
@@ -108,7 +106,7 @@ export class DetailDriverComponent implements OnInit {
       disableClose: true,
       autoFocus: false,
       data: { driverId: this.driverId, edit: true },
-    }).afterClosed().subscribe(()=>{
+    }).afterClosed().subscribe(() => {
     })
   }
 

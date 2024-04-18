@@ -1,4 +1,5 @@
 import { BaseModel } from "app/core/models/base-model";
+import { MerchantModel } from "app/modules/merchant/models/merchanr.model";
 
 export interface DriverModel extends BaseModel {
     name?: string;
@@ -26,4 +27,5 @@ export interface DriverModel extends BaseModel {
     blocked?:boolean;
     passportFilePath:string;
     driverLicenseFilePath:string;
+    driverMerchant?:MerchantModel;
 }

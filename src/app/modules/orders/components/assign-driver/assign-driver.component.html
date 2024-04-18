@@ -10,8 +10,7 @@
             <div class="w-full">
                 <mat-form-field class="w-full">
                     <mat-label>{{ 'drivers' | transloco }}</mat-label>
-                    <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
-                        formControlName="fullName">
+                    <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)">
                     <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete"
                         [displayWith]="displayDriverFn">
                         <ng-container *ngIf="driverInfo">
@@ -20,6 +19,13 @@
                             </mat-option>
                         </ng-container>
                     </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field color="accent" class="w-full">
+                    <mat-label>{{ 'price' | transloco }}</mat-label>
+                    <mat-select formControlName="currencyId">
+                        <mat-option *ngFor="let currency of currencies"
+                            [value]="currency.id">{{currency.name}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'amount' | transloco }}</mat-label>

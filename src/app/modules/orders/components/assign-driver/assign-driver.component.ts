@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
@@ -20,6 +20,8 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
 import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TypesService } from 'app/shared/services/types.service';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-assign-driver',
@@ -32,7 +34,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 })
 
 export class AssignDriverComponent implements OnInit {
-  cargoGroup = [];
+  currencies = [];
   loading: boolean = false;
   dirverList: any[] = [];
   driverInfo: any[];
@@ -40,14 +42,17 @@ export class AssignDriverComponent implements OnInit {
   form: FormGroup = new FormGroup({
     orderId: new FormControl('', [Validators.required]),
     driverId: new FormControl('', [Validators.required]),
+    currencyId: new FormControl('', [Validators.required]),
     amount: new FormControl(''),
-    fullName: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private _toaster: ToastrService,
+    private _orderService: OrdersService,
     private _driverService: DriversService,
+    private _typeService: TypesService,
     private _cdr: ChangeDetectorRef,
-    private _dialog: MatDialog) {
+    private _dialog: MatDialogRef<AssignDriverComponent>) {
     if (this.data) {
       this.form.patchValue({
         orderId: this.data,
@@ -69,10 +74,9 @@ export class AssignDriverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._driverService.getAll().subscribe((res: any) => {
-    //   this.dirverList = res.data.content
-    // })
-
+    this._typeService.getCurrencies().subscribe((res: any) => {
+      this.currencies = res.data
+    })
   }
 
   get f() {
@@ -92,24 +96,13 @@ export class AssignDriverComponent implements OnInit {
     return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
   }
   submit() {
-    if (this.form.valid) {
-      // this._cargoService.create(this.form.value).subscribe(res => {
-      //   if (res.success) {
-      //     this._dialog.closeAll()
-      //     this.form.reset()
-      //     this._toaster.success('Груз успешно добавлена')
-      //   } else {
-      //     this._toaster.error('Невозможно сохранить груз')
-      //   }
-      // })
-    } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
+    this._orderService.appendOrder(this.form.value).subscribe((res: any) => {
+      if (res.success) {
+        this._dialog.close();
+        this._toaster.success('Водитель успешно назначен')
+      } else {
+        this._toaster.error('Водитель не может быть успешно назначен')
+      }
+    })
   }
 }

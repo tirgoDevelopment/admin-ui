@@ -11,15 +11,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MessageComponent } from 'app/shared/components/message/message.component';
-import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DriverMerchantService } from 'app/modules/driver-merchant/services/driver-merchant.service';
 import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
+import { DriversService } from '../../services/drivers.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assign-tmc',
@@ -32,25 +32,28 @@ import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 
 })
 export class AssignTmcComponent implements OnInit {
+  form: FormGroup;
   cargoGroup = [];
   loading: boolean = false;
   dirverList: any[] = [];
   merchantInfo: any[];
   merchantList: any[] = [];
   private searchdriverSubject = new Subject<number>();
-  form: FormGroup = new FormGroup({
-    merchantId: new FormControl('', [Validators.required]),
-    driverId: new FormControl('', [Validators.required]),
-    fullName: new FormControl(''),
-  })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private _driverService: DriversService,
     private _merchantService: DriverMerchantService,
-    private _cdr: ChangeDetectorRef,
-    private _dialog: MatDialog) {
+    public _dialog: MatDialogRef<AssignTmcComponent>,
+    private _toaster: ToastrService,
+    private _fb: FormBuilder,
+    private _cdr: ChangeDetectorRef) {
+    this.form = this._fb.group({
+      driverMerchantId: new FormControl('', [Validators.required]),
+      driverIds: new FormControl([]),
+    })
     if (this.data) {
       this.form.patchValue({
-        driverId: this.data,
+        driverIds: [this.data],
       });
     }
     this.searchdriverSubject
@@ -65,17 +68,14 @@ export class AssignTmcComponent implements OnInit {
       .subscribe((res: any) => {
         this.merchantInfo.push(res.data);
         this.form.patchValue({
-          merchantId: this.merchantInfo[0]?.id ? this.merchantInfo[0]?.id : null
+          driverMerchantId: this.merchantInfo[0]?.id
         })
         this._cdr.detectChanges()
       });
   }
 
   ngOnInit(): void {
-    this._merchantService.Verified().subscribe((response: any) => {
-      this.merchantList = response?.data.content;
-      console.log(this.merchantList)
-    });
+
   }
 
   get f() {
@@ -85,24 +85,22 @@ export class AssignTmcComponent implements OnInit {
   findDriver(ev: any): void {
     this.merchantInfo = [];
     const findText = ev.target.value.toString().trim().toLowerCase();
-    this.searchdriverSubject.next(findText);
+    if (findText != '' || findText != null || findText != undefined) {
+      this.searchdriverSubject.next(findText);
+    }
   }
 
   displayDriverFn(driver: any): string {
     return driver ? driver.id + ' ' + driver.companyType + ' ' + driver.companyName : '';
   }
   submit() {
-    console.log(this.form)
-    if (this.form.valid) {
-
-    } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
+    this._driverService.assignDriver(this.form.value).subscribe((res: any) => {
+      if (res.success) {
+        this._dialog.close();
+        this._toaster.success('Водитель успешно назначен')
+      } else {
+        this._toaster.error('Водитель не может быть успешно назначен')
+      }
+    })
   }
 }

@@ -5,10 +5,10 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class=" sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
+                <button class="sm:inline-flex ml-3" [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class=" sm:inline-flex ml-3" *ngIf="hasPermission('addDriver')" [color]="'primary'"
+                <button class="sm:inline-flex ml-3" *ngIf="hasPermission('addDriver')" [color]="'primary'"
                     mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>

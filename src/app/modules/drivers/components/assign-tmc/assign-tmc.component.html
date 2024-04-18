@@ -10,13 +10,12 @@
             <div class="w-full">
                 <mat-form-field class="w-full">
                     <mat-label>{{ 'driver_merchant' | transloco }}</mat-label>
-                    <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
-                        formControlName="fullName">
+                    <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)">
                     <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete"
                         [displayWith]="displayDriverFn">
                         <ng-container *ngIf="merchantInfo">
                             <mat-option *ngFor="let merchant of merchantInfo" [value]="merchant">
-                                {{ merchant?.id }} - {{ merchant.companyType }} {{ merchant?.companyName }}
+                                {{ merchant?.id }} - {{ merchant?.companyType }} {{ merchant?.companyName }}
                             </mat-option>
                         </ng-container>
                     </mat-autocomplete>
@@ -28,9 +27,8 @@
 <mat-dialog-actions class="flex justify-end justify-items-end">
     <button mat-flat-button class="fuse-mat-button " [color]="'warn'" mat-dialog-close tabindex="-1">
         {{ 'cancel' | transloco }}</button>
-    <button
-        [ngClass]="{'fuse-mat-button text-white': form.invalid || form.pristine, 'fuse-mat-button ': !form.invalid && !form.pristine}"
-        mat-flat-button [color]="'primary'" [disabled]="form.invalid || form.pristine" (click)="submit()">
+    <button [ngClass]="{'fuse-mat-button text-white': form.invalid , 'fuse-mat-button ': !form.invalid}" mat-flat-button
+        [color]="'primary'" [disabled]="form.invalid " (click)="submit()">
         {{ 'save' | transloco }}
     </button>
 </mat-dialog-actions>

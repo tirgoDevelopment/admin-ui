@@ -72,13 +72,13 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.register_date}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.last_enter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">

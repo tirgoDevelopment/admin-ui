@@ -242,7 +242,6 @@ export class AddTransportComponent implements OnInit {
 
   changeTab(id) {
     this._driverService.getTransportWithDriver(this.f.driverId.value, id).subscribe(res => {
-      console.log(res)
       this.techPassportFrontFilePath = res.data[0].techPassportFrontFilePath;
       this.techPassportBackFilePath = res.data[0].techPassportBackFilePath;
       this.goodsTransportationLicenseCardFilePath = res.data[0].goodsTransportationLicenseCardFilePath;

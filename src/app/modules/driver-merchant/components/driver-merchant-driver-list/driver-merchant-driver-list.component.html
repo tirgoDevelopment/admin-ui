@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
         </div>
-        <div class="flex items-baseline  flex-wrap">
+        <!-- <div class="flex items-baseline  flex-wrap">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.driverId">
             </mat-form-field>
@@ -77,7 +77,7 @@
                 <button mat-flat-button color="warn" (click)="getAllDrivers()">
                     {{ 'filter' | transloco }}</button>
             </div>
-        </div>
+        </div> -->
         <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
 
