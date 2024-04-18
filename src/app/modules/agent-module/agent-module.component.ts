@@ -21,6 +21,9 @@ import { AddAgentSubscriptionComponent } from './components/add-agent-subscripti
 import { AgentTransactionComponent } from './components/agent-transaction/agent-transaction.component';
 import { ConnectDriverComponent } from './components/connect-driver/connect-driver.component';
 import { AuthService } from 'app/core/auth/auth.service';
+import { FuseUtilsService } from '@fuse/services/utils';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'app-agent-module',
   templateUrl: './agent-module.component.html',
@@ -28,12 +31,20 @@ import { AuthService } from 'app/core/auth/auth.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class AgentModuleComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
+
+  filters = {
+    driverId: '',
+    firstName: '',
+    phoneNumber: '',
+    createdAtFrom:'',
+    createdAtTo: '',
+  };
   pageParams = {
     agentId: 0,
     pageIndex: 1,
@@ -46,10 +57,24 @@ export class AgentModuleComponent implements OnInit {
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
-  constructor(private _authService: AuthService, private _agentService: AgentService, protected _dialog?: MatDialog) {
+  constructor(
+    private _authService: AuthService,
+    private _agentService: AgentService,
+    private utilsService: FuseUtilsService,
+    protected _dialog?: MatDialog) {
+      console.log(this._authService.getDecodedAccessToken())
     this.id = this._authService.getDecodedAccessToken().sub
   }
 
+  clearFilters() {
+    this.filters = {
+      driverId: '',
+      firstName: '',
+      phoneNumber: '',
+      createdAtFrom:'',
+      createdAtTo: ''
+    };
+  }
   ngOnInit() {
     this.pageParams.agentId = this.id;
     this.getAllDrivers(this.pageParams);
@@ -62,7 +87,10 @@ export class AgentModuleComponent implements OnInit {
     this.getAllDrivers(this.pageParams);
   }
 
-  getAllDrivers(params) {
+  hasPermission(permission): boolean {
+    return this.utilsService.hasPermission(permission)
+  }
+  getAllDrivers(params?) {
     this._agentService.getAllByAgent(params).subscribe((response: any) => {
       this.dataSource.data = response?.data;
       this.pageParams.pageSize = response?.data?.pageSize;
@@ -132,14 +160,13 @@ export class AgentModuleComponent implements OnInit {
       })
   }
 
-  addSubsciption(id: number) {
+  addSubsciption() {
     const dialog = this._dialog.open(AddAgentSubscriptionComponent, {
       minWidth: '35vw',
       maxWidth: '40vw',
       minHeight: '30vh',
       maxHeight: '40vh',
       autoFocus: false,
-      data: { agentId: this.id, driverId: id },
     })
     dialog.afterClosed()
       .subscribe(() => {

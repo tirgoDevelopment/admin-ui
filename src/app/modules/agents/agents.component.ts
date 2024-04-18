@@ -29,7 +29,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, RouterLink, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;

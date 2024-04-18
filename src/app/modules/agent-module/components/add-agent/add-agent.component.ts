@@ -153,6 +153,9 @@ export class AddAgentComponent {
     const file: File = event.target.files[0];
     if (file) {
       this.formData.append(name, file, new Date().getTime().toString() + '.jpg');
+      this.form.patchValue({
+        [name]: file
+      })
       const reader = new FileReader();
       reader.onload = () => {
         this[name] = reader.result;

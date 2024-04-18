@@ -60,7 +60,6 @@ export class AgentDriverListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute, 
-    private _permissionService: NgxPermissionsService,
     private utilsService: FuseUtilsService,
     private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {

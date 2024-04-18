@@ -23,6 +23,9 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
+import { DriversService } from 'app/modules/drivers/services/drivers.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-add-agent-subscription',
@@ -31,37 +34,73 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, JsonPipe, NgxMatSelectSearchModule, NgFor, FormsModule, ReactiveFormsModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, JsonPipe, MatAutocompleteModule, NgxMatSelectSearchModule, NgFor, FormsModule, ReactiveFormsModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class AddAgentSubscriptionComponent {
   subscription: any;
   edit: boolean = false;
+  loading: boolean = false;
+  dirverList: any[] = [];
+  driverInfo: any[];
+  private searchdriverSubject = new Subject<number>();
   form: FormGroup = new FormGroup({
     driverId: new FormControl(''),
     subscriptionId: new FormControl(''),
     agentId: new FormControl(''),
+    fullName: new FormControl(''),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _agentService: AgentService,
+    private _driverService: DriversService,
     private _typeService: TypesService,
-    private cdr: ChangeDetectorRef,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
-        driverId: this.data?.driverId,
         agentId: this.data?.agentId,
       });
     }
     this.getSubscription();
+
+    this.searchdriverSubject
+      .pipe(
+        debounceTime(300),
+        switchMap((findText: number) => {
+          return this._driverService.get(findText).pipe(
+            catchError(() => of([])),
+          );
+        })
+      )
+      .subscribe((res: any) => {
+        this.driverInfo.push(res.data);
+        this.form.patchValue({
+          driverId: this.driverInfo[0].id
+        })
+        this._cdr.detectChanges()
+      });
   }
 
   getSubscription() {
     this._typeService.getSubscription().subscribe((response: any) => {
       this.subscription = response.data;
-      this.cdr.detectChanges();
+      this._cdr.detectChanges();
     })
+  }
+
+
+  findDriver(ev: any): void {
+    this.driverInfo = [];
+
+    const findText = ev.target.value.toString().trim().toLowerCase();
+    if (findText != '' || findText != null || findText != undefined) {
+      this.searchdriverSubject.next(findText);
+    }
+  }
+
+  displayDriverFn(driver: any): string {
+    return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
   }
 
   get f() {

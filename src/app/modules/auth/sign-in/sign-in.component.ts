@@ -62,8 +62,10 @@ export class AuthSignInComponent implements OnInit {
         (response: any) => {
           const user: any = jwtDecode(response.data.token);
           if (response.data.token && user.role?.permission['agentPage'] && !user.role?.permission['adminPage']) {
+            localStorage.setItem('userType', 'agent');
             this._router.navigateByUrl('agent-module');
           } else {
+            localStorage.setItem('userType', 'admin');
             this._router.navigateByUrl('dashboards');
           }
         },

@@ -19,7 +19,10 @@
                         </div>
                     </div>
                 </div>
-
+                <button class="hidden sm:inline-flex ml-3" [color]="'primary'" mat-flat-button
+                    (click)="addSubsciption()">
+                    <span class="ml-2">{{ 'add_subscription' | transloco }}</span>
+                </button>
                 <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
                     <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
@@ -31,29 +34,41 @@
             </div>
         </div>
 
-        <div class="flex items-baseline   w-full  ">
+        <div class="flex items-baseline w-full">
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'ID' | transloco }}">
+                <input matInput placeholder="{{ 'ID' | transloco }}" [(ngModel)]="filters.driverId" name="driverId">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'name' | transloco }}">
+                <input matInput placeholder="{{ 'firstName' | transloco }}" [(ngModel)]="filters.firstName"
+                    name="firstName">
             </mat-form-field>
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'phone' | transloco }}">
+                <input matInput placeholder="{{ 'phone' | transloco }}" [(ngModel)]="filters.phoneNumber"
+                    name="phoneNumber">
             </mat-form-field>
 
             <mat-form-field color="accent" class="w-50 px-1">
-                <input matInput placeholder="{{ 'register_date' | transloco }}">
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="filters.createdAtFrom"
+                    placeholder="{{ 'start_date_reg' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field color="accent" class="w-50 px-1">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="filters.createdAtTo"
+                    placeholder="{{ 'end_date_reg' | transloco }}">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" class="">
+                <button mat-flat-button color="warn" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class="px-1">
-                <button mat-flat-button color="warn">
+                <button mat-flat-button color="warn" (click)="getAllDrivers()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
