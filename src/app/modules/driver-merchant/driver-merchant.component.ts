@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,7 @@ import { AssignDriverComponent } from './components/assign-driver/assign-driver.
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
@@ -95,12 +95,13 @@ export class DriverMerchantComponent {
   }
   assignDriver(id:number) {
     this._dialog.open(AssignDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '60vw',
-      minHeight: '32vh',
-      maxHeight: '45vh',
+      minWidth: '25vw',
+      maxWidth: '30vw',
+      minHeight: '20vh',
+      maxHeight: '30vh',
       data: id,
       autoFocus: false,
+      disableClose: true
     }).afterClosed().subscribe(() => {
     })
   }

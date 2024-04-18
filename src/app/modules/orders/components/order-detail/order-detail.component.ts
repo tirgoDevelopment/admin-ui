@@ -19,6 +19,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { ClientDetailComponent } from 'app/modules/clients/components/client-detail/client-detail.component';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { AssignDriverComponent } from '../assign-driver/assign-driver.component';
+import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
 
 @Component({
   selector: 'app-order-detail',
@@ -37,13 +38,13 @@ export class OrderDetailComponent implements OnInit {
   editedAmount: number;
   originalCurrencyId: string;
   editedCurrencyId: string;
-
+  driverId: number;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private orderService: OrdersService,
     private typesService: TypesService,
     protected _dialog?: MatDialog) { }
-    
+
   ngOnInit(): void {
     this.typesService.getCurrencies().subscribe((res: any) => {
       if (res.success) {
@@ -51,17 +52,17 @@ export class OrderDetailComponent implements OnInit {
       }
     })
     this.getOrderById();
-    this.updateDriverOffers();
+
   }
   getOrderById() {
     this.orderService.getOrderById(this.data).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
-        // this.updateDriverOffers();
+        this.updateDriverOffers();
       }
     })
   }
-  clientInfo(clientId:number) {
+  clientInfo(clientId: number) {
     this._dialog.open(ClientDetailComponent, {
       width: '500px',
       height: '100vh',
@@ -73,10 +74,27 @@ export class OrderDetailComponent implements OnInit {
       },
       maxHeight: '100%'
     }).afterClosed().subscribe(() => {
+      this.getOrderById();
     })
   }
 
-  assignDriver(orderId:number) {
+  driverDetail(driverid: number) {
+    this._dialog.open(DetailDriverComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: driverid,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+      this.getOrderById();
+    })
+  }
+
+  assignDriver(orderId: number) {
     this._dialog.open(AssignDriverComponent, {
       width: '500px',
       height: '100vh',
@@ -88,6 +106,8 @@ export class OrderDetailComponent implements OnInit {
       },
       maxHeight: '100%'
     }).afterClosed().subscribe(() => {
+      this.getOrderById();
+      this.updateDriverOffers();
     })
   }
 
@@ -98,7 +118,7 @@ export class OrderDetailComponent implements OnInit {
       }
     })
   }
-  
+
   // acceptDriver(offer) {
   //   if (this.data.isSafeTransaction) {
   //     const dialogRef = this.dialog.open(ScoreComponent, {
@@ -157,8 +177,12 @@ export class OrderDetailComponent implements OnInit {
   //   this.editing = false;
   // }
   updateDriverOffers() {
+    console.log(this.data)
     if (this.data.driverOffers && Array.isArray(this.data.driverOffers)) {
-      this.data.driverOffers = this.data.driverOffers.filter(offer => offer.rejected == false);
+      this.data.driverOffers = this.data.driverOffers.find(offer => offer.accepted == true);
+      console.log(this.data.driverOffers)
+      this.driverId = this.data.driverOffers.driver.id;
+      console.log(this.driverId)
     }
   }
 }

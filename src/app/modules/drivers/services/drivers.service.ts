@@ -27,8 +27,18 @@ export class DriversService {
   }
 
   create(body): Observable<Response<DriverModel>> {
-    
     return this._apiService.post<DriverModel>('/users/drivers/register', body);
+  }
+
+  assignDriver(body): Observable<Response<any>> {
+    return this._apiService.post<any>('/users/staffs/append-drivers-tms', body);
+  }
+
+
+  getMerchantDrivers(id: number): Observable<Response<DriverModel>> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("merchantId", id);
+    return this._apiService.get<DriverModel>(`/users/drivers/drivers-by-driver-merchant`, queryParams);
   }
 
   createTransport(body): Observable<Response<DriverModel>> {

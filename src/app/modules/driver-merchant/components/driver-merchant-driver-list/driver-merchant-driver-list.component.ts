@@ -22,6 +22,7 @@ import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
 import { BlockDriverComponent } from 'app/modules/drivers/components/block-driver/block-driver.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-driver-merchant-driver-list',
@@ -54,20 +55,25 @@ export class DriverMerchantDriverListComponent implements OnInit {
     sortBy: 'id',
     sortType: 'desc'
   };
+  id: number
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(
+    private _router: ActivatedRoute,
     private _driversService: DriversService,
     protected _dialog: MatDialog,
     private _typeService: TypesService,
     private utilsService: FuseUtilsService,
     private cdr: ChangeDetectorRef) {
+      this._router.params.subscribe((params) => {
+        this.id = params.id;
+      })
   }
 
   ngOnInit() {
-    this.getAllDrivers(this.pageParams);
+    this.getAllDrivers(this.id);
     this._typeService.getTransportKinds().subscribe((response: any) => {
       this.transportKinds = response.data;
     })
@@ -113,8 +119,9 @@ tooltipText(driverTransports: any[]): string {
   filterDrivers() {
   }
 
-  getAllDrivers(params?) {
-    this._driversService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
+  getAllDrivers(id?) {
+    this._driversService.getMerchantDrivers(id).subscribe((response: any) => {
+      console.log(response)
       this.dataSource.data = response?.data?.content;
       this.pageParams.pageSize = response?.data?.pageSize;
       this.pageParams.pageIndex = response?.data?.pageIndex;

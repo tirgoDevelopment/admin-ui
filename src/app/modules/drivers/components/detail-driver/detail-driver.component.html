@@ -91,7 +91,61 @@
             </div>
         </div>
     </div>
-
+    <div *ngIf="driver.driverMerchant" class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md">
+        <div class="mb-5 flex">
+            <h2 class="text-2xl leading-4 font-bold"> {{"driver_merchant"|transloco}}</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="font-semibold"> {{ 'company_name' | transloco }}</p>
+                <p>{{driver.driverMerchant?.companyName}}</p>
+            </div>
+            <div>
+                <p class="font-semibold"> {{ 'director_name' | transloco }}</p>
+                <p>{{driver.driverMerchant?.supervisorFirstName}} {{driver.driverMerchant?.supervisorLastName}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'responce_person' | transloco }}</p>
+                <p>{{driver.driverMerchant?.responsiblePersonFistName}} {{driver.driverMerchant?.responsiblePersonLastName}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'phone' | transloco }}</p>
+                <p>{{driver.driverMerchant?.phoneNumber}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'legal_address' | transloco }}</p>
+                <p>{{driver.driverMerchant?.legalAddress}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'actual_address' | transloco }}</p>
+                <p>{{driver.driverMerchant?.factAddress}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'email' | transloco }}</p>
+                <p>{{driver.driverMerchant?.email}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'bank_name' | transloco }}</p>
+                <p>{{driver.driverMerchant?.bankName}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'inn' | transloco }}</p>
+                <p>{{driver.driverMerchant?.inn}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'oked' | transloco }}</p>
+                <p>{{driver.driverMerchant?.oked}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'mfo' | transloco }}</p>
+                <p>{{driver.driverMerchant?.mfo}}</p>
+            </div>
+            <div>
+                <p class="font-semibold">{{ 'duns_number' | transloco }}</p>
+                <p>{{driver.driverMerchant?.dunsNumber}}</p>
+            </div>
+        </div>
+    </div>
     <div class="flex items-end gap-4 mt-2 p-4">
         <div class="w-40" *ngIf="driver?.passportFilePath">
             <mat-label class="text-large font-bold">{{ 'passport' | transloco }} </mat-label>

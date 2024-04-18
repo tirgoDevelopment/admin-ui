@@ -22,6 +22,9 @@ export class OrdersService {
     return this.http.post(env.orderApiUrl + '/orders/staffs', data)
   }
 
+  appendOrder(data) {
+    return this.http.post(env.orderApiUrl + '/orders/staffs/append-order', data)
+  }
   cancelOrder(id) {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
