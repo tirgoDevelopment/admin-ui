@@ -53,9 +53,9 @@ export class DetailDriverComponent implements OnInit {
   block() {
     const dialog = this._dialog.open(BlockDriverComponent, {
       minWidth: '20vw',
-      maxWidth: '40vw',
-      minHeight: '42vh',
-      maxHeight: '85vh',
+      maxWidth: '30vw',
+      minHeight: '30vh',
+      maxHeight: '45vh',
       data: this.driver.id,
       autoFocus: false,
     })

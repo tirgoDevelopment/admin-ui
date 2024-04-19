@@ -111,10 +111,6 @@
                                     <mat-icon>list</mat-icon>
                                     {{"drivers"|transloco}}
                                 </button>
-                                <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
-                                    <mat-icon>edit</mat-icon>
-                                    {{"edit"|transloco}}
-                                </button>
                                 <button mat-menu-item color="accent" *ngIf="row.active" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>
                                     {{"block"|transloco}}
@@ -133,7 +129,7 @@
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns">
+                <mat-row *matRowDef="let row; columns: displayedColumns"  [routerLink]="['edit', row.id]">
                 </mat-row>
             </mat-table>
             <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)"

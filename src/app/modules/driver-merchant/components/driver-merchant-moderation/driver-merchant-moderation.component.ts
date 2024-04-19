@@ -32,11 +32,9 @@ import { FileUrlService } from 'app/shared/services/file-url.service';
   templateUrl: './driver-merchant-moderation.component.html',
   styleUrls: ['./driver-merchant-moderation.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, PipeModule,CommonModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
-
 })
 export class DriverMerchantModerationComponent implements OnInit {
   displayedColumns: string[] = ['full_name', 'sum', 'currencyName', 'date', 'type', 'status', 'actions'];
@@ -45,7 +43,6 @@ export class DriverMerchantModerationComponent implements OnInit {
   fileApi = 'https://merchant.tirgo.io/api/v1/file/download/';
   selectedFileNames: any;
   passportFile: FileList;
-
   certificateFile: FileList;
   data
   transactionRequest: any[] = [];
@@ -110,27 +107,27 @@ export class DriverMerchantModerationComponent implements OnInit {
       this.passportFilePath = responce.data?.passportFilePath;
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.form.patchValue({
-        merchantId: responce.data.id,
-        bankName: responce.data.bankName,
-        bankBranchName: responce.data.bankBranchName,
-        companyName: responce.data.companyName,
-        phoneNumber: responce.data.phoneNumber,
-        dunsNumber: responce.data.dunsNumber,
-        ibanNumber: responce.data.ibanNumber,
-        taxPayerCode: responce.data.taxPayerCode,
-        email: responce.data.email,
-        supervisorFirstName: responce.data.supervisorFirstName,
-        supervisorLastName: responce.data.supervisorLastName,
-        responsiblePersonFistName: responce.data.responsiblePersonFistName,
-        responsiblePersonLastName: responce.data.responsiblePersonLastName,
-        responsbilePersonPhoneNumber: responce.data.responsbilePersonPhoneNumber,
-        legalAddress: responce.data.legalAddress,
-        factAddress: responce.data.factAddress,
-        postalCode: responce.data.postalCode,
-        garageAddress: responce.data.garageAddress,
-        inn: responce.data.inn,
-        oked: responce.data.oked,
-        mfo: responce.data.mfo,
+        merchantId: responce.data?.id,
+        bankName: responce.data?.bankName,
+        bankBranchName: responce.data?.bankBranchName,
+        companyName: responce.data?.companyName,
+        phoneNumber: responce.data?.phoneNumber,
+        dunsNumber: responce.data?.dunsNumber,
+        ibanNumber: responce.data?.ibanNumber,
+        taxPayerCode: responce.data?.taxPayerCode,
+        email: responce.data?.email,
+        supervisorFirstName: responce.data?.supervisorFirstName,
+        supervisorLastName: responce.data?.supervisorLastName,
+        responsiblePersonFistName: responce.data?.responsiblePersonFistName,
+        responsiblePersonLastName: responce.data?.responsiblePersonLastName,
+        responsbilePersonPhoneNumber: responce.data?.responsbilePersonPhoneNumber,
+        legalAddress: responce.data?.legalAddress,
+        factAddress: responce.data?.factAddress,
+        postalCode: responce.data?.postalCode,
+        garageAddress: responce.data?.garageAddress,
+        inn: responce.data?.inn,
+        oked: responce.data?.oked,
+        mfo: responce.data?.mfo,
         internationalCargoLisensePath: responce.data?.transportationCertificateFilePath,
         logoFilePath: responce.data?.logoFilePath,
         registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
@@ -173,24 +170,6 @@ export class DriverMerchantModerationComponent implements OnInit {
 
   get f() {
     return this.form.controls
-  }
-
-  onFileSelected(event: any, type: string): void {
-    const file: File = event.target.files[0];
-    if (type == 'logoFilePath') {
-      this.form.patchValue({
-        logoFilePath: file
-      });
-    } else if (type == 'registrationCertificateFilePath') {
-      this.form.patchValue({
-        registrationCertificateFilePath: file
-      });
-    }
-    else if (type == 'passportFilePath') {
-      this.form.patchValue({
-        passportFilePath: file
-      });
-    }
   }
 
   getImageUrl(formname: string): string {
