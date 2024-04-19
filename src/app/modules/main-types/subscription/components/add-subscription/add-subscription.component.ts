@@ -1,5 +1,5 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,8 +24,6 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   selector: 'app-add-subscription',
   templateUrl: './add-subscription.component.html',
   styleUrls: ['./add-subscription.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
@@ -47,7 +45,6 @@ export class AddSubscriptionComponent {
     private _dialog: MatDialog) {
     this._currencyStatusService.getAll().subscribe((response: any) => {
       this.currencies = response.data;
-      console.log(this.currencies)
     })
     if (this.data) {
       this.edit = true;
@@ -56,7 +53,7 @@ export class AddSubscriptionComponent {
         name: this.data?.name,
         price: this.data?.price,
         duration: this.data?.duration,
-        currencyId: this.data?.currencyId,
+        currencyId: this.data?.currency
       });
     }
   }

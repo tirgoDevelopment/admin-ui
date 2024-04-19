@@ -9,6 +9,10 @@
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
+                <!-- <button class="hidden sm:inline-flex ml-3" *ngIf="hasPermission('addBalanceAgent')" [color]="'primary'"
+                    mat-flat-button (click)="addBalanse()">
+                    <span class="ml-2">{{ 'balance' | transloco }}</span>
+                </button> -->
             </div>
         </div>
         <div class="flex items-baseline  flex-wrap">
@@ -36,7 +40,7 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn"  (click)="clearFilters()">
+                <button mat-flat-button color="warn" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
@@ -109,6 +113,12 @@
                                 <button mat-menu-item color="accent" [routerLink]="['/agents',row?.id]">
                                     <mat-icon>list</mat-icon>
                                     {{"drivers"|transloco}}
+                                </button>
+                                <button mat-menu-item color="accent" (click)="addBalanse(row.id)">
+                                    <mat-icon>
+                                        attach_money
+                                    </mat-icon>
+                                    {{"balance"|transloco}}
                                 </button>
                                 <button mat-menu-item color="accent" *ngIf="!row?.blocked" (click)="block(row.id)">
                                     <mat-icon>lock</mat-icon>

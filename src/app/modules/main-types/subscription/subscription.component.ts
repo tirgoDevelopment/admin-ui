@@ -66,8 +66,8 @@ export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddSubscriptionComponent, {
       minWidth: '35vw',
       maxWidth: '40vw',
-      minHeight: '55vh',
-      maxHeight: '80vh',
+      minHeight: '45vh',
+      maxHeight: '60vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -80,8 +80,8 @@ export class SubscriptionComponent extends UnsubscribeAble implements OnInit {
     const dialogRef = this._dialog.open(AddSubscriptionComponent, {
       minWidth: '35vw',
       maxWidth: '40vw',
-      minHeight: '55vh',
-      maxHeight: '80vh',
+      minHeight: '45vh',
+      maxHeight: '60vh',
       autoFocus: false,
       data: row,
     });

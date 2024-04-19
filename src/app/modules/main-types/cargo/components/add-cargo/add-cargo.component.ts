@@ -24,8 +24,6 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   selector: 'app-add-cargo',
   templateUrl: './add-cargo.component.html',
   styleUrls: ['./add-cargo.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
@@ -45,16 +43,17 @@ export class AddCargoComponent {
     private _cargoService: CargoService,
     private _cargoGroupService: CargoGroupService,
     private _dialog: MatDialog) {
+    this.getCargoGroup()
     if (this.data) {
       this.edit = true;
+      console.log(this.data)
       this.form.patchValue({
         id: this.data?.id,
         name: this.data?.name,
         codeTNVED: this.data?.codeTNVED,
-        cargoTypeGroupId: this.data?.cargoTypeGroupId,
+        cargoTypeGroupId: this.data?.group?.id,
       });
     }
-    this.getCargoGroup()
   }
 
   getCargoGroup() {

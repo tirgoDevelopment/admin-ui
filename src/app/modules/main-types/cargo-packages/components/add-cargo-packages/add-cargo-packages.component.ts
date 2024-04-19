@@ -32,7 +32,6 @@ export class AddCargoPackagesComponent {
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
-    code: new FormControl('', [Validators.required]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

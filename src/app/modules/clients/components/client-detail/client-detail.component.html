@@ -83,10 +83,7 @@
                 <p class="text-xl leading-4 mb-1">{{"register_date"|transloco}}</p>
                 <p class="font-bold">{{client?.createdAt | date:'d MMMM y в HH:mm'}}</p>
             </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"last_enter"|transloco}}</p>
-                <p class="font-bold">03 ноября 2023 в 19:52</p>
-            </div>
+        
             <div>
                 <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
                 <p class="font-bold" *ngIf="client?.phoneNumber">{{client.phoneNumber}}</p>

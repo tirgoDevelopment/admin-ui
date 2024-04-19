@@ -24,6 +24,7 @@
     "add_driver": "Добавить Водителя",
     "edit_driver": "Редактировать",
     "add_client": "Добавить Клиенте",
+    "cargo_group_type":"Тип группы груза",
     "cancel_order": "Отменить заказ",
     "watch_driver": "Подробнее о Водителе",
     "watch_client": "Подробнее о Клиенте",
