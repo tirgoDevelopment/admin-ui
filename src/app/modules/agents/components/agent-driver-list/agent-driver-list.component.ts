@@ -168,20 +168,20 @@ export class AgentDriverListComponent implements OnInit {
       })
   }
 
-  // addBalanse() {
-  //   const dialog = this._dialog.open(AddBalanceAgentComponent, {
-  //     minWidth: '30vw',
-  //     maxWidth: '40vw',
-  //     minHeight: '40vh',
-  //     maxHeight: '60vh',
-  //     autoFocus: false,
-  //     data: { id: this.id },
-  //   })
-  //   dialog.afterClosed()
-  //     .subscribe(() => {
-  //       this.getAllAgentsDrivers(this.id)
-  //     })
-  // }
+  addBalanse() {
+    const dialog = this._dialog.open(AddBalanceAgentComponent, {
+      minWidth: '30vw',
+      maxWidth: '40vw',
+      minHeight: '40vh',
+      maxHeight: '60vh',
+      autoFocus: false,
+      data: { id: this.id },
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllAgentsDrivers(this.id)
+      })
+  }
 
 
   addSubsciption(id: number) {
