@@ -44,7 +44,7 @@ export class AgentDriverListComponent implements OnInit {
     driverId: '',
     firstName: '',
     phoneNumber: '',
-    createdAtFrom:'',
+    createdAtFrom: '',
     createdAtTo: '',
   };
   pageParams = {
@@ -52,14 +52,14 @@ export class AgentDriverListComponent implements OnInit {
     pageIndex: 1,
     pageSize: 10,
     perPage: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'register_date', 'last_enter', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<DriverModel>([]);
-  constructor(private _router: ActivatedRoute, 
+  constructor(private _router: ActivatedRoute,
     private utilsService: FuseUtilsService,
     private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
@@ -73,13 +73,13 @@ export class AgentDriverListComponent implements OnInit {
     this.getBalance(this.id)
   }
 
-  
+
   clearFilters() {
     this.filters = {
       driverId: '',
       firstName: '',
       phoneNumber: '',
-      createdAtFrom:'',
+      createdAtFrom: '',
       createdAtTo: ''
     };
     this.getAllAgentsDrivers(this.pageParams);
@@ -87,10 +87,10 @@ export class AgentDriverListComponent implements OnInit {
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
+  }
 
   getAllAgentsDrivers(params?) {
-    this._agentService.getAllByAgent(Object.assign(this.filters, params)).subscribe((response:any) => {
+    this._agentService.getAllByAgent(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data;
       this.pageParams.totalPagesCount = response?.data.totalPagesCount;
     });
@@ -98,7 +98,7 @@ export class AgentDriverListComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.pageSize = event.pageSize;
-    this.pageParams.pageIndex = event.pageIndex + 1;    
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllAgentsDrivers(this.pageParams);
   }
 
@@ -168,20 +168,20 @@ export class AgentDriverListComponent implements OnInit {
       })
   }
 
-  addBalanse() {
-    const dialog = this._dialog.open(AddBalanceAgentComponent, {
-      minWidth: '35vw',
-      maxWidth: '50vw',
-      minHeight: '50vh',
-      maxHeight: '80vh',
-      autoFocus: false,
-      data: { id: this.id },
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this.getAllAgentsDrivers(this.id)
-      })
-  }
+  // addBalanse() {
+  //   const dialog = this._dialog.open(AddBalanceAgentComponent, {
+  //     minWidth: '30vw',
+  //     maxWidth: '40vw',
+  //     minHeight: '40vh',
+  //     maxHeight: '60vh',
+  //     autoFocus: false,
+  //     data: { id: this.id },
+  //   })
+  //   dialog.afterClosed()
+  //     .subscribe(() => {
+  //       this.getAllAgentsDrivers(this.id)
+  //     })
+  // }
 
 
   addSubsciption(id: number) {

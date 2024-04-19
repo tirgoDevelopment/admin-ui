@@ -14,6 +14,7 @@
     "user_activity": "Активность пользователя",
     "truck_type": "Truck type",
     "cargo_type": "Тип груза",
+    "cargo_group_type": "Тип группы груза",
     "codeTNVED": "Код ТНВЭД",
     "chat": "Чат",
     "activity": "Активность",

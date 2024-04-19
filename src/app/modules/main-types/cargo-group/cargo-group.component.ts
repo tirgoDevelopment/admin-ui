@@ -67,8 +67,8 @@ export class CargoGroupComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddCargoGroupComponent, {
       minWidth: '20vw',
       maxWidth: '25vw',
-      minHeight: '20vh',
-      maxHeight: '80vh',
+      minHeight: '30vh',
+      maxHeight: '60vh',
       autoFocus: false,
     })
     dialog.afterClosed()
@@ -79,10 +79,10 @@ export class CargoGroupComponent extends UnsubscribeAble implements OnInit {
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddCargoGroupComponent, {
-      minWidth: '25vw',
-      maxWidth: '30vw',
-      minHeight: '20vh',
-      maxHeight: '80vh',
+      minWidth: '20vw',
+      maxWidth: '25vw',
+      minHeight: '30vh',
+      maxHeight: '60vh',
       autoFocus: false,
       data: row,
     });

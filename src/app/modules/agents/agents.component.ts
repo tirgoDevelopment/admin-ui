@@ -20,6 +20,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { AgentBlockComponent } from './components/agent-block/agent-block.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddBalanceAgentComponent } from './components/add-balance-agent/add-balance-agent.component';
 
 @Component({
   selector: 'app-agents',
@@ -70,6 +71,20 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     this.getAllAgents(this.pageParams);
   }
 
+  addBalanse(id) {
+    const dialog = this._dialog.open(AddBalanceAgentComponent, {
+      minWidth: '30vw',
+      maxWidth: '40vw',
+      minHeight: '40vh',
+      maxHeight: '60vh',
+      autoFocus: false,
+      data: { id: id },
+    })
+    dialog.afterClosed()
+      .subscribe(() => {
+        this.getAllAgents(this.pageParams)
+      })
+  }
   getAllAgents(params?) {
     this._agentService.getAll(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data.content;

@@ -46,6 +46,8 @@ export class AddCargoStatusComponent {
       this.form.patchValue({
         id: this.data?.id,
         name: this.data?.name,
+        code: this.data?.code,
+        color: this.data?.color,
       });
     }
   }
