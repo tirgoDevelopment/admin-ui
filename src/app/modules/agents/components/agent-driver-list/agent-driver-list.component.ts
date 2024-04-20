@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -61,6 +61,7 @@ export class AgentDriverListComponent implements OnInit {
   dataSource = new MatTableDataSource<DriverModel>([]);
   constructor(private _router: ActivatedRoute,
     private utilsService: FuseUtilsService,
+    private _cdr: ChangeDetectorRef,
     private _agentService: AgentService, protected _dialog?: MatDialog) {
     this._router.params.subscribe((params) => {
       this.id = params.id;
@@ -69,8 +70,8 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllAgentsDrivers(this.pageParams);
     this.getBalance(this.id)
+    this.getAllAgentsDrivers(this.pageParams);
   }
 
 
@@ -93,6 +94,7 @@ export class AgentDriverListComponent implements OnInit {
     this._agentService.getAllByAgent(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data;
       this.pageParams.totalPagesCount = response?.data.totalPagesCount;
+      this._cdr.detectChanges()
     });
   }
 
@@ -105,6 +107,8 @@ export class AgentDriverListComponent implements OnInit {
   getBalance(id: number) {
     this._agentService.getAgentbalance(id).subscribe((response) => {
       this.balances = response?.data;
+      this._cdr.detectChanges()
+      console.log(this.balances)
     });
   }
 

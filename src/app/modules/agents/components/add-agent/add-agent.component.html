@@ -128,7 +128,7 @@
                 <div formArrayName="bankAccounts" class="flex flex-wrap items-center justify-center w-full">
                     <mat-form-field *ngFor="let item of itemsFormArray.controls; let i = index" [formGroupName]="i"
                         class="w-full">
-                        <mat-label>Bank Account</mat-label>
+                        <mat-label> {{ 'bank_account' | transloco }}</mat-label>
                         <input type="number" matInput formControlName="account">
                         <mat-select matPrefix formControlName="currencyId">
                             <mat-option *ngFor="let currency of currencies"
