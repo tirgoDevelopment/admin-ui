@@ -26,6 +26,7 @@ import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { FileUrlService } from 'app/shared/services/file-url.service';
 import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
+import { CountryService } from 'app/shared/services/country.service';
 
 @Component({
   selector: 'app-merchant-moderation',
@@ -86,6 +87,7 @@ export class MerchantModerationComponent implements OnInit {
   constructor(
     protected fileService: FileUrlService,
     private router: Router,
+    private _counterService: CountryService,
     private route: ActivatedRoute,
     private _dialog: MatDialog,
     private toastr: ToastrService,
@@ -104,26 +106,30 @@ export class MerchantModerationComponent implements OnInit {
       this.logoFilePath = responce.data?.logoFilePath;
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.passportFilePath = responce.data?.passportFilePath;
-      this.form.patchValue({
-        id: responce.data?.id,
-        bankName: responce.data?.bankName,
-        companyName: responce.data?.companyName,
-        phoneNumber: responce.data?.phoneNumber,
-        dunsNumber: responce.data?.dunsNumber,
-        email: responce.data?.email,
-        supervisorFirstName: responce.data?.supervisorFirstName,
-        supervisorLastName: responce.data?.supervisorLastName,
-        responsiblePersonFistName: responce.data?.responsiblePersonFistName,
-        responsiblePersonLastName: responce.data?.responsiblePersonLastName,
-        responsbilePersonPhoneNumber: responce.data?.responsbilePersonPhoneNumber,
-        legalAddress: responce.data?.legalAddress,
-        inn: responce.data?.inn,
-        oked: responce.data?.oked,
-        mfo: responce.data?.mfo,
-        notes: responce.data?.notes,
-        logoFilePath: responce.data?.logoFilePath,
-        registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
-        passportFilePath: responce.data?.passportFilePath
+      this._counterService.getJSONFromLocal().subscribe((data: any) => {
+        let phoneNumber = this._counterService.getCountryCode(String(responce.data?.phoneNumber), data);
+        let responsbilePersonPhoneNumber = this._counterService.getCountryCode(String(responce.data?.responsbilePersonPhoneNumber).replace(/\+/g, ''), data);
+        this.form.patchValue({
+          id: responce.data?.id,
+          bankName: responce.data?.bankName,
+          companyName: responce.data?.companyName,
+          phoneNumber: String(responce.data?.phoneNumber).replace(phoneNumber, ''),
+          dunsNumber: responce.data?.dunsNumber,
+          email: responce.data?.email,
+          supervisorFirstName: responce.data?.supervisorFirstName,
+          supervisorLastName: responce.data?.supervisorLastName,
+          responsiblePersonFistName: responce.data?.responsiblePersonFistName,
+          responsiblePersonLastName: responce.data?.responsiblePersonLastName,
+          responsbilePersonPhoneNumber: String(String(responce.data?.responsbilePersonPhoneNumber).replace(/\+/g, '')).replace(responsbilePersonPhoneNumber, ''),
+          legalAddress: responce.data?.legalAddress,
+          inn: responce.data?.inn,
+          oked: responce.data?.oked,
+          mfo: responce.data?.mfo,
+          notes: responce.data?.notes,
+          logoFilePath: responce.data?.logoFilePath,
+          registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
+          passportFilePath: responce.data?.passportFilePath
+        })
       })
     })
   }
@@ -290,7 +296,7 @@ export class MerchantModerationComponent implements OnInit {
     const dialogRef = this._dialog.open(CreateTransactionComponent, {
       autoFocus: false,
       disableClose: true,
-      data: {merchantId:this.id, balance: this.balances }
+      data: { merchantId: this.id, balance: this.balances }
     });
     dialogRef.afterClosed().subscribe(result => {
       // this.getAllTransaction();

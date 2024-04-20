@@ -24,6 +24,7 @@ import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-form
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { FileUrlService } from 'app/shared/services/file-url.service';
+import { CountryService } from 'app/shared/services/country.service';
 
 @Component({
   selector: 'app-add-agent',
@@ -65,6 +66,7 @@ export class AddAgentComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _agentService: AgentService,
+    private _counterService: CountryService,
     private _typeService: TypesService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog,
@@ -84,23 +86,26 @@ export class AddAgentComponent {
       this.registrationCertificateFilePath = res.data.registrationCertificateFilePath;
       this.managerPassportFilePath = res.data.managerPassportFilePath;
       if (res.success) {
-        this.form.patchValue({
-          id: res.data.id,
-          username: res.data.username,
-          phoneNumber: res.data.phoneNumber,
-          companyName: res.data.companyName,
-          legalAddress: res.data.legalAddress,
-          physicalAddress: res.data.physicalAddress,
-          managerFirstName: res.data.managerFirstName,
-          managerLastName: res.data.managerLastName,
-          inn: res.data.inn,
-          oked: res.data.oked,
-          mfo: res.data.mfo,
-          bankBranchName: res.data.bankBranchName,
-          bankAccounts: res.data.bankAccounts,
-          registrationCertificateFilePath: res.data.registrationCertificateFilePath,
-          managerPassportFilePath: res.data.managerPassportFilePath,
-        });
+        this._counterService.getJSONFromLocal().subscribe((data: any) => {
+          let phone = this._counterService.getCountryCode(String(res.data?.phoneNumber), data);
+          this.form.patchValue({
+            id: res.data.id,
+            username: res.data.username,
+            phoneNumber:  String(res.data?.phoneNumber).replace(phone, ''),
+            companyName: res.data.companyName,
+            legalAddress: res.data.legalAddress,
+            physicalAddress: res.data.physicalAddress,
+            managerFirstName: res.data.managerFirstName,
+            managerLastName: res.data.managerLastName,
+            inn: res.data.inn,
+            oked: res.data.oked,
+            mfo: res.data.mfo,
+            bankBranchName: res.data.bankBranchName,
+            bankAccounts: res.data.bankAccounts,
+            registrationCertificateFilePath: res.data.registrationCertificateFilePath,
+            managerPassportFilePath: res.data.managerPassportFilePath,
+          });
+        })
       }
     })
   }

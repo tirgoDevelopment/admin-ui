@@ -61,6 +61,7 @@ export class AddClientComponent {
     private countryService: CountryService,
     private _toaster: ToastrService,
     private _clientService: ClientService,
+    private _counterService: CountryService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
@@ -68,16 +69,20 @@ export class AddClientComponent {
       this._clientService.get(this.data.id).subscribe((res: any) => {
         this.edit = true;
         this.passport = res.data?.passportFilePath;
-        this.form.patchValue({
-          id: res.data?.id,
-          firstName: res.data?.firstName,
-          lastName: res.data?.lastName,
-          phoneNumber: res.data?.phoneNumbers[0].phoneNumber,
-          email: res.data?.email,
-          passport: res.data?.passportFilePath,
-        });
+        this.countryService.getJSONFromLocal().subscribe((data: any) => {
+          let phone = this._counterService.getCountryCode(String(res.data?.phoneNumbers[0].phoneNumber), data);
+          this.form.patchValue({
+            id: res.data?.id,
+            firstName: res.data?.firstName,
+            lastName: res.data?.lastName,
+            phoneNumber: String(res.data?.phoneNumbers[0].phoneNumber).replace(phone, ''),
+            email: res.data?.email,
+            passport: res.data?.passportFilePath,
+          });
+        })
       })
-
+      this.form.get('password').clearValidators();
+      this.form.get('passport').clearValidators();
     }
   }
 
@@ -134,54 +139,21 @@ export class AddClientComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      if (this.form.value.id) {
-        this.form.patchValue({
-          phoneNumbers: [this.form.get('phoneNumber').value]
-        })
-        this._clientService.update(this.form.value)
-          .pipe(res => {
-            if (isObservable(res)) {
-              // this.form.patchValue({
-              //   phoneNumbers: [
-              //     ...this.form.get('phoneNumbers').value
-              //   ]
-              // })
-              // this.formData = new FormData();
-              return res
-            } else {
-              return res
-            }
-          }).subscribe(res => {
-            if (res.success) {
-              this._dialog.closeAll()
-              this._toaster.success('Пользователь успешно обновлена')
-            } else {
-              this._toaster.error('Невозможно сохранить пользователь')
-              // this.form.patchValue({
-              //   phoneNumbers: [
-              //     ...this.form.get('phoneNumbers').value
-              //   ]
-              // })
-            }
-          })
-      } else {
-        this.formData.append('password', this.form.get('password').value);
-        // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
-        this.formData.append('id', this.form.get('id').value);
-        this.formData.append('firstName', this.form.get('firstName').value);
-        this.formData.append('lastName', this.form.get('lastName').value);
-        this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
-        this.formData.append('email', this.form.get('email').value);
-        const uniqueFormData = removeDuplicateKeys(this.formData);
-        this._clientService.create(uniqueFormData).pipe(res => {
+    console.log(this.form)
+    // if (this.form.valid) {
+    if (this.form.value.id) {
+      this.form.patchValue({
+        phoneNumbers: [this.form.get('phoneNumber').value]
+      })
+      this._clientService.update(this.form.value)
+        .pipe(res => {
           if (isObservable(res)) {
-            // this.formData = removeUnselected(this.formData,['passport']);
             // this.form.patchValue({
             //   phoneNumbers: [
             //     ...this.form.get('phoneNumbers').value
             //   ]
             // })
+            // this.formData = new FormData();
             return res
           } else {
             return res
@@ -189,10 +161,9 @@ export class AddClientComponent {
         }).subscribe(res => {
           if (res.success) {
             this._dialog.closeAll()
-            this.form.reset()
-            this._toaster.success('Пользователь успешно добавлена')
+            this._toaster.success('Пользователь успешно обновлена')
           } else {
-            this._toaster.error('Невозможно сохранить пользователь');
+            this._toaster.error('Невозможно сохранить пользователь')
             // this.form.patchValue({
             //   phoneNumbers: [
             //     ...this.form.get('phoneNumbers').value
@@ -200,16 +171,51 @@ export class AddClientComponent {
             // })
           }
         })
-      }
     } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
+      this.formData.append('password', this.form.get('password').value);
+      // this.formData.append('passport', this.form.get('passport')?.value, String(new Date().getTime()));
+      this.formData.append('id', this.form.get('id').value);
+      this.formData.append('firstName', this.form.get('firstName').value);
+      this.formData.append('lastName', this.form.get('lastName').value);
+      this.formData.append('phoneNumbers', JSON.stringify([this.form.get('phoneNumber').value]));
+      this.formData.append('email', this.form.get('email').value);
+      const uniqueFormData = removeDuplicateKeys(this.formData);
+      this._clientService.create(uniqueFormData).pipe(res => {
+        if (isObservable(res)) {
+          // this.formData = removeUnselected(this.formData,['passport']);
+          // this.form.patchValue({
+          //   phoneNumbers: [
+          //     ...this.form.get('phoneNumbers').value
+          //   ]
+          // })
+          return res
+        } else {
+          return res
+        }
+      }).subscribe(res => {
+        if (res.success) {
+          this._dialog.closeAll()
+          this.form.reset()
+          this._toaster.success('Пользователь успешно добавлена')
+        } else {
+          this._toaster.error('Невозможно сохранить пользователь');
+          // this.form.patchValue({
+          //   phoneNumbers: [
+          //     ...this.form.get('phoneNumbers').value
+          //   ]
+          // })
         }
       })
     }
+    // } else {
+    //   this._dialog.open(MessageComponent, {
+    //     width: '500px',
+    //     height: '450px',
+    //     data: {
+    //       text: 'Вы должны ввести все обязательные поля',
+    //     }
+    //   })
+    // }
   }
 
 }
