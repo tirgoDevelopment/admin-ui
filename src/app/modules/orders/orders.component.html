@@ -121,7 +121,7 @@
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
-          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header>{{ 'price' | transloco
+          <mat-header-cell class="font-bold" (click)="sortData('price')" *matHeaderCellDef mat-sort-header>{{ 'price' | transloco
             }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.offeredPrice }}
           </mat-cell>

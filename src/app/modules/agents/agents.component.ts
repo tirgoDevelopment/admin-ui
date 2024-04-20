@@ -21,6 +21,7 @@ import { AgentBlockComponent } from './components/agent-block/agent-block.compon
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddBalanceAgentComponent } from './components/add-balance-agent/add-balance-agent.component';
+import { DetailAgentDriverComponent } from './components/detail-agent-driver/detail-agent-driver.component';
 
 @Component({
   selector: 'app-agents',
@@ -71,6 +72,22 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     this.getAllAgents(this.pageParams);
   }
 
+
+  detail(id: number) {
+    this._dialog.open(DetailAgentDriverComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: id,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+    this.getAllAgents(this.pageParams);
+    })
+  }
   addBalanse(id) {
     const dialog = this._dialog.open(AddBalanceAgentComponent, {
       minWidth: '30vw',

@@ -358,6 +358,7 @@
     "username":"Username",
     "welcome":"Welcome",
     "assign_merchant_driver":"Assign  merchant driver",
-    "driver_merchant":"Driver merchant "
-
+    "driver_merchant":"Driver merchant ",
+    "about_agent":"More about the agent",
+    "bank_account":"Bank account"
 }

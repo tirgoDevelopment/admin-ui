@@ -81,13 +81,12 @@
 
                 <ng-container matColumnDef="full_name">
                     <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef
-                        (click)="sortData('fullName')">{{"full_name"|transloco}}
+                        (click)="sortData('firstName')">{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.firstName}} {{ row?.lastName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef
-                        (click)="sortData('phone')">{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold"  *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">

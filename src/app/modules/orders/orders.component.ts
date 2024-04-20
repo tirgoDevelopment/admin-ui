@@ -204,7 +204,7 @@ export class OrdersComponent implements OnInit {
     })
   }
 
-  sortDaat(filter: string): void {
+  sortData(filter: string): void {
     if (filter === this.pageParams.sortBy) {
       if (this.pageParams.sortType === 'desc') {
         this.pageParams.sortType = 'asc';

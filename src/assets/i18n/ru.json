@@ -354,7 +354,7 @@
      "userType": "Тип пользователя",
     "welcome":"Добро пожаловать",
     "assign_merchant_driver":"Назначить водителя продавца",
-    "driver_merchant":"Водитель-торговец "
-
-
+    "driver_merchant":"Водитель-торговец ",
+    "about_agent":"Подробнее об агенте",
+    "bank_account":"Банковский счет"
 }

@@ -97,17 +97,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID </mat-header-cell>
+                    <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID
+                    </mat-header-cell>
                     <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('fullName')" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('firstName')"
+                        *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.firstName }} {{ row?.lastName }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('phone')" *matHeaderCellDef>{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">
@@ -117,26 +119,29 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type_transport">
-                    <mat-header-cell class="font-bold" mat-sort-header  (click)="sortData('transportTypes')" *matHeaderCellDef>{{"type_transport"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row" [matTooltip]="tooltipText(row.driverTransports)">
                         {{row.driverTransports[0]?.transportTypes[0].name}}
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('createdAt')" *matHeaderCellDef>{{"register_date"|transloco}}
+                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('createdAt')"
+                        *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('last_inter')" *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('last_inter')"
+                        *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('status')" *matHeaderCellDef>{{"status"|transloco}}
+                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('statusCode')"
+                        *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
 
@@ -150,7 +155,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="subscription">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('subscription')" *matHeaderCellDef>{{"subscription"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"subscription"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.subscription?.name}} </mat-cell>
                 </ng-container>

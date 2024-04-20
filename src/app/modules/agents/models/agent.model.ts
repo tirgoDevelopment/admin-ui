@@ -25,6 +25,13 @@ export interface AgentModel extends BaseModel {
     registrationCertificatePath?: string;
     registrationCertificateFilePath?: string;
     managerPassportFilePath?: string;
+    phoneNumbers?: string;
     bankAccounts?: any[];
     phoneNumber?: string;
+    agentTransports?: any[];
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    blocked?: boolean;
+    blockedAt?: string;
 }

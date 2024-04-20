@@ -101,8 +101,8 @@
     "no_data": "Maʼlumot yoʻq",
     "is_empty": "Bu elektron pochta bo'lishi kerak",
     "is_email": "Noto'g'ri pochta formati",
-    "about_user": "Foydalanuvchi haqida batafsil",
-    "about_driver": "Haydovchi haqida batafsil",
+    "about_user": "Foydalanuvchi haqida batafsil ma'lumot",
+    "about_driver": "Haydovchi haqida batafsil ma'lumot",
     "total": "Jami",
     "completed": "Bajarildi",
     "negative": "Salbiy",
@@ -136,7 +136,7 @@
     "shipment_date": "Jo'natish sanasi",
     "suggested_cost": "Tavsiya etilgan xarajat",
     "status_processing": "Holat qayta ishlash",
-    "about_ordering": "Buyurtma haqida batafsil ma'lumot",
+    "about_ordering": "Buyurtma haqida batafsil ma'lumot ",
     "id_order": "Buyurtma id",
     "order_dispatch_point": "Buyurtmani jo'natish punkti",
     "order_delivery_point": "Buyurtmani yetkazib berish punkti",
@@ -358,6 +358,9 @@
      "username":"Foydalanuvchi nomi",
      "welcome":"Xush kelibsiz",
     "assign_merchant_driver":"Savdogar haydovchisini biriktiring",
-    "driver_merchant":"Haydovchi savdogar "
+    "driver_merchant":"Haydovchi savdogar",
+    "about_agent":"Agent haqida batafsil ma'lumot",
+    "bank_account":"Bank hisob raqami"
 
 }
+    

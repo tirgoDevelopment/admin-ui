@@ -19,6 +19,8 @@ import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AgentService } from '../../services/agent.service';
+import { AgentModel } from '../../models/agent.model';
 
 @Component({
   selector: 'app-detail-agent-driver',
@@ -30,13 +32,14 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 })
 export class DetailAgentDriverComponent implements OnInit {
-  driver: DriverModel;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService, private _dialog: MatDialog) {
+  agent: AgentModel;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _agentService: AgentService, private _dialog: MatDialog) {
     this.getDriver(data);
   }
   getDriver(id: any) {
-    this._driverService.get(id).subscribe((response) => {
-      this.driver = response.data;
+    this._agentService.get(id).subscribe((response) => {
+      console.log(response);
+      this.agent = response.data;
     });
   }
   ngOnInit(): void {
@@ -48,7 +51,7 @@ export class DetailAgentDriverComponent implements OnInit {
       maxWidth: '40vw',
       minHeight: '42vh',
       maxHeight: '85vh',
-      data: this.driver.id,
+      data: this.agent.id,
       autoFocus: false,
     })
     dialog.afterClosed()
