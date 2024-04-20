@@ -1,4 +1,4 @@
-import { CommonModule, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule, CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,14 +34,12 @@ import { FileUrlService } from 'app/shared/services/file-url.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, PipeModule,CommonModule, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 export class DriverMerchantModerationComponent implements OnInit {
   displayedColumns: string[] = ['full_name', 'sum', 'currencyName', 'date', 'type', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>([]);
-  fileApi = 'https://merchant.tirgo.io/api/v1/file/download/';
-  selectedFileNames: any;
   passportFile: FileList;
   certificateFile: FileList;
   data
@@ -63,7 +61,7 @@ export class DriverMerchantModerationComponent implements OnInit {
     companyName: new FormControl(''),
     supervisorFirstName: new FormControl(''),
     supervisorLastName: new FormControl(''),
-    responsiblePersonFullName: new FormControl(''),
+    responsiblePersonFistName: new FormControl(''),
     responsiblePersonLastName: new FormControl(''),
     responsbilePersonPhoneNumber: new FormControl(''),
     legalAddress: new FormControl(''),
@@ -156,9 +154,15 @@ export class DriverMerchantModerationComponent implements OnInit {
   }
   getTransactions() {
     this.driverMerchantService.getMerchantTransactions(this.id).subscribe(res => {
-      this.data = res.data
-      this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.paginator = this.paginator;
+      if (res.status) {
+        this.data = res.data
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+      } else {
+        this.data = []
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+      }
     })
   }
 

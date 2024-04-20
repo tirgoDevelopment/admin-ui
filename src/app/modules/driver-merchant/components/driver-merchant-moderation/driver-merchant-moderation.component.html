@@ -67,18 +67,19 @@
                 <mat-label>{{ 'mfo' | transloco }}</mat-label>
                 <input type="text" matInput name="mfo" formControlName="mfo" mask="99999" maxlength="5" required />
             </mat-form-field>
-
-            <mat-form-field>
-                <ngx-mat-intl-tel-input placeholder="{{ 'phone' | transloco }}" [cssClass]="'custom'"
-                    formControlName="phone" [preferredCountries]="['uz']" [enablePlaceholder]="true"
-                    [enableSearch]="true" name="phone" #phone>
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'phone' | transloco }}*</mat-label>
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="phoneNumber"
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true" name="phoneNumber"
+                    #phoneNumber>
                 </ngx-mat-intl-tel-input>
             </mat-form-field>
 
-            <mat-form-field>
-                <ngx-mat-intl-tel-input placeholder="{{ 'responce_phone' | transloco }}" [cssClass]="'custom'"
-                    formControlName="responsbilePersonPhoneNumber" [preferredCountries]="['uz']"
-                    [enablePlaceholder]="true" [enableSearch]="true" name="phones" #phones>
+            <mat-form-field color="accent" class="w-full">
+                <mat-label>{{ 'responce_phone' | transloco }}*</mat-label>
+                <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
+                    [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true" name="phones"
+                    #phones>
                 </ngx-mat-intl-tel-input>
             </mat-form-field>
 
@@ -118,15 +119,14 @@
             </mat-form-field>
 
         </div>
-        <div class="flex flex-wrap gap-4 items-end justify-around">
-
+        <div class="flex flex-wrap gap-4 items-end justify-start">
             <div class="w-40">
                 <mat-label>{{ 'lisense_international_cargo_tranportation' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input  id="avatar-file-input1"
+                            <input id="avatar-file-input1"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'internationalCargoLisensePath')">
@@ -151,14 +151,13 @@
                         [src]="internationalCargoLisensePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
-
             <div class="w-40">
                 <mat-label>{{ 'logo' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input  id="avatar-file-input2"
+                            <input id="avatar-file-input2"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'logoFilePath')">
@@ -183,14 +182,13 @@
                         [src]="logoFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
-
             <div class="w-40">
                 <mat-label>{{ 'passport' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
                     <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
                     <div class="absolute inset-0 flex items-center justify-center z-20">
                         <div>
-                            <input  id="avatar-file-input3"
+                            <input id="avatar-file-input3"
                                 class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file"
                                 [multiple]="false" [accept]="'image/jpeg, image/png'"
                                 (change)="selectFile($event, 'passportFilePath')">
@@ -214,7 +212,6 @@
                         [src]="passportFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
-
             <div class="w-40">
                 <mat-label>{{ 'registration_certificate' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
@@ -246,7 +243,6 @@
                         [src]="registrationCertificateFilePath | fileFetch: 'driver_merchant'|async">
                 </div>
             </div>
-
         </div>
     </form>
     <div class="mt-10 flex ">
@@ -306,10 +302,10 @@
                 <mat-header-cell class="font-bold" *matHeaderCellDef>{{"status"|transloco}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <span class="bg-red-500 text-white p-2" *ngIf="row.rejected">{{"rejected"|transloco}}</span>
-                    <span class="bg-green-500 text-white p-2" *ngIf="row.verified">{{"approve"|transloco}}</span>
+                    <span class="bg-red-500 text-white p-2" *ngIf="row?.rejected">{{"rejected"|transloco}}</span>
+                    <span class="bg-green-500 text-white p-2" *ngIf="row?.verified">{{"approve"|transloco}}</span>
                     <span class="bg-yellow-500 text-white p-2"
-                        *ngIf="!row.verified && !row.rejected">{{"request"|transloco}}</span>
+                        *ngIf="!row?.verified && !row?.rejected">{{"request"|transloco}}</span>
                 </mat-cell>
             </ng-container>
 
@@ -322,12 +318,12 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #moreMenu="matMenu">
-                            <button mat-menu-item color="accent" *ngIf="!row.verified "
+                            <button mat-menu-item color="accent" *ngIf="!row?.verified "
                                 (click)="verifyTransaction(row.id)">
                                 <mat-icon>remove</mat-icon>
                                 {{"verify"|transloco}}
                             </button>
-                            <button mat-menu-item color="accent" *ngIf=" !row.rejected"
+                            <button mat-menu-item color="accent" *ngIf=" !row?.rejected"
                                 (click)="rejectTransaction(row.id)">
                                 <mat-icon>remove</mat-icon>
                                 {{"reject"|transloco}}

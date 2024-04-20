@@ -28,6 +28,7 @@ import { ConfirmComponent } from 'app/shared/components/confirm/confirm.componen
 import { AddTransportComponent } from '../add-transport/add-transport.component';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
+import { CountryService } from 'app/shared/services/country.service';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -65,23 +66,27 @@ export class AddDriverComponent {
     private _toaster: ToastrService,
     private _driverService: DriversService,
     private _subscriptionService: SubscriptionService,
+    private _counterService: CountryService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
       this.edit = true;
       this._driverService.get(this.data).subscribe((response) => {
-        console.log(response);
         this.passport = response.data?.passport;
         this.driverLicense = response.data?.driverLicense;
-        this.form.patchValue({
-          id: response.data?.id,
-          firstName: response.data?.firstName,
-          lastName: response.data?.lastName,
-          phoneNumbers: response.data?.phoneNumbers[0]?.phoneNumber,
-          password: response.data?.password,
-          passportFile: response.data?.passport,
-          driverLicense: response.data?.driverLicense,
-        });
+        this._counterService.getJSONFromLocal().subscribe((data: any) => {
+          let phone = this._counterService.getCountryCode(String(response.data?.phoneNumbers[0].phoneNumber), data);
+          this.form.patchValue({
+            id: response.data?.id,
+            firstName: response.data?.firstName,
+            lastName: response.data?.lastName,
+            phoneNumbers: String(response.data?.phoneNumbers[0].phoneNumber).replace(phone, ''),
+            password: response.data?.password,
+            passportFile: response.data?.passport,
+            driverLicense: response.data?.driverLicense,
+          });
+        })
+
       })
 
     }
