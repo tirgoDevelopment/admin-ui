@@ -121,7 +121,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     const dialog = this._dialog.open(AddAgentComponent, {
       minWidth: '80vw',
       maxWidth: '90vw',
-      minHeight: '50vh',
+      minHeight: '70vh',
       maxHeight: '90vh',
       autoFocus: false,
     })
@@ -157,7 +157,7 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     const dialogRef = this._dialog.open(AddAgentComponent, {
       minWidth: '80vw',
       maxWidth: '90vw',
-      minHeight: '50vh',
+      minHeight: '70vh',
       maxHeight: '90vh',
       autoFocus: false,
       data: row,

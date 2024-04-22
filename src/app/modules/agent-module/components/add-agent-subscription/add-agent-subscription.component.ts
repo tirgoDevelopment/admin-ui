@@ -1,5 +1,5 @@
 import { CurrencyPipe, JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -66,11 +66,16 @@ export class AddAgentSubscriptionComponent {
         })
       )
       .subscribe((res: any) => {
-        this.driverInfo.push(res.data);
-        this.form.patchValue({
-          driverId: this.driverInfo[0].id
-        })
-        this._cdr.detectChanges()
+        if (res != null) {
+          this._toaster.info('Ничего не найдено')
+          this.driverInfo = [];
+        } else {
+          this.driverInfo.push(res.data);
+          this.form.patchValue({
+            driverId: this.driverInfo[0].id
+          })
+          this._cdr.detectChanges()
+        }
       });
   }
 

@@ -11,8 +11,8 @@ import { env } from 'app/environmens/environment';
   providedIn: 'root'
 })
 export class MerchantService {
-
-  constructor(private _apiService: ApiService, private _http: HttpClient) { }
+  constructor(private _apiService: ApiService,
+    private _http: HttpClient) { }
 
   get(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();

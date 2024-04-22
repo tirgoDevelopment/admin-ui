@@ -104,6 +104,8 @@ export class MerchantModerationComponent implements OnInit {
     this.edit = true
     this.merchantService.get(id).subscribe((responce: any) => {
       this.logoFilePath = responce.data?.logoFilePath;
+      console.log(responce.data?.phoneNumber)
+      console.log(responce.data?.responsbilePersonPhoneNumber)
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.passportFilePath = responce.data?.passportFilePath;
       this._counterService.getJSONFromLocal().subscribe((data: any) => {
@@ -134,8 +136,8 @@ export class MerchantModerationComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.getTransactions()
     this.getBalance()
+    this.getTransactions()
   }
   selectFile(event: any, name: string) {
     const file: File = event.target.files[0];
@@ -296,10 +298,15 @@ export class MerchantModerationComponent implements OnInit {
     const dialogRef = this._dialog.open(CreateTransactionComponent, {
       autoFocus: false,
       disableClose: true,
+      minWidth: '30vw',
+      maxWidth: '50vw',
+      minHeight: '30vh',
+      maxHeight: '50vh',
       data: { merchantId: this.id, balance: this.balances }
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.getAllTransaction();
+      this.getBalance()
+      this.getTransactions()
     });
   }
 }

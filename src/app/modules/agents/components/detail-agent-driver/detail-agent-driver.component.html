@@ -54,11 +54,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold" *ngIf="agent?.phoneNumber">{{agent?.phoneNumber}}</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                <p class="font-bold"> {{agent?.email}}</p>
+                <p class="font-bold" *ngIf="agent?.phoneNumber">+{{agent?.phoneNumber}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"company_name"|transloco}}</p>
@@ -97,7 +93,7 @@
             <div>
                 <p class="text-xl leading-4 mb-1">{{"bank_account"|transloco}}</p>
                 <p class="font-bold" >
-                    <span *ngFor="let account of agent.bankAccounts">
+                    <span *ngFor="let account of agent?.bankAccounts">
                         {{account?.account}}
                     </span>
                 </p>

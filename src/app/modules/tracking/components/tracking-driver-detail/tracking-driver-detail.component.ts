@@ -22,10 +22,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
   selector: 'app-tracking-driver-detail',
   templateUrl: './tracking-driver-detail.component.html',
   styleUrls: ['./tracking-driver-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule,  NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class TrackingDriverDetailComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _driverService: DriversService) {

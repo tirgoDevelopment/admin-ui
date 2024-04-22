@@ -72,11 +72,11 @@
                 </div>
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumber">{{archiveUser?.client.phoneNumber}}
+                    <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumber">+{{archiveUser?.client.phoneNumber}}
                     </p>
                     <p class="font-semibold" *ngIf="archiveUser?.client.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.client.phoneNumbers">
-                            {{phoneNumber?.phoneNumber}}
+                            +{{phoneNumber?.phoneNumber}}
                         </span>
                     </p>
                 </div>
@@ -141,7 +141,7 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md">
+        <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md" *ngIf="archiveUser?.driver.driverTransports">
             <div class="mb-5">
                 <h2 class="text-2xl leading-4 font-semibold">{{"transport"|transloco}}</h2>
             </div>
@@ -261,11 +261,11 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumber">{{archiveUser?.driver.phoneNumber}}
+                    <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumber">+{{archiveUser?.driver.phoneNumber}}
                     </p>
                     <p class="font-semibold" *ngIf="archiveUser?.driver.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.driver.phoneNumbers">
-                            {{phoneNumber?.phoneNumber}}
+                            +{{phoneNumber?.phoneNumber}}
                         </span>
                     </p>
                     <p class="font-semibold">Подтвержден</p>
@@ -313,10 +313,10 @@
                 <div>
                     <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
                     <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumber">
-                        {{archiveUser?.clientMerchant.phoneNumber}}</p>
+                        +{{archiveUser?.clientMerchant.phoneNumber}}</p>
                     <p class="font-semibold" *ngIf="archiveUser?.clientMerchant.phoneNumbers">
                         <span *ngFor="let phoneNumber of archiveUser?.clientMerchant.phoneNumbers">
-                            {{phoneNumber?.phoneNumber}}
+                            +{{phoneNumber?.phoneNumber}}
                         </span>
                     </p>
                 </div>

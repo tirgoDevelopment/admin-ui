@@ -26,6 +26,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -113,7 +114,7 @@ export class AgentDriverListComponent implements OnInit {
   }
 
   detail(id: number) {
-    this._dialog.open(DetailAgentDriverComponent, {
+    this._dialog.open(DetailDriverComponent, {
       width: '500px',
       height: '100vh',
       autoFocus: false,

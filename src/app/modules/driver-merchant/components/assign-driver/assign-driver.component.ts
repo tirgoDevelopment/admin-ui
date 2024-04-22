@@ -63,9 +63,13 @@ export class AssignDriverComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        if (isObject(res.data)) {
-          this.driverInfo.push(res.data);
-          this._cdr.detectChanges();
+        if (res != null) {
+          if (isObject(res.data)) {
+            this.driverInfo.push(res.data);
+            this._cdr.detectChanges();
+          }
+        } else {
+          this._toaster.info('Ничего не найдено')
         }
       });
   }

@@ -73,7 +73,7 @@
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-full">
-        <mat-label>{{ 'phone' | transloco }}*</mat-label>
+        <mat-label>{{ 'responce_phone' | transloco }}*</mat-label>
         <ngx-mat-intl-tel-input [cssClass]="'custom'" formControlName="responsbilePersonPhoneNumber"
           [preferredCountries]="['uz']" [enablePlaceholder]="true" [enableSearch]="true"
           name="responsbilePersonPhoneNumber" #responsbilePersonPhoneNumber>
@@ -88,7 +88,7 @@
 
       <mat-form-field>
         <mat-label>{{ 'legal_address' | transloco }}</mat-label>
-        <input type="text" matInput name="dunsNumber" formControlName="legalAddress" />
+        <input type="text" matInput name="legalAddress" formControlName="legalAddress" />
       </mat-form-field>
 
       <mat-form-field>
@@ -191,14 +191,13 @@
   <div class="mt-10 flex justify-between items-center ">
     <div class="text-lg font-semibold">История платежей</div>
     <div class="flex gap-2 items-center">
-
     </div>
     <span class="ml-auto"></span>
     <div class="flex flex-row " *ngFor="let balance of balances">
       <div class="mx-3 text-center">
         <div class="text-sm font-semibold">{{ 'active_balance' | transloco }}</div>
         <div class="text-sm font-semibold"><span>{{balance?.currencyname}}</span>:
-          <span>{{balance?.activebalance}}</span>
+          <span>{{balance?.activeTransactionBalance}}</span>
         </div>
       </div>
       <div class="mx-3 text-center">
@@ -208,12 +207,9 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="flex justify-end mt-4">
     <button class="hidden sm:inline-flex ml-3" [color]="'primary'" mat-flat-button (click)="createTransaction()">
       <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
-      <span class="ml-2">{{ 'Пополнить баланс' | transloco }}</span>
+      <span class="ml-2">{{ 'top_up_balance' | transloco }}</span>
     </button>
   </div>
 

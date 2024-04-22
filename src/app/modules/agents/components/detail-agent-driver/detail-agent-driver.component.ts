@@ -14,8 +14,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TranslocoModule } from '@ngneat/transloco';
 import { BlockDriverComponent } from 'app/modules/drivers/components/block-driver/block-driver.component';
-import { DriverModel } from 'app/modules/drivers/models/driver.model';
-import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -26,9 +24,9 @@ import { AgentModel } from '../../models/agent.model';
   selector: 'app-detail-agent-driver',
   templateUrl: './detail-agent-driver.component.html',
   styleUrls: ['./detail-agent-driver.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [TranslocoModule, NgClass, DatePipe,  NgxMatSelectSearchModule,  NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, NgClass, DatePipe, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 
 })
 export class DetailAgentDriverComponent implements OnInit {

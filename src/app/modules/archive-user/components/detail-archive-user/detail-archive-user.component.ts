@@ -17,14 +17,13 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ArchiveUserService } from '../../services/archive-user.service';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
-import { ClientService } from 'app/modules/clients/services/client.service';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 
 @Component({
   selector: 'app-detail-archive-user',
   templateUrl: './detail-archive-user.component.html',
   styleUrls: ['./detail-archive-user.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [TranslocoModule, NgxMatSelectSearchModule, NgFor, NgIf, DatePipe, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 

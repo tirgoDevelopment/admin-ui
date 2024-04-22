@@ -18,7 +18,7 @@ import { ImagePriviewComponent } from 'app/shared/components/image-priview/image
   selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [MatIconModule, DatePipe, NgIf, MatDialogModule, MatInputModule, FormsModule, ReactiveFormsModule, TranslocoModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule],
 })
