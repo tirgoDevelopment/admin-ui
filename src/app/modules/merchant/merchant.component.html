@@ -129,13 +129,12 @@
                                     <mat-icon>remove</mat-icon>
                                     {{"remove"|transloco}}
                                 </button>
-
                             </mat-menu>
                         </div>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="['edit', row.id]"
+                <mat-row *matRowDef="let row; columns: displayedColumns" (click)="detail(row.id)"
                     class="user-row darken-on-hover">
                 </mat-row>
             </mat-table>

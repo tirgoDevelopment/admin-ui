@@ -22,10 +22,9 @@ import { AngularYandexMapsModule, } from 'angular8-yandex-maps';
   selector: 'app-detail-secure-transaction',
   templateUrl: './detail-secure-transaction.component.html',
   styleUrls: ['./detail-secure-transaction.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [TranslocoModule, NgClass, NgxMatSelectSearchModule,AngularYandexMapsModule,  NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class DetailSecureTransactionComponent {
 

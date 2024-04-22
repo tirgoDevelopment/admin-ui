@@ -24,7 +24,6 @@ import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
-import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
@@ -62,21 +61,25 @@ export class ConnectDriverComponent implements OnInit {
     }
     this.getSubscription();
     this.searchdriverSubject
-    .pipe(
-      debounceTime(300),
-      switchMap((findText: number) => {
-        return this._driverService.get(findText).pipe(
-          catchError(() => of([])),
-        );
-      })
-    )
-    .subscribe((res: any) => {
-      this.driverInfo.push(res.data);
-      this.form.patchValue({
-        driverId: this.driverInfo[0].id
-      })
-      this._cdr.detectChanges()
-    });
+      .pipe(
+        debounceTime(300),
+        switchMap((findText: number) => {
+          return this._driverService.get(findText).pipe(
+            catchError(() => of([])),
+          );
+        })
+      )
+      .subscribe((res: any) => {
+        if (res == null) {
+          this.driverInfo = [];
+          this._toaster.info('Ничего не найдено')
+        } else {
+          this.form.patchValue({
+            driverId: this.driverInfo[0].id
+          })
+          this._cdr.detectChanges()
+        }
+      });
   }
 
 
@@ -114,7 +117,7 @@ export class ConnectDriverComponent implements OnInit {
     return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
   }
   submit() {
-    
+
     if (this.form.valid) {
       this._agentService.connectToAgent(this.form.value).subscribe(res => {
         if (res.success) {

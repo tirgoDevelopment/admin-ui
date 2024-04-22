@@ -103,6 +103,10 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item color="accent" [routerLink]="['edit', row.id]">
+                                    <mat-icon>edit</mat-icon>
+                                    {{"edit"|transloco}}
+                                </button>
                                 <button mat-menu-item color="accent" (click)="assignDriver(row.id)">
                                     <mat-icon>assignment_ind </mat-icon>
                                     {{"assign_driver"|transloco}}
@@ -129,7 +133,7 @@
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns"  [routerLink]="['edit', row.id]">
+                <mat-row *matRowDef="let row; columns: displayedColumns" (click)="detail(row.id)">
                 </mat-row>
             </mat-table>
             <mat-paginator [showFirstLastButtons]="true" (page)="onPageChange($event)"

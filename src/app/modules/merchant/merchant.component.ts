@@ -22,6 +22,7 @@ import { BlockMerchantComponent } from './components/block-merchant/block-mercha
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { MerchantDetailComponent } from './components/merchant-detail/merchant-detail.component';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -105,6 +106,23 @@ export class MerchantComponent implements OnInit {
         this.getAllMerchants(this.pageParams);
       })
   }
+  detail(id: number) {
+    this._dialog.open(MerchantDetailComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: id,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+      this.getAllMerchants(this.pageParams);
+    })
+  }
+
+  
   active(id: number) {
     this._merchantService.active(id).subscribe(() => {
       this.getAllMerchants(this.pageParams);

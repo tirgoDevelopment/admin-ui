@@ -32,7 +32,8 @@ export interface MerchantModel extends BaseModel {
     createdAt: Date,
     completed: boolean,
     active: boolean,
+    blocked?: boolean,
     bankAccounts: [],
-    balances: [];
+    balances: [],
     user:any;
 }

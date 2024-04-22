@@ -69,19 +69,19 @@
                         <div [ngSwitch]="row.userType">
                             <div *ngSwitchCase="'client'">
                                 <span *ngFor="let phone of row?.client?.phoneNumbers">
-                                    {{phone.phoneNumber}}
+                                    {{phone?.phoneNumber}}
                                 </span>
                             </div>
                             <div *ngSwitchCase="'driver'">
                                 <span *ngFor="let phone of row?.driver?.phoneNumbers">
-                                    {{phone.phoneNumber}}
+                                    {{phone?.phoneNumber}}
                                 </span>
                             </div>
                             <div *ngSwitchCase="'staff'">
                                 {{row?.staff?.phone}}
                             </div>
                             <div *ngSwitchCase="'client_merchant'">
-                                {{row?.clientMerchant.phoneNumber}}
+                                {{row?.clientMerchant?.phoneNumber}}
                             </div>
                             <div *ngSwitchCase="'agent'">
                                 {{row?.agent?.phoneNumber}}

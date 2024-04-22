@@ -86,15 +86,14 @@
                     <mat-cell *matCellDef="let row"> {{ row?.firstName}} {{ row?.lastName}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-bold"  *matHeaderCellDef>{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">
-                            {{phoneNumber?.phoneNumber}}
+                            +{{phoneNumber?.phoneNumber}}
                         </span>
                     </mat-cell>
                 </ng-container>
-
 
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef

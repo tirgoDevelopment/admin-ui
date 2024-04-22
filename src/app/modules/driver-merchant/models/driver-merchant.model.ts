@@ -35,4 +35,7 @@ export interface DriverMerchantModel extends BaseModel {
     bankAccounts: [],
     balances: [];
     user:any;
+    garageAddress?: string,
+    postalCode?: string,
+    internationalCargoLisensePath?: string
 }

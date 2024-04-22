@@ -15,6 +15,9 @@
                         {{ driver?.id }} - {{ driver?.firstName }} {{ driver.lastName }}
                     </mat-option>
                 </ng-container>
+                <ng-container *ngIf="driverInfo?.length==0">
+                    {{ 'no_found' | transloco }}
+                </ng-container>
             </mat-autocomplete>
         </mat-form-field>
         <mat-radio-group class="flex items-center" formControlName="subscriptionId">

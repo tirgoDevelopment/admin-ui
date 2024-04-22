@@ -1,0 +1,200 @@
+<div class="flex justify-between items-center">
+    <p mat-dialog-title class="font-bold leading-5 text-3xl">{{"about_merchant"|transloco}}</p>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon aria-label="Close dialog">close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="h-full">
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-black rounded-lg shadow-md ">
+        <div class="flex  w-full justify-between ">
+            <div class="flex ">
+                <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
+                <div>
+                    <p class="text-2xl font-bold">{{merchant?.companyName}} {{merchant?.companyType }}</p>
+                    <p class="text-gray-600"># {{merchant?.id}}</p>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <p class="text-gray-600"> 5.0</p>
+                <img src="assets/images/icons/start.svg" alt="star Image" class="rounded-full w-4 h-4 ml-1 mt-1">
+            </div>
+        </div>
+    </div>
+    <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
+        <div class="mb-5">
+            <h2 class="text-2xl leading-4 font-bold">{{"orders"|transloco}}</h2>
+        </div>
+        <div class="flex mb-4">
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">25</p>
+                <p class="text-gray-600">{{"total"|transloco}}</p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">{{"completed"|transloco}} </p>
+            </div>
+            <div class="w-1/3 text-center">
+                <p class="font-semibold text-3xl mb-2">5</p>
+                <p class="text-gray-600">{{"neagtive"|transloco}}</p>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md">
+        <div class="mb-5 flex">
+            <h2 class="text-2xl leading-4 font-bold"> {{"information"|transloco}}
+            </h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"responce_person_first_name"|transloco}}</p>
+                <p class="font-bold">{{merchant?.responsiblePersonFistName}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"responce_person_last_name"|transloco}}</p>
+                <p class="font-bold">{{merchant?.responsiblePersonLastName}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"responce_phone"|transloco}}</p>
+                <p class="font-bold">{{merchant?.responsbilePersonPhoneNumber}}</p>
+            </div>
+
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"director_first_name"|transloco}}</p>
+                <p class="font-bold">{{merchant?.supervisorFirstName}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"director_last_name"|transloco}}</p>
+                <p class="font-bold">{{merchant?.supervisorLastName}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
+                <p class="font-bold">{{merchant?.email}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
+                <p class="font-bold">{{merchant?.phoneNumber}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"bank_name"|transloco}}</p>
+                <p class="font-bold">{{merchant?.bankName}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"inn"|transloco}}</p>
+                <p class="font-bold">{{merchant?.inn}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"oked"|transloco}}</p>
+                <p class="font-bold">{{merchant?.oked}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"mfo"|transloco}}</p>
+                <p class="font-bold">{{merchant?.mfo}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"duns_number"|transloco}}</p>
+                <p class="font-bold">{{merchant?.dunsNumber}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"iban_number"|transloco}}</p>
+                <p class="font-bold">{{merchant?.ibanNumber}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"legal_address"|transloco}}</p>
+                <p class="font-bold">{{merchant?.legalAddress}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"fact_address"|transloco}}</p>
+                <p class="font-bold">{{merchant?.factAddress}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"garage_address"|transloco}}</p>
+                <p class="font-bold">{{merchant?.garageAddress}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"postal_code"|transloco}}</p>
+                <p class="font-bold">{{merchant?.postalCode}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1">{{"tax_payer_code"|transloco}}</p>
+                <p class="font-bold">{{merchant?.taxPayerCode}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-end flex-wrap  w-full gap-4 mt-2 p-4">
+        <div class="w-40">
+            <mat-label class="text-large font-bold">{{ 'lisense_international_cargo_tranportation' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        matRipple>
+                        <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                            (click)="downloadPhoto(merchant.internationalCargoLisensePath)"></mat-icon>
+                    </label>
+                </div>
+                <img class="object-fill w-full h-full" [src]="merchant.internationalCargoLisensePath | fileFetch: 'merchant'|async">
+            </div>
+        </div>
+        <div class="w-40">
+            <mat-label class="text-large font-bold">{{ 'logo' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        matRipple>
+                        <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                            (click)="downloadPhoto(merchant.logoFilePath)"></mat-icon>
+                    </label>
+                </div>
+                <img class="object-fill w-full h-full" [src]="merchant.logoFilePath | fileFetch: 'merchant'|async">
+            </div>
+        </div>
+        <div class="w-40">
+            <mat-label class="text-large font-bold">{{ 'passport' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        matRipple>
+                        <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                            (click)="downloadPhoto(merchant.passportFilePath)"></mat-icon>
+                    </label>
+                </div>
+                <img class="object-fill w-full h-full"
+                    [src]="merchant.passportFilePath | fileFetch: 'merchant'|async">
+            </div>
+        </div>
+        <div class="w-40">
+            <mat-label class="text-large font-bold">{{ 'registration_certificate' | transloco }} </mat-label>
+            <div class="relative flex items-center justify-center w-40 h-32 overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-md"></div>
+                <div class="absolute inset-0 flex items-center justify-center z-20">
+                    <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        matRipple>
+                        <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
+                            (click)="downloadPhoto(merchant.registrationCertificateFilePath)"></mat-icon>
+                    </label>
+                </div>
+                <img class="object-fill w-full h-full"
+                    [src]="merchant.registrationCertificateFilePath | fileFetch: 'merchant'|async">
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
+        <button mat-flat-button [color]="'primary'" (click)="assignDriver(merchant?.id)">
+          {{"assign_driver"|transloco}}
+        </button>
+      </div>
+</mat-dialog-content>
+<mat-dialog-actions class="flex">
+    <div class="ml-auto p-4">
+        <button mat-flat-button [color]="'warn'" mat-dialog-close tabindex="-1">
+            {{"send_push"|transloco}}</button>
+        <button mat-flat-button [color]="'primary'" class="" (click)="submit()">
+            {{"save"|transloco}}
+        </button>
+    </div>
+</mat-dialog-actions>

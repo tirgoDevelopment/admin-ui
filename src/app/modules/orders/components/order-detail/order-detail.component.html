@@ -193,8 +193,8 @@
           {{data.cargoPackage?.name ? data.cargoPackage?.name : 'Не указана'}}</p>
       </div>
     </div>
-    <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
-      <button mat-flat-button [color]="'primary'" (click)="clientInfo(data?.client?.id)">
+    <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="clientId">
+      <button mat-flat-button [color]="'primary'" (click)="clientInfo(clientId)">
         {{"about_user"|transloco}}
       </button>
     </div>

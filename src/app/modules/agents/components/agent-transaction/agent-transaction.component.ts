@@ -40,8 +40,8 @@ export class AgentTransactionComponent implements OnInit {
 
 
   getTransactions(id) {
-    this._agentService.getAgentTransactions(id).subscribe(res => {
-      this.dataSource.data = res.data;
+    this._agentService.getAgentTransactions(id).subscribe((res:any) => {
+      this.dataSource.data = res.data.content;
       console.log(this.dataSource)
     })
   }

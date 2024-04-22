@@ -41,7 +41,7 @@ export class AddAgentSubscriptionComponent {
   edit: boolean = false;
   loading: boolean = false;
   dirverList: any[] = [];
-  driverInfo: any[];
+  driverInfo: any[] = [];
   private searchdriverSubject = new Subject<number>();
   form: FormGroup = new FormGroup({
     driverId: new FormControl(''),
@@ -74,10 +74,15 @@ export class AddAgentSubscriptionComponent {
         })
       )
       .subscribe((res: any) => {
-        this.driverInfo.push(res.data);
-        this.form.patchValue({
-          driverId: this.driverInfo[0].id
-        })
+        if (res != null) {
+          this.driverInfo.push(res.data);
+          this.form.patchValue({
+            driverId: this.driverInfo[0].id
+          })
+        } else {
+          this._toaster.info('Ничего не найдено')
+          this.driverInfo = [];
+        }
         this._cdr.detectChanges()
       });
   }

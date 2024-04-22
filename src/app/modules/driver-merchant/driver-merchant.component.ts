@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +23,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { DriverMerchantService } from './services/driver-merchant.service';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { AssignDriverComponent } from './components/assign-driver/assign-driver.component';
+import { DriverMerchantDetailComponent } from './components/driver-merchant-detail/driver-merchant-detail.component';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -31,7 +32,7 @@ import { AssignDriverComponent } from './components/assign-driver/assign-driver.
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,DatePipe, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
@@ -47,8 +48,8 @@ export class DriverMerchantComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   constructor(
-     private _merchantService: DriverMerchantService,
-     private utilsService: FuseUtilsService,
+    private _merchantService: DriverMerchantService,
+    private utilsService: FuseUtilsService,
     protected _dialog?: MatDialog) {
   }
 
@@ -65,16 +66,16 @@ export class DriverMerchantComponent {
   pageParams = {
     pageIndex: 1,
     pageSize: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
-  filterDrivers() {}
+  filterDrivers() { }
 
   onPageChange(event: PageEvent): void {
     this.pageParams.pageSize = event.pageSize;
-    this.pageParams.pageIndex = event.pageIndex + 1;   
-     this.getAllMerchants(this.pageParams);
+    this.pageParams.pageIndex = event.pageIndex + 1;
+    this.getAllMerchants(this.pageParams);
   }
 
   ngOnInit() {
@@ -83,17 +84,17 @@ export class DriverMerchantComponent {
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
+  }
 
   getAllMerchants(params?) {
-    this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response:any) => {
+    this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data.content;
       this.pageParams.pageSize = response?.data?.pageSize;
       this.pageParams.pageIndex = response?.data?.pageIndex;
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
-  assignDriver(id:number) {
+  assignDriver(id: number) {
     this._dialog.open(AssignDriverComponent, {
       minWidth: '25vw',
       maxWidth: '30vw',
@@ -103,6 +104,22 @@ export class DriverMerchantComponent {
       autoFocus: false,
       disableClose: true
     }).afterClosed().subscribe(() => {
+    })
+  }
+
+  detail(id: number) {
+    this._dialog.open(DriverMerchantDetailComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: id,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+      this.getAllMerchants(this.pageParams);
     })
   }
 

@@ -97,7 +97,7 @@
             <div>
                 <p class="text-xl leading-4 mb-1">{{"bank_account"|transloco}}</p>
                 <p class="font-bold" >
-                    <span *ngFor="let account of agent.bankAccounts">
+                    <span *ngFor="let account of agent?.bankAccounts">
                         {{account?.account}}
                     </span>
                 </p>
