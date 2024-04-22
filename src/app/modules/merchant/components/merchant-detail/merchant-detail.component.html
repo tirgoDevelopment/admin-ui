@@ -54,11 +54,10 @@
                 <p class="text-xl leading-4 mb-1">{{"responce_person_last_name"|transloco}}</p>
                 <p class="font-bold">{{merchant?.responsiblePersonLastName}}</p>
             </div>
-            <div>
+            <div *ngIf="merchant?.responsbilePersonPhoneNumber">
                 <p class="text-xl leading-4 mb-1">{{"responce_phone"|transloco}}</p>
                 <p class="font-bold">{{merchant?.responsbilePersonPhoneNumber}}</p>
             </div>
-
             <div>
                 <p class="text-xl leading-4 mb-1">{{"director_first_name"|transloco}}</p>
                 <p class="font-bold">{{merchant?.supervisorFirstName}}</p>
@@ -71,7 +70,7 @@
                 <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
                 <p class="font-bold">{{merchant?.email}}</p>
             </div>
-            <div>
+            <div *ngIf="merchant?.phoneNumber">
                 <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
                 <p class="font-bold">{{merchant?.phoneNumber}}</p>
             </div>
@@ -100,7 +99,7 @@
                 <p class="font-bold">{{merchant?.legalAddress}}</p>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="flex items-end flex-wrap  w-full gap-4 mt-2 p-4">
         <div class="w-40">
             <mat-label class="text-large font-bold">{{ 'logo' | transloco }} </mat-label>
@@ -110,10 +109,10 @@
                     <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
                         matRipple>
                         <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                            (click)="downloadPhoto(merchant.logoFilePath)"></mat-icon>
+                            (click)="downloadPhoto(merchant?.logoFilePath)"></mat-icon>
                     </label>
                 </div>
-                <img class="object-fill w-full h-full" [src]="merchant.logoFilePath | fileFetch: 'merchant'|async">
+                <img class="object-fill w-full h-full" [src]="merchant?.logoFilePath | fileFetch: 'merchant'|async">
             </div>
         </div>
         <div class="w-40">
@@ -124,10 +123,10 @@
                     <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
                         matRipple>
                         <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                            (click)="downloadPhoto(merchant.passportFilePath)"></mat-icon>
+                            (click)="downloadPhoto(merchant?.passportFilePath)"></mat-icon>
                     </label>
                 </div>
-                <img class="object-fill w-full h-full" [src]="merchant.passportFilePath | fileFetch: 'merchant'|async">
+                <img class="object-fill w-full h-full" [src]="merchant?.passportFilePath | fileFetch: 'merchant'|async">
             </div>
         </div>
         <div class="w-40">
@@ -138,11 +137,11 @@
                     <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
                         matRipple>
                         <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                            (click)="downloadPhoto(merchant.registrationCertificateFilePath)"></mat-icon>
+                            (click)="downloadPhoto(merchant?.registrationCertificateFilePath)"></mat-icon>
                     </label>
                 </div>
                 <img class="object-fill w-full h-full"
-                    [src]="merchant.registrationCertificateFilePath | fileFetch: 'merchant'|async">
+                    [src]="merchant?.registrationCertificateFilePath | fileFetch: 'merchant'|async">
             </div>
         </div>
     </div>

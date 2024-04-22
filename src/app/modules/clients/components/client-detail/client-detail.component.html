@@ -89,7 +89,7 @@
                 <p class="font-bold" *ngIf="client?.phoneNumber">{{client.phoneNumber}}</p>
                 <p class="font-bold" *ngIf="client?.phoneNumbers">
                     <span *ngFor="let phoneNumber of client.phoneNumbers">
-                        {{phoneNumber?.phoneNumber}}
+                        +{{phoneNumber?.phoneNumber}}
                     </span>
                 </p>
             </div>

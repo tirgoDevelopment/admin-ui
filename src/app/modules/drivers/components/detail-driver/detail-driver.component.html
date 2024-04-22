@@ -52,7 +52,7 @@
                 <p class="font-bold" *ngIf="driver?.phoneNumber">{{driver?.phoneNumber}}</p>
                 <p class="font-bold" *ngIf="driver?.phoneNumbers">
                     <span *ngFor="let phoneNumber of driver?.phoneNumbers">
-                        {{phoneNumber?.phoneNumber}}
+                        +{{phoneNumber?.phoneNumber}}
                     </span>
                 </p>
                 <p class="font-bold">Подтвержден</p>
