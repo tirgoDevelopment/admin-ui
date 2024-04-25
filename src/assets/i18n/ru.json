@@ -98,7 +98,7 @@
     "remove": "Удалить",
     "detail": "Детали",
     "no_data": "Нет данных",
-    "is_empty": "It should be empty",
+    "is_empty": "Он не должен быть пустым",
     "is_email": "Неправильный формат почты",
     "about_user": "Подробнее о пользователе",
     "about_driver": "Подробнее о водителе",
@@ -112,6 +112,7 @@
     "phone": "Номер телефона",
     "access_merchant": "Merchant access",
     "edit_password": "Изменить пароль",
+    "password": "Пароль",
     "contancts": "Контакты",
     "moderation_failed": "Moderation failed",
     "max_load_capacity": "Грузоподъемность (кг)",
@@ -361,6 +362,10 @@
     "no_found": "Не найдено",
     "about_merchant": "Подробнее о клиенте-продавце",
     "about_driver_merchant": "Подробнее о водителе-продавце",
-    "top_up_balance": "top_up_balance"
+    "top_up_balance": "top_up_balance",
+    "min_length": "Минимальная длина поля 8",
+    "max_length": "Максимальная длина поля 16",
+    "pattern": "Это должен быть символ и число",
+    "search": "Поиск"
 
 }

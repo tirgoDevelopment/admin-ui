@@ -5,17 +5,22 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"agents"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
+                <button class="fuse-mat-button-large  ml-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+                    (click)="showFilter = !showFilter">
+                    <mat-icon>search</mat-icon>
+                    {{ 'search' | transloco }}
+                </button>
+                <button class="fuse-mat-button-large  ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
-                <!-- <button class="hidden sm:inline-flex ml-3" *ngIf="hasPermission('addBalanceAgent')" [color]="'primary'"
+                <!-- <button class="fuse-mat-button-large  ml-3" *ngIf="hasPermission('addBalanceAgent')" [color]="'primary'"
                     mat-flat-button (click)="addBalanse()">
                     <span class="ml-2">{{ 'balance' | transloco }}</span>
                 </button> -->
             </div>
         </div>
-        <div class="flex items-baseline  flex-wrap">
+        <div class="flex items-baseline  flex-wrap" [@showHideFilter]="showFilter ? 'show' : 'hide'">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.agentId">
             </mat-form-field>
@@ -40,11 +45,11 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" (click)="clearFilters()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn" (click)="getAllAgents()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="getAllAgents()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
@@ -75,13 +80,13 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.last_inter | date: 'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.last_inter | date: 'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">

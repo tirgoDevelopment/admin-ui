@@ -67,7 +67,7 @@
         <div>
             <p class="font-bold">
                 <span *ngIf="driver?.subscription">
-                    {{driver?.subscribedAt | date:'dd/mm/yyyy' }}
+                    {{driver?.subscribedAt | date:'dd/MM/yyyy HH:mm' }}
                 </span>
                 <span *ngIf="!driver?.subscription">
                     {{"no"|transloco}}
@@ -202,7 +202,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"subscription"|transloco}}</p>
-                <p class="font-bold">{{driver?.subscribedAt | date:'dd/mm/yyyy' }}</p>
+                <p class="font-bold">{{driver?.subscribedAt | date:'dd/MM/yyyy HH:mm' }}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"city"|transloco}}</p>
@@ -236,7 +236,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"Date"|transloco}}</p>
-                <p class="font-bold">{{transport?.createdAt | date:'dd/mm/yyyy'}}</p>
+                <p class="font-bold">{{transport?.createdAt | date:'dd/MM/yyyy HH:mm'}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1">{{"adr"|transloco}}</p>

@@ -25,6 +25,7 @@ import { OrderModel } from './models/order.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { CargoStatusService } from '../main-types/cargo-status/services/cargo-status.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-orders',
@@ -33,9 +34,25 @@ import { CargoStatusService } from '../main-types/cargo-status/services/cargo-st
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatIconModule, MatTooltipModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class OrdersComponent implements OnInit {
   isLoading: boolean = false;
+  showFilter: boolean = false;
 
   displayedColumns: string[] = ['index',
     'id', 'sendLocation', 'cargoDeliveryLocation',

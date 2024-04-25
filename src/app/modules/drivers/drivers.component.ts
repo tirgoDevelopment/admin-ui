@@ -26,6 +26,7 @@ import { TypesService } from 'app/shared/services/types.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-drivers',
@@ -35,7 +36,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class DriversComponent implements OnInit {
   cities: any[] = [];
@@ -59,6 +74,7 @@ export class DriversComponent implements OnInit {
     sortBy: 'id',
     sortType: 'desc'
   };
+  showFilter: boolean = false;
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type_transport', 'register_date', 'last_enter', 'status', 'subscription', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -116,6 +132,10 @@ export class DriversComponent implements OnInit {
   }
 
   filterDrivers() {
+  }
+
+  isDateBefore(date1: string, date2: string): boolean {
+    return new Date(date1) < new Date(date2);
   }
 
   verification(driverId?: number, transportId?: number) {

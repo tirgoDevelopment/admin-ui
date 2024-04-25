@@ -18,6 +18,7 @@ import { DetailArchiveUserComponent } from './components/detail-archive-user/det
 import { ArchiveUserService } from './services/archive-user.service';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { FormsModule } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-archive-user',
@@ -27,6 +28,21 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule,FormsModule, MatIconModule, DatePipe, NoDataPlaceholderComponent, MatSelectModule, NgSwitchCase, NgSwitch, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class ArchiveUserComponent implements OnInit {
   cities: any[] = [];
@@ -34,6 +50,8 @@ export class ArchiveUserComponent implements OnInit {
     userId: '',
     userType:''
   };
+  showFilter: boolean = false;
+
   displayedColumns: string[] = ['index', 'id', 'full_name', 'phone', 'type', 'register_date', 'actions'];
   pageParams = {
     pageIndex: 1,

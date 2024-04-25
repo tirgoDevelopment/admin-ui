@@ -35,11 +35,14 @@
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{'password'|transloco}}</mat-label>
                     <input matInput formControlName="password" [ngClass]="{'is-invalid': f.password.errors}">
-                    <mat-error *ngIf="f.password.errors?.required">
-                        Поле не должно быть пустым
+                    <mat-error *ngIf="f.password.errors?.minlength">
+                            {{ 'min_length' | transloco }}
                     </mat-error>
                     <mat-error *ngIf="f.password.errors?.maxlength">
-                        Максимальная длина поля 6
+                            {{ 'max_length' | transloco }}
+                    </mat-error>
+                    <mat-error *ngIf="f.password.errors?.pattern">
+                           {{ 'pattern' | transloco }}
                     </mat-error>
 
                 </mat-form-field>

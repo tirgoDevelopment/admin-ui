@@ -70,11 +70,11 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+                <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'warn'" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn" (click)="getAllDrivers()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="getAllDrivers()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div> -->
@@ -116,7 +116,7 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">

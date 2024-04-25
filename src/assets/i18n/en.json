@@ -365,5 +365,9 @@
     "no_found": "Not found",
     "about_merchant": "More about the Client Merchant",
     "about_driver_merchant": "More about the Driver Merchant",
-    "top_up_balance": "Top up balance"
+    "top_up_balance": "Top up balance",
+    "min_length": "Minimum field length 8",
+    "max_length": "Maximum field length 16",
+    "pattern": "It must be a symbol and a number",
+    "search": "Search"
 }

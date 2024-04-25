@@ -27,6 +27,7 @@ import { FuseUtilsService } from '@fuse/services/utils';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-agent-driver-list',
@@ -36,11 +37,27 @@ import { DetailDriverComponent } from 'app/modules/drivers/components/detail-dri
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class AgentDriverListComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
+  showFilter: boolean = false;
   filters = {
     driverId: '',
     firstName: '',

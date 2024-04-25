@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { MerchantDetailComponent } from './components/merchant-detail/merchant-detail.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-merchant',
   templateUrl: './merchant.component.html',
@@ -31,6 +32,21 @@ import { MerchantDetailComponent } from './components/merchant-detail/merchant-d
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class MerchantComponent implements OnInit {
   cities: any[] = [];
@@ -45,6 +61,8 @@ export class MerchantComponent implements OnInit {
   displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
+  showFilter: boolean = false;
+
   constructor(
     private _merchantService: MerchantService,
     private utilsService: FuseUtilsService,

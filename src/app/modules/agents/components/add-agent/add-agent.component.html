@@ -23,11 +23,14 @@
                 <mat-error *ngIf="f.password.errors?.required">
                     {{ 'is_empty' | transloco }}
                 </mat-error>
+                <mat-error *ngIf="f.password.errors?.minlength">
+                        {{ 'min_length' | transloco }}
+                </mat-error>
                 <mat-error *ngIf="f.password.errors?.maxlength">
-                    Максимальная длина поля 6
+                        {{ 'max_length' | transloco }}
                 </mat-error>
                 <mat-error *ngIf="f.password.errors?.pattern">
-                    Это должен быть символ и число
+                       {{ 'pattern' | transloco }}
                 </mat-error>
             </mat-form-field>
 

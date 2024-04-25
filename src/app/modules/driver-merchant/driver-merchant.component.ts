@@ -24,6 +24,7 @@ import { DriverMerchantService } from './services/driver-merchant.service';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { AssignDriverComponent } from './components/assign-driver/assign-driver.component';
 import { DriverMerchantDetailComponent } from './components/driver-merchant-detail/driver-merchant-detail.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-driver-merchant',
@@ -33,6 +34,21 @@ import { DriverMerchantDetailComponent } from './components/driver-merchant-deta
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class DriverMerchantComponent {
   cities: any[] = [];
@@ -44,6 +60,7 @@ export class DriverMerchantComponent {
     createdAtFrom: '',
     createdAtTo: '',
   };
+  showFilter: boolean = false;
   displayedColumns: string[] = ['index', 'id', 'companyName', 'register_date', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);

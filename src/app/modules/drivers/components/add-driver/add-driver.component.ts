@@ -57,7 +57,7 @@ export class AddDriverComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     phoneNumbers: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern('^[a-zA-Z0-9]+$')]),
     driverLicense: new FormControl('', [Validators.required]),
     passport: new FormControl('', [Validators.required]),
   })
