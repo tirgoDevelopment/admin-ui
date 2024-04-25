@@ -186,9 +186,9 @@ export class DriversComponent implements OnInit {
 
   send() {
     this._dialog.open(SendPushComponent, {
-      minWidth: '20vw',
-      maxWidth: '30vw',
-      minHeight: '30vh',
+      minWidth: '30vw',
+      maxWidth: '40vw',
+      minHeight: '40vh',
       maxHeight: '50vh',
       autoFocus: false,
     })
@@ -210,9 +210,9 @@ export class DriversComponent implements OnInit {
 
   add() {
     const dialog = this._dialog.open(AddDriverComponent, {
-      minWidth: '40vw',
-      maxWidth: '50vw',
-      minHeight: '42vh',
+      minWidth: '50vw',
+      maxWidth: '60vw',
+      minHeight: '40vh',
       maxHeight: '80vh',
       autoFocus: false,
     })

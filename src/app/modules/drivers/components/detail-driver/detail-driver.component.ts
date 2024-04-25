@@ -61,7 +61,6 @@ export class DetailDriverComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
-        this._dialog.closeAll()
       })
   }
   preview(fileName: string) {

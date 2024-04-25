@@ -8,7 +8,7 @@
         <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
           (click)="showFilter = !showFilter">
           <mat-icon>search</mat-icon>
-          {{ 'search' | transloco }}
+          Поиск
         </button>
         <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" (click)="createOrderModal()"
           *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
@@ -82,15 +82,20 @@
 
         <ng-container matColumnDef="sendLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
-            {{row?.loadingLocation?.name}} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
+            <span class="truncate-cell">
+              {{row?.loadingLocation?.name}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name"
-            [matTooltip]="row.deliveryLocation?.name">
-            {{row?.deliveryLocation?.name}} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
+            <span class="truncate-cell">
+              {{row?.deliveryLocation?.name}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -127,9 +132,8 @@
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
-          <mat-header-cell class="font-bold" (click)="sortData('price')" *matHeaderCellDef mat-sort-header>{{ 'price' |
-            transloco
-            }}</mat-header-cell>
+          <mat-header-cell class="font-bold" (click)="sortData('price')" *matHeaderCellDef mat-sort-header>
+            {{ 'price' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.offeredPrice }}
           </mat-cell>
         </ng-container>
@@ -144,9 +148,10 @@
 
         <ng-container matColumnDef="client">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row" class="truncate-cell"
-            [matTooltip]="row?.client?.firstName+' '+row?.client?.lastName"> {{row?.client?.firstName + ' ' +
-            row?.client?.lastName }} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row?.client?.firstName+' '+row?.client?.lastName">
+            <span class="truncate-cell"> {{row?.client?.firstName + ' ' + row?.client?.lastName }}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
