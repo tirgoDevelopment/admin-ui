@@ -5,17 +5,22 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"clients"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
+                <button class="fuse-mat-button-large  ml-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+                    (click)="showFilter = !showFilter">
+                    <mat-icon>search</mat-icon>
+                    {{ 'search' | transloco }}
+                </button>
+                <button class="fuse-mat-button-large  ml-3 " [color]="'primary'" mat-flat-button (click)="send()">
                     <span>{{ 'send' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3" *ngIf="hasPermission('addClient')" [color]="'primary'"
+                <button class=" fuse-mat-button-large  ml-3" *ngIf="hasPermission('addClient')" [color]="'primary'"
                     mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
             </div>
         </div>
-        <div class="flex items-baseline flex-wrap">
+        <div class="flex items-baseline flex-wrap" [@showHideFilter]="showFilter ? 'show' : 'hide'">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'ID' | transloco }}" name="id" [(ngModel)]="filters.clientId">
             </mat-form-field>
@@ -57,11 +62,11 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" (click)="clearFilters()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn" (click)="getAllClient()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="getAllClient()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
@@ -99,7 +104,7 @@
                     <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef
                         (click)="sortData('createdAt')">{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">

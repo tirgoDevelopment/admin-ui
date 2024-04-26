@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddBalanceAgentComponent } from './components/add-balance-agent/add-balance-agent.component';
 import { DetailAgentDriverComponent } from './components/detail-agent-driver/detail-agent-driver.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-agents',
@@ -31,6 +32,21 @@ import { DetailAgentDriverComponent } from './components/detail-agent-driver/det
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, RouterLink, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class AgentsComponent extends UnsubscribeAble implements OnInit {
   balances: any;
@@ -47,6 +63,8 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
     sortBy: 'id',
     sortType: 'desc'
   };
+  showFilter: boolean = false;
+
   displayedColumns: string[] = ['index', 'id', 'full_name', 'login', 'register_date', 'last_enter', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

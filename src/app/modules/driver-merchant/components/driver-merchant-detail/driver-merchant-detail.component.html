@@ -134,7 +134,7 @@
                             (click)="downloadPhoto(merchant.internationalCargoLisensePath)"></mat-icon>
                     </label>
                 </div>
-                <img class="object-fill w-full h-full" [src]="merchant.internationalCargoLisensePath | fileFetch: 'merchant'|async">
+                <img class="object-fill w-full h-full" [src]="merchant.internationalCargoLisensePath | fileFetch: 'driver_merchant'|async">
             </div>
         </div>
         <div class="w-40">
@@ -148,7 +148,7 @@
                             (click)="downloadPhoto(merchant.logoFilePath)"></mat-icon>
                     </label>
                 </div>
-                <img class="object-fill w-full h-full" [src]="merchant.logoFilePath | fileFetch: 'merchant'|async">
+                <img class="object-fill w-full h-full" [src]="merchant.logoFilePath | fileFetch: 'driver_merchant'|async">
             </div>
         </div>
         <div class="w-40">
@@ -163,7 +163,7 @@
                     </label>
                 </div>
                 <img class="object-fill w-full h-full"
-                    [src]="merchant.passportFilePath | fileFetch: 'merchant'|async">
+                    [src]="merchant.passportFilePath | fileFetch: 'driver_merchant'|async">
             </div>
         </div>
         <div class="w-40">
@@ -178,7 +178,7 @@
                     </label>
                 </div>
                 <img class="object-fill w-full h-full"
-                    [src]="merchant.registrationCertificateFilePath | fileFetch: 'merchant'|async">
+                    [src]="merchant.registrationCertificateFilePath | fileFetch: 'driver_merchant'|async">
             </div>
         </div>
     </div>

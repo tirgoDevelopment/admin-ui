@@ -365,6 +365,9 @@
     "no_found": "Topilmadi",
     "about_merchant": "More about the Client Merchant",
     "about_driver_merchant": "More about the Driver Merchant",
-    "top_up_balance": "Balansni to'ldirish"
-
+    "top_up_balance": "Balansni to'ldirish",
+    "min_length": "Minimal maydon uzunligi 8",
+    "max_length": "Maksimal maydon uzunligi 16",
+    "pattern": "Bu belgi va raqam bo'lishi kerak",
+    "search": "Qidirish"
 }

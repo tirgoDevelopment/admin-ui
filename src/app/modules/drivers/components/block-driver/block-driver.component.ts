@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { Inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HeaderTextComponent } from 'app/shared/components/header-text/header-text.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
@@ -42,6 +42,7 @@ export class BlockDriverComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _toaster: ToastrService,
     private _driverService: DriversService,
+    private _dialogRef: MatDialogRef<BlockDriverComponent>,
     private _dialog: MatDialog) {
     if (this.data) {
       this.form.patchValue({
@@ -57,7 +58,7 @@ export class BlockDriverComponent {
     if (this.form.valid) {
       this._driverService.block(this.form.get('id').value, this.form.get('block_reason').value,).subscribe(res => {
         if (res.success) {
-          this._dialog.closeAll()
+          this._dialogRef.close()
           this.form.reset()
           this._toaster.success('Водитель успешно заблокирован')
         } else {

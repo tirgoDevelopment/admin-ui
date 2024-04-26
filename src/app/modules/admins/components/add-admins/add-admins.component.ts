@@ -40,7 +40,7 @@ export class AddAdminsComponent implements OnInit {
     phone: new FormControl('', [Validators.required]),
     roleId: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern('^[a-zA-Z0-9]+$')]),
   })
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

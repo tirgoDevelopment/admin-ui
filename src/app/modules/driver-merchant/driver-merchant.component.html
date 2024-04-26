@@ -5,13 +5,18 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"merchant_driver"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class=" sm:inline-flex ml-3 " *ngIf="hasPermission('driverMerchantFinance')" [color]="'primary'"
-                    mat-flat-button (click)="requests()">
-                    <span class="ml-2">requests</span>
+                <button class="fuse-mat-button-large  ml-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+                    (click)="showFilter = !showFilter">
+                    <mat-icon>search</mat-icon>
+                    {{ 'search' | transloco }}
+                </button>
+                <button class="fuse-mat-button-large  ml-3 " *ngIf="hasPermission('driverMerchantFinance')"
+                    [color]="'primary'" mat-flat-button (click)="requests()">
+                    <span class="ml-2"> {{ 'requests' | transloco }}</span>
                 </button>
             </div>
         </div>
-        <div class="flex items-baseline flex-wrap">
+        <div class="flex items-baseline flex-wrap" [@showHideFilter]="showFilter ? 'show' : 'hide'">
             <mat-form-field color="accent" class="w-50 px-1">
                 <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.merchantid">
             </mat-form-field>
@@ -37,11 +42,11 @@
 
 
             <div class="px-1">
-                <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+                <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'warn'" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class=" px-1">
-                <button mat-flat-button color="warn" (click)="getAllMerchants()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="getAllMerchants()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
@@ -72,7 +77,7 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">

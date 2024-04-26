@@ -16,11 +16,11 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" (click)="clearFilters()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="clearFilters()">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class="px-1">
-                <button mat-flat-button color="warn" (click)="filterUsers()">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="filterUsers()">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>

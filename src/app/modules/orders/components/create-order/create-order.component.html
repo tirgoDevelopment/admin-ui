@@ -300,13 +300,13 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">
-  <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading" class="fuse-mat-button-large  w-full mt-6"
+  <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading" class="fuse-mat-button-large  ml-3  w-full mt-6"
     mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Продолжить</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>
   <button *ngIf="currentStep == 3" (click)="createOrder()" [disabled]="loading"
-    class="fuse-mat-button-large  w-full mt-6" mat-flat-button [color]="'primary'">
+    class="fuse-mat-button-large  ml-3  w-full mt-6" mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Создать</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>

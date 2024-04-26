@@ -5,13 +5,19 @@
         <div class="text-3xl font-semibold tracking-tight leading-8">Грузы</div>
       </div>
       <div class="flex items-center ml-6">
-        <button (click)="createOrderModal()" *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
+        <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+          (click)="showFilter = !showFilter">
+          <mat-icon>search</mat-icon>
+          Поиск
+        </button>
+        <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" (click)="createOrderModal()"
+          *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
           <mat-icon>add</mat-icon>
           Разместить груз
         </button>
       </div>
     </div>
-    <div class="flex items-baseline  flex-wrap">
+    <div class="flex items-baseline  flex-wrap" [@showHideFilter]="showFilter ? 'show' : 'hide'">
       <mat-form-field color="accent" class="w-50 px-1">
         <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.orderId">
       </mat-form-field>
@@ -53,11 +59,11 @@
         </mat-select>
       </mat-form-field>
       <div class="px-1">
-        <button mat-flat-button color="warn" class="" (click)="clearFilters()">
+        <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'warn'" (click)="clearFilters()">
           {{ 'clear' | transloco }}</button>
       </div>
       <div class=" px-1">
-        <button mat-flat-button color="warn" (click)="getOrders()">
+        <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'" (click)="getOrders()">
           {{ 'filter' | transloco }}</button>
       </div>
     </div>
@@ -76,15 +82,20 @@
 
         <ng-container matColumnDef="sendLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
-            {{row?.loadingLocation?.name}} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
+            <span class="truncate-cell">
+              {{row?.loadingLocation?.name}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
-          <mat-cell class="truncate-cell" *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name"
-            [matTooltip]="row.deliveryLocation?.name">
-            {{row?.deliveryLocation?.name}} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
+            <span class="truncate-cell">
+              {{row?.deliveryLocation?.name}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -121,8 +132,8 @@
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
-          <mat-header-cell class="font-bold" (click)="sortData('price')" *matHeaderCellDef mat-sort-header>{{ 'price' | transloco
-            }}</mat-header-cell>
+          <mat-header-cell class="font-bold" (click)="sortData('price')" *matHeaderCellDef mat-sort-header>
+            {{ 'price' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row?.offeredPrice }}
           </mat-cell>
         </ng-container>
@@ -137,9 +148,10 @@
 
         <ng-container matColumnDef="client">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'client' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row" class="truncate-cell"
-            [matTooltip]="row?.client?.firstName+' '+row?.client?.lastName"> {{row?.client?.firstName + ' ' +
-            row?.client?.lastName }} </mat-cell>
+          <mat-cell *matCellDef="let row" [matTooltip]="row?.client?.firstName+' '+row?.client?.lastName">
+            <span class="truncate-cell"> {{row?.client?.firstName + ' ' + row?.client?.lastName }}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

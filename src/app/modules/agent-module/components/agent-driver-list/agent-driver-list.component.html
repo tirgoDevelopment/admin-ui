@@ -20,13 +20,13 @@
                     </div>
                 </div>
 
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
+                <button class="fuse-mat-button-large  ml-3 " [color]="'primary'" mat-flat-button (click)="connect()">
                     <span class="ml-2">{{ 'connect_driver' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
+                <button class="fuse-mat-button-large  ml-3 " [color]="'primary'" mat-flat-button (click)="transaction()">
                     <span class="ml-2">{{ 'transaction' | transloco }}</span>
                 </button>
-                <button class="hidden sm:inline-flex ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
+                <button class="fuse-mat-button-large  ml-3 " [color]="'primary'" mat-flat-button (click)="add()">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                     <span class="ml-2">{{ 'add' | transloco }}</span>
                 </button>
@@ -51,11 +51,11 @@
             </mat-form-field>
 
             <div class="px-1">
-                <button mat-flat-button color="warn" class="">
+                <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'warn'">
                     {{ 'clear' | transloco }}</button>
             </div>
             <div class="px-1">
-                <button mat-flat-button color="warn">
+                <button class="fuse-mat-button-large" mat-flat-button [color]="'warn'">
                     {{ 'filter' | transloco }}</button>
             </div>
         </div>
@@ -91,7 +91,7 @@
                 <ng-container matColumnDef="register_date">
                     <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy'}} </mat-cell>
+                    <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
