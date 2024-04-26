@@ -121,6 +121,7 @@ export class DetailDriverComponent implements OnInit {
       },
       maxHeight: '100%'
     }).afterClosed().subscribe(() => {
+      this.getDriver(this.driverId);
     })
   }
   submit() {

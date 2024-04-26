@@ -57,7 +57,7 @@ export class OrdersComponent implements OnInit {
   displayedColumns: string[] = ['index',
     'id', 'sendLocation', 'cargoDeliveryLocation',
     'status', 'date_send', 'offeredPrice',
-    'secure_transaction', 'type_cargo', 'transport_type',
+    'secure_transaction', 'type_cargo', 'transport_cargo',
     'client', 'actions'];
   currentUser: any;
   transportKinds: any[] = [];
@@ -150,7 +150,15 @@ export class OrdersComponent implements OnInit {
   filterDrivers() {
   }
 
-  tooltipText(row: any): string {
+  tooltipTextTransportTypes(row: any): string {
+    if (row.transportTypes) {
+      return row.transportTypes.map(type => type.name).join(', ');
+    } else {
+      return '';
+    }
+  }
+
+  tooltipTextTransportKinds(row: any): string {
     if (row.transportTypes) {
       return row.transportTypes.map(type => type.name).join(', ');
     } else {

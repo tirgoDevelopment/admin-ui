@@ -35,7 +35,7 @@ import { CountryService } from 'app/shared/services/country.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, TranslocoModule, PipeModule, AsyncPipe, RouterModule, NgClass, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 })
 
 export class MerchantModerationComponent implements OnInit {
@@ -230,7 +230,6 @@ export class MerchantModerationComponent implements OnInit {
     } else {
       // this.formData.append('passportFilePath', this.form.get('passportFilePath')?.value, String(new Date().getTime()));
     }
-    if (this.form.valid) {
       this.merchantService.updateMerchant(this.formData).pipe(res => {
         if (isObservable(res)) {
           // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
@@ -245,15 +244,6 @@ export class MerchantModerationComponent implements OnInit {
           this.router.navigate(['/client-merchants'])
         }
       })
-    } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
   }
 
   verifyTransaction(transaction) {

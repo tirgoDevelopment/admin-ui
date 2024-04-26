@@ -8,7 +8,7 @@
     <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-black rounded-lg shadow-md ">
         <div class="flex  w-full justify-between ">
             <div class="flex ">
-                <img src="assets/images/user/user.svg" alt="User Image" class="rounded-full w-16 h-16 mr-2">
+                <img src="assets/images/user/user.png" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                 <div>
                     <p class="text-2xl font-bold">{{driver?.firstName}} {{driver?.lastName }}</p>
                     <p class="text-gray-600"># {{driver?.id}}</p>
@@ -88,52 +88,52 @@
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p class="font-semibold"> {{ 'company_name' | transloco }}</p>
-                <p>{{driver.driverMerchant?.companyName}}</p>
+                <p class="text-xl leading-4 mb-1"> {{ 'company_name' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.companyName}}</p>
             </div>
             <div>
-                <p class="font-semibold"> {{ 'director_name' | transloco }}</p>
-                <p>{{driver.driverMerchant?.supervisorFirstName}} {{driver.driverMerchant?.supervisorLastName}}</p>
+                <p class="text-xl leading-4 mb-1"> {{ 'director_name' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.supervisorFirstName}} {{driver.driverMerchant?.supervisorLastName}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'responce_person' | transloco }}</p>
-                <p>{{driver.driverMerchant?.responsiblePersonFistName}} {{driver.driverMerchant?.responsiblePersonLastName}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'responce_person' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.responsiblePersonFistName}} {{driver.driverMerchant?.responsiblePersonLastName}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'phone' | transloco }}</p>
-                <p>{{driver.driverMerchant?.phoneNumber}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'phone' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.phoneNumber}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'legal_address' | transloco }}</p>
-                <p>{{driver.driverMerchant?.legalAddress}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'legal_address' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.legalAddress}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'actual_address' | transloco }}</p>
-                <p>{{driver.driverMerchant?.factAddress}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'actual_address' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.factAddress}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'email' | transloco }}</p>
-                <p>{{driver.driverMerchant?.email}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'email' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.email}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'bank_name' | transloco }}</p>
-                <p>{{driver.driverMerchant?.bankName}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'bank_name' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.bankName}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'inn' | transloco }}</p>
-                <p>{{driver.driverMerchant?.inn}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'inn' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.inn}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'oked' | transloco }}</p>
-                <p>{{driver.driverMerchant?.oked}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'oked' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.oked}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'mfo' | transloco }}</p>
-                <p>{{driver.driverMerchant?.mfo}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'mfo' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.mfo}}</p>
             </div>
             <div>
-                <p class="font-semibold">{{ 'duns_number' | transloco }}</p>
-                <p>{{driver.driverMerchant?.dunsNumber}}</p>
+                <p class="text-xl leading-4 mb-1">{{ 'duns_number' | transloco }}</p>
+                <p class="font-bold">{{driver.driverMerchant?.dunsNumber}}</p>
             </div>
         </div>
     </div>
@@ -173,8 +173,6 @@
         </div>
 
     </div>
-
-
     <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white dark:bg-black rounded-lg shadow-md cursor-pointer" (click)="addTransportEdit()"
         *ngIf="driver?.driverTransports?.length>0">
         <div class="mb-5">

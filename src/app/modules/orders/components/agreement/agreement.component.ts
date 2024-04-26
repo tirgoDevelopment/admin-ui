@@ -14,6 +14,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { RouterLink } from "@angular/router";
 import { fuseAnimations } from "@fuse/animations";
 import { FuseAlertComponent } from "@fuse/components/alert";
+import { TranslocoModule } from "@ngneat/transloco";
 import { NgxMatIntlTelInputComponent } from "ngx-mat-intl-tel-input";
 
 @Component({
@@ -22,7 +23,7 @@ import { NgxMatIntlTelInputComponent } from "ngx-mat-intl-tel-input";
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
+  imports: [RouterLink, NgIf, NgFor,TranslocoModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatDialogModule, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule, NgxMatIntlTelInputComponent],
 })
 export class AgreementComponent implements OnInit {
   constructor(

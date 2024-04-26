@@ -153,12 +153,12 @@
     "merchant": "Мерчант",
     "requests": "Запросы",
     "legal_entity": "Поиск по юр. лицу",
-    "loads": "Loads",
+    "loads": "Грузы",
     "add_transport_driver": "Добавить транспорт водителя",
     "edit_transport_driver": "Редактировать транспорт",
     "driver_lisense": "Водительские удостоверения",
     "techpassport": "Тех. паспорт",
-    "isAdr": "АДР",
+    "isAdr": "АДР  (перевозка опасных грузов)",
     "state_number": "Гос. номер",
     "tech_passport_front": "Передняя сторона тех паспорта",
     "tech_passport_back": "Задняя сторона тех паспорта",
@@ -277,7 +277,6 @@
     "CurrencyNotFound": "Валюта не найдена",
     "CargoTypeNotFound": "Тип груза не найден",
     "CargoStatusNotFound": "Статус груза не найден",
-    "TransportTypeNotfound": "Тип транспорта не найден",
     "TransportKindNotfound": "Транспортный вид не найден",
     "CargoLoadingMethodNotFound": "Метод погрузки груза не найден",
     "CargoPackageNotFound": "Грузовой пакет не найден",
@@ -363,10 +362,22 @@
     "no_found": "Не найдено",
     "about_merchant": "Подробнее о клиенте-продавце",
     "about_driver_merchant": "Подробнее о водителе-продавце",
-    "top_up_balance": "top_up_balance",
+    "TransportTypeNotfound": "Тип транспорта не найден",
+    "top_up_balance": "Пополнить баланс",
     "min_length": "Минимальная длина поля 8",
     "max_length": "Максимальная длина поля 16",
     "pattern": "Это должен быть символ и число",
-    "search": "Поиск"
+    "search": "Поиск",
+    "agreement": "Соглашение",
+    "place_cargo": "Разместить груз",
+    "cargo_placement": "Размещение груза",
+    "place_shipment": "Место отправки груза",
+    "delivery_shipment": "Место доставки груза",
+    "date_shipment": "Дата погрузки",
+    "add_stop": "Добавить остановку"
+
+
+
+
 
 }

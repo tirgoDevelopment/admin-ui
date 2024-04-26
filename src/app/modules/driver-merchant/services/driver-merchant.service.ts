@@ -62,7 +62,7 @@ export class DriverMerchantService {
   }
 
   updateMerchant(body): Observable<Response<DriverMerchantModel>> {
-    return this._apiService.put<DriverMerchantModel>('/users/driver-merchant/register', body);
+    return this._apiService.put<DriverMerchantModel>('/users/driver-merchants/update-driver-merchant', body);
   }
 
   getMerchantTransactions(id?): Observable<any> {

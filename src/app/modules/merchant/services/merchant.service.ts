@@ -59,7 +59,7 @@ export class MerchantService {
   active(id: number): Observable<Response<MerchantModel>> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
-    return this._apiService.patch<MerchantModel>(`/users/client-merchants/unblock-client-merchant`, {}, queryParams);
+    return this._apiService.patch<MerchantModel>(`/users/client-merchants/activate-client-merchant`, {}, queryParams);
   }
 
   updateMerchant(body): Observable<Response<MerchantModel>> {

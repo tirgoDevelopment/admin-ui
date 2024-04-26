@@ -159,7 +159,7 @@
     "edit_transport_driver": "Edit transport to driver",
     "driver_lisense": "Driver license",
     "techpassport": "Registration certificate",
-    "isAdr": "Adr",
+    "isAdr": "ADR (transportation of dangerous goods)",
     "state_number": "State number",
     "tech_passport_front": "Tech Passport's Front  photo",
     "tech_passport_back": "Tech Passport's Back  photo",
@@ -369,5 +369,12 @@
     "min_length": "Minimum field length 8",
     "max_length": "Maximum field length 16",
     "pattern": "It must be a symbol and a number",
-    "search": "Search"
+    "search": "Search",
+    "agreement": "Agreement",
+    "place_cargo": "Place cargo",
+    "cargo_placement": "Cargo placement",
+    "place_shipment": "Shipment placement",
+    "delivery_shipment": "Shipment delivery ",
+    "date_shipment": "Shipment date",
+    "add_stop": "Add stop"
 }
