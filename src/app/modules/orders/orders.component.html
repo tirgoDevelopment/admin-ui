@@ -2,18 +2,18 @@
   <div class="flex-auto  ">
     <div class="flex items-center justify-between w-full">
       <div>
-        <div class="text-3xl font-semibold tracking-tight leading-8">Грузы</div>
+        <div class="text-3xl font-semibold tracking-tight leading-8">{{ 'loads' | transloco }}</div>
       </div>
       <div class="flex items-center ml-6">
         <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
           (click)="showFilter = !showFilter">
           <mat-icon>search</mat-icon>
-          Поиск
+          {{ 'search' | transloco }}
         </button>
         <button class="fuse-mat-button-large  mr-3 dark dark:bg-[#1E293BDB]" (click)="createOrderModal()"
           *ngIf="hasPermission('addOrder')" mat-flat-button [color]="'primary'">
           <mat-icon>add</mat-icon>
-          Разместить груз
+          {{ 'place_cargo' | transloco }}
         </button>
       </div>
     </div>
@@ -38,7 +38,7 @@
       </mat-form-field>
 
       <mat-form-field color="accent" class="w-50 px-1">
-        <mat-select placeholder="{{ 'transport_type' | transloco }}" [(ngModel)]="filters.transportTypeId"
+        <mat-select placeholder="{{ 'cargo_type' | transloco }}" [(ngModel)]="filters.transportTypeId"
           name="transportTypeId">
           <mat-option *ngFor="let item of transportTypes ; " [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
@@ -81,7 +81,7 @@
         </ng-container>
 
         <ng-container matColumnDef="sendLocation">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'from' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'place_shipment' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row" [matTooltip]="row.loadingLocation?.name">
             <span class="truncate-cell">
               {{row?.loadingLocation?.name}}
@@ -90,7 +90,7 @@
         </ng-container>
 
         <ng-container matColumnDef="cargoDeliveryLocation">
-          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'where' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'delivery_shipment' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row" [matTooltip]="row.deliveryLocation?.name">
             <span class="truncate-cell">
               {{row?.deliveryLocation?.name}}
@@ -109,18 +109,18 @@
 
         <ng-container matColumnDef="type_cargo">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'cargo_type' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <div class="truncate-cell">{{ row?.cargoType?.name }}</div>
+          <mat-cell *matCellDef="let row" [matTooltip]="tooltipTextTransportTypes(row)">
+            <span *ngIf="row.transportTypes" class="truncate-cell">
+              {{row?.transportTypes[0]?.name}}
+            </span>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="transport_type">
+        <ng-container matColumnDef="transport_cargo">
           <mat-header-cell class="font-bold" *matHeaderCellDef>{{ 'transport_cargo' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row" [matTooltip]="tooltipText(row)">
-            <span *ngIf="row.transportTypes">
-              <span *ngFor="let type of row?.transportTypes;let i=index">
-                {{type.name}} <br>
-              </span>
+          <mat-cell *matCellDef="let row" [matTooltip]="tooltipTextTransportKinds(row)">
+            <span *ngIf="row.transportKinds" class="truncate-cell">
+              {{row?.transportKinds[0]?.name}}
             </span>
           </mat-cell>
         </ng-container>
@@ -128,7 +128,7 @@
         <ng-container matColumnDef="secure_transaction">
           <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header (click)="sortData('isSafe')">{{
             'secure_transaction' | transloco }}</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row?.isSafe ? 'Да':'Нет'}}</mat-cell>
+          <mat-cell *matCellDef="let row" class="flex justify-center">{{row?.isSafe ? 'Да':'Нет'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="offeredPrice">
@@ -139,8 +139,8 @@
         </ng-container>
 
         <ng-container matColumnDef="date_send">
-          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header (click)="sortData('createdAt')">{{
-            'shipment_date' | transloco }}</mat-header-cell>
+          <mat-header-cell class="font-bold" *matHeaderCellDef mat-sort-header (click)="sortData('createdAt')">
+            {{'shipment_date' | transloco }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             {{ (row.isUrgent ? addTwoDays(row.createdAt) : row.createdAt) | date: 'dd.MM.YYYY' }}
           </mat-cell>
@@ -163,10 +163,6 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #moreMenu="matMenu">
-                <!-- <button mat-menu-item color="accent" (click)="edit(row)">
-                  <mat-icon>edit</mat-icon>
-                  {{"edit"|transloco}}
-                </button> -->
                 <button mat-menu-item color="accent" (click)="cancel(row)">
                   <mat-icon>remove</mat-icon>
                   {{"cancel"|transloco}}

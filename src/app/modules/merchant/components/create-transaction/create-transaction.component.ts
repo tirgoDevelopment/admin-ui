@@ -50,7 +50,6 @@ export class CreateTransactionComponent {
         private _merChantService: MerchantService,
         private _dialog: MatDialog,
         private typesService: TypesService) {
-
         this.typesService.getCurrencies().subscribe((res: any) => {
             this.currencies = res.data;
             this.form.patchValue({

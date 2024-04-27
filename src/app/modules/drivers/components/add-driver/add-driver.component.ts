@@ -1,4 +1,4 @@
-import { CurrencyPipe, JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,7 @@ import { AddTransportComponent } from '../add-transport/add-transport.component'
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { CountryService } from 'app/shared/services/country.service';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
 @Component({
   selector: 'app-add-driver',
   templateUrl: './add-driver.component.html',
@@ -36,7 +37,7 @@ import { CountryService } from 'app/shared/services/country.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, NgClass, JsonPipe, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
+  imports: [TranslocoModule, NgClass, PipeModule, AsyncPipe, JsonPipe, NgxMatSelectSearchModule, MatRadioModule, MatDatepickerModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
 
 })
 export class AddDriverComponent {
@@ -72,8 +73,9 @@ export class AddDriverComponent {
     if (this.data) {
       this.edit = true;
       this._driverService.get(this.data).subscribe((response) => {
-        this.passport = response.data?.passport;
-        this.driverLicense = response.data?.driverLicense;
+        console.log(response.data)
+        this.passport = response.data?.passportFilePath;
+        this.driverLicense = response.data?.driverLicenseFilePath;
         this._counterService.getJSONFromLocal().subscribe((data: any) => {
           let phone = this._counterService.getCountryCode(String(response.data?.phoneNumbers[0].phoneNumber), data);
           this.form.patchValue({
@@ -82,11 +84,11 @@ export class AddDriverComponent {
             lastName: response.data?.lastName,
             phoneNumbers: String(response.data?.phoneNumbers[0].phoneNumber).replace(phone, ''),
             password: response.data?.password,
-            passportFile: response.data?.passport,
-            driverLicense: response.data?.driverLicense,
+            passportFile: response.data?.passportFilePath,
+            driverLicense: response.data?.driverLicenseFilePath,
           });
         })
-
+        this._cdr.detectChanges();
       })
 
     }

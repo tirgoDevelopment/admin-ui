@@ -1,6 +1,10 @@
 @import 'ngx-toastr/toastr';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+body {
+  font-family: 'Roboto', sans-serif !important;
+}
+
 .bg-gray-50 dark:text-black {
   background-color: #F3F3F3;
 }
@@ -42,9 +46,6 @@
   background-color: #DBDBDB;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
 
 .mat-mdc-dialog-content {
   padding: 0 !important;

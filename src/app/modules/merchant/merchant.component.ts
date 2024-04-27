@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, DatePipe, RouterLink, NgxPermissionsModule, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
   animations: [
     trigger('showHideFilter', [
       state('show', style({
@@ -58,7 +58,7 @@ export class MerchantComponent implements OnInit {
     createdAtFrom: '',
     createdAtTo: '',
   };
-  displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'last_enter', 'status', 'actions'];
+  displayedColumns: string[] = ['index', 'id', 'full_name', 'companyName', 'entity', 'balance', 'register_date',  'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<MerchantModel>([]);
   showFilter: boolean = false;
@@ -162,7 +162,7 @@ export class MerchantComponent implements OnInit {
 
   delete(id: number) {
     this._merchantService.delete(id).subscribe((response) => {
-      if (response.status) {
+      if (response.success) {
         this.getAllMerchants(this.pageParams);
       }
     })

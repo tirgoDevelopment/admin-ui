@@ -43,9 +43,9 @@ export class OrderDetailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private orderService: OrdersService,
     private typesService: TypesService,
-    protected _dialog?: MatDialog) { 
-      this.orderId = data
-    }
+    protected _dialog?: MatDialog) {
+    this.orderId = data
+  }
 
   ngOnInit(): void {
     this.typesService.getCurrencies().subscribe((res: any) => {
@@ -59,7 +59,7 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.getOrderById(this.orderId).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
-        this.clientId = res.data.client.id;
+        this.clientId = res.data?.client?.id;
         this.updateDriverOffers();
       }
     })
@@ -120,71 +120,11 @@ export class OrderDetailComponent implements OnInit {
       }
     })
   }
-
-  // acceptDriver(offer) {
-  //   if (this.data.isSafeTransaction) {
-  //     const dialogRef = this.dialog.open(ScoreComponent, {
-  //       autoFocus: false,
-  //       disableClose: true,
-  //     });
-  //     dialogRef.afterClosed().subscribe(result => { });
-  //   }
-  //   else {
-  //     this.orderService.acceptOffer(offer.id).subscribe((res: any) => {
-  //       if (res.success) {
-  //         this.toastr.success('Success')
-  //       }
-  //     }, error => {
-  //       this.toastr.error(error.error.message)
-  //     })
-  //     this.dialog.closeAll();
-  //   }
-  // }
-  // editOffer(offer) {
-  //   this.editing = true;
-
-  //   this.originalAmount = offer.amount;
-  //   this.originalCurrencyId = offer.currency.id;
-
-  //   this.editedAmount = offer.amount;
-  //   this.editedCurrencyId = offer.currency.id;
-
-  // }
-  // saveEditedOffer(offer) {
-  //   if (this.originalAmount == this.editedAmount) {
-  //     this.toastr.error('Предложение о сумме не редактировалось')
-  //   }
-  //   else {
-  //     let data = {
-  //       orderId: this.data.id,
-  //       driverId: offer.driver.id,
-  //       amount: this.editedAmount,
-  //       curencyId: this.editedCurrencyId
-  //     }
-  //     this.orderService.contrOffer(data).subscribe((res: any) => {
-  //       if (res.success) {
-  //         this.toastr.success('Updated');
-  //         this.dialog.closeAll();
-  //       }
-  //     }, error => {
-  //       this.toastr.error(error.error.message);
-  //     })
-  //   }
-
-  // }
-  // cancelEditing() {
-  //   this.editedAmount = this.originalAmount;
-  //   this.editedCurrencyId = this.originalCurrencyId;
-  //   this.editing = false;
-  // }
   
   updateDriverOffers() {
-    console.log(this.data)
     if (this.data.driverOffers && Array.isArray(this.data.driverOffers)) {
       this.data.driverOffers = this.data.driverOffers.find(offer => offer.accepted == true);
-      console.log(this.data.driverOffers)
-      this.driverId = this.data.driverOffers.driver.id;
-      console.log(this.driverId)
+      this.driverId = this.data.driverOffers?.driver?.id;
     }
   }
 }

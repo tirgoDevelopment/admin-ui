@@ -15,7 +15,7 @@
   <div class="stepper-item" [class.active]="currentStep === 3"><span>3</span></div>
 </div>
 
-<div class="font-bold text-3xl flex justify-center">РАЗМЕЩЕНИЕ ГРУЗА</div>
+<div class="font-bold text-3xl flex justify-center capitalize">{{'cargo_placement' | transloco | uppercase }}</div>
 
 <mat-dialog-content class="mat-typography m-auto px-3">
   <form class="flex w-full gap-2 px-3" [formGroup]="form" class="mt-8 w-full">
@@ -24,7 +24,7 @@
       <!-- Дата погрузки -->
       <div class="grid sm:grid-cols-1 gap-4">
         <mat-form-field class="flex-auto gt-xs:pr-3 w-1/2">
-          <mat-label>Дата погрузки</mat-label>
+          <mat-label> {{'date_shipment'|transloco}}</mat-label>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <input matInput [matDatepicker]="picker" readonly formControlName="sendDate">
           <mat-datepicker #picker></mat-datepicker>
@@ -34,7 +34,7 @@
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
 
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>Место отправки груза</mat-label>
+          <mat-label>{{'place_shipment'|transloco}}</mat-label>
           <input type="text" matInput [matAutocomplete]="loadingLocation" (input)="findCity($event)"
             formControlName="loadingLocation">
           <mat-autocomplete autoActiveFirstOption #loadingLocation="matAutocomplete" [displayWith]="displayFn">
@@ -48,7 +48,7 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>Место доставки груза</mat-label>
+          <mat-label> {{'delivery_shipment'|transloco}}</mat-label>
           <input type="text" matInput [matAutocomplete]="deliveryLocation" (input)="findCity($event)"
             formControlName="deliveryLocation">
           <mat-autocomplete autoActiveFirstOption #deliveryLocation="matAutocomplete" [displayWith]="displayFn">
@@ -64,7 +64,7 @@
 
       <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
         <mat-form-field>
-          <mat-label>Добавить остановку</mat-label>
+          <mat-label> {{'add_Stop'|transloco}}</mat-label>
           <mat-select multiple formControlName="selectedLocations">
             <mat-option value="customsPlaceLocation">Место затаможки</mat-option>
             <mat-option value="customsClearancePlaceLocation">Место растаможки</mat-option>
@@ -84,25 +84,6 @@
             </ng-container>
           </mat-autocomplete>
         </mat-form-field>
-
-        <!-- <mat-form-field *ngIf="clientInfo?.firstName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>{{ 'full_name'|transloco}}</mat-label>
-          <input matInput [value]="clientInfo.firstName + ' '+this.clientInfo.lastName">
-        </mat-form-field> -->
-
-        <!-- <mat-form-field *ngIf="clientInfo?.lastName" class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
-          <mat-label>{{ 'last_name'|transloco}}</mat-label>
-          <input matInput [value]="clientInfo.lastName">
-        </mat-form-field> -->
-        <!-- <div *ngIf="clientInfo" class="flex-auto gt-xs:pr-3 w-1/2 mt-3 ml-3">
-            <p>{{ 'first_name'|transloco}}: {{clientInfo.firstName}} </p>
-            <p>{{ 'last_name'|transloco}}: {{clientInfo.lastName}} </p>
-            <p>
-              <span *ngFor="let phone of clientInfo.phoneNumbers">
-                {{'phone'|transloco}}: {{phone.phoneNumber}}
-              </span>
-            </p>
-        </div> -->
       </div>
       <div class="grid grid-cols-2">
         <div class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full"
@@ -129,7 +110,7 @@
       </div> -->
       <hr>
       <div class="flex flex-col">
-        <mat-checkbox formControlName="isAdr">ADR (перевозка опасных грузов)</mat-checkbox>
+        <mat-checkbox formControlName="isAdr"> {{'isAdr'|transloco}}</mat-checkbox>
         <mat-checkbox formControlName="isCarnetTir">Carnet TIR</mat-checkbox>
         <mat-checkbox formControlName="isGlonas">ГЛОНАСС</mat-checkbox>
         <mat-checkbox formControlName="isParanom">Паромом</mat-checkbox>
@@ -171,14 +152,14 @@
     <div *ngIf="currentStep == 3">
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Тип транспорта</mat-label>
+          <mat-label>{{'type_transport'|transloco}} </mat-label>
           <mat-select formControlName="transportTypeIds" multiple [compareWith]="compareFn">
             <mat-option *ngFor="let item of transportTypes" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Вид транспорта</mat-label>
+          <mat-label> {{'cargo_type'|transloco}}</mat-label>
           <mat-select formControlName="transportKindIds" multiple [compareWith]="compareFn">
             <mat-option *ngFor="let item of transportKinds" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
@@ -194,8 +175,9 @@
       </div>
 
       <div *ngIf="isRefrigerator">
-        <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)">Режим</mat-checkbox>
-        <mat-checkbox formControlName="isHook">Крюк</mat-checkbox>
+        <mat-checkbox [checked]="isRefrigeratorMode" (change)="onCheckboxChange($event)"> {{'is_mode' | transloco }}
+        </mat-checkbox>
+        <mat-checkbox formControlName="isHook"> {{ 'hook' | transloco}}</mat-checkbox>
       </div>
 
       <div class="flex items-center gap-4" *ngIf="isRefrigeratorMode">
@@ -211,42 +193,30 @@
 
       <div class="flex gap-2" *ngIf="isCistern">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Объем(л)</mat-label>
+          <mat-label> {{ 'volume_l' | transloco }}</mat-label>
           <input type="number" matInput formControlName="cisternVolume">
         </mat-form-field>
       </div>
 
-      <!-- <div class="flex gap-2" *ngIf="isContainer">
-        <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Объем(ф)</mat-label>
-          <mat-select [value]="'EU'" formControlName="containerVolume">
-            <mat-option [value]="'20'">20</mat-option>
-            <mat-option [value]="'40'">40</mat-option>
-            <mat-option [value]="'60'">60</mat-option>
-            <mat-option [value]="'high'">Высокий куб</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
-
       <div class="flex items-center gap-2" *ngIf="isContainer">
         <mat-form-field class="flex items-center w-full">
-            <mat-label> {{ 'volume_f' | transloco }}</mat-label>
-            <mat-select [value]="'EU'" formControlName="containerVolume">
-                <mat-option [value]="'20'">20(ф.)</mat-option>
-                <mat-option [value]="'40'">40(ф.)</mat-option>
-                <mat-option [value]="'60'">60(ф.)</mat-option>
-            </mat-select>
+          <mat-label> {{ 'volume_f' | transloco }}</mat-label>
+          <mat-select [value]="'EU'" formControlName="containerVolume">
+            <mat-option [value]="'20'">20(ф.)</mat-option>
+            <mat-option [value]="'40'">40(ф.)</mat-option>
+            <mat-option [value]="'60'">60(ф.)</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-slide-toggle class="py-2 w-full" formControlName="isHighCube">
-            {{"Высокий куб"|transloco}}
+          {{"Высокий куб"|transloco}}
         </mat-slide-toggle>
 
-    </div>
+      </div>
 
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Тип груза</mat-label>
+          <mat-label>{{'cargo_type'|transloco}}</mat-label>
           <mat-select formControlName="cargoTypeId" [compareWith]="compareFn">
             <mat-optgroup *ngFor="let group of cargoTypes;trackBy:group" [label]="group.name">
               <mat-option *ngFor="let item of group.cargoTypes" [value]="item.id">{{item.name}}</mat-option>
@@ -289,7 +259,7 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Упаковка</mat-label>
+          <mat-label> {{'package'|transloco}}</mat-label>
           <mat-select formControlName="cargoPackageId" [compareWith]="compareFn">
             <mat-option *ngFor="let item of packagesTypes" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
@@ -300,8 +270,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">
-  <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading" class="fuse-mat-button-large  ml-3  w-full mt-6"
-    mat-flat-button [color]="'primary'">
+  <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading"
+    class="fuse-mat-button-large  ml-3  w-full mt-6" mat-flat-button [color]="'primary'">
     <span *ngIf="!loading">Продолжить</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>

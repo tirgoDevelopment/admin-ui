@@ -229,8 +229,6 @@ export class DriverMerchantModerationComponent implements OnInit {
     }
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    console.log(this.f)
-    if (this.form.valid) {
       this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
         if (isObservable(res)) {
           // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
@@ -239,20 +237,11 @@ export class DriverMerchantModerationComponent implements OnInit {
           return res
         }
       }).subscribe((res: any) => {
-        console.log(res)
         if (res.success) {
-          this.router.navigate(['/merchants'])
+          this.router.navigate(['/driver-merchants'])
         }
       })
-    } else {
-      this._dialog.open(MessageComponent, {
-        width: '500px',
-        height: '450px',
-        data: {
-          text: 'Вы должны ввести все обязательные поля',
-        }
-      })
-    }
+
   }
 
   verifyTransaction(transaction) {

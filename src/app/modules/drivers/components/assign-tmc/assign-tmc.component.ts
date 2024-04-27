@@ -66,11 +66,15 @@ export class AssignTmcComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        this.merchantInfo.push(res.data);
-        this.form.patchValue({
-          driverMerchantId: this.merchantInfo[0]?.id
-        })
-        this._cdr.detectChanges()
+        if (res.data) {
+          this.merchantInfo.push(res.data);
+          this.form.patchValue({
+            driverMerchantId: this.merchantInfo[0]?.id
+          })
+          this._cdr.detectChanges()
+        } else {
+          // this._toaster.info('Ничего не найдено')
+        }
       });
   }
 

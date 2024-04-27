@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,13 +36,14 @@ import { CountryService } from 'app/shared/services/country.service';
   imports: [TranslocoModule, CommonModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, PipeModule, HeaderTextComponent],
 })
 
-export class AddAgentComponent {
+export class AddAgentComponent implements OnInit {
   edit: boolean = false;
   currencies: any;
   passwordGenerator = new PasswordGenerator();
   registrationCertificateFilePath: string;
   managerPassportFilePath: string;
   formData = new FormData();
+  currencyId: any;
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
     username: new FormControl('', [Validators.required]),
@@ -73,13 +74,16 @@ export class AddAgentComponent {
     protected fileService: FileUrlService) {
     this._typeService.getCurrencies().subscribe((response: any) => {
       this.currencies = response.data;
+      this.currencyId = this.currencies[0].id
+      this.addItemFirst()
     })
     if (this.data) {
       this.edit = true;
-      console.log(this.data);
       this.getAgentById(this.data.id);
     }
-    this.addItem()
+  }
+  ngOnInit(): void {
+
   }
   getAgentById(id: number): void {
     this._agentService.get(id).subscribe(res => {
@@ -91,7 +95,7 @@ export class AddAgentComponent {
           this.form.patchValue({
             id: res.data.id,
             username: res.data.username,
-            phoneNumber:  String(res.data?.phoneNumber).replace(phone, ''),
+            phoneNumber: String(res.data?.phoneNumber).replace(phone, ''),
             companyName: res.data.companyName,
             legalAddress: res.data.legalAddress,
             physicalAddress: res.data.physicalAddress,
@@ -141,10 +145,21 @@ export class AddAgentComponent {
 
   addItem() {
     this.itemsFormArray.push(this.createItem());
+    this._cdr.detectChanges()
+  }
+  addItemFirst() {
+    this.itemsFormArray.push(this.createItemFIrst(this.currencyId));
+    this._cdr.detectChanges()
   }
   createItem(): FormGroup {
     return this.fb.group({
       currencyId: ['', Validators.required],
+      account: ['', Validators.required]
+    });
+  }
+  createItemFIrst(currencyId): FormGroup {
+    return this.fb.group({
+      currencyId: [currencyId, Validators.required],
       account: ['', Validators.required]
     });
   }
