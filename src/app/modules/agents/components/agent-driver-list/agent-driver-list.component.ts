@@ -15,14 +15,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoDataPlaceholderComponent } from 'app/shared/components/no-data-placeholder/no-data-placeholder.component';
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { AddAgentDriverComponent } from '../add-agent-driver/add-agent-driver.component';
-import { DetailAgentDriverComponent } from '../detail-agent-driver/detail-agent-driver.component';
 import { AgentService } from '../../services/agent.service';
 import { AgentTransactionComponent } from '../agent-transaction/agent-transaction.component';
 import { ActivatedRoute } from '@angular/router';
 import { AddAgentSubscriptionComponent } from '../add-agent-subscription/add-agent-subscription.component';
 import { ConnectDriverComponent } from '../connect-driver/connect-driver.component';
 import { AddBalanceAgentComponent } from '../add-balance-agent/add-balance-agent.component';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -202,6 +200,7 @@ export class AgentDriverListComponent implements OnInit {
     dialog.afterClosed()
       .subscribe(() => {
         this.getAllAgentsDrivers(this.id)
+        this.getBalance(this.id)
       })
   }
 

@@ -75,6 +75,7 @@ export class AddAgentDriverComponent implements OnInit {
   getSubscription() {
     this._typeService.getSubscription().subscribe((response: any) => {
       this.subscription = response.data;
+      this._cdr.detectChanges();
     })
   }
 

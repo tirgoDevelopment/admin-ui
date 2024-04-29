@@ -24,6 +24,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { FuseUtilsService } from '@fuse/services/utils';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-agent-module',
   templateUrl: './agent-module.component.html',
@@ -32,17 +33,32 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatIconModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  animations: [
+    trigger('showHideFilter', [
+      state('show', style({
+        height: '*',
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        height: '0',
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class AgentModuleComponent implements OnInit {
   balances: [];
   cities: any[] = [];
   id: number;
-
+  showFilter: boolean = false;
   filters = {
     driverId: '',
     firstName: '',
     phoneNumber: '',
-    createdAtFrom:'',
+    createdAtFrom: '',
     createdAtTo: '',
   };
   pageParams = {
@@ -62,7 +78,7 @@ export class AgentModuleComponent implements OnInit {
     private _agentService: AgentService,
     private utilsService: FuseUtilsService,
     protected _dialog?: MatDialog) {
-      console.log(this._authService.getDecodedAccessToken())
+    console.log(this._authService.getDecodedAccessToken())
     this.id = this._authService.getDecodedAccessToken().sub
   }
 
@@ -71,7 +87,7 @@ export class AgentModuleComponent implements OnInit {
       driverId: '',
       firstName: '',
       phoneNumber: '',
-      createdAtFrom:'',
+      createdAtFrom: '',
       createdAtTo: ''
     };
     this.getAllDrivers(this.pageParams);
@@ -92,7 +108,7 @@ export class AgentModuleComponent implements OnInit {
     return this.utilsService.hasPermission(permission)
   }
   getAllDrivers(params?) {
-    this._agentService.getAllByAgent(params).subscribe((response: any) => {
+    this._agentService.getAllByAgent(Object.assign(this.filters, params ? params : this.pageParams)).subscribe((response: any) => {
       this.dataSource.data = response?.data;
       this.pageParams.pageSize = response?.data?.pageSize;
       this.pageParams.pageIndex = response?.data?.pageIndex;

@@ -26,6 +26,7 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
 import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 import { DriversService } from 'app/modules/drivers/services/drivers.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SubscriptionService } from 'app/modules/main-types/subscription/services/subscription.service';
 
 @Component({
   selector: 'app-add-agent-subscription',
@@ -54,7 +55,7 @@ export class AddAgentSubscriptionComponent {
     private _toaster: ToastrService,
     private _agentService: AgentService,
     private _driverService: DriversService,
-    private _typeService: TypesService,
+    private _typeService: SubscriptionService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog) {
     if (this.data) {
@@ -88,8 +89,9 @@ export class AddAgentSubscriptionComponent {
   }
 
   getSubscription() {
-    this._typeService.getSubscription().subscribe((response: any) => {
+    this._typeService.getAll().subscribe((response: any) => {
       this.subscription = response.data;
+      console.log(this.subscription);
       this._cdr.detectChanges();
     })
   }

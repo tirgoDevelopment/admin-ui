@@ -208,7 +208,7 @@
     "cargo_weight": "Yukning og'irligi",
     "price": "Narxi",
     "order_date": "Buyurtma sanasi",
-    "order_scheduled": "Buyurtma rejalashtirilgan",
+    "order_scheduled": "Buyurtma rejalashtirilgan vaqt",
     "assign_driver": "Haydovchi tayinlang",
     "passport_owner": "Menejerning pasporti",
     "responce_phone": "Mas'ul shaxsning telefon raqami",
@@ -376,5 +376,26 @@
     "place_shipment": "Yuk jo'natish joyi",
     "delivery_shipment": "Yuk yetkazib berish joyi",
     "date_shipment": "Jo'natish sanasi",
-    "add_stop": "To'xtash joyini qo'shing"
+    "add_stop": "To'xtash joyini qo'shing",
+    "custom_place": "Bojxona joyi",
+    "custom_clearance_place": "Bojxona rasmiylashtiruvi joyi",
+    "add_loading_area": "Qo'shimcha yuklash maydoni",
+    "add_unloading_area": "Qo'shimcha tushirish maydoni",
+    "carnet_tir": "TIR karneti",
+    "glonass": "GLONASS",
+    "by_ferry": "Parom orqali",
+    "offered_price": "Taklif etilgan narx",
+    "prepaid_expense": "Oldindan to'langan xarajatlar",
+    "payment_method": "To'lov usuli",
+    "cash": "Naqd pul",
+    "cashless": "Naqd pulsiz",
+    "number_of_transporters": "Avtomobil tashuvchilar soni",
+    "cargo_weight_gross": "Yukning og'irligi (yalpi)",
+    "cube":"Kubatura",
+    "cargo_dimensions": "Yuk o'lchamlari",
+    "continue": "Davom eting",
+    "create": "Yaratmoq"
+
+
+
 }

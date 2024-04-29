@@ -139,7 +139,7 @@
     "id_order": "Id заказа",
     "order_dispatch_point": "Order dispatch point",
     "order_delivery_point": "Order delivery point",
-    "cargo_size": "Габариты",
+    "cargo_size": "Размер груза",
     "date": "Дата",
     "action": "Действие",
     "verify": "Проверять",

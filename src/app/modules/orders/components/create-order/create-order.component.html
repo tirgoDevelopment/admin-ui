@@ -66,10 +66,10 @@
         <mat-form-field>
           <mat-label> {{'add_Stop'|transloco}}</mat-label>
           <mat-select multiple formControlName="selectedLocations">
-            <mat-option value="customsPlaceLocation">Место затаможки</mat-option>
-            <mat-option value="customsClearancePlaceLocation">Место растаможки</mat-option>
-            <mat-option value="additionalLoadingLocation">Дополнительное место погрузки</mat-option>
-            <mat-option value="additionalDeliveryLocation">Дополнительное место выгрузки</mat-option>
+            <mat-option value="customsPlaceLocation">{{'custom_place' |transloco}}</mat-option>
+            <mat-option value="customsClearancePlaceLocation">{{'custom_clearance_place' |transloco}}</mat-option>
+            <mat-option value="additionalLoadingLocation"> {{'add_loading_area'|transloco}}</mat-option>
+            <mat-option value="additionalDeliveryLocation">{{'add_unloading_area'|transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="flex-auto gt-xs:pr-3 md:w-72 sm:w-full">
@@ -111,16 +111,16 @@
       <hr>
       <div class="flex flex-col">
         <mat-checkbox formControlName="isAdr"> {{'isAdr'|transloco}}</mat-checkbox>
-        <mat-checkbox formControlName="isCarnetTir">Carnet TIR</mat-checkbox>
-        <mat-checkbox formControlName="isGlonas">ГЛОНАСС</mat-checkbox>
-        <mat-checkbox formControlName="isParanom">Паромом</mat-checkbox>
+        <mat-checkbox formControlName="isCarnetTir">{{'carnet_tir'|transloco}}</mat-checkbox>
+        <mat-checkbox formControlName="isGlonas">{{'glonass'|transloco}}</mat-checkbox>
+        <mat-checkbox formControlName="isParanom">{{'by_ferry'|transloco}}</mat-checkbox>
       </div>
     </div>
     <!-- STEP 2 -->
     <div *ngIf="currentStep == 2">
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Предлагаемая цена</mat-label>
+          <mat-label>{{'offered_price'|transloco}}</mat-label>
           <input type="number" matInput formControlName="offeredPrice">
           <mat-select matPrefix formControlName="offeredPriceCurrencyId">
             <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
@@ -128,7 +128,7 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Аванс</mat-label>
+          <mat-label> {{'prepaid_expense'|transloco}}</mat-label>
           <input type="number" matInput formControlName="inAdvancePrice">
           <mat-select matPrefix formControlName="inAdvancePriceCurrencyId">
             <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
@@ -138,14 +138,15 @@
 
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Способ оплаты</mat-label>
+          <mat-label> {{'payment_method'|transloco}}</mat-label>
           <mat-select formControlName="paymentMethod" [compareWith]="compareFin">
-            <mat-option value="cash">Наличными</mat-option>
-            <mat-option value="cashless">Безналичные</mat-option>
+            <mat-option value="cash"> {{'cash'|transloco}} </mat-option>
+            <mat-option value="cashless"> {{'cashless'|transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-checkbox class="flex-auto md:w-72 sm:w-full" formControlName="isSafeTransaction">Безопасная
-          сделка</mat-checkbox>
+        <mat-checkbox class="flex-auto md:w-72 sm:w-full" formControlName="isSafeTransaction">\
+          {{'secure_transaction'|transloco}}
+        </mat-checkbox>
       </div>
     </div>
     <!-- STEP 3 -->
@@ -169,7 +170,7 @@
 
       <div class="flex gap-2" *ngIf="isAutotransport">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Количество автовоз</mat-label>
+          <mat-label> {{'number_of_transporters'|transloco}}</mat-label>
           <input type="number" matInput formControlName="refrigeratorCount">
         </mat-form-field>
       </div>
@@ -225,18 +226,18 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Вес груза(брутто)</mat-label>
+          <mat-label> {{'cargo_weight_gross'|transloco}}</mat-label>
           <input type="number" matInput formControlName="cargoWeight">
         </mat-form-field>
 
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Кубатура</mat-label>
+          <mat-label>{{'cube'|transloco}}</mat-label>
           <input type="number" matInput formControlName="cubature">
         </mat-form-field>
       </div>
 
       <div class="flex-auto">
-        <div class="text-[#1e293b] font-medium dark:text-white">Габариты груза</div>
+        <div class="text-[#1e293b] font-medium dark:text-white"> {{'cargo_dimensions'|transloco }}</div>
         <div class="flex items-baseline gap-2">
           <mat-form-field class="flex-auto">
             <input type="number" matInput formControlName="cargoLength" placeholder="Длина">
@@ -252,7 +253,7 @@
 
       <div class="flex gap-2">
         <mat-form-field class="flex-auto md:w-72 sm:w-full">
-          <mat-label>Способ погрузки</mat-label>
+          <mat-label> {{'loading_method'|transloco}}</mat-label>
           <mat-select formControlName="loadingMethodId" [compareWith]="compareFn">
             <mat-option *ngFor="let item of cargoLoadingMethods" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
@@ -272,12 +273,12 @@
 <mat-dialog-actions align="center">
   <button *ngIf="currentStep !== 3" (click)="nextStep()" [disabled]="loading"
     class="fuse-mat-button-large  ml-3  w-full mt-6" mat-flat-button [color]="'primary'">
-    <span *ngIf="!loading">Продолжить</span>
+    <span *ngIf="!loading">{{'continue'|transloco}}</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>
   <button *ngIf="currentStep == 3" (click)="createOrder()" [disabled]="loading"
     class="fuse-mat-button-large  ml-3  w-full mt-6" mat-flat-button [color]="'primary'">
-    <span *ngIf="!loading">Создать</span>
+    <span *ngIf="!loading">{{'create'|transloco}}</span>
     <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
   </button>
 </mat-dialog-actions>
