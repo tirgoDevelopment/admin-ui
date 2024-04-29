@@ -24,25 +24,25 @@
       </div>
 
       <div *ngIf="data?.customsPlaceLocation">
-        <p class="text-xl leading-4 mb-1">Место затаможки</p>
+        <p class="text-xl leading-4 mb-1"> {{'custom_place'|transloco}}</p>
         <p class="font-bold">
           {{data?.customsPlaceLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.customsClearancePlaceLocation">
-        <p class="text-xl leading-4 mb-1">Место растаможки</p>
+        <p class="text-xl leading-4 mb-1">{{'customs_clearance_place'|transloco}}</p>
         <p class="font-bold">
           {{data?.customsClearancePlaceLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.additionalLoadingLocation">
-        <p class="text-xl leading-4 mb-1">Дополнительное место погрузки</p>
+        <p class="text-xl leading-4 mb-1"> {{'add_loading_area'|transloco}}</p>
         <p class="font-bold">
           {{data?.additionalLoadingLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.additionalDeliveryLocation">
-        <p class="text-xl leading-4 mb-1">Дополнительное место выгрузки</p>
+        <p class="text-xl leading-4 mb-1">{{'add_unloading_area'|transloco}} </p>
         <p class="font-bold">
           {{data?.additionalDeliveryLocation?.name}}</p>
       </div>
@@ -70,7 +70,7 @@
         </p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">Размер груза</p>
+        <p class="text-xl leading-4 mb-1">{{'cargo_size'|transloco}}</p>
         <p class="font-bold">
           д: {{ data?.cargoLength ? data?.cargoLength + 'см.' : 'Не указана' }}
           Ш: {{ data?.cargoWidth ? data?.cargoWidth + 'см.' : 'Не указана' }}
@@ -79,32 +79,32 @@
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Вес груза</p>
+        <p class="text-xl leading-4 mb-1"> {{'cargo_weight'|transloco}}</p>
         <p class="font-bold">
           {{ data?.cargoWeight ? data?.cargoWeight + 'кг' : 'Не указана' }}
         </p>
 
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">Стоимость</p>
+        <p class="text-xl leading-4 mb-1"> {{'price'|transloco}}</p>
         <p class="font-bold">
           {{ data?.offeredPrice ? data?.offeredPrice + ' ' + data?.offeredPriceCurrency?.name : 'Не указана' }}
         </p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Аванс</p>
+        <p class="text-xl leading-4 mb-1">{{'prepaid_expense'|transloco}}</p>
         <p class="font-bold">
           {{ data?.inAdvancePrice ? data?.inAdvancePrice + ' ' + data?.inAdvancePriceCurrency?.name : 'Не указана' }}
         </p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Дата оформления заказа</p>
+        <p class="text-xl leading-4 mb-1"> {{'order_date'|transloco}}</p>
         <p class="font-bold">{{data?.createdAt | dateFormat}}</p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">Заказ назначен на</p>
+        <p class="text-xl leading-4 mb-1"> {{'order_scheduled'|transloco}}</p>
         <p class="font-bold">{{data?.sendDate | dateFormat }}</p>
       </div>
       <div>
@@ -114,13 +114,13 @@
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Способ оплаты</p>
+        <p class="text-xl leading-4 mb-1"> {{'payment_method'|transloco}}</p>
         <p class="font-bold">
           {{data?.paymentMethod == 'cash' ? 'Наличи':'Безналичные'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Безопасная сделка</p>
+        <p class="text-xl leading-4 mb-1">{{'secure_transaction'|transloco}}</p>
         <p class="font-bold">
           {{data?.isSafe ? 'Да':'Нет'}}</p>
       </div>
@@ -132,37 +132,37 @@
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Carnet TIR</p>
+        <p class="text-xl leading-4 mb-1">{{'carnet_tir'|transloco}}</p>
         <p class="font-bold">
           {{data?.isCarnetTir ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">ГЛОНАСС</p>
+        <p class="text-xl leading-4 mb-1"> {{'glonass'|transloco}}</p>
         <p class="font-bold">
           {{data?.isGlonas ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Паромом</p>
+        <p class="text-xl leading-4 mb-1"> {{'by_ferry'|transloco}}</p>
         <p class="font-bold">
           {{data?.isParanom ? 'Да':'Нет'}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorCount">
-        <p class="text-xl leading-4 mb-1">Количество автовоз</p>
+        <p class="text-xl leading-4 mb-1"> {{'number_of_transporters'|transloco}}</p>
         <p class="font-bold">
           {{data?.refrigeratorCount}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorFrom">
-        <p class="text-xl leading-4 mb-1">Режим от (°С)</p>
+        <p class="text-xl leading-4 mb-1"> {{'mode_from'|transloco}}</p>
         <p class="font-bold">
           {{data?.refrigeratorFrom}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorTo">
-        <p class="text-xl leading-4 mb-1">Режим до (°С)</p>
+        <p class="text-xl leading-4 mb-1"> {{'mode_to'|transloco}}</p>
         <p class="font-bold">
           {{data?.refrigeratorTo}}</p>
       </div>
@@ -186,7 +186,7 @@
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">Способ погрузки</p>
+        <p class="text-xl leading-4 mb-1"> {{'loading_method'|transloco}}</p>
         <p class="font-bold">
           {{data.loadingMethod?.name ? data.loadingMethod?.name : 'Не указана'}}</p>
       </div>

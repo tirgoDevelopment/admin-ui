@@ -66,9 +66,9 @@ export class AddAgentSubscriptionComponent {
         })
       )
       .subscribe((res: any) => {
-        if (res != null) {
-          this._toaster.info('Ничего не найдено')
+        if (res == null) {
           this.driverInfo = [];
+          this._toaster.info('Ничего не найдено')
         } else {
           this.driverInfo.push(res.data);
           this.form.patchValue({

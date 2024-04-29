@@ -152,9 +152,9 @@ export class AgentsComponent extends UnsubscribeAble implements OnInit {
   block(id: number) {
     const dialog = this._dialog.open(AgentBlockComponent, {
       minWidth: '20vw',
-      maxWidth: '40vw',
-      minHeight: '42vh',
-      maxHeight: '85vh',
+      maxWidth: '30vw',
+      minHeight: '30vh',
+      maxHeight: '35vh',
       data: id,
       autoFocus: false,
     })

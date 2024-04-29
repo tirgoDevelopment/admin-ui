@@ -97,7 +97,7 @@
     "last_name": "Фамилия",
     "remove": "Удалить",
     "detail": "Детали",
-    "email":"Email",
+    "email": "Email",
     "no_data": "Нет данных",
     "is_empty": "Он не должен быть пустым",
     "is_email": "Неправильный формат почты",
@@ -139,9 +139,9 @@
     "status_processing": "Status processing",
     "about_ordering": "Детали заказа",
     "id_order": "Id заказа",
-    "order_dispatch_point": "Order dispatch point",
-    "order_delivery_point": "Order delivery point",
-    "cargo_size": "Габариты",
+    "order_dispatch_point": "Точка отправки заказа",
+    "order_delivery_point": "Точка доставки заказа",
+    "cargo_size": "Размер груза",
     "date": "Дата",
     "action": "Действие",
     "verify": "Проверять",
@@ -206,8 +206,8 @@
     "order_id": "Id заказа",
     "cargo_weight": "Вес груза(брутто)",
     "price": "Цена",
-    "order_date": "Order date",
-    "order_scheduled": "The order is scheduled for",
+    "order_date": "Дата оформления заказа",
+    "order_scheduled": "Заказ назначен на",
     "assign_driver": "Назначить водителя",
     "passport_owner": "Manager's passport",
     "responce_phone": "Номер телефона ответсвенного лица",
@@ -374,10 +374,25 @@
     "place_shipment": "Место отправки груза",
     "delivery_shipment": "Место доставки груза",
     "date_shipment": "Дата погрузки",
-    "add_stop": "Добавить остановку"
-
-
-
+    "add_stop": "Добавить остановку",
+    "custom_place": "Место затаможки",
+    "custom_clearance_place": "Место растаможки",
+    "add_loading_area": "Дополнительное место погрузки",
+    "add_unloading_area": "Дополнительное место выгрузки",
+    "carnet_tir": "Книжка МДП",
+    "glonass": "ГЛОНАСС",
+    "by_ferry": "Паромом",
+    "offered_price": "Предлагаемая цена",
+    "prepaid_expense": "Аванс",
+    "payment_method": "Способ оплаты",
+    "cash": "Наличными",
+    "cashless": "Безналичные",
+    "number_of_transporters": "Количество автовоз",
+    "cargo_weight_gross": "Вес груза (брутто)",
+    "cube":"Кубатура",
+    "cargo_dimensions": "Габариты груза",
+    "continue": "Продолжить",
+    "create": "Создат"
 
 
 }

@@ -1,5 +1,5 @@
 <div class="flex justify-between items-center">
-    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"add_subscription"|transloco}}</p>
+    <p mat-dialog-title class="font-bold text-2xl uppercase">{{"connect_driver"|transloco}}</p>
     <button mat-icon-button mat-dialog-close>
         <mat-icon aria-label="Close dialog">close</mat-icon>
     </button>
@@ -8,8 +8,7 @@
     <form [formGroup]="form" class="px-3">
         <mat-form-field class="w-full">
             <mat-label>{{ 'drivers' | transloco }}</mat-label>
-            <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)"
-                formControlName="fullName">
+            <input type="text" matInput [matAutocomplete]="dirverIdcomplete" (input)="findDriver($event)">
             <mat-autocomplete autoActiveFirstOption #dirverIdcomplete="matAutocomplete" [displayWith]="displayDriverFn">
                 <ng-container *ngIf="driverInfo">
                     <mat-option *ngFor="let driver of driverInfo" [value]="driver">

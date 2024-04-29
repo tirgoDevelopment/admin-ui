@@ -59,7 +59,6 @@ export class ConnectDriverComponent implements OnInit {
         agentId: this.data?.agentId,
       });
     }
-    this.getSubscription();
     this.searchdriverSubject
       .pipe(
         debounceTime(300),
@@ -74,6 +73,7 @@ export class ConnectDriverComponent implements OnInit {
           this.driverInfo = [];
           this._toaster.info('Ничего не найдено')
         } else {
+          this.driverInfo.push(res.data);
           this.form.patchValue({
             driverId: this.driverInfo[0].id
           })
@@ -117,7 +117,6 @@ export class ConnectDriverComponent implements OnInit {
     return driver ? driver.id + ' - ' + driver.firstName + ' ' + driver.lastName : '';
   }
   submit() {
-
     if (this.form.valid) {
       this._agentService.connectToAgent(this.form.value).subscribe(res => {
         if (res.success) {
