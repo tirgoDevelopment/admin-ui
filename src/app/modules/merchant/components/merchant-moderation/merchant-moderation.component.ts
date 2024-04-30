@@ -104,13 +104,11 @@ export class MerchantModerationComponent implements OnInit {
     this.edit = true
     this.merchantService.get(id).subscribe((responce: any) => {
       this.logoFilePath = responce.data?.logoFilePath;
-      console.log(responce.data?.phoneNumber)
-      console.log(responce.data?.responsbilePersonPhoneNumber)
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
       this.passportFilePath = responce.data?.passportFilePath;
       this._counterService.getJSONFromLocal().subscribe((data: any) => {
         let phoneNumber = this._counterService.getCountryCode(String(responce.data?.phoneNumber), data);
-        let responsbilePersonPhoneNumber = this._counterService.getCountryCode(String(responce.data?.responsbilePersonPhoneNumber).replace(/\+/g, ''), data);
+        let responsbilePersonPhoneNumber = this._counterService.getCountryCode(String(responce.data?.responsbilePersonPhoneNumber), data);
         this.form.patchValue({
           id: responce.data?.id,
           bankName: responce.data?.bankName,
@@ -122,7 +120,7 @@ export class MerchantModerationComponent implements OnInit {
           supervisorLastName: responce.data?.supervisorLastName,
           responsiblePersonFistName: responce.data?.responsiblePersonFistName,
           responsiblePersonLastName: responce.data?.responsiblePersonLastName,
-          responsbilePersonPhoneNumber: String(String(responce.data?.responsbilePersonPhoneNumber).replace(/\+/g, '')).replace(responsbilePersonPhoneNumber, ''),
+          responsbilePersonPhoneNumber: String(responce.data?.responsbilePersonPhoneNumber).replace(responsbilePersonPhoneNumber, ''),
           legalAddress: responce.data?.legalAddress,
           inn: responce.data?.inn,
           oked: responce.data?.oked,

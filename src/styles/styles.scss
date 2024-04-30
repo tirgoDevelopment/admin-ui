@@ -211,19 +211,19 @@ mat-form-field:not(.mat-focused) mat-placeholder {
   cursor: pointer !important;
 }
 
-.mat-mdc-table mat-header-row.mat-mdc-header-row:nth-child(odd),
-.mat-mdc-table mat-row.mat-mdc-row:nth-child(odd),
-.mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd) {
-  height: unset;
-  background: #F3F3F3 !important;
-}
+// .mat-mdc-table mat-header-row.mat-mdc-header-row:nth-child(odd),
+// .mat-mdc-table mat-row.mat-mdc-row:nth-child(odd),
+// .mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd) {
+//   height: unset;
+//   background: #F3F3F3 !important;
+// }
 
-.mat-mdc-table mat-header-row.mat-mdc-header-row:nth-child(odd):hover,
-.mat-mdc-table mat-row.mat-mdc-row:nth-child(odd):hover,
-.mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd):hover {
-  cursor: pointer;
-  background: #F3F3F3 !important;
-}
+// .mat-mdc-table mat-header-row.mat-mdc-header-row:nth-child(odd):hover,
+// .mat-mdc-table mat-row.mat-mdc-row:nth-child(odd):hover,
+// .mat-mdc-table mat-footer-row.mat-mdc-footer-cell:nth-child(odd):hover {
+//   cursor: pointer;
+//   background: #F3F3F3 !important;
+// }
 
 .mat-column-index {
   word-wrap: break-word !important;

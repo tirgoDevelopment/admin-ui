@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"archived_users"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="fuse-mat-button-large  ml-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+                 <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'primary'"
                     (click)="showFilter = !showFilter">
                     <mat-icon>search</mat-icon>
                     {{ 'search' | transloco }}
@@ -40,17 +40,17 @@
         <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="index">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
-                    <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef> No </mat-header-cell>
+                    <mat-cell class="dark:text-white" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef> ID </mat-header-cell>
-                    <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef> ID </mat-header-cell>
+                    <mat-cell class="dark:text-white" *matCellDef="let row"> {{ row?.id }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -65,12 +65,12 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="ISO">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -98,19 +98,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"type"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.userType}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="moderation">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"moderation"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"moderation"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.moderation}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"register_date"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <div [ngSwitch]="row.userType">
@@ -125,19 +125,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"last_enter"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="geolocation">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"geolocation"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"geolocation"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.geolocation}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="order">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"orders"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"orders"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.order}} </mat-cell>
                 </ng-container>

@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                <button class="fuse-mat-button-large  ml-3 dark dark:bg-[#1E293BDB]" mat-flat-button [color]="'primary'"
+                 <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'primary'"
                     (click)="showFilter = !showFilter">
                     <mat-icon>search</mat-icon>
                     {{ 'search' | transloco }}
@@ -97,24 +97,24 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="index">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef> No </mat-header-cell>
-                    <mat-cell class="index-column" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef> No </mat-header-cell>
+                    <mat-cell class="dark:text-white" *matCellDef="let row; let i=index"> {{ i + 1 }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID
                     </mat-header-cell>
-                    <mat-cell class="index-column" *matCellDef="let row"> {{ row?.id }} </mat-cell>
+                    <mat-cell class="dark:text-white" *matCellDef="let row"> {{ row?.id }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('firstName')"
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header (click)="sortData('firstName')"
                         *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.firstName }} {{ row?.lastName }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"phone"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"phone"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngFor="let phoneNumber of row.phoneNumbers">
@@ -124,28 +124,28 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type_transport">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"type_transport"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"type_transport"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row" [matTooltip]="tooltipText(row.driverTransports)">
                         {{row.driverTransports[0]?.transportTypes[0].name}}
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="register_date">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('createdAt')"
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header (click)="sortData('createdAt')"
                         *matHeaderCellDef>{{"register_date"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.createdAt | date:'dd/MM/yyyy HH:mm'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="last_enter">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('last_inter')"
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header (click)="sortData('last_inter')"
                         *matHeaderCellDef>{{"last_enter"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.last_inter}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <mat-header-cell class="font-bold" mat-sort-header (click)="sortData('statusCode')"
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header (click)="sortData('statusCode')"
                         *matHeaderCellDef>{{"status"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
@@ -160,7 +160,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="subscription">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"subscription"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"subscription"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span>

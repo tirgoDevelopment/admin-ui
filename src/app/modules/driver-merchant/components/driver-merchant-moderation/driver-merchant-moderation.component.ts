@@ -26,6 +26,7 @@ import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-form
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { FileUrlService } from 'app/shared/services/file-url.service';
+import { CountryService } from 'app/shared/services/country.service';
 
 @Component({
   selector: 'app-driver-merchant-moderation',
@@ -85,10 +86,10 @@ export class DriverMerchantModerationComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _dialog: MatDialog,
     private toastr: ToastrService,
     private _cdr: ChangeDetectorRef,
     protected fileService: FileUrlService,
+    private _counterService: CountryService,
     private driverMerchantService: DriverMerchantService) {
     this.route.params.subscribe(params => {
       const param = params.id;
@@ -104,32 +105,36 @@ export class DriverMerchantModerationComponent implements OnInit {
       this.logoFilePath = responce.data?.logoFilePath;
       this.passportFilePath = responce.data?.passportFilePath;
       this.registrationCertificateFilePath = responce.data?.registrationCertificateFilePath;
-      this.form.patchValue({
-        merchantId: responce.data?.id,
-        bankName: responce.data?.bankName,
-        bankBranchName: responce.data?.bankBranchName,
-        companyName: responce.data?.companyName,
-        phoneNumber: responce.data?.phoneNumber,
-        dunsNumber: responce.data?.dunsNumber,
-        ibanNumber: responce.data?.ibanNumber,
-        taxPayerCode: responce.data?.taxPayerCode,
-        email: responce.data?.email,
-        supervisorFirstName: responce.data?.supervisorFirstName,
-        supervisorLastName: responce.data?.supervisorLastName,
-        responsiblePersonFistName: responce.data?.responsiblePersonFistName,
-        responsiblePersonLastName: responce.data?.responsiblePersonLastName,
-        responsbilePersonPhoneNumber: responce.data?.responsbilePersonPhoneNumber,
-        legalAddress: responce.data?.legalAddress,
-        factAddress: responce.data?.factAddress,
-        postalCode: responce.data?.postalCode,
-        garageAddress: responce.data?.garageAddress,
-        inn: responce.data?.inn,
-        oked: responce.data?.oked,
-        mfo: responce.data?.mfo,
-        internationalCargoLisensePath: responce.data?.transportationCertificateFilePath,
-        logoFilePath: responce.data?.logoFilePath,
-        registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
-        passportFilePath: responce.data?.passportFilePath
+      this._counterService.getJSONFromLocal().subscribe((data: any) => {
+        let phoneNumber = this._counterService.getCountryCode(String(responce.data?.phoneNumber), data);
+        let responsbilePersonPhoneNumber = this._counterService.getCountryCode(String(responce.data?.responsbilePersonPhoneNumber), data);
+        this.form.patchValue({
+          merchantId: responce.data?.id,
+          bankName: responce.data?.bankName,
+          bankBranchName: responce.data?.bankBranchName,
+          companyName: responce.data?.companyName,
+          phoneNumber: String(responce.data?.phoneNumber).replace(phoneNumber, ''),
+          dunsNumber: responce.data?.dunsNumber,
+          ibanNumber: responce.data?.ibanNumber,
+          taxPayerCode: responce.data?.taxPayerCode,
+          email: responce.data?.email,
+          supervisorFirstName: responce.data?.supervisorFirstName,
+          supervisorLastName: responce.data?.supervisorLastName,
+          responsiblePersonFistName: responce.data?.responsiblePersonFistName,
+          responsiblePersonLastName: responce.data?.responsiblePersonLastName,
+          responsbilePersonPhoneNumber: String(responce.data?.responsbilePersonPhoneNumber).replace(responsbilePersonPhoneNumber, ''),
+          legalAddress: responce.data?.legalAddress,
+          factAddress: responce.data?.factAddress,
+          postalCode: responce.data?.postalCode,
+          garageAddress: responce.data?.garageAddress,
+          inn: responce.data?.inn,
+          oked: responce.data?.oked,
+          mfo: responce.data?.mfo,
+          internationalCargoLisensePath: responce.data?.transportationCertificateFilePath,
+          logoFilePath: responce.data?.logoFilePath,
+          registrationCertificateFilePath: responce.data?.registrationCertificateFilePath,
+          passportFilePath: responce.data?.passportFilePath
+        })
       })
     })
   }
@@ -229,18 +234,18 @@ export class DriverMerchantModerationComponent implements OnInit {
     }
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
-      this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
-        if (isObservable(res)) {
-          // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
-          return res
-        } else {
-          return res
-        }
-      }).subscribe((res: any) => {
-        if (res.success) {
-          this.router.navigate(['/driver-merchants'])
-        }
-      })
+    this.driverMerchantService.updateMerchant(uniqueFormData).pipe(res => {
+      if (isObservable(res)) {
+        // this.formData = removeUnselected(this.formData, ['logoFilePath', 'registrationCertificateFilePath', 'passportFilePath']);
+        return res
+      } else {
+        return res
+      }
+    }).subscribe((res: any) => {
+      if (res.success) {
+        this.router.navigate(['/driver-merchants'])
+      }
+    })
 
   }
 

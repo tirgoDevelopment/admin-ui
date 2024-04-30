@@ -16,13 +16,13 @@
 
 
                 <ng-container matColumnDef="role">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"role"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"role"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="add_driver">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_driver"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"add_driver"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addDriver">{{"yes"|transloco}}</span>
@@ -31,7 +31,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="add_client">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_client"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"add_client"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addClient">{{"yes"|transloco}}</span>
@@ -40,7 +40,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="add_order">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"add_order"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"add_order"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.addOrder">{{"yes"|transloco}}</span>
@@ -48,7 +48,7 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="cancel_order">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"cancel_order"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"cancel_order"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.cancelOrder">{{"yes"|transloco}}</span>
@@ -57,7 +57,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="watch_driver">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"watch_driver"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"watch_driver"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.seeDriversInfo">{{"yes"|transloco}}</span>
@@ -66,7 +66,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="watch_client">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"watch_client"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"watch_client"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.seeClientsInfo">{{"yes"|transloco}}</span>
@@ -76,7 +76,7 @@
 
 
                 <ng-container matColumnDef="send_push">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"send_push"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"send_push"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.sendPush">{{"yes"|transloco}}</span>
@@ -85,7 +85,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="chat">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"chat"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"chat"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.chat">{{"yes"|transloco}}</span>
@@ -94,7 +94,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="tracking">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"tracking"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"tracking"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.tracking">{{"yes"|transloco}}</span>
@@ -103,7 +103,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="driver_finance">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"driver_finance"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"driver_finance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.driverMerchantFinance">{{"yes"|transloco}}</span>
@@ -112,7 +112,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="merchant_finance">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"merchant_finance"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"merchant_finance"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.clientMerchantFinance">{{"yes"|transloco}}</span>
@@ -121,7 +121,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="registr_merchant">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"registr_merchant"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"registr_merchant"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.registrMerchant">{{"yes"|transloco}}</span>
@@ -130,7 +130,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="admin_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"admin_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"admin_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.adminPage">{{"yes"|transloco}}</span>
@@ -139,7 +139,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="fin_request">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"fin_request"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"fin_request"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.finRequest">{{"yes"|transloco}}</span>
@@ -148,7 +148,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="driver_merchant_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"driver_merchant_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"driver_merchant_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.driverMerchantPage">{{"yes"|transloco}}</span>
@@ -157,7 +157,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="client_merchant_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"client_merchant_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"client_merchant_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.clientMerchantPage">{{"yes"|transloco}}</span>
@@ -166,7 +166,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="driver_verification">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"driver_verification"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"driver_verification"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.driverVerification">{{"yes"|transloco}}</span>
@@ -175,7 +175,7 @@
                 </ng-container>
                 
                 <ng-container matColumnDef="agent_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"agent_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"agent_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.agentPage">{{"yes"|transloco}}</span>
@@ -185,7 +185,7 @@
 
 
                 <ng-container matColumnDef="dashboard_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"dashboard_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"dashboard_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.dashboardPage">{{"yes"|transloco}}</span>
@@ -195,7 +195,7 @@
 
 
                 <ng-container matColumnDef="archived_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"archived_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"archived_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.archivedPage">{{"yes"|transloco}}</span>
@@ -203,7 +203,7 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="order_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"order_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"order_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.orderPage">{{"yes"|transloco}}</span>
@@ -211,7 +211,7 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="reference_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"reference_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"reference_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.referencesPage">{{"yes"|transloco}}</span>
@@ -220,7 +220,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="active_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"active_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"active_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.activePage">{{"yes"|transloco}}</span>
@@ -229,7 +229,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="admin_agent_page">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"admin_agent_page"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"admin_agent_page"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span *ngIf="row?.permission?.adminAgentPage">{{"yes"|transloco}}</span>

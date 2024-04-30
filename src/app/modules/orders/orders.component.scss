@@ -4,3 +4,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+:host-context(.dark) ::ng-deep .mat-tooltip {
+  background-color: gray !important;
+  color: white !important;
+}

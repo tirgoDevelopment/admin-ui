@@ -14,18 +14,18 @@
        <div class="mt-4  shadow-table">
             <mat-table matSort [dataSource]="dataSource">
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"id"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"id"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.id}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="full_name">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"full_name"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"full_name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.fio}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.action}} </mat-cell>
                 </ng-container>

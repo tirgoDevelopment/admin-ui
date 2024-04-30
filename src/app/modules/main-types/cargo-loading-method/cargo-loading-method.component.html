@@ -15,7 +15,7 @@
             <mat-table matSort [dataSource]="dataSource">
 
                 <ng-container matColumnDef="name">
-                    <mat-header-cell class="font-bold" *matHeaderCellDef>{{"name"|transloco}}
+                    <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{"name"|transloco}}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row?.name}} </mat-cell>
                 </ng-container>
