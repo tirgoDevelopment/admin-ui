@@ -5,94 +5,94 @@
     </button>
 </div>
 <mat-dialog-content class="h-full">
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-black rounded-lg shadow-md ">
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg  dark:shadow-white dark:shadow-sm shadow-md dark:border-t ">
         <div class="flex  w-full justify-between ">
             <div class="flex ">
                 <img src="assets/images/user/user.png" alt="User Image" class="rounded-full w-16 h-16 mr-2">
                 <div>
-                    <p class="text-2xl font-bold">{{agent?.username}} </p>
-                    <p class="text-gray-600"># {{agent?.id}}</p>
+                    <p class="text-2xl font-bold  dark:text-white">{{agent?.username}} </p>
+                    <p class="text-gray-600 dark:text-white"># {{agent?.id}}</p>
                 </div>
             </div>
             <div class="flex justify-end">
-                <p class="text-gray-600"> 5.0</p>
+                <p class="text-gray-600 dark:text-white"> 5.0</p>
                 <img src="assets/images/icons/start.svg" alt="star Image" class="rounded-full w-4 h-4 ml-1 mt-1">
             </div>
         </div>
     </div>
     <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"orders"|transloco}}</h2>
+            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white">{{"orders"|transloco}}</h2>
         </div>
         <div class="flex mb-4">
             <div class="w-1/3 text-center">
                 <p class="font-semibold text-3xl mb-2">25</p>
-                <p class="text-gray-600">{{"total"|transloco}}</p>
+                <p class="text-gray-600 dark:text-white">{{"total"|transloco}}</p>
             </div>
             <div class="w-1/3 text-center">
                 <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600">{{"completed"|transloco}} </p>
+                <p class="text-gray-600 dark:text-white">{{"completed"|transloco}} </p>
             </div>
             <div class="w-1/3 text-center">
                 <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600">{{"neagtive"|transloco}}</p>
+                <p class="text-gray-600 dark:text-white">{{"neagtive"|transloco}}</p>
             </div>
         </div>
     </div> -->
-    <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
+    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg dark:border-white dark:shadow-white dark:shadow-sm  shadow-md border-t-2">
         <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"information"|transloco}}</h2>
+            <h2 class="text-2xl leading-4 font-bold dark:text-white ">{{"information"|transloco}}</h2>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p class="text-xl leading-4 mb-1">{{"director_first_name"|transloco}}</p>
-                <p class="font-bold" >{{agent?.managerFirstName}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"director_first_name"|transloco}}</p>
+                <p class="font-bold dark:text-white" >{{agent?.managerFirstName}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"director_last_name"|transloco}}</p>
-                <p class="font-bold"> {{agent?.managerLastName}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"director_last_name"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.managerLastName}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold" *ngIf="agent?.phoneNumber">+{{agent?.phoneNumber}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"phone"|transloco}}</p>
+                <p class="font-bold dark:text-white" *ngIf="agent?.phoneNumber">+{{agent?.phoneNumber}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"company_name"|transloco}}</p>
-                <p class="font-bold" >{{agent?.companyName}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"company_name"|transloco}}</p>
+                <p class="font-bold dark:text-white" >{{agent?.companyName}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"bank_name"|transloco}}</p>
-                <p class="font-bold"> {{agent?.bankBranchName}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"bank_name"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.bankBranchName}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"legal_address"|transloco}}</p>
-                <p class="font-bold" >{{agent?.legalAddress}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"legal_address"|transloco}}</p>
+                <p class="font-bold dark:text-white" >{{agent?.legalAddress}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"actual_address"|transloco}}</p>
-                <p class="font-bold"> {{agent?.physicalAddress}}</p>
-            </div>
-
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"inn"|transloco}}</p>
-                <p class="font-bold" >{{agent?.inn}}</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1">{{"oked"|transloco}}</p>
-                <p class="font-bold"> {{agent?.oked}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"actual_address"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.physicalAddress}}</p>
             </div>
 
             <div>
-                <p class="text-xl leading-4 mb-1">{{"mfo"|transloco}}</p>
-                <p class="font-bold" >{{agent?.mfo}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"inn"|transloco}}</p>
+                <p class="font-bold dark:text-white" >{{agent?.inn}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"actual_address"|transloco}}</p>
-                <p class="font-bold"> {{agent?.physicalAddress}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"oked"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.oked}}</p>
+            </div>
+
+            <div>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"mfo"|transloco}}</p>
+                <p class="font-bold dark:text-white" >{{agent?.mfo}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"bank_account"|transloco}}</p>
-                <p class="font-bold" >
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"actual_address"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.physicalAddress}}</p>
+            </div>
+            <div>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"bank_account"|transloco}}</p>
+                <p class="font-bold dark:text-white" >
                     <span *ngFor="let account of agent?.bankAccounts">
                         {{account?.account}}
                     </span>
@@ -102,21 +102,21 @@
     </div>
     <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold">{{"transport"|transloco}}</h2>
+            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white">{{"transport"|transloco}}</h2>
         </div>
 
         <div class="grid grid-cols-2 gap-4" *ngFor="let transport of agent?.agentTransports">
             <div>
-                <p class="text-xl leading-4 mb-1">{{"transport_cargo"|transloco}}</p>
-                <p class="font-bold">Тентовка</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"transport_cargo"|transloco}}</p>
+                <p class="font-bold dark:text-white">Тентовка</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"Date"|transloco}}</p>
-                <p class="font-bold">{{transport?.createdAt}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"Date"|transloco}}</p>
+                <p class="font-bold dark:text-white">{{transport?.createdAt}}</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"adr"|transloco}}</p>
-                <p class="font-bold">
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"adr"|transloco}}</p>
+                <p class="font-bold dark:text-white">
                     <span *ngIf="transport?.isAdr">
                         {{"yes"|transloco}}
                     </span>
@@ -126,14 +126,14 @@
                 </p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"state_number_trailer"|transloco}}</p>
-                <p class="font-bold">{{transport?.stateNumber}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"state_number_trailer"|transloco}}</p>
+                <p class="font-bold dark:text-white">{{transport?.stateNumber}}</p>
             </div>
         </div>
         <div class="grid grid-cols-1 gap-4" *ngFor="let transport of agent?.agentTransports">
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"technical_passport"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"technical_passport"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.techPassportFrontFilePath)"
@@ -142,7 +142,7 @@
             </div>
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"tech_passport_front"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"tech_passport_front"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.techPassportBackFilePath)"
@@ -152,7 +152,7 @@
 
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"transport_photo"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"transport_photo"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.transportFrontFilePath)"
@@ -161,7 +161,7 @@
             </div>
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"transport_back_photo"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"transport_back_photo"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.transportBackFilePath)"
@@ -171,7 +171,7 @@
 
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"transport_side_photo"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"transport_side_photo"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.transportSideFilePath)"
@@ -181,7 +181,7 @@
 
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"passport"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"passport"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.passportFilePath)"
@@ -191,7 +191,7 @@
 
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"agent_lisense_card"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"agent_lisense_card"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.agentLicenseFilePath)"
@@ -200,7 +200,7 @@
             </div>
             <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
                 <div class="w-3/4">
-                    <label class="block mb-2 font-bold">{{"good_transportation_lisense"|transloco}}</label>
+                    <label class="block mb-2 font-bold dark:text-white">{{"good_transportation_lisense"|transloco}}</label>
                 </div>
                 <div class="w-1/4 flex items-center justify-end">
                     <mat-icon (click)="preview(transport.goodsTransportationLicenseCardFilePath)"
@@ -211,19 +211,19 @@
     </div> -->
     <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
         <div class="mb-5 flex">
-            <h2 class="text-2xl leading-4 font-bold"> {{"agent_contact"|transloco}}
+            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white"> {{"agent_contact"|transloco}}
             </h2>
             <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <p class="text-xl leading-4 mb-1">{{"phone"|transloco}}</p>
-                <p class="font-bold" *ngIf="agent?.phoneNumber">{{agent?.phoneNumber}}</p>
-                <p class="font-bold">Подтвержден</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"phone"|transloco}}</p>
+                <p class="font-bold dark:text-white" *ngIf="agent?.phoneNumber">{{agent?.phoneNumber}}</p>
+                <p class="font-bold dark:text-white">Подтвержден</p>
             </div>
             <div>
-                <p class="text-xl leading-4 mb-1">{{"email"|transloco}}</p>
-                <p class="font-bold"> {{agent?.email}}</p>
+                <p class="text-xl leading-4 mb-1 dark:text-white">{{"email"|transloco}}</p>
+                <p class="font-bold dark:text-white"> {{agent?.email}}</p>
             </div>
         </div>
     </div> -->

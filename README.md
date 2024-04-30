@@ -40,3 +40,9 @@ https://angular.io/
 https://material.angular.io/
 
 https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
+
+In the  project  we  use  tailwind amd  scss  for  styling  and  we  use  angular  material  for  components.
+
+https://tailwindcss.com/
+
+https://sass-lang.com/

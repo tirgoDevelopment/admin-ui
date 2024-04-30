@@ -27,7 +27,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [TranslocoModule, NgClass, DatePipe, NgxMatSelectSearchModule,  NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class DetailAgentDriverComponent implements OnInit {
   driver: DriverModel;
@@ -67,6 +66,7 @@ export class DetailAgentDriverComponent implements OnInit {
     })
     dialog.afterClosed()
       .subscribe(() => {
+        this._dialog.closeAll()
       })
   }
 

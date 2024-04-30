@@ -75,7 +75,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
                 this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
             });
         this.user = this._authService.accessToken ? jwtDecode(this._authService.accessToken) : null;
-        if (this.user.userType != 'agent') {
+        if (this.user?.userType != 'agent') {
             this._adminService.get(this.user.sub).subscribe(res => {
                 this.staff = res.data
             })
@@ -107,6 +107,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
     }
 
     signOut(): void {
+        this._fuseConfigService.config = { 'scheme': 'light' };
         this._authService.signOut().subscribe(() => {
 
         })

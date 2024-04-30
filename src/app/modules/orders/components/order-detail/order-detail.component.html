@@ -12,66 +12,71 @@
       </ya-multiroute>
     </ya-map>
   </div>
-  <div class="max-w-md mx-auto p-3 mt-3 bg-white dark:bg-black rounded-lg shadow-md ">
+  <div
+    class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg dark:border-white dark:shadow-white dark:shadow-sm shadow-md ">
+    <div class="mb-5 flex">
+      <h2 class="text-2xl leading-4 font-bold dark:text-white "> {{"information"|transloco}}
+      </h2>
+    </div>
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <p class="text-xl leading-4 mb-1">{{'place_shipment'|transloco}}</p>
-        <p class="font-bold">{{data?.loadingLocation?.name}}</p>
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'place_shipment'|transloco}}</p>
+        <p class="font-bold dark:text-white">{{data?.loadingLocation?.name}}</p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">{{'delivery_shipment'|transloco}}</p>
-        <p class="font-bold">{{data?.deliveryLocation?.name}}</p>
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'delivery_shipment'|transloco}}</p>
+        <p class="font-bold dark:text-white">{{data?.deliveryLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.customsPlaceLocation">
-        <p class="text-xl leading-4 mb-1"> {{'custom_place'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'custom_place'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.customsPlaceLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.customsClearancePlaceLocation">
-        <p class="text-xl leading-4 mb-1">{{'customs_clearance_place'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'customs_clearance_place'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.customsClearancePlaceLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.additionalLoadingLocation">
-        <p class="text-xl leading-4 mb-1"> {{'add_loading_area'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'add_loading_area'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.additionalLoadingLocation?.name}}</p>
       </div>
 
       <div *ngIf="data?.additionalDeliveryLocation">
-        <p class="text-xl leading-4 mb-1">{{'add_unloading_area'|transloco}} </p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'add_unloading_area'|transloco}} </p>
+        <p class="font-bold dark:text-white">
           {{data?.additionalDeliveryLocation?.name}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">{{'type_transport'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'type_transport'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           <span *ngFor="let item of data.transportTypes">
             {{item?.name}}
           </span>
         </p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">{{'cargo_type'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'cargo_type'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           <span *ngFor="let item of data.transportKinds">
             {{item?.name}}
           </span>
         </p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">{{'transport_cargo'|transloco}}</p>
-        <p class="font-bold" *ngFor="let item of data.transportKinds">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'transport_cargo'|transloco}}</p>
+        <p class="font-bold dark:text-white" *ngFor="let item of data.transportKinds">
           {{item?.name}}
         </p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">{{'cargo_size'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'cargo_size'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           д: {{ data?.cargoLength ? data?.cargoLength + 'см.' : 'Не указана' }}
           Ш: {{ data?.cargoWidth ? data?.cargoWidth + 'см.' : 'Не указана' }}
           В: {{ data?.cargoHeight ? data?.cargoHeight + 'см.' : 'Не указана' }}
@@ -79,140 +84,140 @@
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'cargo_weight'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'cargo_weight'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{ data?.cargoWeight ? data?.cargoWeight + 'кг' : 'Не указана' }}
         </p>
 
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'price'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'price'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{ data?.offeredPrice ? data?.offeredPrice + ' ' + data?.offeredPriceCurrency?.name : 'Не указана' }}
         </p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">{{'prepaid_expense'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'prepaid_expense'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{ data?.inAdvancePrice ? data?.inAdvancePrice + ' ' + data?.inAdvancePriceCurrency?.name : 'Не указана' }}
         </p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'order_date'|transloco}}</p>
-        <p class="font-bold">{{data?.createdAt | dateFormat}}</p>
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'order_date'|transloco}}</p>
+        <p class="font-bold dark:text-white">{{data?.createdAt | dateFormat}}</p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'order_scheduled'|transloco}}</p>
-        <p class="font-bold">{{data?.sendDate | dateFormat }}</p>
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'order_scheduled'|transloco}}</p>
+        <p class="font-bold dark:text-white">{{data?.sendDate | dateFormat }}</p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1">{{'status'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'status'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.cargoStatus?.name}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'payment_method'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'payment_method'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.paymentMethod == 'cash' ? 'Наличи':'Безналичные'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">{{'secure_transaction'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'secure_transaction'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isSafe ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">{{'isAdr'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'isAdr'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isAdr ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1">{{'carnet_tir'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'carnet_tir'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isCarnetTir ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'glonass'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'glonass'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isGlonas ? 'Да':'Нет'}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'by_ferry'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'by_ferry'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isParanom ? 'Да':'Нет'}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorCount">
-        <p class="text-xl leading-4 mb-1"> {{'number_of_transporters'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'number_of_transporters'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.refrigeratorCount}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorFrom">
-        <p class="text-xl leading-4 mb-1"> {{'mode_from'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'mode_from'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.refrigeratorFrom}}</p>
       </div>
 
       <div *ngIf="data?.refrigeratorTo">
-        <p class="text-xl leading-4 mb-1"> {{'mode_to'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'mode_to'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.refrigeratorTo}}</p>
       </div>
 
       <div *ngIf="data?.isHook">
-        <p class="text-xl leading-4 mb-1">{{'hook'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white">{{'hook'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.isHook}}</p>
       </div>
 
       <div *ngIf="data?.cisternVolume">
-        <p class="text-xl leading-4 mb-1"> {{'vaolume_l'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'vaolume_l'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.cisternVolume}}</p>
       </div>
 
       <div *ngIf="data?.containerVolume">
-        <p class="text-xl leading-4 mb-1"> {{'vaolume_f'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'vaolume_f'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data?.containerVolume}}</p>
       </div>
 
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'loading_method'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'loading_method'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data.loadingMethod?.name ? data.loadingMethod?.name : 'Не указана'}}</p>
       </div>
       <div>
-        <p class="text-xl leading-4 mb-1"> {{'package'|transloco}}</p>
-        <p class="font-bold">
+        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'package'|transloco}}</p>
+        <p class="font-bold dark:text-white">
           {{data.cargoPackage?.name ? data.cargoPackage?.name : 'Не указана'}}</p>
       </div>
     </div>
-    <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="clientId">
-      <button mat-flat-button [color]="'primary'" (click)="clientInfo(clientId)">
-        {{"about_user"|transloco}}
-      </button>
-    </div>
-    <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="driverId">
-      <button mat-flat-button [color]="'primary'" (click)="driverDetail(driverId)">
-        {{"about_driver"|transloco}}
-      </button>
-    </div>
-    <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
-      <button mat-flat-button [color]="'warn'" (click)="cancelOrder(data?.id)">
-        {{"cancel_order"|transloco}}
-      </button>
-      <button mat-flat-button [color]="'primary'" (click)="assignDriver(data?.id)">
-        {{"assign_driver"|transloco}}
-      </button>
-    </div>
+  </div>
+  <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="clientId">
+    <button mat-flat-button [color]="'primary'" (click)="clientInfo(clientId)">
+      {{"about_user"|transloco}}
+    </button>
+  </div>
+  <div class="flex justify-end gap-4 mt-4 mb-4 px-4" *ngIf="driverId">
+    <button mat-flat-button [color]="'primary'" (click)="driverDetail(driverId)">
+      {{"about_driver"|transloco}}
+    </button>
+  </div>
+  <div class="flex justify-end gap-4 mt-4 mb-4 px-4">
+    <button mat-flat-button [color]="'warn'" (click)="cancelOrder(data?.id)">
+      {{"cancel_order"|transloco}}
+    </button>
+    <button mat-flat-button [color]="'primary'" (click)="assignDriver(data?.id)">
+      {{"assign_driver"|transloco}}
+    </button>
   </div>
 </mat-dialog-content>

@@ -179,10 +179,10 @@ export class AgentModuleComponent implements OnInit {
 
   addSubsciption() {
     const dialog = this._dialog.open(AddAgentSubscriptionComponent, {
-      minWidth: '35vw',
-      maxWidth: '40vw',
-      minHeight: '30vh',
-      maxHeight: '40vh',
+      minWidth: '40vw',
+      maxWidth: '50vw',
+      minHeight: '40vh',
+      maxHeight: '60vh',
       autoFocus: false,
     })
     dialog.afterClosed()

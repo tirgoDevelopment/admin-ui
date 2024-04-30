@@ -1,6 +1,6 @@
-<div class="container w-full bg-white dark:bg-black p-6 rounded shadow-lg">
+<div class="container w-full bg-white dark:bg-[#1E293BDB] p-6 rounded shadow-lg">
     <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold"> {{ 'merchant' | transloco }}</h1>
+        <h1 class="text-2xl font-bold  dark:text-white"> {{ 'merchant' | transloco }}</h1>
         <div class="ml-auto p-2">
             <button mat-button (click)="approve()"
                 class="bg-green-500 hover:bg-green-600 text-white font-bold p-6 rounded">
@@ -14,61 +14,61 @@
     </div>
     <div class="grid grid-cols-3 gap-6">
         <div>
-            <p class="text-xl leading-4 mb-1"> {{ 'company_name' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white"> {{ 'company_name' | transloco }}</p>
             <p>{{merchant?.companyName}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1"> {{ 'director_name' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white"> {{ 'director_name' | transloco }}</p>
             <p>{{merchant?.supervisorFirstName}} {{merchant?.supervisorLastName}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'responce_person' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'responce_person' | transloco }}</p>
             <p>{{merchant?.responsiblePersonFistName}} {{merchant?.responsiblePersonLastName}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'phone' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'phone' | transloco }}</p>
             <p>{{merchant?.phoneNumber}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'legal_address' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'legal_address' | transloco }}</p>
             <p>{{merchant?.legalAddress}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'actual_address' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'actual_address' | transloco }}</p>
             <p>{{merchant?.factAddress}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'email' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'email' | transloco }}</p>
             <p>{{merchant?.email}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'bank_name' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'bank_name' | transloco }}</p>
             <p>{{merchant?.bankName}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'account' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'account' | transloco }}</p>
             <p *ngFor="let bankAccount of merchant?.bankAccounts">
                 <span> {{bankAccount?.account}}</span>
             </p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'inn' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'inn' | transloco }}</p>
             <p>{{merchant?.inn}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'oked' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'oked' | transloco }}</p>
             <p>{{merchant?.oked}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'mfo' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'mfo' | transloco }}</p>
             <p>{{merchant?.mfo}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'duns_number' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'duns_number' | transloco }}</p>
             <p>{{merchant?.dunsNumber}}</p>
         </div>
         <div>
-            <p class="text-xl leading-4 mb-1">{{ 'notes' | transloco }}</p>
+            <p class="text-xl leading-4 mb-1 dark:text-white">{{ 'notes' | transloco }}</p>
             <p>{{merchant?.notes}}</p>
         </div>
 
