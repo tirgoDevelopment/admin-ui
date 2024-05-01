@@ -5,7 +5,7 @@
                 <div class="text-3xl font-semibold tracking-tight leading-8">{{"drivers"|transloco}}</div>
             </div>
             <div class="flex items-center ml-6">
-                 <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'primary'"
+                <button class="fuse-mat-button-large  ml-3 " mat-flat-button [color]="'primary'"
                     (click)="showFilter = !showFilter">
                     <mat-icon>search</mat-icon>
                     {{ 'search' | transloco }}
@@ -37,7 +37,7 @@
             <mat-form-field class="flex items-center w-50">
                 <mat-select placeholder="{{ 'transport_cargo' | transloco }}" [(ngModel)]="filters.transportKindId"
                     name="transportKindId">
-                    <mat-option *ngFor="let item of transportKinds ; " [value]="item.id">{{item.name}}</mat-option>
+                    <mat-option *ngFor="let item of transportKinds" [value]="item.id">{{item.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
@@ -102,7 +102,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="id">
-                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header *matHeaderCellDef (click)="sortData('id')"> ID
+                    <mat-header-cell class="font-bold dark:text-white" mat-sort-header *matHeaderCellDef
+                        (click)="sortData('id')"> ID
                     </mat-header-cell>
                     <mat-cell class="dark:text-white" *matCellDef="let row"> {{ row?.id }} </mat-cell>
                 </ng-container>
