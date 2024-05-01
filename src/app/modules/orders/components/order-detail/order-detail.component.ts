@@ -19,6 +19,7 @@ import { ClientDetailComponent } from 'app/modules/clients/components/client-det
 import { DriverModel } from 'app/modules/drivers/models/driver.model';
 import { AssignDriverComponent } from '../assign-driver/assign-driver.component';
 import { DetailDriverComponent } from 'app/modules/drivers/components/detail-driver/detail-driver.component';
+import { MerchantDetailComponent } from 'app/modules/merchant/components/merchant-detail/merchant-detail.component';
 
 @Component({
   selector: 'app-order-detail',
@@ -38,6 +39,7 @@ export class OrderDetailComponent implements OnInit {
   editedCurrencyId: string;
   driverId: number;
   clientId: number;
+  merchantClientId: number;
   orderId: number;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -60,6 +62,7 @@ export class OrderDetailComponent implements OnInit {
       if (res.success) {
         this.data = res.data;
         this.clientId = res.data?.client?.id;
+        this.merchantClientId = res.data?.clientMerchant.id;
         this.updateDriverOffers();
       }
     })
@@ -70,6 +73,22 @@ export class OrderDetailComponent implements OnInit {
       height: '100vh',
       autoFocus: false,
       data: clientId,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+      this.getOrderById();
+    })
+  }
+
+  merchantclientInfo(merchantClientId: number) {
+    this._dialog.open(MerchantDetailComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: merchantClientId,
       position: {
         top: '0',
         right: '0',
@@ -120,10 +139,11 @@ export class OrderDetailComponent implements OnInit {
       }
     })
   }
-  
+
   updateDriverOffers() {
     if (this.data.driverOffers && Array.isArray(this.data.driverOffers)) {
       this.data.driverOffers = this.data.driverOffers.find(offer => offer.accepted == true);
+      console.log(this.data.driverOffers);
       this.driverId = this.data.driverOffers?.driver?.id;
     }
   }

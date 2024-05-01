@@ -1,6 +1,28 @@
 @import 'ngx-toastr/toastr';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.theme-default .dark .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+.theme-default .dark .mat-mdc-option:focus.mdc-list-item,
+.theme-default .dark .mat-mdc-option.mat-mdc-option-active.mdc-list-item,
+.theme-default .dark .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item--disabled),
+.theme-default.dark .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+.theme-default.dark .mat-mdc-option:focus.mdc-list-item,
+.theme-default.dark .mat-mdc-option.mat-mdc-option-active.mdc-list-item,
+.theme-default.dark .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item--disabled) {
+  background-color: blue !important;
+  color: white !important;
+}
+
+.theme-default .dark .mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text,
+.theme-default.dark .mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: white !important;
+}
+
+.theme-default .dark .mat-accent .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text,
+.theme-default.dark .mat-accent .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: white !important;
+}
+
 body {
   font-family: 'Roboto', sans-serif !important;
 }
@@ -106,6 +128,10 @@ body {
 
 ngx-mat-intl-tel-input div button {
   margin: 4px;
+}
+
+.dark .country-selector-code {
+  color: white !important;
 }
 
 .mat-mdc-outlined-button .mat-mdc-button-ripple,

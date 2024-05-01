@@ -135,11 +135,11 @@
                     <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
                         matRipple>
                         <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-down-tray'"
-                            (click)="downloadPhoto(merchant.internationalCargoLisensePath)"></mat-icon>
+                            (click)="downloadPhoto(merchant?.internationalCargoLisensePath)"></mat-icon>
                     </label>
                 </div>
                 <img class="object-fill w-full h-full"
-                    [src]="merchant.internationalCargoLisensePath | fileFetch: 'driver_merchant'|async">
+                    [src]="merchant?.internationalCargoLisensePath | fileFetch: 'driver_merchant'|async">
             </div>
         </div>
         <div class="w-40">
