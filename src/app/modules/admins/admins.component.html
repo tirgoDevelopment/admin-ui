@@ -75,7 +75,7 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns">
+                <mat-row *matRowDef="let row; columns: displayedColumns" (click)="detail(row.id)">
                 </mat-row>
             </mat-table>
             <app-no-data-placeholder *ngIf="!dataSource.data.length" class="m-1">

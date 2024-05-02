@@ -6,56 +6,39 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { TranslocoModule } from '@ngneat/transloco';
-import { ClientService } from '../../services/client.service';
-import { ClientModel } from '../../models/client.model';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BlockClientComponent } from '../block-client/block-client.component';
-import { SendPushComponent } from '../send-push/send-push.component';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
+import { ClientService } from 'app/modules/clients/services/client.service';
+import { AdminBlockComponent } from '../admin-block/admin-block.component';
+import { AdminModel } from '../../models/admin.model';
+import { AdminsService } from '../../services/admins.service';
 
 @Component({
-  selector: 'app-client-detail',
-  templateUrl: './client-detail.component.html',
-  styleUrls: ['./client-detail.component.scss'],
+  selector: 'app-admin-details',
+  templateUrl: './admin-details.component.html',
+  styleUrls: ['./admin-details.component.scss'],
+  
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [MatIconModule, DatePipe, NgIf, MatDialogModule, MatInputModule, FormsModule, ReactiveFormsModule, TranslocoModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule],
 })
-export class ClientDetailComponent implements OnInit {
-  client: ClientModel;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _clientService: ClientService, private _dialog: MatDialog) {
+export class AdminDetailsComponent implements OnInit {
+  admin: AdminModel;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _adminService: AdminsService, private _dialog: MatDialog) {
     this.getClient(data);
   }
   ngOnInit(): void {
   }
 
   getClient(id: any) {
-    this._clientService.get(id).subscribe((response) => {
-      this.client = response.data;
+    this._adminService.get(id).subscribe((response) => {
+      this.admin = response.data;
     });
   }
 
-  block() {
-    const dialog = this._dialog.open(BlockClientComponent, {
-      minWidth: '30vw',
-      maxWidth: '50vw',
-      minHeight: '30vh',
-      maxHeight: '40vh',
-      data: this.client.id,
-      autoFocus: false,
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this._dialog.closeAll()
-      })
-  }
 
-  active(){
-    this._clientService.active(Number(this.client.id)).subscribe(() => {
-      this._dialog.closeAll()
-    })
-  }
+
   preview(fileName: string) {
     console.log(fileName);
     
@@ -72,18 +55,4 @@ export class ClientDetailComponent implements OnInit {
       })
   }
 
-  send() {
-    const dialog = this._dialog.open(SendPushComponent, {
-      minWidth: '20vw',
-      maxWidth: '40vw',
-      minHeight: '42vh',
-      maxHeight: '85vh',
-      data: this.client.id,
-      autoFocus: false,
-    })
-    dialog.afterClosed()
-      .subscribe(() => {
-        this._dialog.closeAll()
-      })
-  }
 }
