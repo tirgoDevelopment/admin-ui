@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ClientDetailComponent } from '../clients/components/client-detail/client-detail.component';
 import { AdminBlockComponent } from './components/admin-block/admin-block.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AdminDetailsComponent } from './components/admin-details/admin-details.component';
 
 @Component({
   selector: 'app-admins',
@@ -111,6 +112,23 @@ export class AdminsComponent extends UnsubscribeAble implements OnInit {
         this.getAllAdmin(this.pageParams);
       })
   }
+
+  detail(id: number) {
+    this._dialog.open(AdminDetailsComponent, {
+      width: '500px',
+      height: '100vh',
+      autoFocus: false,
+      data: id,
+      position: {
+        top: '0',
+        right: '0',
+      },
+      maxHeight: '100%'
+    }).afterClosed().subscribe(() => {
+      this.getAllAdmin(this.pageParams);
+    })
+  }
+
 
   edit(row: any[]) {
     const dialogRef = this._dialog.open(AddAdminsComponent, {
