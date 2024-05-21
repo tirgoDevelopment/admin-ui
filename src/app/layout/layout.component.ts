@@ -7,8 +7,6 @@ import { FusePlatformService } from '@fuse/services/platform';
 import { FUSE_VERSION } from '@fuse/version';
 import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';
-
-
 import { DenseLayoutComponent } from './layouts/dense/dense.component';
 import { AuthService } from 'app/core/auth/auth.service';
 import { SettingsComponent } from 'app/shared/components/common/settings/settings.component';

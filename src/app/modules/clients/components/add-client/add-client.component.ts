@@ -25,7 +25,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 import { isObservable } from 'rxjs';
 import { removeDuplicateKeys } from 'app/shared/functions/remove-dublicates-formData';
-import { MessageComponent } from 'app/shared/components/message/message.component';
 
 @Component({
   selector: 'app-add-client',

@@ -21,10 +21,8 @@
                 </ng-container>
             </mat-autocomplete>
         </mat-form-field>
-        {{subscription}}
         <mat-radio-group class="flex items-center" formControlName="subscriptionId">
-            <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg"
-                [ngClass]="'bg-gray-50 dark:text-black'"
+            <mat-radio-button class="w-2/4 m-4 p-4 rounded-lg" [ngClass]="'bg-gray-50 dark:text-black'"
                 *ngFor="let row of subscription" [value]="row.id">
                 <p class="w-40">${{row?.price}}/месяц</p>
             </mat-radio-button>

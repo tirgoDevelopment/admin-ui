@@ -24,13 +24,13 @@
                     {{ 'is_empty' | transloco }}
                 </mat-error>
                 <mat-error *ngIf="f.password.errors?.minlength">
-                        {{ 'min_length' | transloco }}
+                    {{ 'min_length' | transloco }}
                 </mat-error>
                 <mat-error *ngIf="f.password.errors?.maxlength">
-                        {{ 'max_length' | transloco }}
+                    {{ 'max_length' | transloco }}
                 </mat-error>
                 <mat-error *ngIf="f.password.errors?.pattern">
-                       {{ 'pattern' | transloco }}
+                    {{ 'pattern' | transloco }}
                 </mat-error>
             </mat-form-field>
 
@@ -163,24 +163,6 @@
                         [src]="registrationCertificateFilePath | fileFetch: 'client'|async">
                 </div>
             </div>
-            <!-- <mat-form-field class="flex items-center">
-                <mat-label >{{ 'registration_certificate' | transloco }} </mat-label>
-                <input matInput placeholder="Upload" class="mr-2"
-                    [value]="form.get('registrationCertificateFilePath')?.value?.name || ''"
-                    formControlName="registrationCertificateFilePath"
-                    [ngClass]="{'is-invalid': f.registrationCertificateFilePath.errors}">
-                <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
-                    <mat-icon aria-label="Upload">cloud_upload</mat-icon>
-                    <input type="file" (change)="onFileSelected($event, 'registrationCertificateFilePath')"
-                        formControlName="registrationCertificateFilePath" id="fileInput" style="display: none;">
-                </label>
-                <mat-error *ngIf="f.registrationCertificateFilePath.errors?.required">
-                    {{ 'is_empty' | transloco }}
-                </mat-error>
-                <img *ngIf="form.get('registrationCertificateFilePath').value"
-                    [src]="getImageUrl('registrationCertificateFilePath')" class="max-h-12 max-w-12" />
-            </mat-form-field> -->
-
             <div class="w-32">
                 <mat-label>{{ 'passport_owner' | transloco }} </mat-label>
                 <div class="relative flex items-center justify-center w-32 h-32 overflow-hidden">
@@ -204,23 +186,6 @@
                         [src]="managerPassportFilePath | fileFetch: 'client'|async">
                 </div>
             </div>
-            <!-- <mat-form-field class="flex items-center">
-                <mat-label >{{ 'passport_owner' | transloco }} </mat-label>
-                <input matInput placeholder="Upload" class="mr-2"
-                    [value]="form.get('managerPassportFilePath')?.value?.name || ''"
-                    formControlName="managerPassportFilePath"
-                    [ngClass]="{'is-invalid': f.managerPassportFilePath.errors}">
-                <label class=" text-white font-bold p-2 rounded-full cursor-pointer">
-                    <mat-icon aria-label="Upload">cloud_upload</mat-icon>
-                    <input type="file" (change)="onFileSelected($event, 'managerPassportFilePath')"
-                        formControlName="managerPassportFilePath" id="fileInput" style="display: none;">
-                </label>
-                <mat-error *ngIf="f.managerPassportFilePath.errors?.required">
-                    {{ 'is_empty' | transloco }}
-                </mat-error>
-                <img *ngIf="form.get('managerPassportFilePath').value" [src]="getImageUrl('managerPassportFilePath')"
-                    class="max-h-12 max-w-12" />
-            </mat-form-field> -->
         </div>
     </form>
 </mat-dialog-content>

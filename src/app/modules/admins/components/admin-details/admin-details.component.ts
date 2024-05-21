@@ -9,8 +9,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImagePriviewComponent } from 'app/shared/components/image-priview/image-priview.component';
-import { ClientService } from 'app/modules/clients/services/client.service';
-import { AdminBlockComponent } from '../admin-block/admin-block.component';
 import { AdminModel } from '../../models/admin.model';
 import { AdminsService } from '../../services/admins.service';
 

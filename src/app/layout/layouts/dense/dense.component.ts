@@ -19,7 +19,6 @@ import { NotificationsComponent } from 'app/shared/components/common/notificatio
 import { SearchComponent } from 'app/shared/components/common/search/search.component';
 import { UserComponent } from 'app/shared/components/common/user/user.component';
 import { jwtDecode } from 'jwt-decode';
-
 import { Subject, takeUntil } from 'rxjs';
 import { AgentService } from 'app/modules/agents/services/agent.service';
 

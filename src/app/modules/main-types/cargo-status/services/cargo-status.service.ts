@@ -22,8 +22,8 @@ export class CargoStatusService {
   }
 
   create(body): Observable<Response<CargoStatusModel>> {
-		return this._apiService.post<CargoStatusModel>('/references/cargo-statuses', body);
-	}
+    return this._apiService.post<CargoStatusModel>('/references/cargo-statuses', body);
+  }
 
   update(body): Observable<Response<CargoStatusModel>> {
     return this._apiService.put<CargoStatusModel>('/references/cargo-statuses', body);

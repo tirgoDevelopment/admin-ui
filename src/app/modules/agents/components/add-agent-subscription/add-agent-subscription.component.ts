@@ -20,7 +20,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
-import { TypesService } from 'app/shared/services/types.service';
 import { AgentService } from '../../services/agent.service';
 import { MessageComponent } from 'app/shared/components/message/message.component';
 import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';

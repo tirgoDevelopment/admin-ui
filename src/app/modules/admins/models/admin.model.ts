@@ -1,6 +1,4 @@
 import { BaseModel } from "app/core/models/base-model";
-
-
 export interface AdminModel extends BaseModel {
     fio?: string;
     username?: string;

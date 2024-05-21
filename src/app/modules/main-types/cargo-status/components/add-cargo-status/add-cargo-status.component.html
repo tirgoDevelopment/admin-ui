@@ -11,8 +11,7 @@
             <div class="w-full px-2">
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'name' | transloco }}</mat-label>
-                    <input matInput formControlName="name"
-                        [ngClass]="{'is-invalid': f.name.errors}">
+                    <input matInput formControlName="name" [ngClass]="{'is-invalid': f.name.errors}">
                     <mat-error *ngIf="f.name.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -20,8 +19,7 @@
 
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'code' | transloco }}</mat-label>
-                    <input matInput formControlName="code" 
-                        [ngClass]="{'is-invalid': f.code.errors}" type="number">
+                    <input matInput formControlName="code" [ngClass]="{'is-invalid': f.code.errors}" type="number">
                     <mat-error *ngIf="f.code.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>
@@ -29,8 +27,7 @@
 
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{ 'color' | transloco }}</mat-label>
-                    <input matInput formControlName="color" 
-                        [ngClass]="{'is-invalid': f.color.errors}">
+                    <input matInput formControlName="color" [ngClass]="{'is-invalid': f.color.errors}">
                     <mat-error *ngIf="f.color.errors?.required">
                         {{ 'is_empty' | transloco }}
                     </mat-error>

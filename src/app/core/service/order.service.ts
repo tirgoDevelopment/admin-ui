@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Response } from '../models/reponse';
 import { ToastrService } from 'ngx-toastr';
@@ -20,8 +20,6 @@ export class OrderService {
 	constructor(public _toasterService:ToastrService,private translocaService:TranslocoService,  protected _http: HttpClient ) {
 		this.apiUrl = env.orderApiUrl;
 		this.formatErrors = this.formatErrors.bind(this);
-		// 'http://192.168.1.218:3003/api/v2'
-		// this.apiUrl = `http://192.168.1.218:3000/api/v2`;
 	}
 
 	httpOptions = {
@@ -32,14 +30,7 @@ export class OrderService {
 	}
 
 	public formatErrors(error: any) {
-		// if (error.message == ErrorStauses[error.message]) {
-		// 	this._toasterService.error(this.translocaService.translate(error.message))
-		// }
-		// else {
-		// 	this._toasterService.error(this.translocaService.translate(error.message))
-		// }
-		return error;
-		// return throwError(error);
+		return throwError(error);
 	}
 
 	get<T>(path: string, params: HttpParams = new HttpParams()): Observable<Response<T>> {

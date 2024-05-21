@@ -20,8 +20,6 @@ export class ApiService {
 	constructor(public _toasterService: ToastrService , private translocaService:TranslocoService,  protected _http: HttpClient ) {
 		this.apiUrl = env.apiUrl;
 		this.formatErrors = this.formatErrors.bind(this);
-		// 'http://192.168.1.218:3003/api/v2'
-		// this.apiUrl = `http://192.168.1.218:3000/api/v2`;
 	}
 
 	httpOptions = {
@@ -32,12 +30,6 @@ export class ApiService {
 	}
 
 	public formatErrors(error: any) {
-		// if (error.message == ErrorStauses[error.message]) {
-		// 	this._toasterService.error(this.translocaService.translate(error.message))
-		// }
-		// else {
-		// 	this._toasterService.error(this.translocaService.translate(error.message))
-		// }
 		return throwError(error);
 	}
 

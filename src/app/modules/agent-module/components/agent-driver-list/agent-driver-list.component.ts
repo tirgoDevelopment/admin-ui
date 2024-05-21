@@ -30,7 +30,6 @@ import { ConnectDriverComponent } from '../connect-driver/connect-driver.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, DatePipe, MatIconModule, MatSelectModule, NoDataPlaceholderComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class AgentDriverListComponent implements OnInit {
   pageParams = {
@@ -60,7 +59,7 @@ export class AgentDriverListComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.pageSize = event.pageSize;
-    this.pageParams.pageIndex = event.pageIndex+1;
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllDrivers(this.pageParams);
   }
 

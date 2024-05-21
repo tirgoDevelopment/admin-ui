@@ -71,7 +71,6 @@ export class AddTransportCargoComponent {
         })
       } else {
         this._transportCargoService.create(this.form.value).subscribe(res => {
-          console.log(res)
           if (res.success) {
             this._dialog.closeAll()
             this.form.reset()

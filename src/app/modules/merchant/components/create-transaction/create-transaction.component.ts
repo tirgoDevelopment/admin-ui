@@ -63,15 +63,15 @@ export class CreateTransactionComponent {
             amount: +this.form.value.amount
         })
         this.form.disable();
-        this._merChantService.createTransaction(this.form.value).subscribe((res:any) => {
-          if(res && res.success) {
+        this._merChantService.createTransaction(this.form.value).subscribe((res: any) => {
+            if (res && res.success) {
+                this.form.enable();
+                this._toaster.success('Транзакция успешно создана');
+                this._dialog.closeAll();
+            }
+        }, err => {
             this.form.enable();
-            this._toaster.success('Транзакция успешно создана');
-            this._dialog.closeAll();
-          }
-        },err => {
-          this.form.enable();
-          this._toaster.error(err.error.message);
+            this._toaster.error(err.error.message);
         })
     }
 
