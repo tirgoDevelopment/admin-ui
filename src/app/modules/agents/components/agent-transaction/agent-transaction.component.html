@@ -47,7 +47,8 @@
          </mat-cell>
       </ng-container>
       <ng-container matColumnDef="date">
-         <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{'date_time'|transloco}} </mat-header-cell>
+         <mat-header-cell class="font-bold dark:text-white" *matHeaderCellDef>{{'date_time'|transloco}}
+         </mat-header-cell>
          <mat-cell *matCellDef="let row"> {{row?.createdAt | date : "YYYY/MM/dd HH:mm"}} </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -20,7 +20,7 @@
                     <mat-label>{{'first_name'|transloco}}</mat-label>
                     <input matInput formControlName="firstName" [ngClass]="{'is-invalid': f.firstName.errors}">
                     <mat-error *ngIf="f.firstName.errors?.required">
-                        Поле не должно быть пустым
+                        {{'is_empty'|transloco}}
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -29,20 +29,20 @@
                     <mat-label>{{'last_name'|transloco}}</mat-label>
                     <input matInput formControlName="lastName" [ngClass]="{'is-invalid': f.lastName.errors}">
                     <mat-error *ngIf="f.lastName.errors?.required">
-                        Поле не должно быть пустым
+                        {{'is_empty'|transloco}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="w-full">
                     <mat-label>{{'password'|transloco}}</mat-label>
                     <input matInput formControlName="password" [ngClass]="{'is-invalid': f.password.errors}">
                     <mat-error *ngIf="f.password.errors?.minlength">
-                            {{ 'min_length' | transloco }}
+                        {{ 'min_length' | transloco }}
                     </mat-error>
                     <mat-error *ngIf="f.password.errors?.maxlength">
-                            {{ 'max_length' | transloco }}
+                        {{ 'max_length' | transloco }}
                     </mat-error>
                     <mat-error *ngIf="f.password.errors?.pattern">
-                           {{ 'pattern' | transloco }}
+                        {{ 'pattern' | transloco }}
                     </mat-error>
 
                 </mat-form-field>

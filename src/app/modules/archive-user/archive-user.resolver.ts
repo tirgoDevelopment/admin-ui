@@ -3,9 +3,9 @@ import { ArchiveUserComponent } from './archive-user.component';
 
 export default [
     {
-        path     : '',
+        path: '',
         component: ArchiveUserComponent,
-        resolve  : {
+        resolve: {
         },
     },
 ] as Routes;

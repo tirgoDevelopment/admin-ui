@@ -5,7 +5,8 @@
     </button>
 </div>
 <mat-dialog-content class="h-full">
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg  dark:shadow-white dark:shadow-sm shadow-md dark:border-t ">
+    <div
+        class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg  dark:shadow-white dark:shadow-sm shadow-md dark:border-t ">
         <div class="flex  w-full justify-between ">
             <div class="flex ">
                 <img src="assets/images/user/user.png" alt="User Image" class="rounded-full w-16 h-16 mr-2">
@@ -20,33 +21,15 @@
             </div>
         </div>
     </div>
-    <!-- <div class="max-w-md mx-auto p-4 mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white">{{"orders"|transloco}}</h2>
-        </div>
-        <div class="flex mb-4">
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">25</p>
-                <p class="text-gray-600 dark:text-white">{{"total"|transloco}}</p>
-            </div>
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600 dark:text-white">{{"completed"|transloco}} </p>
-            </div>
-            <div class="w-1/3 text-center">
-                <p class="font-semibold text-3xl mb-2">5</p>
-                <p class="text-gray-600 dark:text-white">{{"neagtive"|transloco}}</p>
-            </div>
-        </div>
-    </div> -->
-    <div class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg dark:border-white dark:shadow-white dark:shadow-sm  shadow-md border-t-2">
+    <div
+        class="max-w-md mx-auto p-4 mt-3 bg-white dark:bg-[#1E293BDB] rounded-lg dark:border-white dark:shadow-white dark:shadow-sm  shadow-md border-t-2">
         <div class="mb-5">
             <h2 class="text-2xl leading-4 font-bold dark:text-white ">{{"information"|transloco}}</h2>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"director_first_name"|transloco}}</p>
-                <p class="font-bold dark:text-white" >{{agent?.managerFirstName}}</p>
+                <p class="font-bold dark:text-white">{{agent?.managerFirstName}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"director_last_name"|transloco}}</p>
@@ -58,7 +41,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"company_name"|transloco}}</p>
-                <p class="font-bold dark:text-white" >{{agent?.companyName}}</p>
+                <p class="font-bold dark:text-white">{{agent?.companyName}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"bank_name"|transloco}}</p>
@@ -66,7 +49,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"legal_address"|transloco}}</p>
-                <p class="font-bold dark:text-white" >{{agent?.legalAddress}}</p>
+                <p class="font-bold dark:text-white">{{agent?.legalAddress}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"actual_address"|transloco}}</p>
@@ -75,7 +58,7 @@
 
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"inn"|transloco}}</p>
-                <p class="font-bold dark:text-white" >{{agent?.inn}}</p>
+                <p class="font-bold dark:text-white">{{agent?.inn}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"oked"|transloco}}</p>
@@ -84,7 +67,7 @@
 
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"mfo"|transloco}}</p>
-                <p class="font-bold dark:text-white" >{{agent?.mfo}}</p>
+                <p class="font-bold dark:text-white">{{agent?.mfo}}</p>
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"actual_address"|transloco}}</p>
@@ -92,7 +75,7 @@
             </div>
             <div>
                 <p class="text-xl leading-4 mb-1 dark:text-white">{{"bank_account"|transloco}}</p>
-                <p class="font-bold dark:text-white" >
+                <p class="font-bold dark:text-white">
                     <span *ngFor="let account of agent?.bankAccounts">
                         {{account?.account}}
                     </span>
@@ -100,133 +83,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5">
-            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white">{{"transport"|transloco}}</h2>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4" *ngFor="let transport of agent?.agentTransports">
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"transport_cargo"|transloco}}</p>
-                <p class="font-bold dark:text-white">Тентовка</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"Date"|transloco}}</p>
-                <p class="font-bold dark:text-white">{{transport?.createdAt}}</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"adr"|transloco}}</p>
-                <p class="font-bold dark:text-white">
-                    <span *ngIf="transport?.isAdr">
-                        {{"yes"|transloco}}
-                    </span>
-                    <span *ngIf="!transport?.isAdr">
-                        {{"no"|transloco}}
-                    </span>
-                </p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"state_number_trailer"|transloco}}</p>
-                <p class="font-bold dark:text-white">{{transport?.stateNumber}}</p>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 gap-4" *ngFor="let transport of agent?.agentTransports">
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"technical_passport"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.techPassportFrontFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"tech_passport_front"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.techPassportBackFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"transport_photo"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.transportFrontFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"transport_back_photo"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.transportBackFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"transport_side_photo"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.transportSideFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"passport"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.passportFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"agent_lisense_card"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.agentLicenseFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-            <div class="flex space-x-4 bg-gray-50 dark:text-black mt-2 px-4 py-2 rounded-lg">
-                <div class="w-3/4">
-                    <label class="block mb-2 font-bold dark:text-white">{{"good_transportation_lisense"|transloco}}</label>
-                </div>
-                <div class="w-1/4 flex items-center justify-end">
-                    <mat-icon (click)="preview(transport.goodsTransportationLicenseCardFilePath)"
-                        class="h-5 w-5 pointer-events-auto">remove_red_eye</mat-icon>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- <div class="max-w-md mx-auto p-4  mt-3 bg-white rounded-lg shadow-md">
-        <div class="mb-5 flex">
-            <h2 class="text-2xl leading-4 font-bold dark:text-white dark:text-white"> {{"agent_contact"|transloco}}
-            </h2>
-            <img src="assets/images/icons/telegram.svg" alt="" class="ml-auto h-7 w-7">
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"phone"|transloco}}</p>
-                <p class="font-bold dark:text-white" *ngIf="agent?.phoneNumber">{{agent?.phoneNumber}}</p>
-                <p class="font-bold dark:text-white">Подтвержден</p>
-            </div>
-            <div>
-                <p class="text-xl leading-4 mb-1 dark:text-white">{{"email"|transloco}}</p>
-                <p class="font-bold dark:text-white"> {{agent?.email}}</p>
-            </div>
-        </div>
-    </div> -->
 </mat-dialog-content>
 <mat-dialog-actions class="flex">
     <div class="ml-auto p-4">

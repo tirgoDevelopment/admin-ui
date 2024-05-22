@@ -26,7 +26,6 @@ import { DriversService } from 'app/modules/drivers/services/drivers.service';
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [TranslocoModule, NgxMatSelectSearchModule, NgFor, NgIf, DatePipe, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class DetailArchiveUserComponent implements OnInit {
   archiveUser: any;

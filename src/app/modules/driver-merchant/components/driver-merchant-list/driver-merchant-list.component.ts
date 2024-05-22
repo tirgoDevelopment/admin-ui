@@ -26,14 +26,14 @@ import { DriverMerchantService } from '../../services/driver-merchant.service';
   imports: [TranslocoModule, RouterLink, DatePipe, MatIconModule, MatDialogModule, MatSelectModule, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantListComponent {
-  driverMerchants:any;
+  driverMerchants: any;
   constructor(private _driverMerchantService: DriverMerchantService,
     public dialogref: DialogRef) {
     this.unverifiedMerchants()
   }
 
   unverifiedMerchants() {
-    this._driverMerchantService.unVerified().subscribe((res:any) => {
+    this._driverMerchantService.unVerified().subscribe((res: any) => {
       this.driverMerchants = res.data.content
     })
   }

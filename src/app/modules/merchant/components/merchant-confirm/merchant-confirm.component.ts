@@ -51,7 +51,7 @@ export class MerchantConfirmComponent implements OnInit {
   }
 
   getMerchant(id: number) {
-    this.merchantService.get(id).subscribe((responce:any) => {
+    this.merchantService.get(id).subscribe((responce: any) => {
       this.merchant = responce.data;
       this._cdr.detectChanges();
     })

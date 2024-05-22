@@ -29,7 +29,6 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
 export class AddDriverVerifyComponent {
 
@@ -80,35 +79,35 @@ export class AddDriverVerifyComponent {
 
   submit() {
     if (this.form.valid) {
-    if (this.form.value.id) {
-      this._driverVerifyService.update(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this._toaster.success('Админ успешно обновлена')
-        } else {
-          this._toaster.error('Невозможно сохранить админ')
-        }
-      })
+      if (this.form.value.id) {
+        this._driverVerifyService.update(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this._toaster.success('Админ успешно обновлена')
+          } else {
+            this._toaster.error('Невозможно сохранить админ')
+          }
+        })
+      } else {
+        this._driverVerifyService.create(this.form.value).subscribe(res => {
+          if (res.success) {
+            this._dialog.closeAll()
+            this.form.reset()
+            this._toaster.success('Админ успешно добавлена')
+          } else {
+            this._toaster.error('Невозможно сохранить админ')
+          }
+        })
+      }
     } else {
-      this._driverVerifyService.create(this.form.value).subscribe(res => {
-        if (res.success) {
-          this._dialog.closeAll()
-          this.form.reset()
-          this._toaster.success('Админ успешно добавлена')
-        } else {
-          this._toaster.error('Невозможно сохранить админ')
+      this._dialog.open(MessageComponent, {
+        width: '500px',
+        height: '450px',
+        data: {
+          text: 'Вы должны ввести все обязательные поля',
         }
       })
     }
-  } else {
-    this._dialog.open(MessageComponent, {
-      width: '500px',
-      height: '450px',
-      data: {
-        text: 'Вы должны ввести все обязательные поля',
-      }
-    })
-  }
   }
 
 

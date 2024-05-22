@@ -31,7 +31,7 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslocoModule,MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
+  imports: [TranslocoModule, MatTooltipModule, DatePipe, MatIconModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatSelectModule, NoDataPlaceholderComponent, DetailDriverComponent, MatButtonModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
 })
 export class DriverMerchantDriverListComponent implements OnInit {
   cities: any[] = [];
@@ -51,7 +51,7 @@ export class DriverMerchantDriverListComponent implements OnInit {
   pageParams = {
     pageIndex: 1,
     pageSize: 10,
-    totalPagesCount:1,
+    totalPagesCount: 1,
     sortBy: 'id',
     sortType: 'desc'
   };
@@ -67,9 +67,9 @@ export class DriverMerchantDriverListComponent implements OnInit {
     private _typeService: TypesService,
     private utilsService: FuseUtilsService,
     private cdr: ChangeDetectorRef) {
-      this._router.params.subscribe((params) => {
-        this.id = params.id;
-      })
+    this._router.params.subscribe((params) => {
+      this.id = params.id;
+    })
   }
 
   ngOnInit() {
@@ -82,24 +82,24 @@ export class DriverMerchantDriverListComponent implements OnInit {
 
   hasPermission(permission): boolean {
     return this.utilsService.hasPermission(permission)
-}
-
-
-
-tooltipText(driverTransports: any[]): string {
-  if (!driverTransports || driverTransports.length === 0) {
-    return '';
   }
 
-  const tooltipArray = [];
-  for (const driver of driverTransports) {
-    for (const type of driver.transportTypes) {
-      tooltipArray.push(type.name);
+
+
+  tooltipText(driverTransports: any[]): string {
+    if (!driverTransports || driverTransports.length === 0) {
+      return '';
     }
+
+    const tooltipArray = [];
+    for (const driver of driverTransports) {
+      for (const type of driver.transportTypes) {
+        tooltipArray.push(type.name);
+      }
+    }
+
+    return tooltipArray.join(', ');
   }
-  
-  return tooltipArray.join(', ');
-}
   clearFilters() {
     this.filters = {
       driverId: '',
@@ -132,7 +132,7 @@ tooltipText(driverTransports: any[]): string {
 
   onPageChange(event: PageEvent): void {
     this.pageParams.pageSize = event.pageSize;
-    this.pageParams.pageIndex = event.pageIndex + 1; 
+    this.pageParams.pageIndex = event.pageIndex + 1;
     this.getAllDrivers(this.pageParams);
   }
 

@@ -17,8 +17,6 @@ import { HeaderTextComponent } from 'app/shared/components/header-text/header-te
 import { ToastrService } from 'ngx-toastr';
 import { CargoGroupService } from '../../services/cargo-group.service';
 import { MessageComponent } from 'app/shared/components/message/message.component';
-
-
 @Component({
   selector: 'app-add-cargo-group',
   templateUrl: './add-cargo-group.component.html',
@@ -27,7 +25,6 @@ import { MessageComponent } from 'app/shared/components/message/message.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [TranslocoModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule, HeaderTextComponent],
-
 })
 export class AddCargoGroupComponent {
   edit: boolean = false;

@@ -41,9 +41,6 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
         private _fuseNavigationService: FuseNavigationService,
         private _fuseUtilsService: FuseUtilsService,
         private _fuseConfigService: FuseConfigService,
-        private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private permissionsService: NgxPermissionsService,
-        private authService: AuthService,
         private cdr: ChangeDetectorRef,
         private utilsService: FuseUtilsService
     ) {
@@ -62,10 +59,15 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
      * On init
      */
 
-    hasPermission(permission): boolean {
-        // console.log(this.utilsService.hasPermission(permission[0]))
-        return this.utilsService.hasPermission(permission[0])
+    /**
+     * Check if the given permission is available to the user
+     * @param permission the permission to check
+     * @returns true if the permission is available to the user, false otherwise
+     */
+    hasPermission(permission: string[]): boolean {
+        return this.utilsService.hasPermission(permission[0]);
     }
+
     ngOnInit(): void {
         this._fuseConfigService.config$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -73,9 +75,6 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
                 this.config = config;
                 this.cdr.detectChanges();
             });
-        // Set the "isActiveMatchOptions" either from item's
-        // "isActiveMatchOptions" or the equivalent form of
-        // item's "exactMatch" option
         this.isActiveMatchOptions =
             this.item.isActiveMatchOptions ?? this.item.exactMatch
                 ? this._fuseUtilsService.exactMatchOptions

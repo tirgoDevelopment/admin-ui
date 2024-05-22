@@ -34,18 +34,36 @@ export class AuthService {
     return this._httpClient.post('api/auth/reset-password', password);
   }
 
+  /**
+   * Signs in the user using the provided credentials.
+   *
+   * @param credentials - The user's email and password.
+   * @returns An observable with the user's data and a valid access token.
+   */
   signIn(credentials: { email: string; password: string }): Observable<any> {
+    // If the user is already logged in, throw an error
     if (this._authenticated) {
       return throwError('User is already logged in.');
     }
+
+    // Make the API call to the server
     return this._httpClient.post(`${this._baseUrl}/users/login`, credentials).pipe(
       switchMap((response: any) => {
+        // Set the access token
         this.accessToken = response.data.token;
+
+        // Parse the access token and get the user's data
         let user: any;
         user = this.accessToken ? jwtDecode(this.accessToken) : null;
+
+        // Load the user's permissions
         let allPermission = user?.role?.permission ? this.checkPermissions(user?.role?.permission) : [];
         this.permissionService.loadPermissions(allPermission);
+
+        // Set the user's authentication status
         this._authenticated = true;
+
+        // Return the user's data
         return of(response);
       }),
     );

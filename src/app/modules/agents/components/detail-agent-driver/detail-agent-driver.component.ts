@@ -27,7 +27,6 @@ import { AgentModel } from '../../models/agent.model';
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [TranslocoModule, NgClass, DatePipe, NgxMatSelectSearchModule, NgxMatIntlTelInputComponent, MatInputModule, MatIconModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, FormsModule, NgFor, NgIf, MatTableModule, NgClass, CurrencyPipe, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatMenuModule, MatSlideToggleModule],
-
 })
 export class DetailAgentDriverComponent implements OnInit {
   agent: AgentModel;

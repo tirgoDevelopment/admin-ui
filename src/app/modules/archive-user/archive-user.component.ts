@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { MatSelectModule } from '@angular/material/select';
 import { ArchiveUserModel } from './models/archive-user.model';
 import { DetailArchiveUserComponent } from './components/detail-archive-user/detail-archive-user.component';
