@@ -68,8 +68,18 @@ export class FuseUtilsService
         return name;
     }
 
-    hasPermission(permission: string) {
+    /**
+     * Checks if the user has a given permission
+     *
+     * @param permission - The permission to check
+     * @returns true if the user has the given permission, false otherwise
+     */
+    hasPermission(permission: string): boolean {
         const user: any = jwtDecode(this.authService.accessToken);
-        return user.role?.permission[permission]
+        // The user object should have a "role" property with a "permission" property
+        // that has an object with all the permissions as properties.
+        // We check if the given permission exists in the user's permissions array.
+        return user.role?.permission[permission];
     }
+
 }

@@ -14,5 +14,3 @@ export const env = {
 //   merchantUrl: 'http://192.168.1.218:3003/api/v2',
 //   orderApiUrl: 'http://192.168.1.218:3001/api/v2',
 // };
-// 'http://192.168.1.218:3003/api/v2'
-// 'https://test-api.tirgo.io/api/v1'

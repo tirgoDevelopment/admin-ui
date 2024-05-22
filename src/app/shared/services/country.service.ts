@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { CSP_NONCE, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { env } from "app/environmens/environment";
 import { Observable, map } from "rxjs";
 
@@ -31,13 +31,22 @@ export class CountryService {
       return this.http.get("./assets/json/code.json")
    }
 
+   /**
+    * Returns the country code from a given phone number.
+    * 
+    * @param {string} phoneNumber - the phone number to check
+    * @param {any} countries - an array of countries to search through
+    * @returns {string|null} the country code if found, otherwise null
+    */
    getCountryCode(phoneNumber: string, countries?: any): string | null {
       const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
       for (const country of countries) {
          const dialCode = country.dial_country_code;
+         // Check if the number starts with the country code
          if (numericPhoneNumber.startsWith(dialCode)) {
             return dialCode;
          }
+         // Check if the number starts with a region code of the country
          const regionCodes = country.dial_region_codes || [];
          for (const regionCode of regionCodes) {
             const fullDialCode = dialCode + regionCode;
@@ -48,4 +57,5 @@ export class CountryService {
       }
       return null;
    }
+
 }

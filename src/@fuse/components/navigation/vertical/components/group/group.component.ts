@@ -37,7 +37,6 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
      * Constructor
      */
     constructor(
-        private permissionsService: NgxPermissionsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
         private utilsService: FuseUtilsService
@@ -45,8 +44,21 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
     {
     }
 
-    hasPermission(permission): boolean {
-        return this.utilsService.hasPermission(permission[0])
+    /**
+     * Check if the component has a given permission
+     *
+     * @param permission - An array of permission(s)
+     * @returns A boolean indicating whether the component has the given permission or not
+     */
+    hasPermission(permission: string[]): boolean {
+        // Check if the permission is defined and is an array
+        if (!Array.isArray(permission) || !permission.length) {
+            return false;
+        }
+
+        // Return the result of the hasPermission method of the FuseUtilsService
+        // with the given permission as an argument
+        return this.utilsService.hasPermission(permission[0]);
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks

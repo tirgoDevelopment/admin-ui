@@ -25,7 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
   animations: fuseAnimations,
   standalone: true,
   imports: [RouterLink, FuseAlertComponent, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
-     MatCheckboxModule, MatProgressSpinnerModule, MatSelectModule],
+    MatCheckboxModule, MatProgressSpinnerModule, MatSelectModule],
 })
 export class AuthSignInComponent implements OnInit {
   @ViewChild('signInNgForm') signInNgForm: NgForm;
@@ -34,11 +34,8 @@ export class AuthSignInComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
-    private _router: Router,
-    private _permissionService: NgxPermissionsService,
-    private utilsService: FuseUtilsService
-  ) { }
-  ngOnInit() {
+    private _router: Router) { }
+  ngOnInit() {  
     this.signInForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],
@@ -52,12 +49,12 @@ export class AuthSignInComponent implements OnInit {
     }
     this.signInForm.disable();
     this._authService.signIn(this.signInForm.value)
-    .pipe((res) => {
-      if (isObservable(res)) {
-        this.signInForm.enable()
-      }
-      return res
-    })
+      .pipe((res) => {
+        if (isObservable(res)) {
+          this.signInForm.enable()
+        }
+        return res
+      })
       .subscribe(
         (response: any) => {
           const user: any = jwtDecode(response.data.token);
