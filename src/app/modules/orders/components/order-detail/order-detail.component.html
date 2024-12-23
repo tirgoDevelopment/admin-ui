@@ -190,16 +190,6 @@
           {{data?.containerVolume}}</p>
       </div>
 
-      <div>
-        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'loading_method'|transloco}}</p>
-        <p class="font-bold dark:text-white">
-          {{data.loadingMethod?.name ? data.loadingMethod?.name : 'Не указана'}}</p>
-      </div>
-      <div>
-        <p class="text-xl leading-4 mb-1 dark:text-white"> {{'package'|transloco}}</p>
-        <p class="font-bold dark:text-white">
-          {{data.cargoPackage?.name ? data.cargoPackage?.name : 'Не указана'}}</p>
-      </div>
       <div *ngIf="data.driverOffers ">
         <p class="text-xl leading-4 mb-1 dark:text-white"> {{'offered_price'|transloco}}</p>
         <p class="font-bold dark:text-white">

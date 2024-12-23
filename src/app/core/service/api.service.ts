@@ -18,7 +18,7 @@ export class ApiService {
 
 
 	constructor(public _toasterService: ToastrService , private translocaService:TranslocoService,  protected _http: HttpClient ) {
-		this.apiUrl = env.apiUrl;
+		this.apiUrl = env.adminUrl;
 		this.formatErrors = this.formatErrors.bind(this);
 	}
 

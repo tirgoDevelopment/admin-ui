@@ -106,8 +106,8 @@
                 <mat-slide-toggle class="py-2" formControlName="isAdr">
                     {{"isAdr"|transloco}}
                 </mat-slide-toggle>
-
             </div>
+
             <div class="px-4">
                 <mat-form-field class="flex items-center">
                     <mat-label> {{ 'type_transport' | transloco }}</mat-label>
@@ -121,6 +121,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            
         </div>
         <div class="flex flex-wrap gap-4 items-end justify-start">
             <div class="w-40">
@@ -196,6 +197,7 @@
             </div>
         </div>
     </form>
+
     <mat-tab-group *ngIf="edit" (selectedTabChange)="onTabClick($event)">
         <mat-tab *ngFor="let transport of transports">
             <ng-template mat-tab-label>

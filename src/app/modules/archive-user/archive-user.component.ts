@@ -109,5 +109,3 @@ export class ArchiveUserComponent implements OnInit {
 
   }
 }
-
-

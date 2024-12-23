@@ -150,7 +150,8 @@ export class AddTransportComponent implements OnInit {
         this.isContainer = tranportKind?.name?.includes('Контейнеровоз');
         this.isLoad = tranportKind?.name?.includes('Грузоподъемность');
         this._cdr.detectChanges()
-      } else if (values.length > 1) {
+      }
+      else if (values.length > 1) {
         values.forEach(x => {
           let tranportKind = this.transportKinds.find(y => y.id == x);
           this.isAutotransport = this.isAutotransport || tranportKind?.name?.includes('Автовоз');
@@ -160,7 +161,8 @@ export class AddTransportComponent implements OnInit {
           this.isLoad = this.isLoad || tranportKind?.name?.includes('Грузоподъемность');
           this._cdr.detectChanges()
         });
-      } else {
+      }
+      else {
         this.isAutotransport = false;
         this.isRefrigerator = false;
         this.isCistern = false;
@@ -342,15 +344,15 @@ export class AddTransportComponent implements OnInit {
       this.subscription = response.data;
     })
   }
-  async findCity(ev: any) {
-    const findText = ev.target.value.toString().trim().toLowerCase();
-    if (findText.length >= 2) {
-      this.viewText = true;
-    } else {
-      this.viewText = false;
-      this.findList = [];
-    }
-  }
+  // async findCity(ev: any) {
+  //   const findText = ev.target.value.toString().trim().toLowerCase();
+  //   if (findText.length >= 2) {
+  //     this.viewText = true;
+  //   } else {
+  //     this.viewText = false;
+  //     this.findList = [];
+  //   }
+  // }
   get f() {
     return this.form.controls
   }
@@ -404,7 +406,6 @@ export class AddTransportComponent implements OnInit {
 
 
     const uniqueFormData = removeDuplicateKeys(this.formData);
-    console.log(this.form)
     if (this.form.valid) {
       if (this.form.value.id) {
         this._driverService.updateTransport(uniqueFormData)

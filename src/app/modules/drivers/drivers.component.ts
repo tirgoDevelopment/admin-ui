@@ -99,8 +99,6 @@ export class DriversComponent implements OnInit {
     return this.utilsService.hasPermission(permission)
   }
 
-
-
   tooltipText(driverTransports: any[]): string {
     if (!driverTransports || driverTransports.length === 0) {
       return '';

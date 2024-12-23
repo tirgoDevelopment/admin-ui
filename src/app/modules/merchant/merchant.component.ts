@@ -100,7 +100,6 @@ export class MerchantComponent implements OnInit {
   ngOnInit() {
     this.getAllMerchants(this.pageParams);
   }
-
   getAllMerchants(params?) {
     this._merchantService.Verified(Object.assign(this.filters, params)).subscribe((response: any) => {
       this.dataSource.data = response?.data?.content;
@@ -109,7 +108,6 @@ export class MerchantComponent implements OnInit {
       this.pageParams.totalPagesCount = response?.data?.totalPagesCount;
     });
   }
-
   block(id: number) {
     const dialog = this._dialog.open(BlockMerchantComponent, {
       minWidth: '20vw',
@@ -139,8 +137,6 @@ export class MerchantComponent implements OnInit {
       this.getAllMerchants(this.pageParams);
     })
   }
-
-  
   active(id: number) {
     this._merchantService.active(id).subscribe(() => {
       this.getAllMerchants(this.pageParams);
@@ -159,7 +155,6 @@ export class MerchantComponent implements OnInit {
         this.getAllMerchants(this.pageParams);
       })
   }
-
   delete(id: number) {
     this._merchantService.delete(id).subscribe((response) => {
       if (response.success) {

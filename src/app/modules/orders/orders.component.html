@@ -21,6 +21,7 @@
       <mat-form-field color="accent" class="w-50 px-1">
         <input matInput placeholder="{{ 'ID' | transloco }}" name="ID" [(ngModel)]="filters.orderId">
       </mat-form-field>
+      
       <mat-form-field color="accent" class="w-50 px-1">
         <mat-select placeholder="{{ 'StatusID' | transloco }}" name="StatusID" [(ngModel)]="filters.statusId">
           <mat-option *ngFor="let cargostatus of cargoStatuses" [value]="cargostatus.id">{{ cargostatus.name

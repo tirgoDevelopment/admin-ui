@@ -103,11 +103,6 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- <mat-label class="text-[#1e293b] font-medium dark:text-white">Срочность заказа</mat-label>
-      <div class="flex gap-4">
-        <mat-checkbox formControlName="isUrgent">Срочный</mat-checkbox>
-        <mat-checkbox formControlName="isTwoDays">+2 дня</mat-checkbox>
-      </div> -->
       <hr>
       <div class="flex flex-col">
         <mat-checkbox formControlName="isAdr"> {{'isAdr'|transloco}}</mat-checkbox>
@@ -144,7 +139,7 @@
             <mat-option value="cashless"> {{'cashless'|transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-checkbox class="flex-auto md:w-72 sm:w-full" formControlName="isSafeTransaction">\
+        <mat-checkbox class="flex-auto md:w-72 sm:w-full" formControlName="isSafeTransaction">
           {{'secure_transaction'|transloco}}
         </mat-checkbox>
       </div>
@@ -212,7 +207,6 @@
         <mat-slide-toggle class="py-2 w-full" formControlName="isHighCube">
           {{"Высокий куб"|transloco}}
         </mat-slide-toggle>
-
       </div>
 
       <div class="flex gap-2">
@@ -265,7 +259,7 @@
             <mat-option *ngFor="let item of packagesTypes" [value]="item.id">{{item.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div>w
     </div>
   </form>
 </mat-dialog-content>

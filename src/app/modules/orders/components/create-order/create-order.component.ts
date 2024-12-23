@@ -252,8 +252,6 @@ export class CreateOrderComponent implements OnInit {
     //   });
     // });
   }
-
-
   trackByFn(item: any): number {
     return item.id;
   }

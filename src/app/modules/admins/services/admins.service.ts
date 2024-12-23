@@ -15,7 +15,7 @@ export class AdminsService {
     get(id: number): Observable<Response<AdminModel>> {
         let queryParams = new HttpParams();
         queryParams = queryParams.append('id', id);
-        return this._apiService.get<AdminModel>(`/users/staffs/staff-by`, queryParams);
+        return this._apiService.get<AdminModel>(`/users/staffs/staff-by-id`, queryParams);
     }
 
     getAll(params?): Observable<Response<AdminModel[]>> {

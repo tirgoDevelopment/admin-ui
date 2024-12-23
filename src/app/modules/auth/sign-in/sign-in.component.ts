@@ -35,7 +35,7 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router) { }
-  ngOnInit() {  
+  ngOnInit() {
     this.signInForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],

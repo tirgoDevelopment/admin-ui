@@ -61,7 +61,7 @@ export class OrdersComponent implements OnInit {
     'client', 'actions'];
   currentUser: any;
   transportKinds: any[] = [];
-  transportTypes: any[] = [];
+  transportTypes: any[] = []; 
   cargoStatuses: any[] = [];
   filters = {
     orderId: '',
